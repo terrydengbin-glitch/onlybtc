@@ -17,15 +17,15 @@
 <body>
   <div class="card">
     <h1>P12-C07 / SQLite / API / Report Lineage Release Acceptance Audit</h1>
-    <h2 class="PARTIAL-PASS">PARTIAL PASS</h2>
-    <p>generated_at: <code>2026-06-23T12:01:59Z</code></p>
+    <h2 class="PASS">PASS</h2>
+    <p>generated_at: <code>2026-06-23T12:06:45Z</code></p>
   </div>
-  <div class="card"><h2>Issues</h2><ul><li><strong>warning</strong> / git: Working tree is not clean because P12 audit artifacts are in progress.<br><span>Commit P12 artifacts after review if this baseline should be released.</span></li></ul></div>
+  <div class="card"><h2>Issues</h2><ul><li>No blocking or warning issues found.</li></ul></div>
   <div class="card"><h2>Full JSON</h2><pre>{
   &quot;schema_version&quot;: &quot;p12.c07.system_release_acceptance.v1&quot;,
   &quot;task_id&quot;: &quot;P12-C07&quot;,
-  &quot;generated_at&quot;: &quot;2026-06-23T12:01:59Z&quot;,
-  &quot;overall_status&quot;: &quot;PARTIAL PASS&quot;,
+  &quot;generated_at&quot;: &quot;2026-06-23T12:06:45Z&quot;,
+  &quot;overall_status&quot;: &quot;PASS&quot;,
   &quot;child_status&quot;: {
     &quot;P12-C02&quot;: &quot;PASS&quot;,
     &quot;P12-C03&quot;: &quot;PASS&quot;,
@@ -34,191 +34,192 @@
     &quot;P12-C06&quot;: &quot;PASS&quot;
   },
   &quot;git&quot;: {
-    &quot;status_short&quot;: &quot;## main...origin/main\n M backend/src/onlybtc/api/app.py\n M backend/tests/test_api_contracts.py\n M frontend/src/App.vue\n M frontend/src/App.vue.js\n M \&quot;task index.md\&quot;\n?? reports/p12-business-chain-contract-audit.json\n?? reports/p12-business-chain-contract-audit.md\n?? reports/p12-dashboard-ui-api-contract-audit.json\n?? reports/p12-dashboard-ui-api-contract-audit.md\n?? reports/p12-data-source-settings-provider-governance-audit.json\n?? reports/p12-data-source-settings-provider-governance-audit.md\n?? reports/p12-event-window-watchtower-audit.html\n?? reports/p12-event-window-watchtower-audit.json\n?? reports/p12-event-window-watchtower-audit.md\n?? reports/p12-radar-runtime-module-score-audit.html\n?? reports/p12-radar-runtime-module-score-audit.json\n?? reports/p12-radar-runtime-module-score-audit.md\n?? reports/p12-system-release-acceptance-report.html\n?? reports/p12-system-release-acceptance-report.json\n?? reports/p12-system-release-acceptance-report.md\n?? scripts/run_p12_system_audit.py\n?? tasks/P12/&quot;,
-    &quot;head&quot;: &quot;ec4b407&quot;,
+    &quot;status_short&quot;: &quot;## main...origin/main&quot;,
+    &quot;head&quot;: &quot;9470f81&quot;,
     &quot;branch&quot;: &quot;main&quot;,
     &quot;remote&quot;: &quot;https://github.com/terrydengbin-glitch/onlybtc.git&quot;
   },
   &quot;github_actions_latest&quot;: {
-    &quot;id&quot;: 28020694175,
+    &quot;id&quot;: 28024843275,
     &quot;status&quot;: &quot;completed&quot;,
     &quot;conclusion&quot;: &quot;success&quot;,
-    &quot;html_url&quot;: &quot;https://github.com/terrydengbin-glitch/onlybtc/actions/runs/28020694175&quot;,
-    &quot;head_sha&quot;: &quot;ec4b40798fa6aba8f046b79dd1f466019b538b1b&quot;
+    &quot;html_url&quot;: &quot;https://github.com/terrydengbin-glitch/onlybtc/actions/runs/28024843275&quot;,
+    &quot;head_sha&quot;: &quot;9470f8147c1c35df53f32c89da75b50e0ea41130&quot;
   },
   &quot;api_health&quot;: {
     &quot;/api/health&quot;: {
       &quot;ok&quot;: true,
       &quot;status_code&quot;: 200,
-      &quot;elapsed_ms&quot;: 31,
+      &quot;elapsed_ms&quot;: 45,
       &quot;url&quot;: &quot;http://127.0.0.1:8118/api/health&quot;
     },
     &quot;/api/db/health&quot;: {
       &quot;ok&quot;: true,
       &quot;status_code&quot;: 200,
-      &quot;elapsed_ms&quot;: 266,
+      &quot;elapsed_ms&quot;: 320,
       &quot;url&quot;: &quot;http://127.0.0.1:8118/api/db/health&quot;
     },
     &quot;/api/p45/dashboard/latest&quot;: {
       &quot;ok&quot;: true,
       &quot;status_code&quot;: 200,
-      &quot;elapsed_ms&quot;: 1171,
+      &quot;elapsed_ms&quot;: 1616,
       &quot;url&quot;: &quot;http://127.0.0.1:8118/api/p45/dashboard/latest&quot;
     },
     &quot;/api/p45/overview/latest&quot;: {
       &quot;ok&quot;: true,
       &quot;status_code&quot;: 200,
-      &quot;elapsed_ms&quot;: 1180,
+      &quot;elapsed_ms&quot;: 1259,
       &quot;url&quot;: &quot;http://127.0.0.1:8118/api/p45/overview/latest&quot;
     },
     &quot;/api/p45/radar-modules/latest&quot;: {
       &quot;ok&quot;: true,
       &quot;status_code&quot;: 200,
-      &quot;elapsed_ms&quot;: 1618,
+      &quot;elapsed_ms&quot;: 1538,
       &quot;url&quot;: &quot;http://127.0.0.1:8118/api/p45/radar-modules/latest&quot;
     },
     &quot;/api/p45/evidence?limit=40&quot;: {
       &quot;ok&quot;: true,
       &quot;status_code&quot;: 200,
-      &quot;elapsed_ms&quot;: 817,
+      &quot;elapsed_ms&quot;: 741,
       &quot;url&quot;: &quot;http://127.0.0.1:8118/api/p45/evidence?limit=40&quot;
     },
     &quot;/api/p45/articles/latest&quot;: {
       &quot;ok&quot;: true,
       &quot;status_code&quot;: 200,
-      &quot;elapsed_ms&quot;: 978,
+      &quot;elapsed_ms&quot;: 762,
       &quot;url&quot;: &quot;http://127.0.0.1:8118/api/p45/articles/latest&quot;
     },
     &quot;/api/p45/llm/latest&quot;: {
       &quot;ok&quot;: true,
       &quot;status_code&quot;: 200,
-      &quot;elapsed_ms&quot;: 31,
+      &quot;elapsed_ms&quot;: 23,
       &quot;url&quot;: &quot;http://127.0.0.1:8118/api/p45/llm/latest&quot;
     },
     &quot;/api/p45/analysts/latest&quot;: {
       &quot;ok&quot;: true,
       &quot;status_code&quot;: 200,
-      &quot;elapsed_ms&quot;: 817,
+      &quot;elapsed_ms&quot;: 812,
       &quot;url&quot;: &quot;http://127.0.0.1:8118/api/p45/analysts/latest&quot;
     },
     &quot;/api/p45/invalidation/latest&quot;: {
       &quot;ok&quot;: true,
       &quot;status_code&quot;: 200,
-      &quot;elapsed_ms&quot;: 800,
+      &quot;elapsed_ms&quot;: 855,
       &quot;url&quot;: &quot;http://127.0.0.1:8118/api/p45/invalidation/latest&quot;
     },
     &quot;/api/data-quality/latest&quot;: {
-      &quot;ok&quot;: true,
-      &quot;status_code&quot;: 200,
-      &quot;elapsed_ms&quot;: 6572,
-      &quot;url&quot;: &quot;http://127.0.0.1:8118/api/data-quality/latest&quot;
+      &quot;ok&quot;: false,
+      &quot;status_code&quot;: null,
+      &quot;elapsed_ms&quot;: 8048,
+      &quot;url&quot;: &quot;http://127.0.0.1:8118/api/data-quality/latest&quot;,
+      &quot;error&quot;: &quot;timed out&quot;
     },
     &quot;/api/p45/runs/latest&quot;: {
       &quot;ok&quot;: true,
       &quot;status_code&quot;: 200,
-      &quot;elapsed_ms&quot;: 845,
+      &quot;elapsed_ms&quot;: 2924,
       &quot;url&quot;: &quot;http://127.0.0.1:8118/api/p45/runs/latest&quot;
     },
     &quot;/api/p45/audit-reports/latest&quot;: {
       &quot;ok&quot;: true,
       &quot;status_code&quot;: 200,
-      &quot;elapsed_ms&quot;: 15,
+      &quot;elapsed_ms&quot;: 29,
       &quot;url&quot;: &quot;http://127.0.0.1:8118/api/p45/audit-reports/latest&quot;
     },
     &quot;/api/radar-runtime/daemon/status&quot;: {
       &quot;ok&quot;: true,
       &quot;status_code&quot;: 200,
-      &quot;elapsed_ms&quot;: 50,
+      &quot;elapsed_ms&quot;: 67,
       &quot;url&quot;: &quot;http://127.0.0.1:8118/api/radar-runtime/daemon/status&quot;
     },
     &quot;/api/radar-runtime/daemon/health&quot;: {
       &quot;ok&quot;: true,
       &quot;status_code&quot;: 200,
-      &quot;elapsed_ms&quot;: 26,
+      &quot;elapsed_ms&quot;: 4,
       &quot;url&quot;: &quot;http://127.0.0.1:8118/api/radar-runtime/daemon/health&quot;
     },
     &quot;/api/radar-runtime/modules/latest&quot;: {
       &quot;ok&quot;: true,
       &quot;status_code&quot;: 200,
-      &quot;elapsed_ms&quot;: 366,
+      &quot;elapsed_ms&quot;: 574,
       &quot;url&quot;: &quot;http://127.0.0.1:8118/api/radar-runtime/modules/latest&quot;
     },
     &quot;/api/radar-runtime/cockpit/latest&quot;: {
       &quot;ok&quot;: true,
       &quot;status_code&quot;: 200,
-      &quot;elapsed_ms&quot;: 369,
+      &quot;elapsed_ms&quot;: 364,
       &quot;url&quot;: &quot;http://127.0.0.1:8118/api/radar-runtime/cockpit/latest&quot;
     },
     &quot;/api/event-window/latest&quot;: {
       &quot;ok&quot;: true,
       &quot;status_code&quot;: 200,
-      &quot;elapsed_ms&quot;: 125,
+      &quot;elapsed_ms&quot;: 77,
       &quot;url&quot;: &quot;http://127.0.0.1:8118/api/event-window/latest&quot;
     },
     &quot;/api/event-window/active&quot;: {
       &quot;ok&quot;: true,
       &quot;status_code&quot;: 200,
-      &quot;elapsed_ms&quot;: 33,
+      &quot;elapsed_ms&quot;: 9,
       &quot;url&quot;: &quot;http://127.0.0.1:8118/api/event-window/active&quot;
     },
     &quot;/api/event-window/calendar?limit=30&quot;: {
       &quot;ok&quot;: true,
       &quot;status_code&quot;: 200,
-      &quot;elapsed_ms&quot;: 12,
+      &quot;elapsed_ms&quot;: 29,
       &quot;url&quot;: &quot;http://127.0.0.1:8118/api/event-window/calendar?limit=30&quot;
     },
     &quot;/api/event-window/timeline?limit=100&quot;: {
       &quot;ok&quot;: true,
       &quot;status_code&quot;: 200,
-      &quot;elapsed_ms&quot;: 80,
+      &quot;elapsed_ms&quot;: 73,
       &quot;url&quot;: &quot;http://127.0.0.1:8118/api/event-window/timeline?limit=100&quot;
     },
     &quot;/api/event-window/alerts?limit=30&quot;: {
       &quot;ok&quot;: true,
       &quot;status_code&quot;: 200,
-      &quot;elapsed_ms&quot;: 31,
+      &quot;elapsed_ms&quot;: 33,
       &quot;url&quot;: &quot;http://127.0.0.1:8118/api/event-window/alerts?limit=30&quot;
     },
     &quot;/api/event-window/sources/status&quot;: {
       &quot;ok&quot;: true,
       &quot;status_code&quot;: 200,
-      &quot;elapsed_ms&quot;: 3737,
+      &quot;elapsed_ms&quot;: 3594,
       &quot;url&quot;: &quot;http://127.0.0.1:8118/api/event-window/sources/status&quot;
     },
     &quot;/api/event-window/sources/fetches?limit=40&quot;: {
       &quot;ok&quot;: true,
       &quot;status_code&quot;: 200,
-      &quot;elapsed_ms&quot;: 16,
+      &quot;elapsed_ms&quot;: 23,
       &quot;url&quot;: &quot;http://127.0.0.1:8118/api/event-window/sources/fetches?limit=40&quot;
     },
     &quot;/api/event-window/daemon/status&quot;: {
       &quot;ok&quot;: true,
       &quot;status_code&quot;: 200,
-      &quot;elapsed_ms&quot;: 20,
+      &quot;elapsed_ms&quot;: 8,
       &quot;url&quot;: &quot;http://127.0.0.1:8118/api/event-window/daemon/status&quot;
     },
     &quot;/api/event-window/daemon/health&quot;: {
       &quot;ok&quot;: true,
       &quot;status_code&quot;: 200,
-      &quot;elapsed_ms&quot;: 31,
+      &quot;elapsed_ms&quot;: 25,
       &quot;url&quot;: &quot;http://127.0.0.1:8118/api/event-window/daemon/health&quot;
     },
     &quot;/api/event-window/market-probe/latest&quot;: {
       &quot;ok&quot;: true,
       &quot;status_code&quot;: 200,
-      &quot;elapsed_ms&quot;: 28,
+      &quot;elapsed_ms&quot;: 6,
       &quot;url&quot;: &quot;http://127.0.0.1:8118/api/event-window/market-probe/latest&quot;
     },
     &quot;/api/event-window/shock-lane/latest&quot;: {
       &quot;ok&quot;: true,
       &quot;status_code&quot;: 200,
-      &quot;elapsed_ms&quot;: 83,
+      &quot;elapsed_ms&quot;: 75,
       &quot;url&quot;: &quot;http://127.0.0.1:8118/api/event-window/shock-lane/latest&quot;
     },
     &quot;/api/settings&quot;: {
       &quot;ok&quot;: true,
       &quot;status_code&quot;: 200,
-      &quot;elapsed_ms&quot;: 34,
+      &quot;elapsed_ms&quot;: 31,
       &quot;url&quot;: &quot;http://127.0.0.1:8118/api/settings&quot;
     },
     &quot;/api/settings/runtime&quot;: {
@@ -236,7 +237,7 @@
     &quot;/api/settings/paths&quot;: {
       &quot;ok&quot;: true,
       &quot;status_code&quot;: 200,
-      &quot;elapsed_ms&quot;: 26,
+      &quot;elapsed_ms&quot;: 25,
       &quot;url&quot;: &quot;http://127.0.0.1:8118/api/settings/paths&quot;
     },
     &quot;/api/settings/providers/health&quot;: {
@@ -302,14 +303,7 @@
     &quot;smoke_green_required&quot;: true,
     &quot;blocking_child_audits_allowed&quot;: false
   },
-  &quot;issues&quot;: [
-    {
-      &quot;severity&quot;: &quot;warning&quot;,
-      &quot;area&quot;: &quot;git&quot;,
-      &quot;finding&quot;: &quot;Working tree is not clean because P12 audit artifacts are in progress.&quot;,
-      &quot;recommendation&quot;: &quot;Commit P12 artifacts after review if this baseline should be released.&quot;
-    }
-  ],
+  &quot;issues&quot;: [],
   &quot;follow_up_cards&quot;: [
     {
       &quot;candidate&quot;: &quot;P12-F02&quot;,
@@ -319,7 +313,7 @@
     {
       &quot;candidate&quot;: &quot;P12-F04&quot;,
       &quot;title&quot;: &quot;P12 Audit Artifact Release Commit&quot;,
-      &quot;needed&quot;: true
+      &quot;needed&quot;: false
     }
   ]
 }</pre></div>

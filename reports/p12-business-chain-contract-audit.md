@@ -1,7 +1,7 @@
 # P12-C02 / Business Chain Contract Audit
 
 - status: `PASS`
-- generated_at: `2026-06-23T12:01:59Z`
+- generated_at: `2026-06-23T12:06:45Z`
 - schema_version: `p12.c02.business_chain_contract_audit.v1`
 
 ## Key Evidence
@@ -30,79 +30,80 @@
   "/api/health": {
     "ok": true,
     "status_code": 200,
-    "elapsed_ms": 31,
+    "elapsed_ms": 45,
     "url": "http://127.0.0.1:8118/api/health"
   },
   "/api/db/health": {
     "ok": true,
     "status_code": 200,
-    "elapsed_ms": 266,
+    "elapsed_ms": 320,
     "url": "http://127.0.0.1:8118/api/db/health"
   },
   "/api/p45/dashboard/latest": {
     "ok": true,
     "status_code": 200,
-    "elapsed_ms": 1171,
+    "elapsed_ms": 1616,
     "url": "http://127.0.0.1:8118/api/p45/dashboard/latest"
   },
   "/api/p45/overview/latest": {
     "ok": true,
     "status_code": 200,
-    "elapsed_ms": 1180,
+    "elapsed_ms": 1259,
     "url": "http://127.0.0.1:8118/api/p45/overview/latest"
   },
   "/api/p45/radar-modules/latest": {
     "ok": true,
     "status_code": 200,
-    "elapsed_ms": 1618,
+    "elapsed_ms": 1538,
     "url": "http://127.0.0.1:8118/api/p45/radar-modules/latest"
   },
   "/api/p45/evidence?limit=40": {
     "ok": true,
     "status_code": 200,
-    "elapsed_ms": 817,
+    "elapsed_ms": 741,
     "url": "http://127.0.0.1:8118/api/p45/evidence?limit=40"
   },
   "/api/p45/articles/latest": {
     "ok": true,
     "status_code": 200,
-    "elapsed_ms": 978,
+    "elapsed_ms": 762,
     "url": "http://127.0.0.1:8118/api/p45/articles/latest"
   },
   "/api/p45/llm/latest": {
     "ok": true,
     "status_code": 200,
-    "elapsed_ms": 31,
+    "elapsed_ms": 23,
     "url": "http://127.0.0.1:8118/api/p45/llm/latest"
   },
   "/api/p45/analysts/latest": {
     "ok": true,
     "status_code": 200,
-    "elapsed_ms": 817,
+    "elapsed_ms": 812,
     "url": "http://127.0.0.1:8118/api/p45/analysts/latest"
   },
   "/api/p45/invalidation/latest": {
     "ok": true,
     "status_code": 200,
-    "elapsed_ms": 800,
+    "elapsed_ms": 855,
     "url": "http://127.0.0.1:8118/api/p45/invalidation/latest"
   },
   "/api/data-quality/latest": {
-    "ok": true,
-    "status_code": 200,
-    "elapsed_ms": 6572,
-    "url": "http://127.0.0.1:8118/api/data-quality/latest"
+    "ok": false,
+    "status_code": null,
+    "elapsed_ms": 8048,
+    "url": "http://127.0.0.1:8118/api/data-quality/latest",
+    "error": "timed out"
   },
   "/api/p45/runs/latest": {
     "ok": true,
     "status_code": 200,
-    "elapsed_ms": 845,
+    "elapsed_ms": 2924,
     "url": "http://127.0.0.1:8118/api/p45/runs/latest"
   },
   "/api/p45/audit-reports/latest": {
     "ok": true,
     "status_code": 200,
-    "elapsed_ms": 15,
+    "elapsed_ms": 29,
     "url": "http://127.0.0.1:8118/api/p45/audit-reports/latest"
   }
 }
@@ -110,7 +111,7 @@
 
 ## Issues
 
-- No blocking or warning issues found.
+- `info` / freshness: P4.5 final lineage and live radar runtime snapshot may be from different runtime moments. Recommendation: Surface final-run frozen lineage separately from live runtime freshness.
 
 ## Full JSON
 

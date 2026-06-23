@@ -1,7 +1,7 @@
 # P12-C03 / Dashboard / P45 UI-API Contract Audit
 
 - status: `PASS`
-- generated_at: `2026-06-23T12:01:59Z`
+- generated_at: `2026-06-23T12:06:45Z`
 - schema_version: `p12.c03.dashboard_ui_api_contract_audit.v1`
 
 ## Key Evidence

@@ -60,10 +60,10 @@ powershell -ExecutionPolicy Bypass -File .\scripts\fresh_clone_smoke.ps1 -SkipIn
 - Report JSON: `reports/p12-system-release-acceptance-report.json`
 - Report MD: `reports/p12-system-release-acceptance-report.md`
 - Report HTML: `reports/p12-system-release-acceptance-report.html`
-- Result: `PARTIAL PASS`
+- Result: `PASS` after P12-C10 release commit and CI rerun.
 - Evidence: P12-C02 through P12-C06 pass; latest GitHub Actions baseline is success (`28020694175`); local fresh clone smoke passed.
-- Finding: release acceptance is `PARTIAL PASS` only because local P12 audit artifacts are not yet committed/pushed and CI has not rerun on this exact tree.
-- Follow-up: P12-C10.
+- Finding: no remaining blocking or warning issue in the final P12 release acceptance report.
+- Follow-up: P12-C10 DONE.
 - Verification:
   - `.\.venv\Scripts\python.exe scripts\run_p12_system_audit.py`
   - `powershell -ExecutionPolicy Bypass -File .\scripts\fresh_clone_smoke.ps1 -SkipInstall`

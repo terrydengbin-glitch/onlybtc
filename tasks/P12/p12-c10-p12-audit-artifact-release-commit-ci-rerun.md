@@ -2,7 +2,7 @@
 
 ## 状态
 
-TODO
+DONE
 
 ## Summary
 
@@ -48,3 +48,17 @@ git status -sb
 ## Risks / Notes
 
 - 若 GitHub Actions 排队或网络失败，记录 run URL 与当前 pending 状态。
+
+## Execution Record
+
+- Completed at: 2026-06-23
+- Release commit: `9470f81` (`Add P12 system audit and source action contracts`)
+- GitHub Actions run: `28024843275`
+- GitHub Actions result: `success`
+- Run URL: `https://github.com/terrydengbin-glitch/onlybtc/actions/runs/28024843275`
+- Final P12 report result: `P12-C07 PASS`
+- Evidence: P12-C02 through P12-C06 all pass; C07 has no remaining issues after clean git + CI success snapshot.
+- Verification:
+  - `.\.venv\Scripts\python.exe scripts\run_p12_system_audit.py`
+  - `powershell -ExecutionPolicy Bypass -File .\scripts\fresh_clone_smoke.ps1 -SkipInstall`
+  - GitHub Actions run `28024843275` completed with `success`.

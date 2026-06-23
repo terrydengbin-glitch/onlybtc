@@ -1,7 +1,7 @@
 {
   "schema_version": "p12.c06.data_source_settings_provider_governance_audit.v1",
   "task_id": "P12-C06",
-  "generated_at": "2026-06-23T12:01:59Z",
+  "generated_at": "2026-06-23T12:06:45Z",
   "overall_status": "PASS",
   "source_governance_summary": {
     "source_count": 78,
@@ -23,7 +23,7 @@
     "/api/settings": {
       "ok": true,
       "status_code": 200,
-      "elapsed_ms": 34,
+      "elapsed_ms": 31,
       "url": "http://127.0.0.1:8118/api/settings"
     },
     "/api/settings/runtime": {
@@ -41,7 +41,7 @@
     "/api/settings/paths": {
       "ok": true,
       "status_code": 200,
-      "elapsed_ms": 26,
+      "elapsed_ms": 25,
       "url": "http://127.0.0.1:8118/api/settings/paths"
     },
     "/api/settings/providers/health": {

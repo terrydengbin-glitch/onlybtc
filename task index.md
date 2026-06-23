@@ -623,4 +623,4 @@
 | DONE | P12-C07 | SQLite / API / Report Lineage Release Acceptance Audit | [P12-C07](tasks/P12/p12-c07-sqlite-api-report-lineage-release-acceptance-audit.md) |
 | DONE | P12-C08 | Frozen Final Lineage vs Live Runtime Freshness UI Label Hardening | [P12-C08](tasks/P12/p12-c08-frozen-final-lineage-live-runtime-freshness-ui-label-hardening.md) |
 | DONE | P12-C09 | Source Action Endpoint Contract Completion | [P12-C09](tasks/P12/p12-c09-source-action-endpoint-contract-completion.md) |
-| TODO | P12-C10 | P12 Audit Artifact Release Commit 与 CI Rerun | [P12-C10](tasks/P12/p12-c10-p12-audit-artifact-release-commit-ci-rerun.md) |
+| DONE | P12-C10 | P12 Audit Artifact Release Commit 与 CI Rerun | [P12-C10](tasks/P12/p12-c10-p12-audit-artifact-release-commit-ci-rerun.md) |
