@@ -1,0 +1,68 @@
+{
+  "schema_version": "p12.c06.data_source_settings_provider_governance_audit.v1",
+  "task_id": "P12-C06",
+  "generated_at": "2026-06-23T12:01:59Z",
+  "overall_status": "PASS",
+  "source_governance_summary": {
+    "source_count": 78,
+    "enabled_count": 72,
+    "fallback_configured_count": 9,
+    "freshness_policy_count": 23
+  },
+  "provider_health_schema": "p10.c04.provider_health.v1",
+  "glassnode_entitlement": {
+    "schema_version": "p10.c08.glassnode_entitlement.v1",
+    "status": null,
+    "provider": "glassnode"
+  },
+  "secret_hygiene": {
+    "secret_markers_detected": [],
+    "payload_redaction_status": "pass"
+  },
+  "endpoint_summary": {
+    "/api/settings": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 34,
+      "url": "http://127.0.0.1:8118/api/settings"
+    },
+    "/api/settings/runtime": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 15,
+      "url": "http://127.0.0.1:8118/api/settings/runtime"
+    },
+    "/api/settings/data-sources": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 19,
+      "url": "http://127.0.0.1:8118/api/settings/data-sources"
+    },
+    "/api/settings/paths": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 26,
+      "url": "http://127.0.0.1:8118/api/settings/paths"
+    },
+    "/api/settings/providers/health": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 14,
+      "url": "http://127.0.0.1:8118/api/settings/providers/health"
+    },
+    "/api/settings/providers/glassnode/entitlement/latest": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 15,
+      "url": "http://127.0.0.1:8118/api/settings/providers/glassnode/entitlement/latest"
+    },
+    "/api/settings/audit?limit=20": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 16,
+      "url": "http://127.0.0.1:8118/api/settings/audit?limit=20"
+    }
+  },
+  "frontend_source_gaps": [],
+  "issues": []
+}

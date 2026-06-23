@@ -457,6 +457,29 @@ const eventFloatingAlertStyle = computed(() => {
 const stages = computed(() => state.runs?.stages ?? [])
 const auditReports = computed(() => store.reports.value)
 const latestRun = computed(() => ((state.runs?.latest as Row | undefined) ?? store.runLineage.value ?? {}) as Row)
+const frozenFinalLineage = computed(() => {
+  if (state.routeContext.isHistorical && state.selectedHistory?.run_lineage) {
+    return state.selectedHistory.run_lineage as Row
+  }
+  return ((state.dashboard?.run_lineage as Row | undefined) ?? store.runLineage.value ?? latestRun.value ?? {}) as Row
+})
+const frozenFinalCreatedAt = computed(() =>
+  firstPresent(frozenFinalLineage.value.created_at, state.dashboard?.created_at, state.dashboard?.updated_at),
+)
+const liveRuntimeFreshness = computed(() => ({
+  snapshot_id: firstPresent(
+    radarRuntimeHealth.value.snapshot_id,
+    radarRuntimeDaemon.value.last_snapshot_id,
+    radarRuntimePayload.value.snapshot_id,
+  ),
+  health_state: firstPresent(radarRuntimeHealth.value.health_state, radarRuntimeDaemon.value.health_state, radarRuntimeDaemon.value.status),
+  runtime_fresh: firstPresent(radarRuntimeHealth.value.runtime_fresh, radarRuntimeDaemon.value.runtime_fresh),
+  source_fresh: firstPresent(radarRuntimeHealth.value.source_fresh, radarRuntimeDaemon.value.source_fresh),
+  source_freshness_state: firstPresent(radarRuntimeHealth.value.source_freshness_state, radarRuntimeDaemon.value.source_freshness_state),
+  fresh_module_count: radarRuntimeHealth.value.fresh_module_count,
+  expected_module_count: radarRuntimeHealth.value.expected_module_count,
+  last_tick_age_sec: radarRuntimeDaemon.value.last_tick_age_sec,
+}))
 const runExecutionProfile = computed(() =>
   text(
     state.activeRunJob?.execution_profile ??
@@ -5461,16 +5484,19 @@ function openLlmAppendix() {
         </span>
         <span class="pill mixed"><span class="dot mixed"></span> alert: {{ text((alerts[0] as Row | undefined)?.level, 'watch') }}</span>
         <span class="pill bull"><span class="dot bull"></span> contract {{ text(contract.status, '-') }}</span>
+        <span class="pill mixed" title="Frozen P4.5 final lineage; not the live radar heartbeat">
+          frozen final {{ shortRunId(frozenFinalLineage.final_run_id) }}
+        </span>
         <button class="pill run-state-pill" :class="runHealthClass" @click="navigateTo('logs')">
           <span class="dot"></span> {{ runningStageText }}
         </button>
-        <button class="pill run-state-pill" :class="statusClass(radarRuntimeDaemon.health_state ?? radarRuntimeDaemon.status)" @click="store.runRadarRuntimeOnce()">
+        <button class="pill run-state-pill" :class="statusClass(liveRuntimeFreshness.health_state)" @click="store.runRadarRuntimeOnce()">
           <span class="dot"></span>
-          radar {{ text(radarRuntimeDaemon.health_state ?? radarRuntimeDaemon.status, 'runtime') }}
-          · fresh {{ text(radarRuntimeHealth.fresh_module_count, '0') }}/{{ text(radarRuntimeHealth.expected_module_count, '14') }}
-          · source {{ text(radarRuntimeHealth.source_freshness_state ?? radarRuntimeDaemon.source_freshness_state, 'unknown') }}
+          live runtime {{ text(liveRuntimeFreshness.health_state, 'runtime') }}
+          · fresh {{ text(liveRuntimeFreshness.fresh_module_count, '0') }}/{{ text(liveRuntimeFreshness.expected_module_count, '14') }}
+          · source {{ text(liveRuntimeFreshness.source_freshness_state, 'unknown') }}
         </button>
-        <span class="updated">Updated {{ text(state.dashboard?.created_at ?? state.dashboard?.updated_at, '-') }}</span>
+        <span class="updated">Frozen final updated {{ text(frozenFinalCreatedAt, '-') }}</span>
       </div>
       <div class="actions">
         <span class="pill quality"><span class="dot quality"></span> data quality {{ text(dataQuality.avg_metric_quality ?? dataQuality.quality_score) }}</span>
@@ -8597,13 +8623,31 @@ function openLlmAppendix() {
           <section class="run-lineage-board">
             <div class="panel-head">
               <h3>Run Lineage</h3>
-              <span class="pill">{{ text(latestRun.runtime_mode, 'runtime pending') }}</span>
+              <span class="pill mixed">frozen final lineage</span>
+            </div>
+            <div class="route-context-grid compact">
+              <span><small>final_run_id</small><code>{{ text(frozenFinalLineage.final_run_id, 'pending') }}</code></span>
+              <span><small>pack_id</small><code>{{ text(frozenFinalLineage.pack_id, 'pending') }}</code></span>
+              <span><small>final created</small><code>{{ text(frozenFinalCreatedAt, 'pending') }}</code></span>
+              <span><small>runtime mode</small><code>{{ text(frozenFinalLineage.runtime_mode ?? latestRun.runtime_mode, 'runtime pending') }}</code></span>
             </div>
             <div class="run-lineage-grid">
               <div v-for="entry in runLineageEntries" :key="entry.key" class="lineage-chip">
                 <span>{{ entry.key.replace(/_/g, ' ') }}</span>
                 <code>{{ text(entry.value) }}</code>
               </div>
+            </div>
+          </section>
+          <section class="run-lineage-board">
+            <div class="panel-head">
+              <h3>Live Runtime Freshness</h3>
+              <span class="pill bull">live radar heartbeat</span>
+            </div>
+            <div class="route-context-grid compact">
+              <span><small>snapshot_id</small><code>{{ text(liveRuntimeFreshness.snapshot_id, 'pending') }}</code></span>
+              <span><small>health</small><code>{{ text(liveRuntimeFreshness.health_state, 'unknown') }}</code></span>
+              <span><small>runtime/source</small><code>{{ text(liveRuntimeFreshness.runtime_fresh, 'unknown') }} / {{ text(liveRuntimeFreshness.source_fresh, 'unknown') }}</code></span>
+              <span><small>heartbeat age</small><code>{{ text(liveRuntimeFreshness.last_tick_age_sec, '-') }}s</code></span>
             </div>
           </section>
           <section v-if="runWarnings.length || runErrors.length" class="run-issue-grid">
@@ -9079,13 +9123,23 @@ function openLlmAppendix() {
         </article>
 
         <article class="panel">
-          <div class="panel-head"><h2>Run Lineage</h2><span class="pill bull">live</span></div>
+          <div class="panel-head"><h2>Run Lineage</h2><span class="pill mixed">frozen final lineage</span></div>
           <div class="runline">
-            <div><span>collect</span><code>{{ text(store.runLineage.value.collect_run_id) }}</code></div>
-            <div><span>p2 radar</span><code>{{ text(store.runLineage.value.p2_radar_run_id) }}</code></div>
-            <div><span>p3</span><code>{{ text(store.runLineage.value.p3_run_id) }}</code></div>
-            <div><span>p45 final</span><code>{{ text(store.runLineage.value.final_run_id) }}</code></div>
+            <div><span>collect</span><code>{{ text(frozenFinalLineage.collect_run_id) }}</code></div>
+            <div><span>p2 radar</span><code>{{ text(frozenFinalLineage.p2_radar_run_id) }}</code></div>
+            <div><span>p3</span><code>{{ text(frozenFinalLineage.p3_run_id) }}</code></div>
+            <div><span>p45 final</span><code>{{ text(frozenFinalLineage.final_run_id) }}</code></div>
             <div><span>llm mode</span><code>{{ text(llm.provider, 'deepseek') }} · internal_reference</code></div>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-head"><h2>Live Runtime</h2><span class="pill bull">radar freshness</span></div>
+          <div class="runline">
+            <div><span>snapshot</span><code>{{ text(liveRuntimeFreshness.snapshot_id) }}</code></div>
+            <div><span>health</span><code>{{ text(liveRuntimeFreshness.health_state, 'unknown') }}</code></div>
+            <div><span>runtime/source</span><code>{{ text(liveRuntimeFreshness.runtime_fresh, 'unknown') }} / {{ text(liveRuntimeFreshness.source_fresh, 'unknown') }}</code></div>
+            <div><span>heartbeat</span><code>{{ text(liveRuntimeFreshness.last_tick_age_sec, '-') }}s</code></div>
           </div>
         </article>
 

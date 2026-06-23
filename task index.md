@@ -609,3 +609,18 @@
 | DONE | P11-C16 | Runtime Report Working Tree Policy | [P11-C16](tasks/P11/p11-c16-runtime-report-working-tree-policy.md) |
 | DONE | P11-C17 | pip-audit AV False Positive Hardening | [P11-C17](tasks/P11/p11-c17-pip-audit-av-false-positive-hardening.md) |
 | DONE | P11-C18 | CI Status Check 与 GitHub Actions Follow-up | [P11-C18](tasks/P11/p11-c18-ci-status-check-github-actions-follow-up.md) |
+
+## P12 系统级全链路审计与验收
+
+| 状态 | 任务卡 | 标题 | 链接 |
+|---|---|---|---|
+| TODO | P12-C01 | System Full-chain Audit Master Plan 与 Evidence Inventory | [P12-C01](tasks/P12/p12-c01-system-full-chain-audit-master-plan-evidence-inventory.md) |
+| DONE | P12-C02 | Business Chain Contract Audit | [P12-C02](tasks/P12/p12-c02-business-chain-contract-audit.md) |
+| DONE | P12-C03 | Dashboard / P45 UI-API Contract Audit | [P12-C03](tasks/P12/p12-c03-dashboard-p45-ui-api-contract-audit.md) |
+| DONE | P12-C04 | Radar Runtime / Module Score Full-chain Audit | [P12-C04](tasks/P12/p12-c04-radar-runtime-module-score-full-chain-audit.md) |
+| DONE | P12-C05 | Event Window / Event Watchtower Full-chain Audit | [P12-C05](tasks/P12/p12-c05-event-window-watchtower-full-chain-audit.md) |
+| DONE | P12-C06 | Data Source / Settings / Provider Governance Audit | [P12-C06](tasks/P12/p12-c06-data-source-settings-provider-governance-audit.md) |
+| DONE | P12-C07 | SQLite / API / Report Lineage Release Acceptance Audit | [P12-C07](tasks/P12/p12-c07-sqlite-api-report-lineage-release-acceptance-audit.md) |
+| DONE | P12-C08 | Frozen Final Lineage vs Live Runtime Freshness UI Label Hardening | [P12-C08](tasks/P12/p12-c08-frozen-final-lineage-live-runtime-freshness-ui-label-hardening.md) |
+| DONE | P12-C09 | Source Action Endpoint Contract Completion | [P12-C09](tasks/P12/p12-c09-source-action-endpoint-contract-completion.md) |
+| TODO | P12-C10 | P12 Audit Artifact Release Commit 与 CI Rerun | [P12-C10](tasks/P12/p12-c10-p12-audit-artifact-release-commit-ci-rerun.md) |

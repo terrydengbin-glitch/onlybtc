@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>P12-C04 Radar Runtime / Module Score Full-chain Audit</title>
+  <style>
+    body { font-family: Inter, Segoe UI, Arial, sans-serif; margin: 32px; background: #09131a; color: #dbeafe; }
+    .card { border: 1px solid #24485c; border-radius: 8px; padding: 18px; margin-bottom: 18px; background: #0d1b24; }
+    .PASS { color: #34d399; }
+    .PARTIAL-PASS { color: #fbbf24; }
+    .FAIL { color: #fb7185; }
+    pre { overflow: auto; background: #071017; padding: 14px; border-radius: 6px; }
+    li { margin: 10px 0; }
+    span { color: #9fb7c8; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>P12-C04 / Radar Runtime / Module Score Full-chain Audit</h1>
+    <h2 class="PASS">PASS</h2>
+    <p>generated_at: <code>2026-06-23T12:01:59Z</code></p>
+  </div>
+  <div class="card"><h2>Issues</h2><ul><li>No blocking or warning issues found.</li></ul></div>
+  <div class="card"><h2>Full JSON</h2><pre>{
+  &quot;schema_version&quot;: &quot;p12.c04.radar_runtime_module_score_audit.v1&quot;,
+  &quot;task_id&quot;: &quot;P12-C04&quot;,
+  &quot;generated_at&quot;: &quot;2026-06-23T12:01:59Z&quot;,
+  &quot;overall_status&quot;: &quot;PASS&quot;,
+  &quot;daemon&quot;: {
+    &quot;status&quot;: &quot;ok&quot;,
+    &quot;health_state&quot;: &quot;stale&quot;,
+    &quot;runtime_fresh&quot;: true,
+    &quot;source_fresh&quot;: true,
+    &quot;last_snapshot_id&quot;: null,
+    &quot;sqlite_lock_state&quot;: &quot;ok&quot;
+  },
+  &quot;module_count&quot;: 14,
+  &quot;module_audit_rows&quot;: [
+    {
+      &quot;module_id&quot;: &quot;asia_risk&quot;,
+      &quot;score&quot;: -0.3946,
+      &quot;direction&quot;: &quot;conflict&quot;,
+      &quot;freshness&quot;: &quot;fresh&quot;,
+      &quot;snapshot_id&quot;: null
+    },
+    {
+      &quot;module_id&quot;: &quot;btc_adoption&quot;,
+      &quot;score&quot;: -0.4561,
+      &quot;direction&quot;: &quot;bearish&quot;,
+      &quot;freshness&quot;: &quot;fresh&quot;,
+      &quot;snapshot_id&quot;: null
+    },
+    {
+      &quot;module_id&quot;: &quot;btc_total_state&quot;,
+      &quot;score&quot;: null,
+      &quot;direction&quot;: &quot;neutral&quot;,
+      &quot;freshness&quot;: &quot;fresh&quot;,
+      &quot;snapshot_id&quot;: null
+    },
+    {
+      &quot;module_id&quot;: &quot;crypto_breadth&quot;,
+      &quot;score&quot;: 0.125,
+      &quot;direction&quot;: &quot;bullish&quot;,
+      &quot;freshness&quot;: &quot;fresh&quot;,
+      &quot;snapshot_id&quot;: null
+    },
+    {
+      &quot;module_id&quot;: &quot;derivatives_crowding&quot;,
+      &quot;score&quot;: 0.189,
+      &quot;direction&quot;: &quot;bearish&quot;,
+      &quot;freshness&quot;: &quot;fresh&quot;,
+      &quot;snapshot_id&quot;: null
+    },
+    {
+      &quot;module_id&quot;: &quot;dollar_liquidity&quot;,
+      &quot;score&quot;: -0.1575,
+      &quot;direction&quot;: &quot;bearish&quot;,
+      &quot;freshness&quot;: &quot;fresh&quot;,
+      &quot;snapshot_id&quot;: null
+    },
+    {
+      &quot;module_id&quot;: &quot;event_policy&quot;,
+      &quot;score&quot;: null,
+      &quot;direction&quot;: &quot;neutral&quot;,
+      &quot;freshness&quot;: &quot;fresh&quot;,
+      &quot;snapshot_id&quot;: null
+    },
+    {
+      &quot;module_id&quot;: &quot;fund_flow&quot;,
+      &quot;score&quot;: -0.4024,
+      &quot;direction&quot;: &quot;bearish&quot;,
+      &quot;freshness&quot;: &quot;fresh&quot;,
+      &quot;snapshot_id&quot;: null
+    },
+    {
+      &quot;module_id&quot;: &quot;kline_orderflow&quot;,
+      &quot;score&quot;: 0.038,
+      &quot;direction&quot;: &quot;conflict&quot;,
+      &quot;freshness&quot;: &quot;fresh&quot;,
+      &quot;snapshot_id&quot;: null
+    },
+    {
+      &quot;module_id&quot;: &quot;macro_radar&quot;,
+      &quot;score&quot;: -0.5,
+      &quot;direction&quot;: &quot;bearish&quot;,
+      &quot;freshness&quot;: &quot;fresh&quot;,
+      &quot;snapshot_id&quot;: null
+    },
+    {
+      &quot;module_id&quot;: &quot;onchain_valuation&quot;,
+      &quot;score&quot;: -0.2508,
+      &quot;direction&quot;: &quot;bearish&quot;,
+      &quot;freshness&quot;: &quot;fresh&quot;,
+      &quot;snapshot_id&quot;: null
+    },
+    {
+      &quot;module_id&quot;: &quot;options_volatility&quot;,
+      &quot;score&quot;: null,
+      &quot;direction&quot;: &quot;neutral&quot;,
+      &quot;freshness&quot;: &quot;fresh&quot;,
+      &quot;snapshot_id&quot;: null
+    },
+    {
+      &quot;module_id&quot;: &quot;trade_structure_flow&quot;,
+      &quot;score&quot;: 0.096,
+      &quot;direction&quot;: &quot;bullish&quot;,
+      &quot;freshness&quot;: &quot;fresh&quot;,
+      &quot;snapshot_id&quot;: null
+    },
+    {
+      &quot;module_id&quot;: &quot;treasury_credit&quot;,
+      &quot;score&quot;: -0.18,
+      &quot;direction&quot;: &quot;neutral&quot;,
+      &quot;freshness&quot;: &quot;fresh&quot;,
+      &quot;snapshot_id&quot;: null
+    }
+  ],
+  &quot;cockpit_summary&quot;: {
+    &quot;schema_version&quot;: null,
+    &quot;snapshot_id&quot;: null,
+    &quot;direction&quot;: null,
+    &quot;score&quot;: null
+  },
+  &quot;endpoint_summary&quot;: {
+    &quot;/api/radar-runtime/daemon/status&quot;: {
+      &quot;ok&quot;: true,
+      &quot;status_code&quot;: 200,
+      &quot;elapsed_ms&quot;: 50,
+      &quot;url&quot;: &quot;http://127.0.0.1:8118/api/radar-runtime/daemon/status&quot;
+    },
+    &quot;/api/radar-runtime/daemon/health&quot;: {
+      &quot;ok&quot;: true,
+      &quot;status_code&quot;: 200,
+      &quot;elapsed_ms&quot;: 26,
+      &quot;url&quot;: &quot;http://127.0.0.1:8118/api/radar-runtime/daemon/health&quot;
+    },
+    &quot;/api/radar-runtime/modules/latest&quot;: {
+      &quot;ok&quot;: true,
+      &quot;status_code&quot;: 200,
+      &quot;elapsed_ms&quot;: 366,
+      &quot;url&quot;: &quot;http://127.0.0.1:8118/api/radar-runtime/modules/latest&quot;
+    },
+    &quot;/api/radar-runtime/cockpit/latest&quot;: {
+      &quot;ok&quot;: true,
+      &quot;status_code&quot;: 200,
+      &quot;elapsed_ms&quot;: 369,
+      &quot;url&quot;: &quot;http://127.0.0.1:8118/api/radar-runtime/cockpit/latest&quot;
+    }
+  },
+  &quot;issues&quot;: []
+}</pre></div>
+</body>
+</html>

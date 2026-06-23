@@ -398,6 +398,23 @@ const eventFloatingAlertStyle = computed(() => {
 const stages = computed(() => state.runs?.stages ?? []);
 const auditReports = computed(() => store.reports.value);
 const latestRun = computed(() => (state.runs?.latest ?? store.runLineage.value ?? {}));
+const frozenFinalLineage = computed(() => {
+    if (state.routeContext.isHistorical && state.selectedHistory?.run_lineage) {
+        return state.selectedHistory.run_lineage;
+    }
+    return (state.dashboard?.run_lineage ?? store.runLineage.value ?? latestRun.value ?? {});
+});
+const frozenFinalCreatedAt = computed(() => firstPresent(frozenFinalLineage.value.created_at, state.dashboard?.created_at, state.dashboard?.updated_at));
+const liveRuntimeFreshness = computed(() => ({
+    snapshot_id: firstPresent(radarRuntimeHealth.value.snapshot_id, radarRuntimeDaemon.value.last_snapshot_id, radarRuntimePayload.value.snapshot_id),
+    health_state: firstPresent(radarRuntimeHealth.value.health_state, radarRuntimeDaemon.value.health_state, radarRuntimeDaemon.value.status),
+    runtime_fresh: firstPresent(radarRuntimeHealth.value.runtime_fresh, radarRuntimeDaemon.value.runtime_fresh),
+    source_fresh: firstPresent(radarRuntimeHealth.value.source_fresh, radarRuntimeDaemon.value.source_fresh),
+    source_freshness_state: firstPresent(radarRuntimeHealth.value.source_freshness_state, radarRuntimeDaemon.value.source_freshness_state),
+    fresh_module_count: radarRuntimeHealth.value.fresh_module_count,
+    expected_module_count: radarRuntimeHealth.value.expected_module_count,
+    last_tick_age_sec: radarRuntimeDaemon.value.last_tick_age_sec,
+}));
 const runExecutionProfile = computed(() => text(state.activeRunJob?.execution_profile ??
     state.runResult?.execution_profile ??
     latestRun.value.execution_profile, state.llmRunEnabled ? 'full_with_llm' : 'fast_deterministic'));
@@ -5309,6 +5326,11 @@ __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.
     ...{ class: "dot bull" },
 });
 (__VLS_ctx.text(__VLS_ctx.contract.status, '-'));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({
+    ...{ class: "pill mixed" },
+    title: "Frozen P4.5 final lineage; not the live radar heartbeat",
+});
+(__VLS_ctx.shortRunId(__VLS_ctx.frozenFinalLineage.final_run_id));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.button, __VLS_intrinsicElements.button)({
     ...{ onClick: (...[$event]) => {
             __VLS_ctx.navigateTo('logs');
@@ -5325,19 +5347,19 @@ __VLS_asFunctionalElement(__VLS_intrinsicElements.button, __VLS_intrinsicElement
             __VLS_ctx.store.runRadarRuntimeOnce();
         } },
     ...{ class: "pill run-state-pill" },
-    ...{ class: (__VLS_ctx.statusClass(__VLS_ctx.radarRuntimeDaemon.health_state ?? __VLS_ctx.radarRuntimeDaemon.status)) },
+    ...{ class: (__VLS_ctx.statusClass(__VLS_ctx.liveRuntimeFreshness.health_state)) },
 });
 __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({
     ...{ class: "dot" },
 });
-(__VLS_ctx.text(__VLS_ctx.radarRuntimeDaemon.health_state ?? __VLS_ctx.radarRuntimeDaemon.status, 'runtime'));
-(__VLS_ctx.text(__VLS_ctx.radarRuntimeHealth.fresh_module_count, '0'));
-(__VLS_ctx.text(__VLS_ctx.radarRuntimeHealth.expected_module_count, '14'));
-(__VLS_ctx.text(__VLS_ctx.radarRuntimeHealth.source_freshness_state ?? __VLS_ctx.radarRuntimeDaemon.source_freshness_state, 'unknown'));
+(__VLS_ctx.text(__VLS_ctx.liveRuntimeFreshness.health_state, 'runtime'));
+(__VLS_ctx.text(__VLS_ctx.liveRuntimeFreshness.fresh_module_count, '0'));
+(__VLS_ctx.text(__VLS_ctx.liveRuntimeFreshness.expected_module_count, '14'));
+(__VLS_ctx.text(__VLS_ctx.liveRuntimeFreshness.source_freshness_state, 'unknown'));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({
     ...{ class: "updated" },
 });
-(__VLS_ctx.text(__VLS_ctx.state.dashboard?.created_at ?? __VLS_ctx.state.dashboard?.updated_at, '-'));
+(__VLS_ctx.text(__VLS_ctx.frozenFinalCreatedAt, '-'));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
     ...{ class: "actions" },
 });
@@ -12571,9 +12593,27 @@ else {
         });
         __VLS_asFunctionalElement(__VLS_intrinsicElements.h3, __VLS_intrinsicElements.h3)({});
         __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({
-            ...{ class: "pill" },
+            ...{ class: "pill mixed" },
         });
-        (__VLS_ctx.text(__VLS_ctx.latestRun.runtime_mode, 'runtime pending'));
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+            ...{ class: "route-context-grid compact" },
+        });
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({});
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.small, __VLS_intrinsicElements.small)({});
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.code, __VLS_intrinsicElements.code)({});
+        (__VLS_ctx.text(__VLS_ctx.frozenFinalLineage.final_run_id, 'pending'));
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({});
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.small, __VLS_intrinsicElements.small)({});
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.code, __VLS_intrinsicElements.code)({});
+        (__VLS_ctx.text(__VLS_ctx.frozenFinalLineage.pack_id, 'pending'));
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({});
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.small, __VLS_intrinsicElements.small)({});
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.code, __VLS_intrinsicElements.code)({});
+        (__VLS_ctx.text(__VLS_ctx.frozenFinalCreatedAt, 'pending'));
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({});
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.small, __VLS_intrinsicElements.small)({});
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.code, __VLS_intrinsicElements.code)({});
+        (__VLS_ctx.text(__VLS_ctx.frozenFinalLineage.runtime_mode ?? __VLS_ctx.latestRun.runtime_mode, 'runtime pending'));
         __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
             ...{ class: "run-lineage-grid" },
         });
@@ -12587,6 +12627,36 @@ else {
             __VLS_asFunctionalElement(__VLS_intrinsicElements.code, __VLS_intrinsicElements.code)({});
             (__VLS_ctx.text(entry.value));
         }
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.section, __VLS_intrinsicElements.section)({
+            ...{ class: "run-lineage-board" },
+        });
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+            ...{ class: "panel-head" },
+        });
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.h3, __VLS_intrinsicElements.h3)({});
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({
+            ...{ class: "pill bull" },
+        });
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+            ...{ class: "route-context-grid compact" },
+        });
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({});
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.small, __VLS_intrinsicElements.small)({});
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.code, __VLS_intrinsicElements.code)({});
+        (__VLS_ctx.text(__VLS_ctx.liveRuntimeFreshness.snapshot_id, 'pending'));
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({});
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.small, __VLS_intrinsicElements.small)({});
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.code, __VLS_intrinsicElements.code)({});
+        (__VLS_ctx.text(__VLS_ctx.liveRuntimeFreshness.health_state, 'unknown'));
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({});
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.small, __VLS_intrinsicElements.small)({});
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.code, __VLS_intrinsicElements.code)({});
+        (__VLS_ctx.text(__VLS_ctx.liveRuntimeFreshness.runtime_fresh, 'unknown'));
+        (__VLS_ctx.text(__VLS_ctx.liveRuntimeFreshness.source_fresh, 'unknown'));
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({});
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.small, __VLS_intrinsicElements.small)({});
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.code, __VLS_intrinsicElements.code)({});
+        (__VLS_ctx.text(__VLS_ctx.liveRuntimeFreshness.last_tick_age_sec, '-'));
         if (__VLS_ctx.runWarnings.length || __VLS_ctx.runErrors.length) {
             __VLS_asFunctionalElement(__VLS_intrinsicElements.section, __VLS_intrinsicElements.section)({
                 ...{ class: "run-issue-grid" },
@@ -14085,6 +14155,39 @@ if (__VLS_ctx.drawerOpen && !__VLS_ctx.pageFullscreen) {
     });
     __VLS_asFunctionalElement(__VLS_intrinsicElements.h2, __VLS_intrinsicElements.h2)({});
     __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({
+        ...{ class: "pill mixed" },
+    });
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+        ...{ class: "runline" },
+    });
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({});
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.code, __VLS_intrinsicElements.code)({});
+    (__VLS_ctx.text(__VLS_ctx.frozenFinalLineage.collect_run_id));
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({});
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.code, __VLS_intrinsicElements.code)({});
+    (__VLS_ctx.text(__VLS_ctx.frozenFinalLineage.p2_radar_run_id));
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({});
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.code, __VLS_intrinsicElements.code)({});
+    (__VLS_ctx.text(__VLS_ctx.frozenFinalLineage.p3_run_id));
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({});
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.code, __VLS_intrinsicElements.code)({});
+    (__VLS_ctx.text(__VLS_ctx.frozenFinalLineage.final_run_id));
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({});
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.code, __VLS_intrinsicElements.code)({});
+    (__VLS_ctx.text(__VLS_ctx.llm.provider, 'deepseek'));
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.article, __VLS_intrinsicElements.article)({
+        ...{ class: "panel" },
+    });
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+        ...{ class: "panel-head" },
+    });
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.h2, __VLS_intrinsicElements.h2)({});
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({
         ...{ class: "pill bull" },
     });
     __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
@@ -14093,23 +14196,20 @@ if (__VLS_ctx.drawerOpen && !__VLS_ctx.pageFullscreen) {
     __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
     __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({});
     __VLS_asFunctionalElement(__VLS_intrinsicElements.code, __VLS_intrinsicElements.code)({});
-    (__VLS_ctx.text(__VLS_ctx.store.runLineage.value.collect_run_id));
+    (__VLS_ctx.text(__VLS_ctx.liveRuntimeFreshness.snapshot_id));
     __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
     __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({});
     __VLS_asFunctionalElement(__VLS_intrinsicElements.code, __VLS_intrinsicElements.code)({});
-    (__VLS_ctx.text(__VLS_ctx.store.runLineage.value.p2_radar_run_id));
+    (__VLS_ctx.text(__VLS_ctx.liveRuntimeFreshness.health_state, 'unknown'));
     __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
     __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({});
     __VLS_asFunctionalElement(__VLS_intrinsicElements.code, __VLS_intrinsicElements.code)({});
-    (__VLS_ctx.text(__VLS_ctx.store.runLineage.value.p3_run_id));
+    (__VLS_ctx.text(__VLS_ctx.liveRuntimeFreshness.runtime_fresh, 'unknown'));
+    (__VLS_ctx.text(__VLS_ctx.liveRuntimeFreshness.source_fresh, 'unknown'));
     __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
     __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({});
     __VLS_asFunctionalElement(__VLS_intrinsicElements.code, __VLS_intrinsicElements.code)({});
-    (__VLS_ctx.text(__VLS_ctx.store.runLineage.value.final_run_id));
-    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
-    __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({});
-    __VLS_asFunctionalElement(__VLS_intrinsicElements.code, __VLS_intrinsicElements.code)({});
-    (__VLS_ctx.text(__VLS_ctx.llm.provider, 'deepseek'));
+    (__VLS_ctx.text(__VLS_ctx.liveRuntimeFreshness.last_tick_age_sec, '-'));
     __VLS_asFunctionalElement(__VLS_intrinsicElements.article, __VLS_intrinsicElements.article)({
         ...{ class: "panel" },
     });
@@ -14399,6 +14499,8 @@ if (__VLS_ctx.store.hasEndpointErrors.value) {
 /** @type {__VLS_StyleScopedClasses['bull']} */ ;
 /** @type {__VLS_StyleScopedClasses['dot']} */ ;
 /** @type {__VLS_StyleScopedClasses['bull']} */ ;
+/** @type {__VLS_StyleScopedClasses['pill']} */ ;
+/** @type {__VLS_StyleScopedClasses['mixed']} */ ;
 /** @type {__VLS_StyleScopedClasses['pill']} */ ;
 /** @type {__VLS_StyleScopedClasses['run-state-pill']} */ ;
 /** @type {__VLS_StyleScopedClasses['dot']} */ ;
@@ -15371,8 +15473,17 @@ if (__VLS_ctx.store.hasEndpointErrors.value) {
 /** @type {__VLS_StyleScopedClasses['run-lineage-board']} */ ;
 /** @type {__VLS_StyleScopedClasses['panel-head']} */ ;
 /** @type {__VLS_StyleScopedClasses['pill']} */ ;
+/** @type {__VLS_StyleScopedClasses['mixed']} */ ;
+/** @type {__VLS_StyleScopedClasses['route-context-grid']} */ ;
+/** @type {__VLS_StyleScopedClasses['compact']} */ ;
 /** @type {__VLS_StyleScopedClasses['run-lineage-grid']} */ ;
 /** @type {__VLS_StyleScopedClasses['lineage-chip']} */ ;
+/** @type {__VLS_StyleScopedClasses['run-lineage-board']} */ ;
+/** @type {__VLS_StyleScopedClasses['panel-head']} */ ;
+/** @type {__VLS_StyleScopedClasses['pill']} */ ;
+/** @type {__VLS_StyleScopedClasses['bull']} */ ;
+/** @type {__VLS_StyleScopedClasses['route-context-grid']} */ ;
+/** @type {__VLS_StyleScopedClasses['compact']} */ ;
 /** @type {__VLS_StyleScopedClasses['run-issue-grid']} */ ;
 /** @type {__VLS_StyleScopedClasses['run-issue-card']} */ ;
 /** @type {__VLS_StyleScopedClasses['quality']} */ ;
@@ -15532,6 +15643,11 @@ if (__VLS_ctx.store.hasEndpointErrors.value) {
 /** @type {__VLS_StyleScopedClasses['panel']} */ ;
 /** @type {__VLS_StyleScopedClasses['panel-head']} */ ;
 /** @type {__VLS_StyleScopedClasses['pill']} */ ;
+/** @type {__VLS_StyleScopedClasses['mixed']} */ ;
+/** @type {__VLS_StyleScopedClasses['runline']} */ ;
+/** @type {__VLS_StyleScopedClasses['panel']} */ ;
+/** @type {__VLS_StyleScopedClasses['panel-head']} */ ;
+/** @type {__VLS_StyleScopedClasses['pill']} */ ;
 /** @type {__VLS_StyleScopedClasses['bull']} */ ;
 /** @type {__VLS_StyleScopedClasses['runline']} */ ;
 /** @type {__VLS_StyleScopedClasses['panel']} */ ;
@@ -15668,6 +15784,9 @@ const __VLS_self = (await import('vue')).defineComponent({
             stages: stages,
             auditReports: auditReports,
             latestRun: latestRun,
+            frozenFinalLineage: frozenFinalLineage,
+            frozenFinalCreatedAt: frozenFinalCreatedAt,
+            liveRuntimeFreshness: liveRuntimeFreshness,
             runExecutionProfile: runExecutionProfile,
             runLlmEnabled: runLlmEnabled,
             runWarnings: runWarnings,

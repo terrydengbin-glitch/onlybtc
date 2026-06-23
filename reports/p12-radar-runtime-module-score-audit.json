@@ -1,0 +1,148 @@
+{
+  "schema_version": "p12.c04.radar_runtime_module_score_audit.v1",
+  "task_id": "P12-C04",
+  "generated_at": "2026-06-23T12:01:59Z",
+  "overall_status": "PASS",
+  "daemon": {
+    "status": "ok",
+    "health_state": "stale",
+    "runtime_fresh": true,
+    "source_fresh": true,
+    "last_snapshot_id": null,
+    "sqlite_lock_state": "ok"
+  },
+  "module_count": 14,
+  "module_audit_rows": [
+    {
+      "module_id": "asia_risk",
+      "score": -0.3946,
+      "direction": "conflict",
+      "freshness": "fresh",
+      "snapshot_id": null
+    },
+    {
+      "module_id": "btc_adoption",
+      "score": -0.4561,
+      "direction": "bearish",
+      "freshness": "fresh",
+      "snapshot_id": null
+    },
+    {
+      "module_id": "btc_total_state",
+      "score": null,
+      "direction": "neutral",
+      "freshness": "fresh",
+      "snapshot_id": null
+    },
+    {
+      "module_id": "crypto_breadth",
+      "score": 0.125,
+      "direction": "bullish",
+      "freshness": "fresh",
+      "snapshot_id": null
+    },
+    {
+      "module_id": "derivatives_crowding",
+      "score": 0.189,
+      "direction": "bearish",
+      "freshness": "fresh",
+      "snapshot_id": null
+    },
+    {
+      "module_id": "dollar_liquidity",
+      "score": -0.1575,
+      "direction": "bearish",
+      "freshness": "fresh",
+      "snapshot_id": null
+    },
+    {
+      "module_id": "event_policy",
+      "score": null,
+      "direction": "neutral",
+      "freshness": "fresh",
+      "snapshot_id": null
+    },
+    {
+      "module_id": "fund_flow",
+      "score": -0.4024,
+      "direction": "bearish",
+      "freshness": "fresh",
+      "snapshot_id": null
+    },
+    {
+      "module_id": "kline_orderflow",
+      "score": 0.038,
+      "direction": "conflict",
+      "freshness": "fresh",
+      "snapshot_id": null
+    },
+    {
+      "module_id": "macro_radar",
+      "score": -0.5,
+      "direction": "bearish",
+      "freshness": "fresh",
+      "snapshot_id": null
+    },
+    {
+      "module_id": "onchain_valuation",
+      "score": -0.2508,
+      "direction": "bearish",
+      "freshness": "fresh",
+      "snapshot_id": null
+    },
+    {
+      "module_id": "options_volatility",
+      "score": null,
+      "direction": "neutral",
+      "freshness": "fresh",
+      "snapshot_id": null
+    },
+    {
+      "module_id": "trade_structure_flow",
+      "score": 0.096,
+      "direction": "bullish",
+      "freshness": "fresh",
+      "snapshot_id": null
+    },
+    {
+      "module_id": "treasury_credit",
+      "score": -0.18,
+      "direction": "neutral",
+      "freshness": "fresh",
+      "snapshot_id": null
+    }
+  ],
+  "cockpit_summary": {
+    "schema_version": null,
+    "snapshot_id": null,
+    "direction": null,
+    "score": null
+  },
+  "endpoint_summary": {
+    "/api/radar-runtime/daemon/status": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 50,
+      "url": "http://127.0.0.1:8118/api/radar-runtime/daemon/status"
+    },
+    "/api/radar-runtime/daemon/health": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 26,
+      "url": "http://127.0.0.1:8118/api/radar-runtime/daemon/health"
+    },
+    "/api/radar-runtime/modules/latest": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 366,
+      "url": "http://127.0.0.1:8118/api/radar-runtime/modules/latest"
+    },
+    "/api/radar-runtime/cockpit/latest": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 369,
+      "url": "http://127.0.0.1:8118/api/radar-runtime/cockpit/latest"
+    }
+  },
+  "issues": []
+}

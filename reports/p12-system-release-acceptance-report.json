@@ -1,0 +1,302 @@
+{
+  "schema_version": "p12.c07.system_release_acceptance.v1",
+  "task_id": "P12-C07",
+  "generated_at": "2026-06-23T12:01:59Z",
+  "overall_status": "PARTIAL PASS",
+  "child_status": {
+    "P12-C02": "PASS",
+    "P12-C03": "PASS",
+    "P12-C04": "PASS",
+    "P12-C05": "PASS",
+    "P12-C06": "PASS"
+  },
+  "git": {
+    "status_short": "## main...origin/main\n M backend/src/onlybtc/api/app.py\n M backend/tests/test_api_contracts.py\n M frontend/src/App.vue\n M frontend/src/App.vue.js\n M \"task index.md\"\n?? reports/p12-business-chain-contract-audit.json\n?? reports/p12-business-chain-contract-audit.md\n?? reports/p12-dashboard-ui-api-contract-audit.json\n?? reports/p12-dashboard-ui-api-contract-audit.md\n?? reports/p12-data-source-settings-provider-governance-audit.json\n?? reports/p12-data-source-settings-provider-governance-audit.md\n?? reports/p12-event-window-watchtower-audit.html\n?? reports/p12-event-window-watchtower-audit.json\n?? reports/p12-event-window-watchtower-audit.md\n?? reports/p12-radar-runtime-module-score-audit.html\n?? reports/p12-radar-runtime-module-score-audit.json\n?? reports/p12-radar-runtime-module-score-audit.md\n?? reports/p12-system-release-acceptance-report.html\n?? reports/p12-system-release-acceptance-report.json\n?? reports/p12-system-release-acceptance-report.md\n?? scripts/run_p12_system_audit.py\n?? tasks/P12/",
+    "head": "ec4b407",
+    "branch": "main",
+    "remote": "https://github.com/terrydengbin-glitch/onlybtc.git"
+  },
+  "github_actions_latest": {
+    "id": 28020694175,
+    "status": "completed",
+    "conclusion": "success",
+    "html_url": "https://github.com/terrydengbin-glitch/onlybtc/actions/runs/28020694175",
+    "head_sha": "ec4b40798fa6aba8f046b79dd1f466019b538b1b"
+  },
+  "api_health": {
+    "/api/health": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 31,
+      "url": "http://127.0.0.1:8118/api/health"
+    },
+    "/api/db/health": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 266,
+      "url": "http://127.0.0.1:8118/api/db/health"
+    },
+    "/api/p45/dashboard/latest": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 1171,
+      "url": "http://127.0.0.1:8118/api/p45/dashboard/latest"
+    },
+    "/api/p45/overview/latest": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 1180,
+      "url": "http://127.0.0.1:8118/api/p45/overview/latest"
+    },
+    "/api/p45/radar-modules/latest": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 1618,
+      "url": "http://127.0.0.1:8118/api/p45/radar-modules/latest"
+    },
+    "/api/p45/evidence?limit=40": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 817,
+      "url": "http://127.0.0.1:8118/api/p45/evidence?limit=40"
+    },
+    "/api/p45/articles/latest": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 978,
+      "url": "http://127.0.0.1:8118/api/p45/articles/latest"
+    },
+    "/api/p45/llm/latest": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 31,
+      "url": "http://127.0.0.1:8118/api/p45/llm/latest"
+    },
+    "/api/p45/analysts/latest": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 817,
+      "url": "http://127.0.0.1:8118/api/p45/analysts/latest"
+    },
+    "/api/p45/invalidation/latest": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 800,
+      "url": "http://127.0.0.1:8118/api/p45/invalidation/latest"
+    },
+    "/api/data-quality/latest": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 6572,
+      "url": "http://127.0.0.1:8118/api/data-quality/latest"
+    },
+    "/api/p45/runs/latest": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 845,
+      "url": "http://127.0.0.1:8118/api/p45/runs/latest"
+    },
+    "/api/p45/audit-reports/latest": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 15,
+      "url": "http://127.0.0.1:8118/api/p45/audit-reports/latest"
+    },
+    "/api/radar-runtime/daemon/status": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 50,
+      "url": "http://127.0.0.1:8118/api/radar-runtime/daemon/status"
+    },
+    "/api/radar-runtime/daemon/health": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 26,
+      "url": "http://127.0.0.1:8118/api/radar-runtime/daemon/health"
+    },
+    "/api/radar-runtime/modules/latest": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 366,
+      "url": "http://127.0.0.1:8118/api/radar-runtime/modules/latest"
+    },
+    "/api/radar-runtime/cockpit/latest": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 369,
+      "url": "http://127.0.0.1:8118/api/radar-runtime/cockpit/latest"
+    },
+    "/api/event-window/latest": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 125,
+      "url": "http://127.0.0.1:8118/api/event-window/latest"
+    },
+    "/api/event-window/active": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 33,
+      "url": "http://127.0.0.1:8118/api/event-window/active"
+    },
+    "/api/event-window/calendar?limit=30": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 12,
+      "url": "http://127.0.0.1:8118/api/event-window/calendar?limit=30"
+    },
+    "/api/event-window/timeline?limit=100": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 80,
+      "url": "http://127.0.0.1:8118/api/event-window/timeline?limit=100"
+    },
+    "/api/event-window/alerts?limit=30": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 31,
+      "url": "http://127.0.0.1:8118/api/event-window/alerts?limit=30"
+    },
+    "/api/event-window/sources/status": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 3737,
+      "url": "http://127.0.0.1:8118/api/event-window/sources/status"
+    },
+    "/api/event-window/sources/fetches?limit=40": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 16,
+      "url": "http://127.0.0.1:8118/api/event-window/sources/fetches?limit=40"
+    },
+    "/api/event-window/daemon/status": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 20,
+      "url": "http://127.0.0.1:8118/api/event-window/daemon/status"
+    },
+    "/api/event-window/daemon/health": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 31,
+      "url": "http://127.0.0.1:8118/api/event-window/daemon/health"
+    },
+    "/api/event-window/market-probe/latest": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 28,
+      "url": "http://127.0.0.1:8118/api/event-window/market-probe/latest"
+    },
+    "/api/event-window/shock-lane/latest": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 83,
+      "url": "http://127.0.0.1:8118/api/event-window/shock-lane/latest"
+    },
+    "/api/settings": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 34,
+      "url": "http://127.0.0.1:8118/api/settings"
+    },
+    "/api/settings/runtime": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 15,
+      "url": "http://127.0.0.1:8118/api/settings/runtime"
+    },
+    "/api/settings/data-sources": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 19,
+      "url": "http://127.0.0.1:8118/api/settings/data-sources"
+    },
+    "/api/settings/paths": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 26,
+      "url": "http://127.0.0.1:8118/api/settings/paths"
+    },
+    "/api/settings/providers/health": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 14,
+      "url": "http://127.0.0.1:8118/api/settings/providers/health"
+    },
+    "/api/settings/providers/glassnode/entitlement/latest": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 15,
+      "url": "http://127.0.0.1:8118/api/settings/providers/glassnode/entitlement/latest"
+    },
+    "/api/settings/audit?limit=20": {
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 16,
+      "url": "http://127.0.0.1:8118/api/settings/audit?limit=20"
+    }
+  },
+  "report_inventory": [
+    {
+      "task_id": "P12-C02",
+      "json": "E:\\onlyBTC\\reports\\p12-business-chain-contract-audit.json",
+      "markdown": "E:\\onlyBTC\\reports\\p12-business-chain-contract-audit.md",
+      "html": null
+    },
+    {
+      "task_id": "P12-C03",
+      "json": "E:\\onlyBTC\\reports\\p12-dashboard-ui-api-contract-audit.json",
+      "markdown": "E:\\onlyBTC\\reports\\p12-dashboard-ui-api-contract-audit.md",
+      "html": null
+    },
+    {
+      "task_id": "P12-C04",
+      "json": "E:\\onlyBTC\\reports\\p12-radar-runtime-module-score-audit.json",
+      "markdown": "E:\\onlyBTC\\reports\\p12-radar-runtime-module-score-audit.md",
+      "html": "E:\\onlyBTC\\reports\\p12-radar-runtime-module-score-audit.html"
+    },
+    {
+      "task_id": "P12-C05",
+      "json": "E:\\onlyBTC\\reports\\p12-event-window-watchtower-audit.json",
+      "markdown": "E:\\onlyBTC\\reports\\p12-event-window-watchtower-audit.md",
+      "html": "E:\\onlyBTC\\reports\\p12-event-window-watchtower-audit.html"
+    },
+    {
+      "task_id": "P12-C06",
+      "json": "E:\\onlyBTC\\reports\\p12-data-source-settings-provider-governance-audit.json",
+      "markdown": "E:\\onlyBTC\\reports\\p12-data-source-settings-provider-governance-audit.md",
+      "html": null
+    },
+    {
+      "task_id": "P12-C07",
+      "json": "E:\\onlyBTC\\reports\\p12-system-release-acceptance-report.json",
+      "markdown": "E:\\onlyBTC\\reports\\p12-system-release-acceptance-report.md",
+      "html": "E:\\onlyBTC\\reports\\p12-system-release-acceptance-report.html"
+    }
+  ],
+  "release_gate": {
+    "clean_git_required": true,
+    "ci_green_required": true,
+    "smoke_green_required": true,
+    "blocking_child_audits_allowed": false
+  },
+  "issues": [
+    {
+      "severity": "warning",
+      "area": "git",
+      "finding": "Working tree is not clean because P12 audit artifacts are in progress.",
+      "recommendation": "Commit P12 artifacts after review if this baseline should be released."
+    }
+  ],
+  "follow_up_cards": [
+    {
+      "candidate": "P12-F02",
+      "title": "Source Action Endpoint Contract Completion",
+      "needed": true
+    },
+    {
+      "candidate": "P12-F04",
+      "title": "P12 Audit Artifact Release Commit",
+      "needed": true
+    }
+  ]
+}

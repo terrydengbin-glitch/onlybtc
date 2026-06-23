@@ -1,0 +1,82 @@
+{
+  "schema_version": "p12.c03.dashboard_ui_api_contract_audit.v1",
+  "task_id": "P12-C03",
+  "generated_at": "2026-06-23T12:01:59Z",
+  "overall_status": "PASS",
+  "dashboard_latest": {
+    "final_run_id": "p45final-p8-replay-verify-202606221611",
+    "pack_id": "p45pack-20260622101158-0555d2",
+    "final_view": "bearish",
+    "trade_permission": null
+  },
+  "ui_api_mapping": [
+    {
+      "ui_area": "BTC decision card",
+      "api": "/api/p45/dashboard/latest",
+      "fields": [
+        "final_view",
+        "decision_card",
+        "trade_permission"
+      ],
+      "status": "mapped"
+    },
+    {
+      "ui_area": "Run lineage side panel",
+      "api": "/api/p45/dashboard/latest",
+      "fields": [
+        "run_lineage.final_run_id",
+        "run_lineage.pack_id"
+      ],
+      "status": "mapped"
+    },
+    {
+      "ui_area": "Radar panels",
+      "api": "/api/p45/radar-modules/latest + /api/radar-runtime/modules/latest",
+      "fields": [
+        "module_id",
+        "score",
+        "freshness"
+      ],
+      "status": "mapped"
+    },
+    {
+      "ui_area": "Event window",
+      "api": "/api/event-window/latest + timeline/calendar/alerts",
+      "fields": [
+        "event_id",
+        "source_id",
+        "event_time",
+        "market_probe_status"
+      ],
+      "status": "mapped"
+    },
+    {
+      "ui_area": "Settings/data source actions",
+      "api": "/api/settings/* + /api/sources/*",
+      "fields": [
+        "source_id",
+        "enabled",
+        "provider",
+        "auth_state"
+      ],
+      "status": "mapped"
+    }
+  ],
+  "frontend_endpoint_count": 55,
+  "backend_route_count": 124,
+  "frontend_without_backend": [],
+  "source_action_gaps": [],
+  "api_error_contract": {
+    "store_tracks_endpoint_and_status": true,
+    "empty_data_must_not_be_rendered_as_api_error": true,
+    "latest_run_must_use": "/api/p45/dashboard/latest"
+  },
+  "issues": [],
+  "follow_up_cards": [
+    {
+      "candidate": "P12-F02",
+      "title": "Source Action Endpoint Contract Completion",
+      "needed": false
+    }
+  ]
+}

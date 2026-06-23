@@ -250,6 +250,170 @@ def source_detail(source_id: str) -> dict[str, object]:
     return result
 
 
+def _source_action_context(source_id: str) -> dict[str, Any]:
+    detail = p45_dashboard.source_detail(source_id)
+    if detail is None:
+        raise HTTPException(status_code=404, detail="Source not found")
+    source = dict(detail.get("source") or {})
+    metadata = dict(source.get("metadata") or {})
+    runs = [row for row in detail.get("runs", []) if isinstance(row, dict)]
+    raw_observations = [
+        row for row in detail.get("raw_observations", []) if isinstance(row, dict)
+    ]
+    latest_run = runs[0] if runs else {}
+    latest_raw = raw_observations[0] if raw_observations else {}
+    content = json.dumps(
+        {"source": source, "latest_run": latest_run, "latest_raw": latest_raw},
+        ensure_ascii=False,
+    ).lower()
+    manual_required = any(
+        [
+            bool(metadata.get("manual_reauth_required")),
+            bool(metadata.get("requires_human_verified_profile")),
+            "human challenge" in content,
+            "captcha" in content,
+            "reauth" in content,
+        ]
+    )
+    manual_capable = any(
+        [
+            manual_required,
+            source_id.startswith("bitbo"),
+            source_id.startswith("glassnode"),
+            source.get("method") == "playwright",
+            metadata.get("auth_method") == "manual_login_playwright",
+        ]
+    )
+    if manual_required:
+        auth_state = "required"
+    elif "verified" in content or "valid" in content:
+        auth_state = "valid"
+    elif source.get("status") in {"healthy", "ok"}:
+        auth_state = "not_required"
+    else:
+        auth_state = "unknown"
+    retry_allowed = bool(source.get("source_id")) and bool(source.get("status") != "disabled")
+    return {
+        "source": source,
+        "metadata": metadata,
+        "runs": runs,
+        "raw_observations": raw_observations,
+        "latest_run": latest_run,
+        "latest_raw": latest_raw,
+        "auth_state": auth_state,
+        "manual_capable": manual_capable,
+        "manual_required": manual_required,
+        "retry_allowed": retry_allowed,
+    }
+
+
+def _source_action_payload(source_id: str, action: str) -> dict[str, Any]:
+    context = _source_action_context(source_id)
+    source = context["source"]
+    latest_run = context["latest_run"]
+    latest_raw = context["latest_raw"]
+    last_capture = {
+        "status": latest_run.get("status") or latest_raw.get("status") or "missing",
+        "run_id": latest_run.get("run_id") or latest_raw.get("run_id"),
+        "mode": latest_run.get("mode") or latest_raw.get("mode"),
+        "started_at": latest_run.get("started_at"),
+        "completed_at": latest_run.get("completed_at"),
+        "observed_at": latest_raw.get("observed_at"),
+        "latency_ms": latest_run.get("latency_ms"),
+        "error_message": latest_run.get("error_message") or latest_raw.get("error_message"),
+        "payload_redacted": bool(latest_raw.get("payload_redacted", True)),
+    }
+    disabled_reason = None
+    if action == "open_verify_window" and not context["manual_capable"]:
+        disabled_reason = "source_does_not_declare_manual_verification_capability"
+    if action == "retry_collect" and not context["retry_allowed"]:
+        disabled_reason = "source_retry_not_allowed_for_disabled_source"
+    capability = {
+        "source_id": source_id,
+        "auth_state": context["auth_state"],
+        "manual_verification_capable": context["manual_capable"],
+        "manual_reauth_required": context["manual_required"],
+        "retry_allowed": context["retry_allowed"],
+        "disabled_reason": disabled_reason,
+        "dry_run": action in {"open_verify_window", "retry_collect"},
+        "external_side_effect": False,
+    }
+    return {
+        "source_id": source_id,
+        "source": {
+            "source_id": source.get("source_id"),
+            "name": source.get("name"),
+            "method": source.get("method"),
+            "status": source.get("status"),
+            "fallback_source_id": source.get("fallback_source_id"),
+        },
+        "capability": capability,
+        "auth_state": context["auth_state"],
+        "last_capture": last_capture,
+        "retry_allowed": context["retry_allowed"],
+        "disabled_reason": disabled_reason,
+    }
+
+
+@app.get("/api/sources/{source_id}/auth-state")
+def source_auth_state(source_id: str) -> dict[str, object]:
+    return ok_response(
+        _source_action_payload(source_id, "auth_state"),
+        schema_version="p12.source_action.v1",
+    )
+
+
+@app.get("/api/sources/{source_id}/last-capture")
+def source_last_capture(source_id: str) -> dict[str, object]:
+    payload = _source_action_payload(source_id, "last_capture")
+    return ok_response(
+        {
+            "source_id": source_id,
+            "last_capture": payload["last_capture"],
+            "capability": payload["capability"],
+            "status": payload["last_capture"]["status"],
+        },
+        schema_version="p12.source_action.v1",
+    )
+
+
+@app.post("/api/sources/{source_id}/open-verify-window")
+def source_open_verify_window(source_id: str) -> dict[str, object]:
+    payload = _source_action_payload(source_id, "open_verify_window")
+    payload.update(
+        {
+            "status": "disabled" if payload["disabled_reason"] else "dry_run",
+            "action": "open_verify_window",
+            "message": (
+                "Manual verify window launch is not enabled in this API build."
+                if payload["disabled_reason"]
+                else "Manual verification capability is declared; launch remains dry-run."
+            ),
+        }
+    )
+    return ok_response(payload, schema_version="p12.source_action.v1")
+
+
+@app.post("/api/sources/{source_id}/retry-collect")
+def source_retry_collect(source_id: str) -> dict[str, object]:
+    payload = _source_action_payload(source_id, "retry_collect")
+    payload.update(
+        {
+            "status": "disabled" if payload["disabled_reason"] else "dry_run",
+            "action": "retry_collect",
+            "message": (
+                "Retry collect is not allowed for this source."
+                if payload["disabled_reason"]
+                else (
+                    "Retry collect contract is available as dry-run; "
+                    "no external provider request was made."
+                )
+            ),
+        }
+    )
+    return ok_response(payload, schema_version="p12.source_action.v1")
+
+
 @app.get("/api/metrics/{metric_id}/window")
 def metric_window(
     metric_id: str,
