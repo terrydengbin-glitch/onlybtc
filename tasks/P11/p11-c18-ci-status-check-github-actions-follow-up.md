@@ -2,7 +2,48 @@
 
 ## 状态
 
-TODO
+DONE
+
+## Execution Record
+
+### 2026-06-23 / Done
+
+- 初始远端核查发现 P11 release hardening 后的 3 次 push workflow 均为 failure：
+  - `87cb55c` -> failure
+  - `19b8194` -> failure
+  - `3c4d40b` -> failure
+- GitHub Actions run details:
+  - latest failed run: `28020287020`
+  - URL: `https://github.com/terrydengbin-glitch/onlybtc/actions/runs/28020287020`
+  - status: `completed`
+  - conclusion: `failure`
+  - jobs: `0`
+- Root cause:
+  - workflow parse-time failure。
+  - GitHub page annotation reported `.github/workflows/ci.yml` line 15:
+    `Unrecognized named-value: 'runner'`
+  - `ONLYBTC_DATA_DIR: ${{ runner.temp }}\onlybtc-data` was used in job-level `env`, where `runner` context is not available.
+- Fix:
+  - removed `ONLYBTC_DATA_DIR` from backend job-level env.
+  - added `Configure backend CI data dir` step:
+    - creates `$env:RUNNER_TEMP\onlybtc-data`
+    - writes `ONLYBTC_DATA_DIR=...` to `$GITHUB_ENV`
+- Verification after push:
+  - commit: `40fdbce`
+  - run: `28020554319`
+  - URL: `https://github.com/terrydengbin-glitch/onlybtc/actions/runs/28020554319`
+  - workflow conclusion: `success`
+  - jobs:
+    - `Backend contract gate`: success
+    - `Frontend build gate`: success
+    - `Fresh clone smoke`: success
+
+Local verification:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\fresh_clone_smoke.ps1 -SkipInstall
+passed: ruff, 8 pytest, backend audit, frontend build, npm audit
+```
 
 ## Summary
 
