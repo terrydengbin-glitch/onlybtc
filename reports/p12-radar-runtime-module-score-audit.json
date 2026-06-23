@@ -1,14 +1,14 @@
 {
   "schema_version": "p12.c04.radar_runtime_module_score_audit.v1",
   "task_id": "P12-C04",
-  "generated_at": "2026-06-23T12:06:45Z",
+  "generated_at": "2026-06-23T12:17:11Z",
   "overall_status": "PASS",
   "daemon": {
     "status": "ok",
     "health_state": "healthy",
     "runtime_fresh": true,
     "source_fresh": true,
-    "last_snapshot_id": "radar-runtime-20260623120615-c0f25071",
+    "last_snapshot_id": "radar-runtime-20260623121632-2e18f0ae",
     "sqlite_lock_state": "ok"
   },
   "module_count": 14,
@@ -43,7 +43,7 @@
     },
     {
       "module_id": "derivatives_crowding",
-      "score": 0.493,
+      "score": 0.327,
       "direction": "bullish",
       "freshness": "fresh",
       "snapshot_id": null
@@ -71,8 +71,8 @@
     },
     {
       "module_id": "kline_orderflow",
-      "score": 0.081,
-      "direction": "bullish",
+      "score": 0.005,
+      "direction": "conflict",
       "freshness": "fresh",
       "snapshot_id": null
     },
@@ -99,8 +99,8 @@
     },
     {
       "module_id": "trade_structure_flow",
-      "score": 0.11,
-      "direction": "bearish",
+      "score": 0.063,
+      "direction": "conflict",
       "freshness": "fresh",
       "snapshot_id": null
     },
@@ -122,25 +122,25 @@
     "/api/radar-runtime/daemon/status": {
       "ok": true,
       "status_code": 200,
-      "elapsed_ms": 67,
+      "elapsed_ms": 50,
       "url": "http://127.0.0.1:8118/api/radar-runtime/daemon/status"
     },
     "/api/radar-runtime/daemon/health": {
       "ok": true,
       "status_code": 200,
-      "elapsed_ms": 4,
+      "elapsed_ms": 24,
       "url": "http://127.0.0.1:8118/api/radar-runtime/daemon/health"
     },
     "/api/radar-runtime/modules/latest": {
       "ok": true,
       "status_code": 200,
-      "elapsed_ms": 574,
+      "elapsed_ms": 366,
       "url": "http://127.0.0.1:8118/api/radar-runtime/modules/latest"
     },
     "/api/radar-runtime/cockpit/latest": {
       "ok": true,
       "status_code": 200,
-      "elapsed_ms": 364,
+      "elapsed_ms": 419,
       "url": "http://127.0.0.1:8118/api/radar-runtime/cockpit/latest"
     }
   },

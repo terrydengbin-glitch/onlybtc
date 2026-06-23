@@ -1,7 +1,7 @@
 {
   "schema_version": "p12.c07.system_release_acceptance.v1",
   "task_id": "P12-C07",
-  "generated_at": "2026-06-23T12:06:45Z",
+  "generated_at": "2026-06-23T12:17:11Z",
   "overall_status": "PASS",
   "child_status": {
     "P12-C02": "PASS",
@@ -12,161 +12,160 @@
   },
   "git": {
     "status_short": "## main...origin/main",
-    "head": "9470f81",
+    "head": "c506afc",
     "branch": "main",
     "remote": "https://github.com/terrydengbin-glitch/onlybtc.git"
   },
   "github_actions_latest": {
-    "id": 28024843275,
+    "id": 28025025354,
     "status": "completed",
     "conclusion": "success",
-    "html_url": "https://github.com/terrydengbin-glitch/onlybtc/actions/runs/28024843275",
-    "head_sha": "9470f8147c1c35df53f32c89da75b50e0ea41130"
+    "html_url": "https://github.com/terrydengbin-glitch/onlybtc/actions/runs/28025025354",
+    "head_sha": "c506afc59bbd1995726cb57e24fd6146bbb071e6"
   },
   "api_health": {
     "/api/health": {
       "ok": true,
       "status_code": 200,
-      "elapsed_ms": 45,
+      "elapsed_ms": 44,
       "url": "http://127.0.0.1:8118/api/health"
     },
     "/api/db/health": {
       "ok": true,
       "status_code": 200,
-      "elapsed_ms": 320,
+      "elapsed_ms": 316,
       "url": "http://127.0.0.1:8118/api/db/health"
     },
     "/api/p45/dashboard/latest": {
       "ok": true,
       "status_code": 200,
-      "elapsed_ms": 1616,
+      "elapsed_ms": 1303,
       "url": "http://127.0.0.1:8118/api/p45/dashboard/latest"
     },
     "/api/p45/overview/latest": {
       "ok": true,
       "status_code": 200,
-      "elapsed_ms": 1259,
+      "elapsed_ms": 1241,
       "url": "http://127.0.0.1:8118/api/p45/overview/latest"
     },
     "/api/p45/radar-modules/latest": {
       "ok": true,
       "status_code": 200,
-      "elapsed_ms": 1538,
+      "elapsed_ms": 1565,
       "url": "http://127.0.0.1:8118/api/p45/radar-modules/latest"
     },
     "/api/p45/evidence?limit=40": {
       "ok": true,
       "status_code": 200,
-      "elapsed_ms": 741,
+      "elapsed_ms": 830,
       "url": "http://127.0.0.1:8118/api/p45/evidence?limit=40"
     },
     "/api/p45/articles/latest": {
       "ok": true,
       "status_code": 200,
-      "elapsed_ms": 762,
+      "elapsed_ms": 845,
       "url": "http://127.0.0.1:8118/api/p45/articles/latest"
     },
     "/api/p45/llm/latest": {
       "ok": true,
       "status_code": 200,
-      "elapsed_ms": 23,
+      "elapsed_ms": 22,
       "url": "http://127.0.0.1:8118/api/p45/llm/latest"
     },
     "/api/p45/analysts/latest": {
       "ok": true,
       "status_code": 200,
-      "elapsed_ms": 812,
+      "elapsed_ms": 850,
       "url": "http://127.0.0.1:8118/api/p45/analysts/latest"
     },
     "/api/p45/invalidation/latest": {
       "ok": true,
       "status_code": 200,
-      "elapsed_ms": 855,
+      "elapsed_ms": 820,
       "url": "http://127.0.0.1:8118/api/p45/invalidation/latest"
     },
     "/api/data-quality/latest": {
-      "ok": false,
-      "status_code": null,
-      "elapsed_ms": 8048,
-      "url": "http://127.0.0.1:8118/api/data-quality/latest",
-      "error": "timed out"
+      "ok": true,
+      "status_code": 200,
+      "elapsed_ms": 6522,
+      "url": "http://127.0.0.1:8118/api/data-quality/latest"
     },
     "/api/p45/runs/latest": {
       "ok": true,
       "status_code": 200,
-      "elapsed_ms": 2924,
+      "elapsed_ms": 852,
       "url": "http://127.0.0.1:8118/api/p45/runs/latest"
     },
     "/api/p45/audit-reports/latest": {
       "ok": true,
       "status_code": 200,
-      "elapsed_ms": 29,
+      "elapsed_ms": 21,
       "url": "http://127.0.0.1:8118/api/p45/audit-reports/latest"
     },
     "/api/radar-runtime/daemon/status": {
       "ok": true,
       "status_code": 200,
-      "elapsed_ms": 67,
+      "elapsed_ms": 50,
       "url": "http://127.0.0.1:8118/api/radar-runtime/daemon/status"
     },
     "/api/radar-runtime/daemon/health": {
       "ok": true,
       "status_code": 200,
-      "elapsed_ms": 4,
+      "elapsed_ms": 24,
       "url": "http://127.0.0.1:8118/api/radar-runtime/daemon/health"
     },
     "/api/radar-runtime/modules/latest": {
       "ok": true,
       "status_code": 200,
-      "elapsed_ms": 574,
+      "elapsed_ms": 366,
       "url": "http://127.0.0.1:8118/api/radar-runtime/modules/latest"
     },
     "/api/radar-runtime/cockpit/latest": {
       "ok": true,
       "status_code": 200,
-      "elapsed_ms": 364,
+      "elapsed_ms": 419,
       "url": "http://127.0.0.1:8118/api/radar-runtime/cockpit/latest"
     },
     "/api/event-window/latest": {
       "ok": true,
       "status_code": 200,
-      "elapsed_ms": 77,
+      "elapsed_ms": 92,
       "url": "http://127.0.0.1:8118/api/event-window/latest"
     },
     "/api/event-window/active": {
       "ok": true,
       "status_code": 200,
-      "elapsed_ms": 9,
+      "elapsed_ms": 11,
       "url": "http://127.0.0.1:8118/api/event-window/active"
     },
     "/api/event-window/calendar?limit=30": {
       "ok": true,
       "status_code": 200,
-      "elapsed_ms": 29,
+      "elapsed_ms": 13,
       "url": "http://127.0.0.1:8118/api/event-window/calendar?limit=30"
     },
     "/api/event-window/timeline?limit=100": {
       "ok": true,
       "status_code": 200,
-      "elapsed_ms": 73,
+      "elapsed_ms": 86,
       "url": "http://127.0.0.1:8118/api/event-window/timeline?limit=100"
     },
     "/api/event-window/alerts?limit=30": {
       "ok": true,
       "status_code": 200,
-      "elapsed_ms": 33,
+      "elapsed_ms": 28,
       "url": "http://127.0.0.1:8118/api/event-window/alerts?limit=30"
     },
     "/api/event-window/sources/status": {
       "ok": true,
       "status_code": 200,
-      "elapsed_ms": 3594,
+      "elapsed_ms": 3643,
       "url": "http://127.0.0.1:8118/api/event-window/sources/status"
     },
     "/api/event-window/sources/fetches?limit=40": {
       "ok": true,
       "status_code": 200,
-      "elapsed_ms": 23,
+      "elapsed_ms": 28,
       "url": "http://127.0.0.1:8118/api/event-window/sources/fetches?limit=40"
     },
     "/api/event-window/daemon/status": {
@@ -178,61 +177,61 @@
     "/api/event-window/daemon/health": {
       "ok": true,
       "status_code": 200,
-      "elapsed_ms": 25,
+      "elapsed_ms": 29,
       "url": "http://127.0.0.1:8118/api/event-window/daemon/health"
     },
     "/api/event-window/market-probe/latest": {
       "ok": true,
       "status_code": 200,
-      "elapsed_ms": 6,
+      "elapsed_ms": 29,
       "url": "http://127.0.0.1:8118/api/event-window/market-probe/latest"
     },
     "/api/event-window/shock-lane/latest": {
       "ok": true,
       "status_code": 200,
-      "elapsed_ms": 75,
+      "elapsed_ms": 57,
       "url": "http://127.0.0.1:8118/api/event-window/shock-lane/latest"
     },
     "/api/settings": {
       "ok": true,
       "status_code": 200,
-      "elapsed_ms": 31,
+      "elapsed_ms": 29,
       "url": "http://127.0.0.1:8118/api/settings"
     },
     "/api/settings/runtime": {
       "ok": true,
       "status_code": 200,
-      "elapsed_ms": 15,
+      "elapsed_ms": 16,
       "url": "http://127.0.0.1:8118/api/settings/runtime"
     },
     "/api/settings/data-sources": {
       "ok": true,
       "status_code": 200,
-      "elapsed_ms": 19,
+      "elapsed_ms": 23,
       "url": "http://127.0.0.1:8118/api/settings/data-sources"
     },
     "/api/settings/paths": {
       "ok": true,
       "status_code": 200,
-      "elapsed_ms": 25,
+      "elapsed_ms": 24,
       "url": "http://127.0.0.1:8118/api/settings/paths"
     },
     "/api/settings/providers/health": {
       "ok": true,
       "status_code": 200,
-      "elapsed_ms": 14,
+      "elapsed_ms": 2,
       "url": "http://127.0.0.1:8118/api/settings/providers/health"
     },
     "/api/settings/providers/glassnode/entitlement/latest": {
       "ok": true,
       "status_code": 200,
-      "elapsed_ms": 15,
+      "elapsed_ms": 27,
       "url": "http://127.0.0.1:8118/api/settings/providers/glassnode/entitlement/latest"
     },
     "/api/settings/audit?limit=20": {
       "ok": true,
       "status_code": 200,
-      "elapsed_ms": 16,
+      "elapsed_ms": 3,
       "url": "http://127.0.0.1:8118/api/settings/audit?limit=20"
     }
   },

@@ -1,7 +1,7 @@
 # P12-C02 / Business Chain Contract Audit
 
 - status: `PASS`
-- generated_at: `2026-06-23T12:06:45Z`
+- generated_at: `2026-06-23T12:17:11Z`
 - schema_version: `p12.c02.business_chain_contract_audit.v1`
 
 ## Key Evidence
@@ -30,80 +30,79 @@
   "/api/health": {
     "ok": true,
     "status_code": 200,
-    "elapsed_ms": 45,
+    "elapsed_ms": 44,
     "url": "http://127.0.0.1:8118/api/health"
   },
   "/api/db/health": {
     "ok": true,
     "status_code": 200,
-    "elapsed_ms": 320,
+    "elapsed_ms": 316,
     "url": "http://127.0.0.1:8118/api/db/health"
   },
   "/api/p45/dashboard/latest": {
     "ok": true,
     "status_code": 200,
-    "elapsed_ms": 1616,
+    "elapsed_ms": 1303,
     "url": "http://127.0.0.1:8118/api/p45/dashboard/latest"
   },
   "/api/p45/overview/latest": {
     "ok": true,
     "status_code": 200,
-    "elapsed_ms": 1259,
+    "elapsed_ms": 1241,
     "url": "http://127.0.0.1:8118/api/p45/overview/latest"
   },
   "/api/p45/radar-modules/latest": {
     "ok": true,
     "status_code": 200,
-    "elapsed_ms": 1538,
+    "elapsed_ms": 1565,
     "url": "http://127.0.0.1:8118/api/p45/radar-modules/latest"
   },
   "/api/p45/evidence?limit=40": {
     "ok": true,
     "status_code": 200,
-    "elapsed_ms": 741,
+    "elapsed_ms": 830,
     "url": "http://127.0.0.1:8118/api/p45/evidence?limit=40"
   },
   "/api/p45/articles/latest": {
     "ok": true,
     "status_code": 200,
-    "elapsed_ms": 762,
+    "elapsed_ms": 845,
     "url": "http://127.0.0.1:8118/api/p45/articles/latest"
   },
   "/api/p45/llm/latest": {
     "ok": true,
     "status_code": 200,
-    "elapsed_ms": 23,
+    "elapsed_ms": 22,
     "url": "http://127.0.0.1:8118/api/p45/llm/latest"
   },
   "/api/p45/analysts/latest": {
     "ok": true,
     "status_code": 200,
-    "elapsed_ms": 812,
+    "elapsed_ms": 850,
     "url": "http://127.0.0.1:8118/api/p45/analysts/latest"
   },
   "/api/p45/invalidation/latest": {
     "ok": true,
     "status_code": 200,
-    "elapsed_ms": 855,
+    "elapsed_ms": 820,
     "url": "http://127.0.0.1:8118/api/p45/invalidation/latest"
   },
   "/api/data-quality/latest": {
-    "ok": false,
-    "status_code": null,
-    "elapsed_ms": 8048,
-    "url": "http://127.0.0.1:8118/api/data-quality/latest",
-    "error": "timed out"
+    "ok": true,
+    "status_code": 200,
+    "elapsed_ms": 6522,
+    "url": "http://127.0.0.1:8118/api/data-quality/latest"
   },
   "/api/p45/runs/latest": {
     "ok": true,
     "status_code": 200,
-    "elapsed_ms": 2924,
+    "elapsed_ms": 852,
     "url": "http://127.0.0.1:8118/api/p45/runs/latest"
   },
   "/api/p45/audit-reports/latest": {
     "ok": true,
     "status_code": 200,
-    "elapsed_ms": 29,
+    "elapsed_ms": 21,
     "url": "http://127.0.0.1:8118/api/p45/audit-reports/latest"
   }
 }

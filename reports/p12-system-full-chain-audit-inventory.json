@@ -1,0 +1,143 @@
+{
+  "schema_version": "p12.c01.system_full_chain_audit_inventory.v1",
+  "task_id": "P12-C01",
+  "generated_at": "2026-06-23T12:17:11Z",
+  "overall_status": "PASS",
+  "scope": {
+    "business_chain": "source collect -> source health/freshness -> radar modules -> P3/P4.5 decision -> evidence/report -> API -> Dashboard UI",
+    "covered_areas": [
+      "business_chain",
+      "dashboard_ui_api",
+      "radar_runtime",
+      "event_window_watchtower",
+      "data_source_settings_provider_governance",
+      "sqlite_api_report_lineage_release_acceptance",
+      "github_ci"
+    ],
+    "evidence_policy": "distinguish frozen final lineage, live runtime freshness, static reports, and mutable latest artifacts"
+  },
+  "execution_order": [
+    "P12-C02",
+    "P12-C03",
+    "P12-C04",
+    "P12-C05",
+    "P12-C06",
+    "P12-C07",
+    "P12-C08",
+    "P12-C09",
+    "P12-C10"
+  ],
+  "task_matrix": [
+    {
+      "task_id": "P12-C02",
+      "status": "PASS",
+      "title": "Business Chain Contract Audit",
+      "outputs": [
+        "reports/p12-business-chain-contract-audit.json",
+        "reports/p12-business-chain-contract-audit.md"
+      ],
+      "key_evidence": "P4.5 lineage traceable; frozen final vs live runtime UI separation completed by P12-C08"
+    },
+    {
+      "task_id": "P12-C03",
+      "status": "PASS",
+      "title": "Dashboard / P45 UI-API Contract Audit",
+      "outputs": [
+        "reports/p12-dashboard-ui-api-contract-audit.json",
+        "reports/p12-dashboard-ui-api-contract-audit.md"
+      ],
+      "key_evidence": "55 frontend endpoints, 124 backend routes, source action gaps empty"
+    },
+    {
+      "task_id": "P12-C04",
+      "status": "PASS",
+      "title": "Radar Runtime / Module Score Full-chain Audit",
+      "outputs": [
+        "reports/p12-radar-runtime-module-score-audit.json",
+        "reports/p12-radar-runtime-module-score-audit.md",
+        "reports/p12-radar-runtime-module-score-audit.html"
+      ],
+      "key_evidence": "14 radar modules, daemon healthy, runtime/source freshness true, sqlite lock ok"
+    },
+    {
+      "task_id": "P12-C05",
+      "status": "PASS",
+      "title": "Event Window / Event Watchtower Full-chain Audit",
+      "outputs": [
+        "reports/p12-event-window-watchtower-audit.json",
+        "reports/p12-event-window-watchtower-audit.md",
+        "reports/p12-event-window-watchtower-audit.html"
+      ],
+      "key_evidence": "Event daemon healthy; calendar 30, timeline 100, alerts 30, sources 43, fetches 40"
+    },
+    {
+      "task_id": "P12-C06",
+      "status": "PASS",
+      "title": "Data Source / Settings / Provider Governance Audit",
+      "outputs": [
+        "reports/p12-data-source-settings-provider-governance-audit.json",
+        "reports/p12-data-source-settings-provider-governance-audit.md"
+      ],
+      "key_evidence": "78 sources, 72 enabled, 9 fallbacks, 23 freshness policies, secret hygiene pass"
+    },
+    {
+      "task_id": "P12-C07",
+      "status": "PASS",
+      "title": "SQLite / API / Report Lineage Release Acceptance Audit",
+      "outputs": [
+        "reports/p12-system-release-acceptance-report.json",
+        "reports/p12-system-release-acceptance-report.md",
+        "reports/p12-system-release-acceptance-report.html"
+      ],
+      "key_evidence": "P12-C02 through P12-C06 pass; no release acceptance issues"
+    },
+    {
+      "task_id": "P12-C08",
+      "status": "DONE",
+      "title": "Frozen Final Lineage vs Live Runtime Freshness UI Label Hardening",
+      "outputs": [
+        "frontend/src/App.vue",
+        "scripts/run_p12_system_audit.py"
+      ],
+      "key_evidence": "freshness_ui_separated=true"
+    },
+    {
+      "task_id": "P12-C09",
+      "status": "DONE",
+      "title": "Source Action Endpoint Contract Completion",
+      "outputs": [
+        "backend/src/onlybtc/api/app.py",
+        "backend/tests/test_api_contracts.py"
+      ],
+      "key_evidence": "auth-state, last-capture, open-verify-window, retry-collect contracts implemented"
+    },
+    {
+      "task_id": "P12-C10",
+      "status": "DONE",
+      "title": "P12 Audit Artifact Release Commit and CI Rerun",
+      "outputs": [
+        "reports/p12-system-release-acceptance-report.json",
+        "tasks/P12/p12-c10-p12-audit-artifact-release-commit-ci-rerun.md"
+      ],
+      "key_evidence": "GitHub Actions run 28025025354 completed with success"
+    }
+  ],
+  "release_evidence": {
+    "latest_commit": "c506afc",
+    "github_actions_run_id": 28025025354,
+    "github_actions_conclusion": "success",
+    "github_actions_url": "https://github.com/terrydengbin-glitch/onlybtc/actions/runs/28025025354",
+    "release_acceptance_report": "reports/p12-system-release-acceptance-report.json"
+  },
+  "inventory_outputs": [
+    "reports/p12-system-full-chain-audit-inventory.json",
+    "reports/p12-system-full-chain-audit-inventory.md"
+  ],
+  "open_items": [
+    {
+      "task_id": "none",
+      "status": "none",
+      "note": "No P12 blocking or warning issue remains after C10."
+    }
+  ]
+}

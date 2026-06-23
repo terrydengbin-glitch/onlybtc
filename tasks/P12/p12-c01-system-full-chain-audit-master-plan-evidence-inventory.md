@@ -2,7 +2,7 @@
 
 ## 状态
 
-TODO
+DONE
 
 ## Summary
 
@@ -49,3 +49,15 @@ rg --files reports backend/src frontend/src scripts
 ## Risks / Notes
 
 - 审计证据必须标注生成时间和 run scope，避免 stale latest 文件冒充当前证据。
+
+## Execution Record
+
+- Completed at: 2026-06-23
+- Report JSON: `reports/p12-system-full-chain-audit-inventory.json`
+- Report MD: `reports/p12-system-full-chain-audit-inventory.md`
+- Result: `PASS`
+- Evidence: P12-C02 through P12-C07 are `PASS`; P12-C08 through P12-C10 are `DONE`; GitHub Actions run `28025025354` succeeded.
+- Release commit lineage: `9470f81` added P12 audit/contracts; `c506afc` recorded P12 release acceptance.
+- Verification:
+  - `.\.venv\Scripts\python.exe scripts\run_p12_system_audit.py`
+  - GitHub Actions run `28025025354` completed with `success`.

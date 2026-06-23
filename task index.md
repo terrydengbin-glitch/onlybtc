@@ -614,7 +614,7 @@
 
 | 状态 | 任务卡 | 标题 | 链接 |
 |---|---|---|---|
-| TODO | P12-C01 | System Full-chain Audit Master Plan 与 Evidence Inventory | [P12-C01](tasks/P12/p12-c01-system-full-chain-audit-master-plan-evidence-inventory.md) |
+| DONE | P12-C01 | System Full-chain Audit Master Plan 与 Evidence Inventory | [P12-C01](tasks/P12/p12-c01-system-full-chain-audit-master-plan-evidence-inventory.md) |
 | DONE | P12-C02 | Business Chain Contract Audit | [P12-C02](tasks/P12/p12-c02-business-chain-contract-audit.md) |
 | DONE | P12-C03 | Dashboard / P45 UI-API Contract Audit | [P12-C03](tasks/P12/p12-c03-dashboard-p45-ui-api-contract-audit.md) |
 | DONE | P12-C04 | Radar Runtime / Module Score Full-chain Audit | [P12-C04](tasks/P12/p12-c04-radar-runtime-module-score-full-chain-audit.md) |

@@ -1,7 +1,7 @@
 # P12-C05 / Event Window / Event Watchtower Full-chain Audit
 
 - status: `PASS`
-- generated_at: `2026-06-23T12:06:45Z`
+- generated_at: `2026-06-23T12:17:11Z`
 - schema_version: `p12.c05.event_window_watchtower_audit.v1`
 
 ## Key Evidence
@@ -13,9 +13,9 @@
   "status": "ok",
   "health_state": "healthy",
   "runtime_code_version": "event_watchtower.v3.2.market-shock",
-  "last_snapshot_id": "evt-20260623120645-c39cbbf0",
+  "last_snapshot_id": "evt-20260623121712-a4cc7e9f",
   "last_tick_age_sec": 0,
-  "market_probe_age_sec": 23
+  "market_probe_age_sec": 19
 }
 ```
 
@@ -38,43 +38,43 @@
   "/api/event-window/latest": {
     "ok": true,
     "status_code": 200,
-    "elapsed_ms": 77,
+    "elapsed_ms": 92,
     "url": "http://127.0.0.1:8118/api/event-window/latest"
   },
   "/api/event-window/active": {
     "ok": true,
     "status_code": 200,
-    "elapsed_ms": 9,
+    "elapsed_ms": 11,
     "url": "http://127.0.0.1:8118/api/event-window/active"
   },
   "/api/event-window/calendar?limit=30": {
     "ok": true,
     "status_code": 200,
-    "elapsed_ms": 29,
+    "elapsed_ms": 13,
     "url": "http://127.0.0.1:8118/api/event-window/calendar?limit=30"
   },
   "/api/event-window/timeline?limit=100": {
     "ok": true,
     "status_code": 200,
-    "elapsed_ms": 73,
+    "elapsed_ms": 86,
     "url": "http://127.0.0.1:8118/api/event-window/timeline?limit=100"
   },
   "/api/event-window/alerts?limit=30": {
     "ok": true,
     "status_code": 200,
-    "elapsed_ms": 33,
+    "elapsed_ms": 28,
     "url": "http://127.0.0.1:8118/api/event-window/alerts?limit=30"
   },
   "/api/event-window/sources/status": {
     "ok": true,
     "status_code": 200,
-    "elapsed_ms": 3594,
+    "elapsed_ms": 3643,
     "url": "http://127.0.0.1:8118/api/event-window/sources/status"
   },
   "/api/event-window/sources/fetches?limit=40": {
     "ok": true,
     "status_code": 200,
-    "elapsed_ms": 23,
+    "elapsed_ms": 28,
     "url": "http://127.0.0.1:8118/api/event-window/sources/fetches?limit=40"
   },
   "/api/event-window/daemon/status": {
@@ -86,19 +86,19 @@
   "/api/event-window/daemon/health": {
     "ok": true,
     "status_code": 200,
-    "elapsed_ms": 25,
+    "elapsed_ms": 29,
     "url": "http://127.0.0.1:8118/api/event-window/daemon/health"
   },
   "/api/event-window/market-probe/latest": {
     "ok": true,
     "status_code": 200,
-    "elapsed_ms": 6,
+    "elapsed_ms": 29,
     "url": "http://127.0.0.1:8118/api/event-window/market-probe/latest"
   },
   "/api/event-window/shock-lane/latest": {
     "ok": true,
     "status_code": 200,
-    "elapsed_ms": 75,
+    "elapsed_ms": 57,
     "url": "http://127.0.0.1:8118/api/event-window/shock-lane/latest"
   }
 }

@@ -1,7 +1,7 @@
 # P12-C07 / SQLite / API / Report Lineage Release Acceptance Audit
 
 - status: `PASS`
-- generated_at: `2026-06-23T12:06:45Z`
+- generated_at: `2026-06-23T12:17:11Z`
 - schema_version: `p12.c07.system_release_acceptance.v1`
 
 ## Key Evidence
@@ -23,7 +23,7 @@
 ```json
 {
   "status_short": "## main...origin/main",
-  "head": "9470f81",
+  "head": "c506afc",
   "branch": "main",
   "remote": "https://github.com/terrydengbin-glitch/onlybtc.git"
 }
@@ -33,11 +33,11 @@
 
 ```json
 {
-  "id": 28024843275,
+  "id": 28025025354,
   "status": "completed",
   "conclusion": "success",
-  "html_url": "https://github.com/terrydengbin-glitch/onlybtc/actions/runs/28024843275",
-  "head_sha": "9470f8147c1c35df53f32c89da75b50e0ea41130"
+  "html_url": "https://github.com/terrydengbin-glitch/onlybtc/actions/runs/28025025354",
+  "head_sha": "c506afc59bbd1995726cb57e24fd6146bbb071e6"
 }
 ```
 
