@@ -608,3 +608,4 @@
 | DONE | P11-C15 | Release Commit Hygiene 与 GitHub Push | [P11-C15](tasks/P11/p11-c15-release-commit-hygiene-github-push.md) |
 | DONE | P11-C16 | Runtime Report Working Tree Policy | [P11-C16](tasks/P11/p11-c16-runtime-report-working-tree-policy.md) |
 | DONE | P11-C17 | pip-audit AV False Positive Hardening | [P11-C17](tasks/P11/p11-c17-pip-audit-av-false-positive-hardening.md) |
+| TODO | P11-C18 | CI Status Check 与 GitHub Actions Follow-up | [P11-C18](tasks/P11/p11-c18-ci-status-check-github-actions-follow-up.md) |

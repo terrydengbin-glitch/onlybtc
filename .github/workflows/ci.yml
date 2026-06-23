@@ -12,7 +12,6 @@ jobs:
     name: Backend contract gate
     runs-on: windows-latest
     env:
-      ONLYBTC_DATA_DIR: ${{ runner.temp }}\onlybtc-data
       PYTHONUTF8: "1"
       PYTHONDONTWRITEBYTECODE: "1"
     steps:
@@ -24,6 +23,13 @@ jobs:
         with:
           python-version: "3.12"
           cache: pip
+
+      - name: Configure backend CI data dir
+        shell: pwsh
+        run: |
+          $DataDir = Join-Path $env:RUNNER_TEMP "onlybtc-data"
+          New-Item -ItemType Directory -Force -Path $DataDir | Out-Null
+          "ONLYBTC_DATA_DIR=$DataDir" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
 
       - name: Install backend
         shell: pwsh
