@@ -601,6 +601,8 @@
 | DONE | P11-C08 | yield_curve_2s10s_change_bps 口径修复 | [P11-C08](tasks/P11/p11-c08-yield-curve-2s10s-change-bps口径修复.md) |
 | DONE | P11-C09 | Crypto Breadth neutral state with bullish score 口径收口 | [P11-C09](tasks/P11/p11-c09-crypto-breadth-neutral-state-with-bullish-score口径收口.md) |
 | DONE | P11-C10 | Macro Radar BTC relative confirmation missing 分类口径修复 | [P11-C10](tasks/P11/p11-c10-macro-radar-btc-relative-confirmation-missing分类口径修复.md) |
-
-
-
+| DONE | P11-C11 | GitHub CI、Fresh Clone Smoke 与 Release Hygiene | [P11-C11](tasks/P11/p11-c11-github-ci-fresh-clone-smoke-release-hygiene.md) |
+| DONE | P11-C12 | Frontend Dependency Security Audit 与 Lockfile Hygiene | [P11-C12](tasks/P11/p11-c12-frontend-dependency-security-audit-lockfile-hygiene.md) |
+| DONE | P11-C13 | Backend Dependency 与 Python Toolchain Security Baseline | [P11-C13](tasks/P11/p11-c13-backend-dependency-python-toolchain-security-baseline.md) |
+| DONE | P11-C14 | FastAPI Lifespan Migration 与 Startup Contract Cleanup | [P11-C14](tasks/P11/p11-c14-fastapi-lifespan-migration-startup-contract-cleanup.md) |
+| DONE | P11-C15 | Release Commit Hygiene 与 GitHub Push | [P11-C15](tasks/P11/p11-c15-release-commit-hygiene-github-push.md) |

@@ -3,7 +3,8 @@ from __future__ import annotations
 import asyncio
 import json
 import logging
-from collections.abc import Callable
+from collections.abc import AsyncIterator, Callable
+from contextlib import asynccontextmanager
 from datetime import UTC, datetime
 from threading import Thread
 from typing import Any
@@ -89,7 +90,14 @@ from onlybtc.sources.service import collect_sources, historical_window, source_h
 configure_logging()
 logger = logging.getLogger(__name__)
 
-app = FastAPI(title="onlyBTC API", version="0.1.0")
+
+@asynccontextmanager
+async def app_lifespan(_app: FastAPI) -> AsyncIterator[None]:
+    _start_daemon_bootstrap_thread()
+    yield
+
+
+app = FastAPI(title="onlyBTC API", version="0.1.0", lifespan=app_lifespan)
 app.add_exception_handler(StarletteHTTPException, http_exception_handler)
 app.add_exception_handler(RequestValidationError, validation_exception_handler)
 app.add_exception_handler(Exception, unhandled_exception_handler)
@@ -105,11 +113,6 @@ app.mount("/reports", StaticFiles(directory=reports_dir, html=False), name="repo
 
 class SettingsEnvUpdateRequest(BaseModel):
     updates: dict[str, str] = Field(default_factory=dict)
-
-
-@app.on_event("startup")
-def start_event_watchtower_daemon() -> None:
-    _start_daemon_bootstrap_thread()
 
 
 def _start_daemon_bootstrap_thread() -> Thread:

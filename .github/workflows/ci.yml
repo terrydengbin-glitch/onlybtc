@@ -1,0 +1,105 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  backend:
+    name: Backend contract gate
+    runs-on: windows-latest
+    env:
+      ONLYBTC_DATA_DIR: ${{ runner.temp }}\onlybtc-data
+      PYTHONUTF8: "1"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install backend
+        shell: pwsh
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".\backend[dev]"
+
+      - name: Ruff contract gate
+        shell: pwsh
+        run: |
+          python -m ruff check `
+            backend\src\onlybtc\core\settings_contract.py `
+            backend\src\onlybtc\core\glassnode_entitlement.py `
+            backend\tests\test_settings_contract.py `
+            backend\tests\test_glassnode_entitlement.py `
+            scripts\generate_glassnode_entitlement_report.py
+
+      - name: Pytest contract gate
+        shell: pwsh
+        run: |
+          python -m pytest `
+            backend\tests\test_settings_contract.py `
+            backend\tests\test_glassnode_entitlement.py `
+            -q
+
+      - name: Audit backend dependencies
+        shell: pwsh
+        run: python -m pip_audit --skip-editable
+
+  frontend:
+    name: Frontend build gate
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install frontend
+        working-directory: frontend
+        run: npm ci
+
+      - name: Build frontend
+        working-directory: frontend
+        run: npm run build
+
+      - name: Audit frontend dependencies
+        working-directory: frontend
+        run: npm audit --audit-level=high
+
+  fresh-clone-smoke:
+    name: Fresh clone smoke
+    runs-on: windows-latest
+    env:
+      PYTHONUTF8: "1"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Run smoke script
+        shell: pwsh
+        run: .\scripts\fresh_clone_smoke.ps1

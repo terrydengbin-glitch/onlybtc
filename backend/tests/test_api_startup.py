@@ -1,11 +1,12 @@
 from __future__ import annotations
 
+import asyncio
 from typing import Any
 
 import onlybtc.api.app as app_module
 
 
-def test_startup_hook_schedules_daemon_bootstrap_thread(monkeypatch) -> None:
+def test_lifespan_schedules_daemon_bootstrap_thread(monkeypatch) -> None:
     starts: list[tuple[str, bool]] = []
 
     class FakeThread:
@@ -20,13 +21,17 @@ def test_startup_hook_schedules_daemon_bootstrap_thread(monkeypatch) -> None:
 
     monkeypatch.setattr(app_module, "Thread", FakeThread)
 
-    thread = app_module._start_daemon_bootstrap_thread()
+    async def run_lifespan() -> None:
+        async with app_module.app_lifespan(app_module.app):
+            starts.append(("inside", True))
+
+    asyncio.run(run_lifespan())
 
     assert starts == [
         ("onlybtc-api-daemon-bootstrap", True),
         ("started", True),
+        ("inside", True),
     ]
-    assert thread.name == "onlybtc-api-daemon-bootstrap"
 
 
 def test_daemon_bootstrap_continues_after_starter_error() -> None:
