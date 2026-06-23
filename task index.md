@@ -607,3 +607,4 @@
 | DONE | P11-C14 | FastAPI Lifespan Migration 与 Startup Contract Cleanup | [P11-C14](tasks/P11/p11-c14-fastapi-lifespan-migration-startup-contract-cleanup.md) |
 | DONE | P11-C15 | Release Commit Hygiene 与 GitHub Push | [P11-C15](tasks/P11/p11-c15-release-commit-hygiene-github-push.md) |
 | DONE | P11-C16 | Runtime Report Working Tree Policy | [P11-C16](tasks/P11/p11-c16-runtime-report-working-tree-policy.md) |
+| DONE | P11-C17 | pip-audit AV False Positive Hardening | [P11-C17](tasks/P11/p11-c17-pip-audit-av-false-positive-hardening.md) |

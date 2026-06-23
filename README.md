@@ -55,7 +55,7 @@ Focused backend verification:
 ```powershell
 .\.venv\Scripts\python -m pytest backend\tests\test_settings_contract.py backend\tests\test_glassnode_entitlement.py -q
 .\.venv\Scripts\python -m ruff check backend\src\onlybtc\core\settings_contract.py backend\src\onlybtc\core\glassnode_entitlement.py backend\tests\test_settings_contract.py backend\tests\test_glassnode_entitlement.py scripts\generate_glassnode_entitlement_report.py
-.\.venv\Scripts\python -m pip_audit --skip-editable
+.\.venv\Scripts\python -B -m pip_audit --skip-editable
 ```
 
 ## Frontend

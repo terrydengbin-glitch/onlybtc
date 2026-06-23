@@ -11,6 +11,7 @@ $SmokeDataDir = Join-Path ([System.IO.Path]::GetTempPath()) ("onlybtc-smoke-" + 
 New-Item -ItemType Directory -Force -Path $SmokeDataDir | Out-Null
 $env:ONLYBTC_DATA_DIR = $SmokeDataDir
 $env:PYTHONUTF8 = "1"
+$env:PYTHONDONTWRITEBYTECODE = "1"
 
 function Invoke-External {
     param(
@@ -25,6 +26,15 @@ function Invoke-External {
     if ($LASTEXITCODE -ne 0) {
         throw "$Label failed with exit code $LASTEXITCODE"
     }
+}
+
+function Remove-PipAuditAvHotspotCache {
+    $CycloneDxPycache = Join-Path $RepoRoot ".venv\Lib\site-packages\cyclonedx\model\__pycache__"
+    if (-not (Test-Path -LiteralPath $CycloneDxPycache)) {
+        return
+    }
+    Get-ChildItem -LiteralPath $CycloneDxPycache -Filter "vulnerability*.pyc" -File |
+        Remove-Item -Force
 }
 
 if ($SkipInstall) {
@@ -42,6 +52,8 @@ if ($SkipInstall) {
     Invoke-External "Install backend" { & $Python -m pip install -e ".\backend[dev]" }
 }
 
+Remove-PipAuditAvHotspotCache
+
 Invoke-External "Ruff contract gate" {
     & $Python -m ruff check `
         backend\src\onlybtc\core\settings_contract.py `
@@ -58,7 +70,7 @@ Invoke-External "Pytest contract gate" {
         -q
 }
 
-Invoke-External "Audit backend dependencies" { & $Python -m pip_audit --skip-editable }
+Invoke-External "Audit backend dependencies" { & $Python -B -m pip_audit --skip-editable }
 
 Push-Location frontend
 try {
