@@ -606,3 +606,4 @@
 | DONE | P11-C13 | Backend Dependency 与 Python Toolchain Security Baseline | [P11-C13](tasks/P11/p11-c13-backend-dependency-python-toolchain-security-baseline.md) |
 | DONE | P11-C14 | FastAPI Lifespan Migration 与 Startup Contract Cleanup | [P11-C14](tasks/P11/p11-c14-fastapi-lifespan-migration-startup-contract-cleanup.md) |
 | DONE | P11-C15 | Release Commit Hygiene 与 GitHub Push | [P11-C15](tasks/P11/p11-c15-release-commit-hygiene-github-push.md) |
+| DONE | P11-C16 | Runtime Report Working Tree Policy | [P11-C16](tasks/P11/p11-c16-runtime-report-working-tree-policy.md) |

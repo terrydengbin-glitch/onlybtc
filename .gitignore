@@ -31,6 +31,8 @@ NEW_SESSION_HANDOFF*.md
 task index.before-*.md
 task index.broken-*.md
 task index.*.preview.md
+reports/radar-runtime-audit-report.html
+reports/radar-runtime-audit-report.md
 !cache/.gitkeep
 !exports/.gitkeep
 !screenshots/.gitkeep
