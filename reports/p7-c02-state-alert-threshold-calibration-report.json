@@ -1,0 +1,253 @@
+{
+  "schema_version": "p7.c02.state_alert_threshold_calibration.v1",
+  "generated_at": "2026-06-22T23:39:44.178939+00:00",
+  "applied_to_production": false,
+  "production_sources": {
+    "p4_state_machine": "onlybtc.p4.state_machine",
+    "p4_alerts": "onlybtc.p4.final_controller",
+    "direct_trend": "onlybtc.direct_trend.state_machine.DEFAULT_THRESHOLDS"
+  },
+  "input_evaluation": {
+    "has_valid_evaluation": true,
+    "overall_status": "PASS",
+    "sample_count": 70,
+    "split_policy": {
+      "method": "walk_forward_with_purged_embargo",
+      "random_k_fold": "forbidden",
+      "embargo_hours": 24,
+      "fold_count": 4
+    },
+    "metrics": {
+      "rank_ic": {
+        "status": "PASS",
+        "value": -0.305957,
+        "sample_count": 70,
+        "coverage_status": null,
+        "reason": null
+      },
+      "auc_trend_accepted": {
+        "status": "PASS",
+        "value": 0.724044,
+        "sample_count": 70,
+        "coverage_status": null,
+        "reason": null
+      },
+      "f1_trend_accepted": {
+        "status": "PASS",
+        "value": 0.190476,
+        "sample_count": 70,
+        "coverage_status": null,
+        "reason": null
+      },
+      "precision_top_decile": {
+        "status": "PASS",
+        "value": 0.0,
+        "sample_count": 70,
+        "coverage_status": null,
+        "reason": null
+      },
+      "whipsaw_rate": {
+        "status": "PASS",
+        "value": 0.416667,
+        "sample_count": 70,
+        "coverage_status": null,
+        "reason": null
+      },
+      "false_breakout_reduction": {
+        "status": "PASS",
+        "value": -0.232759,
+        "sample_count": 70,
+        "coverage_status": null,
+        "reason": null
+      },
+      "lead_time_hours": {
+        "status": "PASS",
+        "value": null,
+        "sample_count": 0,
+        "coverage_status": "not_applicable",
+        "reason": "no_4h_lead_samples_in_current_history"
+      },
+      "confidence_calibration": {
+        "status": "PASS",
+        "value": 0.651429,
+        "sample_count": 70,
+        "coverage_status": null,
+        "reason": null
+      },
+      "event_window_robustness": {
+        "status": "PASS",
+        "value": null,
+        "sample_count": 0,
+        "coverage_status": "not_applicable",
+        "reason": "no_event_window_samples_in_current_history"
+      }
+    },
+    "calibration_buckets": [
+      {
+        "bucket": "0-50",
+        "count": 0,
+        "success_rate": null,
+        "expected": null
+      },
+      {
+        "bucket": "50-70",
+        "count": 0,
+        "success_rate": null,
+        "expected": null
+      },
+      {
+        "bucket": "70-85",
+        "count": 70,
+        "success_rate": 0.12857142857142856,
+        "expected": 0.78
+      },
+      {
+        "bucket": "85-100",
+        "count": 0,
+        "success_rate": null,
+        "expected": null
+      }
+    ],
+    "notes": []
+  },
+  "base_thresholds": {
+    "p4_state_machine": {
+      "low_baseline_confidence": 0.5,
+      "critical_publish_confidence": 0.62,
+      "trend_candidate_confidence": 0.5,
+      "warning_aggregate_abs_score": 0.35
+    },
+    "p4_alerts": {
+      "watch_confidence": 0.45,
+      "data_quality_confidence_cap": 0.45,
+      "run_mode_integrity_alert_level": 1.0,
+      "blocked_alert_level": 0.25
+    },
+    "direct_trend": {
+      "strong_direction": 60.0,
+      "trend_direction": 50.0,
+      "acceptance": 60.0,
+      "trust": 65.0,
+      "weak_acceptance": 45.0,
+      "event_cap": 65.0,
+      "volatility_shock": 70.0,
+      "agreement_categories": 3.0
+    }
+  },
+  "recommended_thresholds": {
+    "p4_state_machine": {
+      "low_baseline_confidence": 0.5,
+      "critical_publish_confidence": 0.67,
+      "trend_candidate_confidence": 0.5,
+      "warning_aggregate_abs_score": 0.35
+    },
+    "p4_alerts": {
+      "watch_confidence": 0.45,
+      "data_quality_confidence_cap": 0.45,
+      "run_mode_integrity_alert_level": 1.0,
+      "blocked_alert_level": 0.25
+    },
+    "direct_trend": {
+      "strong_direction": 65.0,
+      "trend_direction": 50.0,
+      "acceptance": 70.0,
+      "trust": 75.0,
+      "weak_acceptance": 45.0,
+      "event_cap": 65.0,
+      "volatility_shock": 70.0,
+      "agreement_categories": 3.0
+    },
+    "direct_trend_confidence_caps": {
+      "70-85": 65.0
+    }
+  },
+  "adjustments": [
+    {
+      "scope": "direct_trend",
+      "key": "acceptance",
+      "base": 60.0,
+      "recommended": 70.0,
+      "delta": 10.0,
+      "reason": "confidence_bucket_70-85_success_rate_0.1286_below_expected_0.7800"
+    },
+    {
+      "scope": "direct_trend",
+      "key": "trust",
+      "base": 65.0,
+      "recommended": 75.0,
+      "delta": 10.0,
+      "reason": "confidence_bucket_70-85_success_rate_0.1286_below_expected_0.7800"
+    },
+    {
+      "scope": "direct_trend",
+      "key": "strong_direction",
+      "base": 60.0,
+      "recommended": 65.0,
+      "delta": 5.0,
+      "reason": "confidence_bucket_70-85_success_rate_0.1286_below_expected_0.7800"
+    },
+    {
+      "scope": "p4_state_machine",
+      "key": "critical_publish_confidence",
+      "base": 0.62,
+      "recommended": 0.67,
+      "delta": 0.05,
+      "reason": "confidence_bucket_70-85_success_rate_0.1286_below_expected_0.7800"
+    },
+    {
+      "scope": "direct_trend_confidence_caps",
+      "key": "70-85",
+      "base": null,
+      "recommended": 65.0,
+      "delta": null,
+      "reason": "confidence_bucket_70-85_success_rate_0.1286_below_expected_0.7800"
+    }
+  ],
+  "evidence_gaps": [
+    {
+      "scope": "lead_time_hours",
+      "reason": "no_4h_lead_samples_in_current_history"
+    },
+    {
+      "scope": "event_window_robustness",
+      "reason": "no_event_window_samples_in_current_history"
+    }
+  ],
+  "rollback": {
+    "type": "restore_base_thresholds",
+    "thresholds": {
+      "p4_state_machine": {
+        "low_baseline_confidence": 0.5,
+        "critical_publish_confidence": 0.62,
+        "trend_candidate_confidence": 0.5,
+        "warning_aggregate_abs_score": 0.35
+      },
+      "p4_alerts": {
+        "watch_confidence": 0.45,
+        "data_quality_confidence_cap": 0.45,
+        "run_mode_integrity_alert_level": 1.0,
+        "blocked_alert_level": 0.25
+      },
+      "direct_trend": {
+        "strong_direction": 60.0,
+        "trend_direction": 50.0,
+        "acceptance": 60.0,
+        "trust": 65.0,
+        "weak_acceptance": 45.0,
+        "event_cap": 65.0,
+        "volatility_shock": 70.0,
+        "agreement_categories": 3.0
+      }
+    }
+  },
+  "guardrails": [
+    "recommendation_only",
+    "does_not_modify_state_machine",
+    "does_not_modify_alert_controller",
+    "does_not_modify_direct_trend_thresholds",
+    "does_not_emit_trading_advice",
+    "does_not_relax_warning_sensitivity_without_p7_c08",
+    "requires_p7_c08_before_production_apply"
+  ],
+  "input_path": "E:\\onlyBTC\\reports\\btc-4h-1d-direct-trend-evaluation-report.json"
+}

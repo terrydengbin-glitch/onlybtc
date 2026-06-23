@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <title>Event Window Shock Fast Lane Audit</title>
+  <style>
+    :root { color-scheme: dark; --bg:#07131d; --panel:#0b2231; --line:#1c4255; --text:#d7f3ff; --muted:#8eb8c8; --ok:#22d3b6; --bad:#ff6b6b; --warn:#facc15; }
+    body { margin:0; padding:24px; background:radial-gradient(circle at 40% 0%, #0d2837, var(--bg) 48%); color:var(--text); font-family:Inter,Segoe UI,Arial,sans-serif; }
+    h1,h2,h3 { margin:0; }
+    .hero,.card { border:1px solid var(--line); border-radius:10px; background:rgba(9,28,41,.86); padding:16px; }
+    .hero { display:grid; grid-template-columns:1fr auto; gap:16px; border-color:rgba(34,211,182,.42); }
+    .hero.bad { border-color:rgba(255,107,107,.55); background:rgba(55,20,28,.78); }
+    .pill { display:inline-flex; gap:6px; align-items:center; border:1px solid var(--line); border-radius:999px; padding:4px 10px; color:var(--muted); font-size:12px; }
+    .pill.ok { color:var(--ok); border-color:rgba(34,211,182,.5); }
+    .pill.bad { color:var(--bad); border-color:rgba(255,107,107,.5); }
+    .grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin-top:14px; }
+    .wide { grid-column:1 / -1; }
+    table { width:100%; border-collapse:collapse; margin-top:10px; }
+    th,td { border-bottom:1px solid rgba(142,184,200,.18); padding:8px; text-align:left; font-size:13px; vertical-align:top; }
+    th { color:var(--muted); }
+    code,pre { white-space:pre-wrap; word-break:break-word; color:#b8f7e8; }
+    .kv { display:grid; gap:6px; }
+    .kv small { color:var(--muted); }
+    .ok-text { color:var(--ok); }
+    .bad-text { color:var(--bad); }
+    .warn-text { color:var(--warn); }
+  </style>
+</head>
+<body>
+  <section class="hero ok">
+    <div>
+      <span class="pill ok">PASS</span>
+      <h1>Event Window Shock Fast Lane Audit</h1>
+      <p>审计 P2-C40 突发通道如何影响 Event Window：state、overlay、SQLite、API、UI 契约和 LLM 中文解释。</p>
+      <p><strong>State:</strong> pre_event_high_alert · <strong>Level:</strong> watch · <strong>Overlay:</strong> reduce_size</p>
+    </div>
+    <div class="kv">
+      <small>direct score impact</small><strong>False</strong>
+      <small>ordinary radar trust</small><strong>reduced</strong>
+      <small>snapshot</small><code>evt-20260622210352-d93227fb</code>
+    </div>
+  </section>
+
+  <section class="grid">
+    <article class="card">
+      <h2>Latest Shock</h2>
+      <p>crypto_native · high · market_dislocation</p>
+      <pre>{
+  &quot;shock_id&quot;: &quot;shock-btc-5m-202606222003&quot;,
+  &quot;detected_at&quot;: &quot;2026-06-22T20:03:07.227585+00:00&quot;,
+  &quot;shock_type&quot;: &quot;crypto_native&quot;,
+  &quot;emergency_level&quot;: &quot;high&quot;,
+  &quot;confirmation_level&quot;: &quot;market_dislocation&quot;,
+  &quot;source_count&quot;: 1,
+  &quot;official_confirmed&quot;: false,
+  &quot;market_dislocation&quot;: true,
+  &quot;btc_microstructure_confirmation&quot;: false,
+  &quot;cross_asset_confirmation&quot;: false,
+  &quot;rumor_risk&quot;: false,
+  &quot;raw_title&quot;: &quot;BTC 5m market dislocation&quot;,
+  &quot;raw_url&quot;: &quot;&quot;,
+  &quot;source_hash&quot;: &quot;cee749bc992ad2997fb351c168fddac2e5ca2cbccb40396cdc63f6e4a0c915fb&quot;,
+  &quot;published_at&quot;: &quot;2026-06-22T20:03:07.227585+00:00&quot;,
+  &quot;reason_codes&quot;: [
+    &quot;btc_5m_market_dislocation&quot;
+  ],
+  &quot;source_lineage&quot;: [
+    {
+      &quot;source_id&quot;: &quot;binance&quot;,
+      &quot;source_tier&quot;: &quot;market_live&quot;,
+      &quot;market_probe_id&quot;: &quot;mprobe-20260622200307-87daa6aa&quot;,
+      &quot;primary_window&quot;: &quot;5m&quot;,
+      &quot;primary_return&quot;: 0.001706477230425607,
+      &quot;primary_return_z&quot;: 2.025037718838325
+    }
+  ],
+  &quot;evidence&quot;: {
+    &quot;primary_window&quot;: &quot;5m&quot;,
+    &quot;primary_return&quot;: 0.001706477230425607,
+    &quot;primary_return_z&quot;: 2.025037718838325,
+    &quot;btc_return_5m&quot;: 0.001706477230425607,
+    &quot;btc_return_15m&quot;: 0.001706477230425607,
+    &quot;btc_return_1h&quot;: 0.001706477230425607,
+    &quot;btc_return_4h&quot;: -0.002128406822212159,
+    &quot;btc_return_24h&quot;: 0.011496366370129074,
+    &quot;btc_return_5m_z&quot;: 2.025037718838325,
+    &quot;btc_return_15m_z&quot;: 0.866225514920561,
+    &quot;btc_return_1h_z&quot;: 0.35437405746448014,
+    &quot;btc_return_4h_z&quot;: 0.22099684310885517,
+    &quot;btc_return_24h_z&quot;: 0.4872209327320961,
+    &quot;oi_change_15m_z&quot;: null,
+    &quot;liquidation_z&quot;: null,
+    &quot;dxy_move_z&quot;: null,
+    &quot;us2y_move_z&quot;: null,
+    &quot;ndx_move_z&quot;: null
+  },
+  &quot;data_quality_flags&quot;: [
+    &quot;oi_liquidation_confirmation_missing&quot;
+  ],
+  &quot;direct_score_impact&quot;: false
+}</pre>
+    </article>
+    <article class="card">
+      <h2>Event Window Impact</h2>
+      <p>突发事件只改变 overlay 和普通雷达可信度，不直接改 BTC 分数。</p>
+      <pre>{
+  &quot;state&quot;: {
+    &quot;event_window_state&quot;: &quot;pre_event_high_alert&quot;,
+    &quot;state_priority&quot;: 45,
+    &quot;emergency_level&quot;: &quot;watch&quot;,
+    &quot;reason_codes&quot;: [
+      &quot;fallback_event_window_monitor&quot;
+    ],
+    &quot;valid_until&quot;: &quot;2026-06-22T22:03:52.177991+00:00&quot;
+  },
+  &quot;overlay&quot;: {
+    &quot;trade_permission_modifier&quot;: &quot;reduce_size&quot;,
+    &quot;confidence_cap&quot;: 70,
+    &quot;volatility_warning&quot;: true,
+    &quot;ordinary_radar_trust&quot;: &quot;reduced&quot;
+  }
+}</pre>
+    </article>
+    <article class="card">
+      <h2>LLM 中文解释</h2>
+      <p><span class="pill">deepseek</span> <span class="pill">success</span></p>
+      <p><strong>摘要：</strong>冲击为原生加密高紧急度市场错位事件，但缺乏官方与微观结构确认，未触发直接得分影响。Event Window 从正常转入高警戒（非锁定）状态，叠加层开启交易规模缩减、信心上限70%和波动警告，普通雷达信任降级。</p>
+      <p><strong>原因：</strong>市场错位信号单一，缺乏多源交叉确认（如未验证的合约数据、OIC/清算缺失），导致雷达信任下降但未锁定交易权限。</p>
+      <p><strong>边界：</strong>Event Window 保持高警戒，叠加层仅允许缩减规模操作，不限制退出，但禁止新增风险敞口。雷达信任在手动审核前维持降级。</p>
+      <p>Boundary pass: <strong>True</strong></p>
+    </article>
+
+    <article class="card wide">
+      <h2>Boundary Checks</h2>
+      <table>
+        <thead><tr><th>check</th><th>pass</th></tr></thead>
+        <tbody><tr><td>direct_score_impact_false</td><td>True</td></tr><tr><td>rumor_not_critical</td><td>True</td></tr><tr><td>critical_overrides_scheduled</td><td>True</td></tr><tr><td>high_sets_watch_only_not_event_lock</td><td>True</td></tr><tr><td>official_has_url_hash</td><td>True</td></tr><tr><td>market_has_evidence</td><td>True</td></tr></tbody>
+      </table>
+    </article>
+
+    <article class="card wide">
+      <h2>Synthetic Shock Regression</h2>
+      <table>
+        <thead><tr><th>case</th><th>state</th><th>level</th><th>overlay</th><th>pass</th></tr></thead>
+        <tbody><tr><td>critical overrides scheduled</td><td>unscheduled_shock_confirmed</td><td>critical</td><td>event_lock</td><td>True</td></tr><tr><td>high watch only</td><td>market_dislocation_high_alert</td><td>high</td><td>watch_only</td><td>True</td></tr><tr><td>rumor downgrade</td><td>unscheduled_shock_watch</td><td>watch</td><td>reduce_size</td><td>True</td></tr><tr><td>official url hash lineage</td><td>-</td><td>-</td><td>-</td><td>True</td></tr></tbody>
+      </table>
+    </article>
+
+    <article class="card">
+      <h2>SQLite Counts</h2>
+      <pre>{
+  &quot;snapshots&quot;: 7295,
+  &quot;shocks&quot;: 726,
+  &quot;alerts&quot;: 4357,
+  &quot;source_fetches&quot;: 111348
+}</pre>
+    </article>
+    <article class="card">
+      <h2>API Checks</h2>
+      <pre>{
+  &quot;latest_status&quot;: 200,
+  &quot;history_status&quot;: 200,
+  &quot;alerts_status&quot;: 200,
+  &quot;latest_passed&quot;: true,
+  &quot;history_passed&quot;: true,
+  &quot;alerts_passed&quot;: true,
+  &quot;latest_payload_keys&quot;: [
+    &quot;api_schema_version&quot;,
+    &quot;created_at&quot;,
+    &quot;errors&quot;,
+    &quot;run_lineage&quot;,
+    &quot;schema_version&quot;,
+    &quot;shock_fast_lane&quot;,
+    &quot;status&quot;,
+    &quot;warnings&quot;
+  ]
+}</pre>
+    </article>
+    <article class="card">
+      <h2>Failures</h2>
+      <pre>[]</pre>
+    </article>
+  </section>
+</body>
+</html>

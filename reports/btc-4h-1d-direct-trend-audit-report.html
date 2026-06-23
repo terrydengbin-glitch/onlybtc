@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BTC 4H/1D Direct Trend Audit</title>
+  <style>
+    body { margin:0; background:#06131d; color:#d8f3ff; font-family:Inter,Arial,sans-serif; }
+    main { padding:24px; }
+    .card { border:1px solid #1d4254; border-radius:10px; background:#0b2130; padding:16px; margin-bottom:16px; }
+    .pass { color:#24e0c4; } .partial,.fallback,.stale { color:#ffc928; } .fail,.gap,.missing { color:#ff6b75; }
+    .meta-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; }
+    .meta-item { border:1px solid #173244; border-radius:8px; padding:10px; background:#071a27; }
+    .meta-label { color:#7fa9bd; font-size:12px; text-transform:uppercase; }
+    .meta-value { font-weight:700; margin-top:4px; overflow-wrap:anywhere; }
+    table { border-collapse:collapse; width:100%; font-size:13px; }
+    th,td { border-bottom:1px solid #173244; padding:8px; text-align:left; vertical-align:top; }
+    pre { white-space:pre-wrap; color:#a9c7d8; margin:0; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>BTC 4H/1D Direct Trend Full Chain Audit</h1>
+  <section class="card">
+    <h2 class="pass">PASS</h2>
+    <div class="meta-grid">
+      <div class="meta-item"><div class="meta-label">generated_at</div><div class="meta-value">2026-06-22T19:11:17.104383+00:00</div></div>
+      <div class="meta-item"><div class="meta-label">final_run_id</div><div class="meta-value">p45final-p8-replay-verify-202606221611</div></div>
+      <div class="meta-item"><div class="meta-label">dashboard_snapshot</div><div class="meta-value">p3c62-state-20260622155135-9d8cba</div></div>
+      <div class="meta-item"><div class="meta-label">sqlite_snapshot</div><div class="meta-value">p3c62-state-20260622155135-9d8cba</div></div>
+      <div class="meta-item"><div class="meta-label">cockpit_snapshot</div><div class="meta-value">p3c62-state-20260622155135-9d8cba</div></div>
+    </div>
+  </section>
+  <section class="card"><h2>Core Checks</h2><table><thead><tr><th>check</th><th>status</th><th>detail</th></tr></thead><tbody><tr><td>p45-schema-v22</td><td class='pass'>PASS</td><td><pre>&quot;p45.btc_timescale_judge.v2.2&quot;</pre></td></tr>
+<tr><td>p3-state-machine-present</td><td class='pass'>PASS</td><td><pre>&quot;p3c62-state-20260622155135-9d8cba&quot;</pre></td></tr>
+<tr><td>4h-1d-direct-evidence-present</td><td class='pass'>PASS</td><td><pre>{
+  &quot;4h&quot;: true,
+  &quot;1d&quot;: true
+}</pre></td></tr>
+<tr><td>scores-exposed</td><td class='pass'>PASS</td><td><pre>&quot;direction / acceptance / trust / display&quot;</pre></td></tr>
+<tr><td>event-overlay-trust-only</td><td class='pass'>PASS</td><td><pre>&quot;event_overlay_context roles are trust/quality gates; event_trust policy is trust cap&quot;</pre></td></tr>
+<tr><td>radar-context-not-direct-score</td><td class='pass'>PASS</td><td><pre>&quot;radar_context policy confirm_conflict_degrade_only / legacy_context&quot;</pre></td></tr>
+<tr><td>sqlite-api-snapshot-consistency</td><td class='pass'>PASS</td><td><pre>{
+  &quot;dashboard&quot;: &quot;p3c62-state-20260622155135-9d8cba&quot;,
+  &quot;sqlite_replay&quot;: &quot;p3c62-state-20260622155135-9d8cba&quot;,
+  &quot;p8_payload&quot;: &quot;p3c62-state-20260622155135-9d8cba&quot;,
+  &quot;cockpit&quot;: &quot;p3c62-state-20260622155135-9d8cba&quot;
+}</pre></td></tr>
+<tr><td>api-freshness-explicit</td><td class='pass'>PASS</td><td><pre>{
+  &quot;source_fresh&quot;: true,
+  &quot;runtime_fresh&quot;: true,
+  &quot;fallback_used&quot;: false
+}</pre></td></tr>
+<tr><td>ui-static-contract</td><td class='pass'>PASS</td><td><pre>{
+  &quot;vue-reads-v22-timescale-judge&quot;: &quot;PASS&quot;,
+  &quot;vue-renders-direct-chain&quot;: &quot;PASS&quot;,
+  &quot;vue-renders-event-phase&quot;: &quot;PASS&quot;,
+  &quot;vue-shows-freshness-fallback&quot;: &quot;PASS&quot;
+}</pre></td></tr>
+<tr><td>lineage-matrix-no-fail-gaps</td><td class='pass'>PASS</td><td><pre>{
+  &quot;pass&quot;: 27
+}</pre></td></tr></tbody></table></section>
+  <section class="card"><h2>Lineage Matrix</h2><table><thead><tr><th>metric_id</th><th>source_id</th><th>horizon</th><th>role</th><th>freshness</th><th>gap</th><th>source_asof</th><th>derived_at</th><th>P4.5 path</th><th>UI field</th></tr></thead><tbody><tr><td>btc_direct_trend.price_structure.btc_return_4h</td><td>binance-btcusdt-kline-1h</td><td>4h</td><td>trigger_eligible</td><td>fresh</td><td class='pass'>pass</td><td>2026-06-22T14:59:59.999000</td><td>2026-06-22T15:45:26.644318+00:00</td><td>btc_timescale_judge.horizons.4h.direct_evidence.price_structure.btc_return_4h</td><td>horizonDirectEvidenceText / horizonEventTrustCap</td></tr>
+<tr><td>btc_direct_trend.price_structure.btc_return_24h</td><td>binance-btcusdt-kline-1h</td><td>1d</td><td>trigger_eligible</td><td>fresh</td><td class='pass'>pass</td><td>2026-06-22T14:59:59.999000</td><td>2026-06-22T15:45:26.644318+00:00</td><td>btc_timescale_judge.horizons.1d.direct_evidence.price_structure.btc_return_24h</td><td>horizonDirectEvidenceText / horizonEventTrustCap</td></tr>
+<tr><td>btc_direct_trend.orderflow_acceptance.taker_buy_sell_ratio</td><td>binance-btcusdt-taker-buy-sell-ratio</td><td>4h</td><td>acceptance_gate</td><td>fresh</td><td class='pass'>pass</td><td>2026-06-22T15:35:00</td><td>2026-06-22T15:45:26.644318+00:00</td><td>btc_timescale_judge.horizons.4h.direct_evidence.orderflow_acceptance.taker_buy_sell_ratio</td><td>horizonDirectEvidenceText / horizonEventTrustCap</td></tr>
+<tr><td>btc_direct_trend.orderflow_acceptance.taker_delta_quote</td><td>binance-btcusdt,binance-btcusdt-taker-buy-sell-ratio</td><td>4h</td><td>acceptance_gate</td><td>fresh</td><td class='pass'>pass</td><td>2026-06-22T15:35:00</td><td>2026-06-22T15:45:26.644318+00:00</td><td>btc_timescale_judge.horizons.4h.direct_evidence.orderflow_acceptance.taker_delta_quote</td><td>horizonDirectEvidenceText / horizonEventTrustCap</td></tr>
+<tr><td>btc_direct_trend.orderflow_acceptance.cvd_slope_z</td><td>binance-btcusdt,binance-btcusdt-taker-buy-sell-ratio</td><td>4h</td><td>acceptance_gate</td><td>fresh</td><td class='pass'>pass</td><td>2026-06-22T15:35:00</td><td>2026-06-22T15:45:26.644318+00:00</td><td>btc_timescale_judge.horizons.4h.direct_evidence.orderflow_acceptance.cvd_slope_z</td><td>horizonDirectEvidenceText / horizonEventTrustCap</td></tr>
+<tr><td>btc_direct_trend.derivatives_positioning.oi_impulse_z_15m</td><td>binance-btcusdt-open-interest</td><td>4h</td><td>radar_context</td><td>fresh</td><td class='pass'>pass</td><td>2026-06-22T15:43:51.943000</td><td>2026-06-22T15:45:26.644318+00:00</td><td>btc_timescale_judge.horizons.4h.direct_evidence.derivatives_positioning.oi_impulse_z_15m</td><td>horizonDirectEvidenceText / horizonEventTrustCap</td></tr>
+<tr><td>btc_direct_trend.derivatives_positioning.oi_impulse_z_1h</td><td>binance-btcusdt-open-interest</td><td>4h</td><td>radar_context</td><td>fresh</td><td class='pass'>pass</td><td>2026-06-22T15:43:51.943000</td><td>2026-06-22T15:45:26.644318+00:00</td><td>btc_timescale_judge.horizons.4h.direct_evidence.derivatives_positioning.oi_impulse_z_1h</td><td>horizonDirectEvidenceText / horizonEventTrustCap</td></tr>
+<tr><td>btc_direct_trend.derivatives_positioning.oi_impulse_z_4h</td><td>binance-btcusdt-open-interest</td><td>4h</td><td>radar_context</td><td>fresh</td><td class='pass'>pass</td><td>2026-06-22T15:43:51.943000</td><td>2026-06-22T15:45:26.644318+00:00</td><td>btc_timescale_judge.horizons.4h.direct_evidence.derivatives_positioning.oi_impulse_z_4h</td><td>horizonDirectEvidenceText / horizonEventTrustCap</td></tr>
+<tr><td>btc_direct_trend.derivatives_positioning.funding_rate_8h_equiv_z</td><td>binance-btcusdt-funding</td><td>4h</td><td>radar_context</td><td>fresh</td><td class='pass'>pass</td><td>2026-06-22T15:44:00.326484</td><td>2026-06-22T15:45:26.644318+00:00</td><td>btc_timescale_judge.horizons.4h.direct_evidence.derivatives_positioning.funding_rate_8h_equiv_z</td><td>horizonDirectEvidenceText / horizonEventTrustCap</td></tr>
+<tr><td>btc_direct_trend.derivatives_positioning.funding_acceleration_z_24h</td><td>binance-btcusdt-funding</td><td>4h</td><td>radar_context</td><td>fresh</td><td class='pass'>pass</td><td>2026-06-22T15:44:00.326484</td><td>2026-06-22T15:45:26.644318+00:00</td><td>btc_timescale_judge.horizons.4h.direct_evidence.derivatives_positioning.funding_acceleration_z_24h</td><td>horizonDirectEvidenceText / horizonEventTrustCap</td></tr>
+<tr><td>btc_direct_trend.derivatives_positioning.liquidation_followthrough_score</td><td>binance-usdm-force-order-btcusdt</td><td>4h</td><td>acceptance_gate</td><td>fresh</td><td class='pass'>pass</td><td>2026-06-22T15:44:16.814212</td><td>2026-06-22T15:45:26.644318+00:00</td><td>btc_timescale_judge.horizons.4h.direct_evidence.derivatives_positioning.liquidation_followthrough_score</td><td>horizonDirectEvidenceText / horizonEventTrustCap</td></tr>
+<tr><td>btc_direct_trend.derivatives_positioning.liquidation_absorption_score</td><td>binance-usdm-force-order-btcusdt</td><td>4h</td><td>acceptance_gate</td><td>fresh</td><td class='pass'>pass</td><td>2026-06-22T15:44:16.814212</td><td>2026-06-22T15:45:26.644318+00:00</td><td>btc_timescale_judge.horizons.4h.direct_evidence.derivatives_positioning.liquidation_absorption_score</td><td>horizonDirectEvidenceText / horizonEventTrustCap</td></tr>
+<tr><td>btc_direct_trend.derivatives_positioning.price_oi_interaction_state</td><td>binance-btcusdt-kline-1h,binance-btcusdt-open-interest,binance-btcusdt-taker-buy-sell-ratio</td><td>4h</td><td>trigger_eligible</td><td>fresh</td><td class='pass'>pass</td><td>2026-06-22T15:43:51.943000</td><td>2026-06-22T15:45:26.644318+00:00</td><td>btc_timescale_judge.horizons.4h.direct_evidence.derivatives_positioning.price_oi_interaction_state</td><td>horizonDirectEvidenceText / horizonEventTrustCap</td></tr>
+<tr><td>btc_direct_trend.btc_residual_cross_asset.expected_return_24h</td><td>treasury-credit-derived</td><td>1d</td><td>radar_context</td><td>fresh</td><td class='pass'>pass</td><td>2026-06-22T15:44:06.362722</td><td>2026-06-22T15:45:26.644318+00:00</td><td>btc_timescale_judge.horizons.1d.direct_evidence.btc_residual_cross_asset.expected_return_24h</td><td>horizonDirectEvidenceText / horizonEventTrustCap</td></tr>
+<tr><td>btc_direct_trend.btc_residual_cross_asset.residual_24h</td><td>treasury-credit-derived</td><td>1d</td><td>radar_context</td><td>fresh</td><td class='pass'>pass</td><td>2026-06-22T15:44:06.362722</td><td>2026-06-22T15:45:26.644318+00:00</td><td>btc_timescale_judge.horizons.1d.direct_evidence.btc_residual_cross_asset.residual_24h</td><td>horizonDirectEvidenceText / horizonEventTrustCap</td></tr>
+<tr><td>btc_direct_trend.btc_residual_cross_asset.residual_z</td><td>treasury-credit-derived</td><td>1d</td><td>radar_context</td><td>fresh</td><td class='pass'>pass</td><td>2026-06-22T15:44:06.362722</td><td>2026-06-22T15:45:26.644318+00:00</td><td>btc_timescale_judge.horizons.1d.direct_evidence.btc_residual_cross_asset.residual_z</td><td>horizonDirectEvidenceText / horizonEventTrustCap</td></tr>
+<tr><td>btc_direct_trend.btc_residual_cross_asset.residual_semantic</td><td>treasury-credit-derived</td><td>1d</td><td>trigger_eligible</td><td>fresh</td><td class='pass'>pass</td><td>2026-06-22T15:44:06.362722</td><td>2026-06-22T15:45:26.644318+00:00</td><td>btc_timescale_judge.horizons.1d.direct_evidence.btc_residual_cross_asset.residual_semantic</td><td>horizonDirectEvidenceText / horizonEventTrustCap</td></tr>
+<tr><td>btc_direct_trend.event_overlay_context.emergency_level</td><td>binance-btcusdt-kline-1h,fed-fomc-blackout-calendar,fxstreet-economic-calendar,official-macro-event-calendar</td><td>4h</td><td>quality_gate</td><td>fresh</td><td class='pass'>pass</td><td>2026-06-22T14:59:59.999000</td><td>2026-06-22T15:45:26.644318+00:00</td><td>btc_timescale_judge.horizons.4h.direct_evidence.event_overlay_context.emergency_level</td><td>horizonDirectEvidenceText / horizonEventTrustCap</td></tr>
+<tr><td>btc_direct_trend.event_overlay_context.emergency_level</td><td>binance-btcusdt-kline-1h,fed-fomc-blackout-calendar,fxstreet-economic-calendar,official-macro-event-calendar</td><td>1d</td><td>quality_gate</td><td>fresh</td><td class='pass'>pass</td><td>2026-06-22T14:59:59.999000</td><td>2026-06-22T15:45:26.644318+00:00</td><td>btc_timescale_judge.horizons.1d.direct_evidence.event_overlay_context.emergency_level</td><td>horizonDirectEvidenceText / horizonEventTrustCap</td></tr>
+<tr><td>btc_direct_trend.event_overlay_context.ordinary_radar_trust</td><td>binance-btcusdt-kline-1h,fed-fomc-blackout-calendar,fxstreet-economic-calendar,official-macro-event-calendar</td><td>4h</td><td>trust_cap</td><td>fresh</td><td class='pass'>pass</td><td>2026-06-22T14:59:59.999000</td><td>2026-06-22T15:45:26.644318+00:00</td><td>btc_timescale_judge.horizons.4h.direct_evidence.event_overlay_context.ordinary_radar_trust</td><td>horizonDirectEvidenceText / horizonEventTrustCap</td></tr>
+<tr><td>btc_direct_trend.event_overlay_context.ordinary_radar_trust</td><td>binance-btcusdt-kline-1h,fed-fomc-blackout-calendar,fxstreet-economic-calendar,official-macro-event-calendar</td><td>1d</td><td>trust_cap</td><td>fresh</td><td class='pass'>pass</td><td>2026-06-22T14:59:59.999000</td><td>2026-06-22T15:45:26.644318+00:00</td><td>btc_timescale_judge.horizons.1d.direct_evidence.event_overlay_context.ordinary_radar_trust</td><td>horizonDirectEvidenceText / horizonEventTrustCap</td></tr>
+<tr><td>btc_direct_trend.event_overlay_context.trade_permission_modifier</td><td>binance-btcusdt-kline-1h,fed-fomc-blackout-calendar,fxstreet-economic-calendar,official-macro-event-calendar</td><td>4h</td><td>trust_cap</td><td>fresh</td><td class='pass'>pass</td><td>2026-06-22T14:59:59.999000</td><td>2026-06-22T15:45:26.644318+00:00</td><td>btc_timescale_judge.horizons.4h.direct_evidence.event_overlay_context.trade_permission_modifier</td><td>horizonDirectEvidenceText / horizonEventTrustCap</td></tr>
+<tr><td>btc_direct_trend.event_overlay_context.trade_permission_modifier</td><td>binance-btcusdt-kline-1h,fed-fomc-blackout-calendar,fxstreet-economic-calendar,official-macro-event-calendar</td><td>1d</td><td>trust_cap</td><td>fresh</td><td class='pass'>pass</td><td>2026-06-22T14:59:59.999000</td><td>2026-06-22T15:45:26.644318+00:00</td><td>btc_timescale_judge.horizons.1d.direct_evidence.event_overlay_context.trade_permission_modifier</td><td>horizonDirectEvidenceText / horizonEventTrustCap</td></tr>
+<tr><td>btc_direct_trend.event_overlay_context.event_trust_cap</td><td>binance-btcusdt-kline-1h,fed-fomc-blackout-calendar,fxstreet-economic-calendar,official-macro-event-calendar</td><td>4h</td><td>trust_cap</td><td>fresh</td><td class='pass'>pass</td><td>2026-06-22T14:59:59.999000</td><td>2026-06-22T15:45:26.644318+00:00</td><td>btc_timescale_judge.horizons.4h.direct_evidence.event_overlay_context.event_trust_cap</td><td>horizonDirectEvidenceText / horizonEventTrustCap</td></tr>
+<tr><td>btc_direct_trend.event_overlay_context.event_trust_cap</td><td>binance-btcusdt-kline-1h,fed-fomc-blackout-calendar,fxstreet-economic-calendar,official-macro-event-calendar</td><td>1d</td><td>trust_cap</td><td>fresh</td><td class='pass'>pass</td><td>2026-06-22T14:59:59.999000</td><td>2026-06-22T15:45:26.644318+00:00</td><td>btc_timescale_judge.horizons.1d.direct_evidence.event_overlay_context.event_trust_cap</td><td>horizonDirectEvidenceText / horizonEventTrustCap</td></tr>
+<tr><td>btc_direct_trend.event_overlay_context.post_event_reaction_state</td><td>binance-btcusdt-kline-1h,fed-fomc-blackout-calendar,fxstreet-economic-calendar,official-macro-event-calendar</td><td>4h</td><td>trust_cap</td><td>fresh</td><td class='pass'>pass</td><td>2026-06-22T14:59:59.999000</td><td>2026-06-22T15:45:26.644318+00:00</td><td>btc_timescale_judge.horizons.4h.direct_evidence.event_overlay_context.post_event_reaction_state</td><td>horizonDirectEvidenceText / horizonEventTrustCap</td></tr>
+<tr><td>btc_direct_trend.event_overlay_context.post_event_reaction_state</td><td>binance-btcusdt-kline-1h,fed-fomc-blackout-calendar,fxstreet-economic-calendar,official-macro-event-calendar</td><td>1d</td><td>trust_cap</td><td>fresh</td><td class='pass'>pass</td><td>2026-06-22T14:59:59.999000</td><td>2026-06-22T15:45:26.644318+00:00</td><td>btc_timescale_judge.horizons.1d.direct_evidence.event_overlay_context.post_event_reaction_state</td><td>horizonDirectEvidenceText / horizonEventTrustCap</td></tr></tbody></table></section>
+  <section class="card"><h2>Evaluation</h2><pre>{
+  &quot;status&quot;: &quot;PASS&quot;,
+  &quot;sample_count&quot;: 72,
+  &quot;methodology&quot;: &quot;walk-forward/purged split required; random K-fold forbidden&quot;,
+  &quot;metrics&quot;: {
+    &quot;rank_ic&quot;: null,
+    &quot;auc_f1_trend_accepted&quot;: null,
+    &quot;precision_top_decile&quot;: null,
+    &quot;whipsaw_rate&quot;: null,
+    &quot;false_breakout_reduction&quot;: null,
+    &quot;lead_time&quot;: null,
+    &quot;confidence_calibration&quot;: null,
+    &quot;event_window_robustness&quot;: null
+  },
+  &quot;reason&quot;: &quot;sufficient snapshots available for evaluation runner&quot;
+}</pre></section>
+  <section class="card"><h2>v2.1 vs v2.2</h2><pre>{
+  &quot;baseline&quot;: &quot;btc_timescale_judge.v2.1 module average / horizon_views&quot;,
+  &quot;candidate&quot;: &quot;btc_timescale_judge.v2.2 direct evidence + radar context&quot;,
+  &quot;legacy_24h_direction&quot;: &quot;bearish&quot;,
+  &quot;v22_4h&quot;: {
+    &quot;state&quot;: &quot;range_chop&quot;,
+    &quot;direction_score&quot;: 11.39,
+    &quot;acceptance_score&quot;: 0.0,
+    &quot;trust_score&quot;: 95.1
+  },
+  &quot;v22_1d&quot;: {
+    &quot;state&quot;: &quot;range_compression_before_expansion&quot;,
+    &quot;direction_score&quot;: -23.27,
+    &quot;acceptance_score&quot;: 0.0,
+    &quot;trust_score&quot;: 95.1
+  },
+  &quot;conclusion&quot;: &quot;v2.2 separates direct direction evidence, BTC acceptance, trust caps, and radar context; module average is retained only as context/fallback.&quot;
+}</pre></section>
+</main>
+</body>
+</html>

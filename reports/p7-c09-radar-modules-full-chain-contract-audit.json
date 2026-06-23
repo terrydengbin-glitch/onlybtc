@@ -1,0 +1,71 @@
+{
+  "task_id": "P7-C09",
+  "status": "passed_with_profile_caveat",
+  "audited_at": "2026-05-27T09:31:15Z",
+  "lineage": {
+    "collect_run_id": "collect-20260527092422-91c85d",
+    "p2_radar_run_id": "radar-20260527092727-670d81",
+    "p3_run_id": "p3-20260527092730-456f38",
+    "pack_id": "p45pack-20260527092744-e59e9f",
+    "article_run_id": "p45articles-20260527092745-5b7271",
+    "final_run_id": "p45final-20260527092745-2a60bb",
+    "runtime_mode": "deterministic",
+    "execution_profile": "fast_deterministic",
+    "llm_research_run_id": null,
+    "llm_analyst_run_id": null
+  },
+  "automated_checks": {
+    "backend_core_pytest": "139 passed",
+    "trade_structure_targeted_pytest": "4 passed",
+    "p5_dashboard_contract": "passed",
+    "frontend_build": "passed",
+    "sqlite_api_history_detail_audit": "passed",
+    "p5_page_dod": "failed_expected_profile_caveat: articles missing llm_research appendix because fast_deterministic skips LLM"
+  },
+  "sqlite_counts": {
+    "module_json_outputs": 5986,
+    "feature_values": 321689,
+    "radar_outputs": 5592,
+    "raw_observations": 27910,
+    "normalized_metrics": 515,
+    "run_stages": 2476,
+    "articles": 1
+  },
+  "latest_run_counts": {
+    "module_json_outputs": 14,
+    "feature_values": 6187,
+    "radar_outputs": 14,
+    "raw_observations": 70
+  },
+  "findings_fixed": [
+    {
+      "severity": "medium",
+      "module": "trade_structure_flow",
+      "issue": "btc_funding_rate and btc_funding_band were still registered under leverage_structure signal rules.",
+      "fix": "Moved both metrics to leverage_context with affects_signal=false and driver_eligible=false.",
+      "file": "backend/src/onlybtc/radars/registry.py"
+    }
+  ],
+  "residual_warnings": [
+    {
+      "code": "LLM_SKIPPED_BY_FAST_DETERMINISTIC",
+      "meaning": "The audited run intentionally skipped LLM research and analyst stages. Radar contract, SQLite, API, report and frontend deterministic chain still passed."
+    }
+  ],
+  "module_summary": [
+    {"module": "macro_radar", "version": "p3.c45.macro_radar.v3", "state": "macro_tailwind_but_btc_lagging", "direction": "neutral", "effective_direction": "bullish", "btc_implication": "macro_tailwind_not_absorbed"},
+    {"module": "dollar_liquidity", "version": "p3.c46.dollar_liquidity.v2.1", "state": "liquidity_neutral", "direction": "neutral", "effective_direction": "neutral"},
+    {"module": "treasury_credit", "version": "p3.c47.treasury_credit.v2.1", "state": "treasury_credit_neutral", "direction": "neutral", "effective_direction": "neutral", "btc_implication": "neutral"},
+    {"module": "fund_flow", "version": "p3.c50.fund_flow.v2.2", "state": "etf_outflow_confirmed", "direction": "bearish", "effective_direction": "bearish", "btc_implication": "institutional_demand_drag"},
+    {"module": "onchain_valuation", "version": "p3.c52.onchain_valuation.v2.2", "state": "onchain_neutral", "direction": "neutral", "effective_direction": "neutral", "signal_stage": "none", "btc_implication": "neutral"},
+    {"module": "btc_adoption", "version": "p3.c54.btc_adoption.v2.3", "state": "btc_adoption_neutral", "direction": "neutral", "effective_direction": "neutral", "signal_stage": "none", "btc_implication": "neutral"},
+    {"module": "asia_risk", "version": "p3.c56.asia_risk.v2.3", "state": "asia_risk_neutral", "direction": "neutral", "effective_direction": "neutral", "signal_stage": "early_warning", "btc_implication": "neutral"},
+    {"module": "kline_orderflow", "version": "p3.c57.kline_orderflow.v2.2", "state": "none", "direction": "neutral", "effective_direction": "neutral", "signal_stage": "none", "btc_implication": "neutral"},
+    {"module": "trade_structure_flow", "version": "p3.c58.trade_structure_flow.v2.3", "state": "none", "direction": "neutral", "effective_direction": "neutral", "signal_stage": "none", "btc_implication": "neutral"},
+    {"module": "derivatives_crowding", "version": "p3.c60.derivatives_crowding.v2.5", "state": "early_warning", "direction": "neutral", "effective_direction": "neutral", "signal_stage": "early_warning", "btc_implication": "trend_fragile"},
+    {"module": "crypto_breadth", "version": "p3.c44.crypto_breadth.v3", "state": "risk_off_but_breadth_improving", "direction": "neutral", "effective_direction": "bullish", "btc_implication": "early_repair"},
+    {"module": "options_volatility", "version": "p3.c42.options_volatility.v2.1", "state": "downside_protection_bid", "direction": "neutral", "effective_direction": "neutral"},
+    {"module": "event_policy", "version": "p3.c43.event_policy.v2.1", "state": "event_neutral", "direction": "neutral", "effective_direction": "neutral"},
+    {"module": "btc_total_state", "version": "p3.c41.btc_total_state.v2", "state": "price_down_confirmed", "direction": "bearish", "effective_direction": "bearish"}
+  ]
+}

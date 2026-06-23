@@ -1,0 +1,329 @@
+{
+  "schema_version": "p7.event_window.market_shock_regression.v1",
+  "generated_at": "2026-05-29T06:48:42.319022+00:00",
+  "overall_status": "PASS",
+  "failures": [],
+  "cases": [
+    {
+      "case_id": "sustained_5h_crash_regression",
+      "description": "Synthetic reproduction of a large multi-hour selloff with weak 5m impulse.",
+      "passed": true,
+      "expected_state": "sustained_drawdown_high_alert",
+      "actual_state": "sustained_drawdown_high_alert",
+      "expected_overlay": "watch_only",
+      "actual_overlay": "watch_only",
+      "detected": true,
+      "shock_count": 1,
+      "previous_5m_only_would_detect": false,
+      "direct_score_impact": false,
+      "state": {
+        "event_window_state": "sustained_drawdown_high_alert",
+        "state_priority": 75,
+        "emergency_level": "high",
+        "reason_codes": [
+          "btc_1h_market_dislocation",
+          "sustained_drawdown_watch",
+          "btc_24h_context_pressure"
+        ],
+        "valid_until": "2026-05-28T11:00:00+00:00"
+      },
+      "overlay": {
+        "trade_permission_modifier": "watch_only",
+        "confidence_cap": 55,
+        "volatility_warning": true,
+        "ordinary_radar_trust": "low"
+      },
+      "shock": {
+        "shock_id": "shock-btc-1h-202605281000",
+        "detected_at": "2026-05-28T10:00:00+00:00",
+        "shock_type": "crypto_native",
+        "emergency_level": "high",
+        "confirmation_level": "market_dislocation",
+        "source_count": 1,
+        "official_confirmed": false,
+        "market_dislocation": true,
+        "btc_microstructure_confirmation": true,
+        "cross_asset_confirmation": false,
+        "rumor_risk": false,
+        "raw_title": "BTC 1h market dislocation",
+        "raw_url": "",
+        "source_hash": "4633c5b950cb1a70325bf850da6147495ab7cb83cb48a7413272af719c394329",
+        "published_at": "2026-05-28T10:00:00+00:00",
+        "reason_codes": [
+          "btc_1h_market_dislocation",
+          "sustained_drawdown_watch",
+          "btc_24h_context_pressure"
+        ],
+        "source_lineage": [
+          {
+            "source_id": "synthetic_regression",
+            "source_tier": "market_live",
+            "market_probe_id": "synthetic-market-probe-crash",
+            "primary_window": "1h",
+            "primary_return": -0.013857,
+            "primary_return_z": 2.35
+          }
+        ],
+        "evidence": {
+          "primary_window": "1h",
+          "primary_return": -0.013857,
+          "primary_return_z": 2.35,
+          "btc_return_5m": -0.002084,
+          "btc_return_15m": -0.0042,
+          "btc_return_1h": -0.013857,
+          "btc_return_4h": -0.016001,
+          "btc_return_24h": -0.032041,
+          "btc_return_5m_z": 0.62,
+          "btc_return_15m_z": 1.1,
+          "btc_return_1h_z": 2.35,
+          "btc_return_4h_z": 2.1,
+          "btc_return_24h_z": 1.8,
+          "oi_change_15m_z": null,
+          "liquidation_z": null,
+          "dxy_move_z": null,
+          "us2y_move_z": null,
+          "ndx_move_z": null
+        },
+        "data_quality_flags": [
+          "oi_liquidation_confirmation_missing"
+        ],
+        "direct_score_impact": false
+      },
+      "returns": {
+        "5m": -0.002084,
+        "15m": -0.0042,
+        "1h": -0.013857,
+        "4h": -0.016001,
+        "24h": -0.032041
+      }
+    },
+    {
+      "case_id": "normal_noise_no_alert",
+      "description": "Small moves should stay quiet.",
+      "passed": true,
+      "expected_state": "calendar_monitor",
+      "actual_state": "calendar_monitor",
+      "expected_overlay": "none",
+      "actual_overlay": "none",
+      "detected": false,
+      "shock_count": 0,
+      "previous_5m_only_would_detect": false,
+      "direct_score_impact": false,
+      "state": {
+        "event_window_state": "calendar_monitor",
+        "state_priority": 20,
+        "emergency_level": "none",
+        "reason_codes": [
+          "calendar_monitor"
+        ],
+        "valid_until": "2026-05-28T11:00:00+00:00"
+      },
+      "overlay": {
+        "trade_permission_modifier": "none",
+        "confidence_cap": null,
+        "volatility_warning": false,
+        "ordinary_radar_trust": "normal"
+      },
+      "shock": {},
+      "returns": {
+        "5m": -0.0005,
+        "15m": 0.0007,
+        "1h": -0.001,
+        "4h": 0.002,
+        "24h": -0.006
+      }
+    },
+    {
+      "case_id": "sustained_rally_guard",
+      "description": "Large upside shock should be classified as rally, not drawdown.",
+      "passed": true,
+      "expected_state": "sustained_rally_high_alert",
+      "actual_state": "sustained_rally_high_alert",
+      "expected_overlay": "watch_only",
+      "actual_overlay": "watch_only",
+      "detected": true,
+      "shock_count": 1,
+      "previous_5m_only_would_detect": false,
+      "direct_score_impact": false,
+      "state": {
+        "event_window_state": "sustained_rally_high_alert",
+        "state_priority": 75,
+        "emergency_level": "high",
+        "reason_codes": [
+          "btc_4h_market_dislocation",
+          "sustained_rally_watch",
+          "btc_24h_context_pressure"
+        ],
+        "valid_until": "2026-05-28T11:00:00+00:00"
+      },
+      "overlay": {
+        "trade_permission_modifier": "watch_only",
+        "confidence_cap": 55,
+        "volatility_warning": true,
+        "ordinary_radar_trust": "low"
+      },
+      "shock": {
+        "shock_id": "shock-btc-4h-202605281000",
+        "detected_at": "2026-05-28T10:00:00+00:00",
+        "shock_type": "crypto_native",
+        "emergency_level": "high",
+        "confirmation_level": "market_dislocation",
+        "source_count": 1,
+        "official_confirmed": false,
+        "market_dislocation": true,
+        "btc_microstructure_confirmation": true,
+        "cross_asset_confirmation": false,
+        "rumor_risk": false,
+        "raw_title": "BTC 4h market dislocation",
+        "raw_url": "",
+        "source_hash": "795693b4f00e917b54a1050027b1b9a0227e2145c16a298c9216cf40face4790",
+        "published_at": "2026-05-28T10:00:00+00:00",
+        "reason_codes": [
+          "btc_4h_market_dislocation",
+          "sustained_rally_watch",
+          "btc_24h_context_pressure"
+        ],
+        "source_lineage": [
+          {
+            "source_id": "synthetic_regression",
+            "source_tier": "market_live",
+            "market_probe_id": "synthetic-market-probe-rally",
+            "primary_window": "4h",
+            "primary_return": 0.022,
+            "primary_return_z": 2.4
+          }
+        ],
+        "evidence": {
+          "primary_window": "4h",
+          "primary_return": 0.022,
+          "primary_return_z": 2.4,
+          "btc_return_5m": 0.002,
+          "btc_return_15m": 0.004,
+          "btc_return_1h": 0.012,
+          "btc_return_4h": 0.022,
+          "btc_return_24h": 0.034,
+          "btc_return_5m_z": 0.7,
+          "btc_return_15m_z": 1.0,
+          "btc_return_1h_z": 1.9,
+          "btc_return_4h_z": 2.4,
+          "btc_return_24h_z": 1.8,
+          "oi_change_15m_z": null,
+          "liquidation_z": null,
+          "dxy_move_z": null,
+          "us2y_move_z": null,
+          "ndx_move_z": null
+        },
+        "data_quality_flags": [
+          "oi_liquidation_confirmation_missing"
+        ],
+        "direct_score_impact": false
+      },
+      "returns": {
+        "5m": 0.002,
+        "15m": 0.004,
+        "1h": 0.012,
+        "4h": 0.022,
+        "24h": 0.034
+      }
+    }
+  ],
+  "runtime_observation": {
+    "latest_snapshot_id": "evt-20260529064759-d24157c7",
+    "latest_asof_ts": "2026-05-29T06:47:59.836958+00:00",
+    "daemon_status": "running",
+    "runtime_code_version": "event_watchtower.v3.2.market-shock",
+    "last_market_probe_at": "2026-05-29T06:47:59.836958+00:00",
+    "latest_market_probe_id": "mprobe-20260529064759-45713a48",
+    "market_probe_source": "binance",
+    "market_probe_hash": "b420628f282f4adba048fc8143ee2f33e319e9483c2a155e1671a6a8eb5629ef",
+    "market_probe_lineage": [
+      {
+        "source_id": "binance_spot_ticker_24hr",
+        "source_tier": "market_live",
+        "endpoint_url": "https://api.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT",
+        "started_at": "2026-05-29T06:48:29.163452+00:00",
+        "finished_at": "2026-05-29T06:48:29.390465+00:00",
+        "status": "success",
+        "http_status": 200,
+        "error_code": null,
+        "error_message": null,
+        "parsed_item_count": 1,
+        "fallback_used": false
+      },
+      {
+        "source_id": "binance_spot_kline_5m",
+        "source_tier": "market_live",
+        "endpoint_url": "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=5m&limit=26",
+        "started_at": "2026-05-29T06:48:29.390465+00:00",
+        "finished_at": "2026-05-29T06:48:29.501304+00:00",
+        "status": "success",
+        "http_status": 200,
+        "error_code": null,
+        "error_message": null,
+        "parsed_item_count": 26,
+        "fallback_used": false
+      },
+      {
+        "source_id": "binance_spot_kline_15m",
+        "source_tier": "market_live",
+        "endpoint_url": "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=15m&limit=26",
+        "started_at": "2026-05-29T06:48:29.501304+00:00",
+        "finished_at": "2026-05-29T06:48:29.612951+00:00",
+        "status": "success",
+        "http_status": 200,
+        "error_code": null,
+        "error_message": null,
+        "parsed_item_count": 26,
+        "fallback_used": false
+      },
+      {
+        "source_id": "binance_spot_kline_1h",
+        "source_tier": "market_live",
+        "endpoint_url": "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&limit=30",
+        "started_at": "2026-05-29T06:48:29.612951+00:00",
+        "finished_at": "2026-05-29T06:48:29.721919+00:00",
+        "status": "success",
+        "http_status": 200,
+        "error_code": null,
+        "error_message": null,
+        "parsed_item_count": 30,
+        "fallback_used": false
+      },
+      {
+        "source_id": "binance_futures_premium_index",
+        "source_tier": "market_live",
+        "endpoint_url": "https://fapi.binance.com/fapi/v1/premiumIndex?symbol=BTCUSDT",
+        "started_at": "2026-05-29T06:48:29.721919+00:00",
+        "finished_at": "2026-05-29T06:48:30.038102+00:00",
+        "status": "success",
+        "http_status": 200,
+        "error_code": null,
+        "error_message": null,
+        "parsed_item_count": 1,
+        "fallback_used": false
+      },
+      {
+        "source_id": "binance_futures_open_interest",
+        "source_tier": "market_live",
+        "endpoint_url": "https://fapi.binance.com/fapi/v1/openInterest?symbol=BTCUSDT",
+        "started_at": "2026-05-29T06:48:30.038683+00:00",
+        "finished_at": "2026-05-29T06:48:30.155932+00:00",
+        "status": "success",
+        "http_status": 200,
+        "error_code": null,
+        "error_message": null,
+        "parsed_item_count": 1,
+        "fallback_used": false
+      }
+    ],
+    "latest_shock_summary": "No official unscheduled policy shock. Market dislocation checks are normal or unavailable.",
+    "direct_score_impact": false
+  },
+  "audit_focus": [
+    "5m-only shock detector would miss sustained 1h/4h/24h drawdown.",
+    "Market shock may change emergency overlay and ordinary radar trust.",
+    "Market shock does not directly change BTC score."
+  ],
+  "html_path": "E:\\onlyBTC\\reports\\event-window-market-shock-regression-audit.html",
+  "json_path": "E:\\onlyBTC\\reports\\event-window-market-shock-regression-audit.json"
+}

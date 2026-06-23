@@ -1,0 +1,1325 @@
+{
+  "schema_version": "p7.c05.playwright_stability.v1",
+  "generated_at": "2026-06-22T23:39:54.232740+00:00",
+  "applied_to_production": false,
+  "overall_status": "warning",
+  "alert_count": 2,
+  "alerts": [
+    {
+      "alert_id": "provider_auth_not_verified",
+      "level": "warning",
+      "scope": "provider_auth",
+      "reason": "glassnode: status not found",
+      "recommended_action": "degrade_provider_to_health_warning_until_verified"
+    },
+    {
+      "alert_id": "playwright_recent_health_warnings",
+      "level": "warning",
+      "scope": "source_health",
+      "reason": "fxstreet-economic-calendar",
+      "recommended_action": "inspect_artifacts_selectors_or_provider_auth"
+    }
+  ],
+  "playwright_sources": [
+    {
+      "source_id": "bitbo-sth-lth-realized-price",
+      "group_name": "onchain_valuation",
+      "method": "playwright_persistent_chart_export",
+      "fallback_source_id": null,
+      "metrics": [
+        "sth_cost_basis",
+        "lth_cost_basis"
+      ],
+      "quality_score": 0.72,
+      "requires_human_verified_profile": true,
+      "linked_provider_id": null,
+      "profile_dir": "playwright-bitbo-profile",
+      "freshness_policy": {}
+    },
+    {
+      "source_id": "fxstreet-economic-calendar",
+      "group_name": "event_policy",
+      "method": "playwright_calendar",
+      "fallback_source_id": null,
+      "metrics": [
+        "macro_surprise_score",
+        "aggregate_macro_surprise",
+        "macro_surprise_event_count"
+      ],
+      "quality_score": 0.74,
+      "requires_human_verified_profile": false,
+      "linked_provider_id": null,
+      "profile_dir": null,
+      "freshness_policy": {}
+    },
+    {
+      "source_id": "playwright-glassnode-asset-overview",
+      "group_name": "fund_flow",
+      "method": "playwright_network",
+      "fallback_source_id": null,
+      "metrics": [
+        "etf_net_flow",
+        "etf_flow_7d",
+        "exchange_balance_delta_1d_proxy",
+        "active_addresses",
+        "transfer_volume_adjusted_usd",
+        "nupl",
+        "mvrv_zscore"
+      ],
+      "quality_score": null,
+      "requires_human_verified_profile": true,
+      "linked_provider_id": "glassnode",
+      "profile_dir": null,
+      "freshness_policy": {
+        "cadence": "page_snapshot_daily",
+        "expected_update_seconds": 3600,
+        "collection_stale_after_seconds": 7200,
+        "collection_expired_after_seconds": 43200,
+        "business_expected_lag_after_seconds": 86400,
+        "business_lagging_after_seconds": 259200,
+        "business_outdated_after_seconds": 604800,
+        "business_calendar": "24x7_daily_metric"
+      }
+    },
+    {
+      "source_id": "playwright-glassnode-sopr",
+      "group_name": "onchain_valuation",
+      "method": "playwright_network",
+      "fallback_source_id": null,
+      "metrics": [
+        "sopr"
+      ],
+      "quality_score": null,
+      "requires_human_verified_profile": true,
+      "linked_provider_id": "glassnode",
+      "profile_dir": null,
+      "freshness_policy": {
+        "cadence": "page_snapshot_daily",
+        "expected_update_seconds": 3600,
+        "collection_stale_after_seconds": 7200,
+        "collection_expired_after_seconds": 43200,
+        "business_expected_lag_after_seconds": 86400,
+        "business_lagging_after_seconds": 259200,
+        "business_outdated_after_seconds": 604800,
+        "business_calendar": "24x7_daily_metric"
+      }
+    },
+    {
+      "source_id": "playwright-tradingview-brent-oil",
+      "group_name": "macro",
+      "method": "playwright",
+      "fallback_source_id": "fred-brent-oil",
+      "metrics": [
+        "brent_oil"
+      ],
+      "quality_score": 0.78,
+      "requires_human_verified_profile": false,
+      "linked_provider_id": null,
+      "profile_dir": null,
+      "freshness_policy": {
+        "cadence": "intraday",
+        "expected_update_seconds": 600,
+        "collection_stale_after_seconds": 1200,
+        "collection_expired_after_seconds": 3600,
+        "business_expected_lag_after_seconds": 1200,
+        "business_lagging_after_seconds": 1200,
+        "business_outdated_after_seconds": 3600,
+        "business_calendar": "market_hours"
+      }
+    },
+    {
+      "source_id": "playwright-tradingview-dow-jones",
+      "group_name": "macro",
+      "method": "playwright",
+      "fallback_source_id": "fred-dow-jones",
+      "metrics": [
+        "dow_jones"
+      ],
+      "quality_score": 0.78,
+      "requires_human_verified_profile": false,
+      "linked_provider_id": null,
+      "profile_dir": null,
+      "freshness_policy": {
+        "cadence": "intraday",
+        "expected_update_seconds": 600,
+        "collection_stale_after_seconds": 1200,
+        "collection_expired_after_seconds": 3600,
+        "business_expected_lag_after_seconds": 1200,
+        "business_lagging_after_seconds": 1200,
+        "business_outdated_after_seconds": 3600,
+        "business_calendar": "market_hours"
+      }
+    },
+    {
+      "source_id": "playwright-tradingview-dxy",
+      "group_name": "macro",
+      "method": "playwright",
+      "fallback_source_id": "fred-dxy",
+      "metrics": [
+        "dxy_proxy"
+      ],
+      "quality_score": 0.78,
+      "requires_human_verified_profile": false,
+      "linked_provider_id": null,
+      "profile_dir": null,
+      "freshness_policy": {
+        "cadence": "intraday",
+        "expected_update_seconds": 600,
+        "collection_stale_after_seconds": 1200,
+        "collection_expired_after_seconds": 3600,
+        "business_expected_lag_after_seconds": 1200,
+        "business_lagging_after_seconds": 1200,
+        "business_outdated_after_seconds": 3600,
+        "business_calendar": "market_hours"
+      }
+    },
+    {
+      "source_id": "playwright-tradingview-gold",
+      "group_name": "macro",
+      "method": "playwright",
+      "fallback_source_id": null,
+      "metrics": [
+        "gold"
+      ],
+      "quality_score": 0.78,
+      "requires_human_verified_profile": false,
+      "linked_provider_id": null,
+      "profile_dir": null,
+      "freshness_policy": {
+        "cadence": "intraday",
+        "expected_update_seconds": 600,
+        "collection_stale_after_seconds": 1200,
+        "collection_expired_after_seconds": 3600,
+        "business_expected_lag_after_seconds": 1200,
+        "business_lagging_after_seconds": 1200,
+        "business_outdated_after_seconds": 3600,
+        "business_calendar": "market_hours"
+      }
+    },
+    {
+      "source_id": "playwright-tradingview-hang-seng-tech",
+      "group_name": "asia_risk",
+      "method": "playwright",
+      "fallback_source_id": null,
+      "metrics": [
+        "hang_seng_tech"
+      ],
+      "quality_score": 0.72,
+      "requires_human_verified_profile": false,
+      "linked_provider_id": null,
+      "profile_dir": null,
+      "freshness_policy": {}
+    },
+    {
+      "source_id": "playwright-tradingview-jgb-10y",
+      "group_name": "asia_risk",
+      "method": "playwright",
+      "fallback_source_id": "fred-jgb-10y",
+      "metrics": [
+        "jgb_10y"
+      ],
+      "quality_score": 0.72,
+      "requires_human_verified_profile": false,
+      "linked_provider_id": null,
+      "profile_dir": null,
+      "freshness_policy": {
+        "cadence": "intraday",
+        "expected_update_seconds": 600,
+        "collection_stale_after_seconds": 1200,
+        "collection_expired_after_seconds": 3600,
+        "business_expected_lag_after_seconds": 1200,
+        "business_lagging_after_seconds": 1200,
+        "business_outdated_after_seconds": 3600,
+        "business_calendar": "market_hours"
+      }
+    },
+    {
+      "source_id": "playwright-tradingview-russell-2000",
+      "group_name": "macro",
+      "method": "playwright",
+      "fallback_source_id": null,
+      "metrics": [
+        "russell_2000"
+      ],
+      "quality_score": 0.78,
+      "requires_human_verified_profile": false,
+      "linked_provider_id": null,
+      "profile_dir": null,
+      "freshness_policy": {
+        "cadence": "intraday",
+        "expected_update_seconds": 600,
+        "collection_stale_after_seconds": 1200,
+        "collection_expired_after_seconds": 3600,
+        "business_expected_lag_after_seconds": 1200,
+        "business_lagging_after_seconds": 1200,
+        "business_outdated_after_seconds": 3600,
+        "business_calendar": "market_hours"
+      }
+    },
+    {
+      "source_id": "playwright-tradingview-sp500",
+      "group_name": "macro",
+      "method": "playwright",
+      "fallback_source_id": "fred-sp500",
+      "metrics": [
+        "sp500"
+      ],
+      "quality_score": 0.78,
+      "requires_human_verified_profile": false,
+      "linked_provider_id": null,
+      "profile_dir": null,
+      "freshness_policy": {
+        "cadence": "intraday",
+        "expected_update_seconds": 600,
+        "collection_stale_after_seconds": 1200,
+        "collection_expired_after_seconds": 3600,
+        "business_expected_lag_after_seconds": 1200,
+        "business_lagging_after_seconds": 1200,
+        "business_outdated_after_seconds": 3600,
+        "business_calendar": "market_hours"
+      }
+    },
+    {
+      "source_id": "playwright-tradingview-topix",
+      "group_name": "asia_risk",
+      "method": "playwright",
+      "fallback_source_id": null,
+      "metrics": [
+        "topix"
+      ],
+      "quality_score": 0.72,
+      "requires_human_verified_profile": false,
+      "linked_provider_id": null,
+      "profile_dir": null,
+      "freshness_policy": {}
+    },
+    {
+      "source_id": "playwright-tradingview-usdcnh",
+      "group_name": "asia_risk",
+      "method": "playwright",
+      "fallback_source_id": "fred-usdcnh-proxy",
+      "metrics": [
+        "usdcnh"
+      ],
+      "quality_score": 0.78,
+      "requires_human_verified_profile": false,
+      "linked_provider_id": null,
+      "profile_dir": null,
+      "freshness_policy": {
+        "cadence": "intraday",
+        "expected_update_seconds": 600,
+        "collection_stale_after_seconds": 1200,
+        "collection_expired_after_seconds": 3600,
+        "business_expected_lag_after_seconds": 1200,
+        "business_lagging_after_seconds": 1200,
+        "business_outdated_after_seconds": 3600,
+        "business_calendar": "market_hours"
+      }
+    },
+    {
+      "source_id": "playwright-tradingview-usdjpy",
+      "group_name": "asia_risk",
+      "method": "playwright",
+      "fallback_source_id": "fred-usdjpy",
+      "metrics": [
+        "usdjpy"
+      ],
+      "quality_score": 0.78,
+      "requires_human_verified_profile": false,
+      "linked_provider_id": null,
+      "profile_dir": null,
+      "freshness_policy": {
+        "cadence": "intraday",
+        "expected_update_seconds": 600,
+        "collection_stale_after_seconds": 1200,
+        "collection_expired_after_seconds": 3600,
+        "business_expected_lag_after_seconds": 1200,
+        "business_lagging_after_seconds": 1200,
+        "business_outdated_after_seconds": 3600,
+        "business_calendar": "market_hours"
+      }
+    },
+    {
+      "source_id": "playwright-tradingview-wti-oil",
+      "group_name": "macro",
+      "method": "playwright",
+      "fallback_source_id": "fred-wti-oil",
+      "metrics": [
+        "wti_oil"
+      ],
+      "quality_score": 0.78,
+      "requires_human_verified_profile": false,
+      "linked_provider_id": null,
+      "profile_dir": null,
+      "freshness_policy": {
+        "cadence": "intraday",
+        "expected_update_seconds": 600,
+        "collection_stale_after_seconds": 1200,
+        "collection_expired_after_seconds": 3600,
+        "business_expected_lag_after_seconds": 1200,
+        "business_lagging_after_seconds": 1200,
+        "business_outdated_after_seconds": 3600,
+        "business_calendar": "market_hours"
+      }
+    }
+  ],
+  "provider_auth": [
+    {
+      "provider_id": "glassnode",
+      "configured": false,
+      "verified": false,
+      "message": "status not found",
+      "auth_dir": "E:\\onlyBTC\\playwright-artifacts\\auth\\glassnode",
+      "profile_dir": "E:\\onlyBTC\\playwright-artifacts\\auth\\glassnode\\profile",
+      "storage_state_path": "E:\\onlyBTC\\playwright-artifacts\\auth\\glassnode\\storage-state.json",
+      "status_path": "E:\\onlyBTC\\playwright-artifacts\\auth\\glassnode\\status.json",
+      "auth_dir_under_playwright_artifacts": true,
+      "status_has_sensitive_fields": false,
+      "sanitized_status": {
+        "provider_id": "glassnode",
+        "configured": false,
+        "verified": false,
+        "status_path": "E:\\onlyBTC\\playwright-artifacts\\auth\\glassnode\\status.json",
+        "message": "status not found"
+      }
+    }
+  ],
+  "artifact_policy": {
+    "gitignore_path": "E:\\onlyBTC\\.gitignore",
+    "playwright_artifacts_dir": "E:\\onlyBTC\\playwright-artifacts",
+    "auth_dir": "E:\\onlyBTC\\playwright-artifacts\\auth",
+    "playwright_artifacts_ignored": true,
+    "status_files_allowed": true,
+    "storage_state_reported_as_path_only": true
+  },
+  "recent_playwright_health_events": [
+    {
+      "source_id": "playwright-tradingview-hang-seng-tech",
+      "status": "healthy",
+      "quality_score": 0.72,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=3600.0 business_recency=current business_age_seconds=2.654",
+      "created_at": "2026-06-22T23:39:04.865373",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-topix",
+      "status": "healthy",
+      "quality_score": 0.72,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=3600.0 business_recency=current business_age_seconds=7.234",
+      "created_at": "2026-06-22T23:39:04.865373",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-usdcnh",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=11.994",
+      "created_at": "2026-06-22T23:39:04.865373",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-usdjpy",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=16.537",
+      "created_at": "2026-06-22T23:39:04.865373",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-jgb-10y",
+      "status": "healthy",
+      "quality_score": 0.72,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=21.131",
+      "created_at": "2026-06-22T23:39:04.865373",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-glassnode-sopr",
+      "status": "healthy",
+      "quality_score": 0.76,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=3600.0 business_recency=expected_lag business_age_seconds=171466.123",
+      "created_at": "2026-06-22T23:37:46.376389",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-glassnode-asset-overview",
+      "status": "healthy",
+      "quality_score": 0.7,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=3600.0 business_recency=expected_lag business_age_seconds=171465.612",
+      "created_at": "2026-06-22T23:37:46.376389",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-hang-seng-tech",
+      "status": "healthy",
+      "quality_score": 0.72,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=3600.0 business_recency=current business_age_seconds=26.066",
+      "created_at": "2026-06-22T23:37:46.376389",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-topix",
+      "status": "healthy",
+      "quality_score": 0.72,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=3600.0 business_recency=current business_age_seconds=30.616",
+      "created_at": "2026-06-22T23:37:46.376389",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-usdcnh",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=35.184",
+      "created_at": "2026-06-22T23:37:46.376389",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-usdjpy",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=39.372",
+      "created_at": "2026-06-22T23:37:46.376389",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-jgb-10y",
+      "status": "healthy",
+      "quality_score": 0.72,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=44.037",
+      "created_at": "2026-06-22T23:37:46.376389",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-brent-oil",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=48.67",
+      "created_at": "2026-06-22T23:37:46.376389",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-wti-oil",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=55.06",
+      "created_at": "2026-06-22T23:37:46.376389",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-gold",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=59.956",
+      "created_at": "2026-06-22T23:37:46.376389",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-russell-2000",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=64.882",
+      "created_at": "2026-06-22T23:37:46.376389",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-dow-jones",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=69.673",
+      "created_at": "2026-06-22T23:37:46.376389",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-sp500",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=75.0",
+      "created_at": "2026-06-22T23:37:46.376389",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-dxy",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=80.532",
+      "created_at": "2026-06-22T23:37:46.376389",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "bitbo-sth-lth-realized-price",
+      "status": "healthy",
+      "quality_score": 0.72,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=3600.0 business_recency=current business_age_seconds=85064.779",
+      "created_at": "2026-06-22T23:37:46.376389",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "fxstreet-economic-calendar",
+      "status": "warning",
+      "quality_score": 0.6699999999999999,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=3600.0 business_recency=current business_age_seconds=103.914",
+      "created_at": "2026-06-22T23:37:46.376389",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-hang-seng-tech",
+      "status": "healthy",
+      "quality_score": 0.72,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=3600.0 business_recency=current business_age_seconds=3.564",
+      "created_at": "2026-06-22T23:34:42.663827",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-topix",
+      "status": "healthy",
+      "quality_score": 0.72,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=3600.0 business_recency=current business_age_seconds=8.619",
+      "created_at": "2026-06-22T23:34:42.663827",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-usdcnh",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=13.878",
+      "created_at": "2026-06-22T23:34:42.663827",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-usdjpy",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=19.421",
+      "created_at": "2026-06-22T23:34:42.663827",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-jgb-10y",
+      "status": "healthy",
+      "quality_score": 0.72,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=24.058",
+      "created_at": "2026-06-22T23:34:42.663827",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-brent-oil",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=28.688",
+      "created_at": "2026-06-22T23:34:42.663827",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-wti-oil",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=33.721",
+      "created_at": "2026-06-22T23:34:42.663827",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-gold",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=38.707",
+      "created_at": "2026-06-22T23:34:42.663827",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-russell-2000",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=43.747",
+      "created_at": "2026-06-22T23:34:42.663827",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-dow-jones",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=49.527",
+      "created_at": "2026-06-22T23:34:42.663827",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-sp500",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=54.84",
+      "created_at": "2026-06-22T23:34:42.663827",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-dxy",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=69.103",
+      "created_at": "2026-06-22T23:34:42.663827",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-hang-seng-tech",
+      "status": "healthy",
+      "quality_score": 0.72,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=3600.0 business_recency=current business_age_seconds=2.7",
+      "created_at": "2026-06-22T23:32:10.241739",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-topix",
+      "status": "healthy",
+      "quality_score": 0.72,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=3600.0 business_recency=current business_age_seconds=7.267",
+      "created_at": "2026-06-22T23:32:10.241739",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-usdcnh",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=11.718",
+      "created_at": "2026-06-22T23:32:10.241739",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-usdjpy",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=17.59",
+      "created_at": "2026-06-22T23:32:10.241739",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-jgb-10y",
+      "status": "healthy",
+      "quality_score": 0.72,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=22.098",
+      "created_at": "2026-06-22T23:32:10.241739",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-hang-seng-tech",
+      "status": "healthy",
+      "quality_score": 0.72,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=3600.0 business_recency=current business_age_seconds=3.003",
+      "created_at": "2026-06-22T23:30:36.054959",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-topix",
+      "status": "healthy",
+      "quality_score": 0.72,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=3600.0 business_recency=current business_age_seconds=7.584",
+      "created_at": "2026-06-22T23:30:36.054959",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-usdcnh",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=12.955",
+      "created_at": "2026-06-22T23:30:36.054959",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-usdjpy",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=17.544",
+      "created_at": "2026-06-22T23:30:36.054959",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-jgb-10y",
+      "status": "healthy",
+      "quality_score": 0.72,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=22.134",
+      "created_at": "2026-06-22T23:30:36.054959",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-hang-seng-tech",
+      "status": "healthy",
+      "quality_score": 0.72,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=3600.0 business_recency=current business_age_seconds=3.335",
+      "created_at": "2026-06-22T23:28:31.566337",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-topix",
+      "status": "healthy",
+      "quality_score": 0.72,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=3600.0 business_recency=current business_age_seconds=8.113",
+      "created_at": "2026-06-22T23:28:31.566337",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-usdcnh",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=12.93",
+      "created_at": "2026-06-22T23:28:31.566337",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-usdjpy",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=17.84",
+      "created_at": "2026-06-22T23:28:31.566337",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-jgb-10y",
+      "status": "healthy",
+      "quality_score": 0.72,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=22.68",
+      "created_at": "2026-06-22T23:28:31.566337",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-brent-oil",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=28.005",
+      "created_at": "2026-06-22T23:28:31.566337",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-wti-oil",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=33.292",
+      "created_at": "2026-06-22T23:28:31.566337",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-gold",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=38.977",
+      "created_at": "2026-06-22T23:28:31.566337",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-russell-2000",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=44.364",
+      "created_at": "2026-06-22T23:28:31.566337",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-dow-jones",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=49.397",
+      "created_at": "2026-06-22T23:28:31.566337",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-sp500",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=57.948",
+      "created_at": "2026-06-22T23:28:31.566337",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-dxy",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=65.907",
+      "created_at": "2026-06-22T23:28:31.566337",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-hang-seng-tech",
+      "status": "healthy",
+      "quality_score": 0.72,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=3600.0 business_recency=current business_age_seconds=2.537",
+      "created_at": "2026-06-22T23:26:16.000761",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-topix",
+      "status": "healthy",
+      "quality_score": 0.72,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=3600.0 business_recency=current business_age_seconds=7.394",
+      "created_at": "2026-06-22T23:26:16.000761",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-usdcnh",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=12.274",
+      "created_at": "2026-06-22T23:26:16.000761",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-usdjpy",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=16.796",
+      "created_at": "2026-06-22T23:26:16.000761",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-jgb-10y",
+      "status": "healthy",
+      "quality_score": 0.72,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=21.997",
+      "created_at": "2026-06-22T23:26:16.000761",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-hang-seng-tech",
+      "status": "healthy",
+      "quality_score": 0.72,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=3600.0 business_recency=current business_age_seconds=2.583",
+      "created_at": "2026-06-22T23:24:48.748485",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-topix",
+      "status": "healthy",
+      "quality_score": 0.72,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=3600.0 business_recency=current business_age_seconds=7.065",
+      "created_at": "2026-06-22T23:24:48.748485",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-usdcnh",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=11.525",
+      "created_at": "2026-06-22T23:24:48.748485",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-usdjpy",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=15.997",
+      "created_at": "2026-06-22T23:24:48.748485",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-jgb-10y",
+      "status": "healthy",
+      "quality_score": 0.72,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=20.548",
+      "created_at": "2026-06-22T23:24:48.748485",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-hang-seng-tech",
+      "status": "healthy",
+      "quality_score": 0.72,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=3600.0 business_recency=current business_age_seconds=3.376",
+      "created_at": "2026-06-22T23:23:24.826905",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-topix",
+      "status": "healthy",
+      "quality_score": 0.72,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=3600.0 business_recency=current business_age_seconds=8.361",
+      "created_at": "2026-06-22T23:23:24.826905",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-usdcnh",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=13.112",
+      "created_at": "2026-06-22T23:23:24.826905",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-usdjpy",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=18.087",
+      "created_at": "2026-06-22T23:23:24.826905",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-jgb-10y",
+      "status": "healthy",
+      "quality_score": 0.72,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=22.896",
+      "created_at": "2026-06-22T23:23:24.826905",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-brent-oil",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=27.979",
+      "created_at": "2026-06-22T23:23:24.826905",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-wti-oil",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=33.977",
+      "created_at": "2026-06-22T23:23:24.826905",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-gold",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=39.249",
+      "created_at": "2026-06-22T23:23:24.826905",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-russell-2000",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=44.444",
+      "created_at": "2026-06-22T23:23:24.826905",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-dow-jones",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=49.396",
+      "created_at": "2026-06-22T23:23:24.826905",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-sp500",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=61.157",
+      "created_at": "2026-06-22T23:23:24.826905",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-dxy",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=69.239",
+      "created_at": "2026-06-22T23:23:24.826905",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-hang-seng-tech",
+      "status": "healthy",
+      "quality_score": 0.72,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=3600.0 business_recency=current business_age_seconds=2.605",
+      "created_at": "2026-06-22T23:21:08.049529",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-topix",
+      "status": "healthy",
+      "quality_score": 0.72,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=3600.0 business_recency=current business_age_seconds=7.491",
+      "created_at": "2026-06-22T23:21:08.049529",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-usdcnh",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=13.609",
+      "created_at": "2026-06-22T23:21:08.049529",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-usdjpy",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=18.763",
+      "created_at": "2026-06-22T23:21:08.049529",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-jgb-10y",
+      "status": "healthy",
+      "quality_score": 0.72,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=23.645",
+      "created_at": "2026-06-22T23:21:08.049529",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-hang-seng-tech",
+      "status": "healthy",
+      "quality_score": 0.72,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=3600.0 business_recency=current business_age_seconds=2.562",
+      "created_at": "2026-06-22T23:19:40.047636",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-topix",
+      "status": "healthy",
+      "quality_score": 0.72,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=3600.0 business_recency=current business_age_seconds=7.09",
+      "created_at": "2026-06-22T23:19:40.047636",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-usdcnh",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=11.595",
+      "created_at": "2026-06-22T23:19:40.047636",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-usdjpy",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=16.132",
+      "created_at": "2026-06-22T23:19:40.047636",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-jgb-10y",
+      "status": "healthy",
+      "quality_score": 0.72,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=20.686",
+      "created_at": "2026-06-22T23:19:40.047636",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-hang-seng-tech",
+      "status": "healthy",
+      "quality_score": 0.72,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=3600.0 business_recency=current business_age_seconds=3.346",
+      "created_at": "2026-06-22T23:18:16.862564",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-topix",
+      "status": "healthy",
+      "quality_score": 0.72,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=3600.0 business_recency=current business_age_seconds=8.232",
+      "created_at": "2026-06-22T23:18:16.862564",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-usdcnh",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=13.045",
+      "created_at": "2026-06-22T23:18:16.862564",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-usdjpy",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=17.943",
+      "created_at": "2026-06-22T23:18:16.862564",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-jgb-10y",
+      "status": "healthy",
+      "quality_score": 0.72,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=23.294",
+      "created_at": "2026-06-22T23:18:16.862564",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-brent-oil",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=28.23",
+      "created_at": "2026-06-22T23:18:16.862564",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-wti-oil",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=33.43",
+      "created_at": "2026-06-22T23:18:16.862564",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-gold",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=38.655",
+      "created_at": "2026-06-22T23:18:16.862564",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-russell-2000",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=43.959",
+      "created_at": "2026-06-22T23:18:16.862564",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-dow-jones",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=49.022",
+      "created_at": "2026-06-22T23:18:16.862564",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-sp500",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=58.384",
+      "created_at": "2026-06-22T23:18:16.862564",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-dxy",
+      "status": "healthy",
+      "quality_score": 0.78,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=600.0 business_recency=current business_age_seconds=66.239",
+      "created_at": "2026-06-22T23:18:16.862564",
+      "failure_category": "unknown"
+    },
+    {
+      "source_id": "playwright-tradingview-hang-seng-tech",
+      "status": "healthy",
+      "quality_score": 0.72,
+      "latency_ms": null,
+      "message": "collection_freshness=fresh collection_age_seconds=0.0 expected_seconds=3600.0 business_recency=current business_age_seconds=2.702",
+      "created_at": "2026-06-22T23:15:55.349086",
+      "failure_category": "unknown"
+    }
+  ],
+  "stability_contract": {
+    "headed_login_bootstrap": "onlybtc provider-login <provider_id>",
+    "headless_login_verify": "onlybtc provider-auth-status <provider_id> --verify",
+    "auth_storage_dir": "playwright-artifacts/auth/{provider_id}",
+    "login_required_degradation": "provider_health_warning_not_global_collection_block",
+    "sensitive_fields_forbidden": [
+      "cookie",
+      "cookies",
+      "token",
+      "authorization",
+      "auth",
+      "localStorage",
+      "local_storage",
+      "sessionStorage",
+      "session_storage",
+      "password",
+      "secret"
+    ]
+  },
+  "guardrails": [
+    "audit_only",
+    "does_not_open_browser",
+    "does_not_collect_sources",
+    "does_not_store_secrets_in_report",
+    "does_not_modify_state_machine",
+    "does_not_emit_trading_advice",
+    "requires_p7_c08_before_production_apply"
+  ]
+}

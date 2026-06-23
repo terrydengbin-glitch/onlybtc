@@ -1,0 +1,75 @@
+{
+  "task": "P7-C10",
+  "title": "BTC Trend Cockpit full-chain audit",
+  "status": "PASS",
+  "audited_at": "2026-05-27T18:10:00+08:00",
+  "run_once": {
+    "collect_run_id": "collect-20260527100229-0f7763",
+    "p2_radar_run_id": "radar-20260527100526-aea1dd",
+    "p3_run_id": "p3-20260527100530-a911b2",
+    "pack_id": "p45pack-20260527100544-e304b1",
+    "article_run_id": "p45articles-20260527100544-0e39fe",
+    "final_run_id": "p45final-20260527100544-19568a",
+    "contract_validation": "passed",
+    "radar_module_count": 14,
+    "metric_evidence_count": 627
+  },
+  "cockpit": {
+    "schema_version": "p45.btc_trend_cockpit.v2",
+    "dashboard": {
+      "headline_state": "neutral",
+      "btc_direction": "neutral",
+      "trend_quality": "unconfirmed"
+    },
+    "overview": {
+      "headline_state": "neutral",
+      "btc_direction": "neutral",
+      "trend_quality": "unconfirmed"
+    },
+    "history": {
+      "headline_state": "neutral",
+      "btc_direction": "neutral",
+      "trend_quality": "unconfirmed"
+    },
+    "scores": {
+      "fast_net_score": 0.0204,
+      "confirmation_net_score": -0.1101,
+      "regime_net_score": 0.0021,
+      "controller_score": 1.0,
+      "support_score": 0.136,
+      "pressure_score": 0.5026,
+      "conflict_score": 0.136,
+      "rejection_score": 0.2,
+      "trend_acceptance_score": 51.82,
+      "data_quality_penalty": 6.0
+    }
+  },
+  "tests": {
+    "pytest": {
+      "command": ".\\.venv\\Scripts\\python -m pytest backend/tests/test_p45_btc_trend_cockpit.py backend/tests/test_p45_final_writer.py backend/tests/test_p45_dashboard_api.py -q",
+      "result": "38 passed"
+    },
+    "frontend_build": {
+      "command": "npm run build",
+      "cwd": "frontend",
+      "result": "passed"
+    },
+    "p5_contract": {
+      "command": ".\\.venv\\Scripts\\python scripts\\validate_p5_dashboard_contract.py --base-url http://127.0.0.1:8118",
+      "result": "P5 dashboard contract validation passed"
+    }
+  },
+  "dod": {
+    "cockpit_schema_present": true,
+    "dashboard_overview_history_passthrough": true,
+    "frontend_cockpit_first_fallback": true,
+    "single_module_cannot_confirm": true,
+    "pressure_without_acceptance_not_confirmed": true,
+    "blocking_contract_or_data_quality_supported": true,
+    "targeted_tests_passed": true
+  },
+  "residual_risks": [
+    "run once used skip_llm=true, so LLM appendix was intentionally skipped",
+    "contract warning MISSING_FRESHNESS_FIELDS remains and is reflected as data_quality_penalty"
+  ]
+}

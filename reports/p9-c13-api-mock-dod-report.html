@@ -1,0 +1,9 @@
+<html><body><h1>P9-C13 API Mock / DoD Report</h1><p>Status: <strong>passed</strong></p><p>Mock endpoint: <code>/api/mock/p9-c13/scenarios</code></p><table><thead><tr><th>Status</th><th>Check</th><th>Description</th></tr></thead><tbody><tr><td>PASS</td><td>required_openapi_paths_present</td><td>All P5 page APIs are present in OpenAPI.</td></tr>
+<tr><td>PASS</td><td>frontend_p45_endpoints_present</td><td>Frontend DTO layer references P45 page APIs.</td></tr>
+<tr><td>PASS</td><td>mock_scenarios_present</td><td>Required API mock scenarios are available.</td></tr>
+<tr><td>PASS</td><td>mock_scenarios_use_report_v2</td><td>Mock fixtures use P4.5 Report v2.</td></tr>
+<tr><td>PASS</td><td>mock_scenarios_redacted</td><td>Mock fixtures do not expose plaintext secrets.</td></tr>
+<tr><td>PASS</td><td>error_contract_exposed</td><td>Frontend error DTO contract is present.</td></tr>
+<tr><td>PASS</td><td>sse_contract_exposed</td><td>Realtime SSE endpoint is present.</td></tr>
+<tr><td>PASS</td><td>api_security_mock_route_exposed</td><td>P9-C13 API mock endpoint is present.</td></tr>
+<tr><td>PASS</td><td>path_resolver_report_paths</td><td>Reports are written under the project reports directory.</td></tr></tbody></table><h2>Mock Scenarios</h2><ul><li>normal_run</li><li>contract_warning_run</li><li>llm_completed_run</li><li>llm_completed_with_llm_errors_run</li><li>data_quality_degraded_run</li><li>historical_replay_run</li><li>legacy_p4_reference_run</li></ul></body></html>

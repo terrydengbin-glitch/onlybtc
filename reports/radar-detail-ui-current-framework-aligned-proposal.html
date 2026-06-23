@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>onlyBTC Radar Detail UI Proposal</title>
+  <style>
+    :root {
+      --bg: #071018;
+      --panel: rgba(10, 27, 39, 0.9);
+      --panel-soft: rgba(11, 30, 43, 0.78);
+      --border: rgba(111, 155, 178, 0.24);
+      --border-soft: rgba(111, 155, 178, 0.15);
+      --text: #d8e9ef;
+      --muted: #8ca7b6;
+      --cyan: #21d3c0;
+      --gold: #d4a91d;
+      --red: #e46770;
+      --green: #2bd19a;
+      --purple: #9d87ff;
+      --radius: 8px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background: var(--bg);
+      font-size: 13px;
+    }
+
+    .app {
+      display: grid;
+      grid-template-rows: 44px 1fr;
+      min-height: 100vh;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 0 12px;
+      background: #061018;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .brand i {
+      width: 24px;
+      height: 24px;
+      display: grid;
+      place-items: center;
+      font-style: normal;
+      color: var(--cyan);
+      border: 1px solid rgba(33, 211, 192, 0.52);
+      background: rgba(33, 211, 192, 0.12);
+      border-radius: 6px;
+    }
+
+    .pills {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 5px 10px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(13, 32, 45, 0.86);
+      color: #abc3ce;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .pill.gold { color: #f7d36b; border-color: rgba(212, 169, 29, 0.45); }
+    .pill.cyan { color: #bffaf2; border-color: rgba(33, 211, 192, 0.45); }
+    .pill.purple { color: #dacfff; border-color: rgba(157, 135, 255, 0.45); }
+
+    .body {
+      display: grid;
+      grid-template-columns: 74px minmax(0, 1fr) 330px;
+      min-height: 0;
+    }
+
+    .side-nav {
+      display: grid;
+      align-content: start;
+      gap: 8px;
+      padding: 10px 9px;
+      border-right: 1px solid var(--border);
+      background: #07131d;
+    }
+
+    .nav-btn {
+      min-height: 36px;
+      border: 1px solid rgba(47, 113, 140, 0.48);
+      border-radius: 6px;
+      background: rgba(10, 28, 41, 0.85);
+      color: #b7ced8;
+    }
+
+    .nav-btn.active {
+      color: var(--cyan);
+      border-color: rgba(33, 211, 192, 0.55);
+      background: rgba(33, 211, 192, 0.1);
+    }
+
+    .main {
+      min-width: 0;
+      overflow: auto;
+      padding: 12px;
+      background:
+        linear-gradient(rgba(255,255,255,0.024) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.024) 1px, transparent 1px),
+        #071019;
+      background-size: 32px 32px;
+    }
+
+    .detail-frame {
+      position: relative;
+      min-height: 830px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background:
+        radial-gradient(circle at center, transparent 0 118px, rgba(66, 116, 142, 0.22) 119px 121px, transparent 122px 250px, rgba(66, 116, 142, 0.18) 251px 253px, transparent 254px 390px, rgba(66, 116, 142, 0.16) 391px 393px, transparent 394px),
+        rgba(7, 20, 31, 0.62);
+    }
+
+    .detail-frame::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 620px;
+      height: 620px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: conic-gradient(from -34deg, rgba(33, 211, 192, 0.14), transparent 19%, transparent 100%);
+      opacity: 0.72;
+      pointer-events: none;
+      animation: sweep 8s linear infinite;
+    }
+
+    .detail-frame::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 42px;
+      bottom: 42px;
+      border-left: 2px dashed rgba(66, 116, 142, 0.2);
+      pointer-events: none;
+    }
+
+    @keyframes sweep {
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    .toolbar {
+      position: absolute;
+      left: 14px;
+      top: 14px;
+      right: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 20;
+    }
+
+    .toolbar .grow { flex: 1; }
+
+    .metric-card {
+      position: absolute;
+      width: 156px;
+      min-height: 78px;
+      padding: 9px;
+      border: 1px solid rgba(212, 169, 29, 0.48);
+      border-radius: var(--radius);
+      background: rgba(10, 27, 39, 0.9);
+      box-shadow: 0 14px 34px rgba(0,0,0,0.22);
+      z-index: 4;
+    }
+
+    .metric-card.pressure { border-color: rgba(228, 103, 112, 0.58); }
+    .metric-card.support { border-color: rgba(43, 209, 154, 0.52); }
+    .metric-card.quality { border-color: rgba(157, 135, 255, 0.52); }
+
+    .metric-card strong {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: #eff8fa;
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+
+    .metric-card span,
+    .metric-card small {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.35;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .metric-bar {
+      height: 5px;
+      margin-top: 8px;
+      border-radius: 99px;
+      background: rgba(111, 155, 178, 0.22);
+      overflow: hidden;
+    }
+    .metric-bar i {
+      display: block;
+      height: 100%;
+      width: var(--w);
+      border-radius: inherit;
+      background: currentColor;
+      color: var(--gold);
+    }
+    .metric-card.pressure .metric-bar i { color: var(--red); }
+    .metric-card.support .metric-bar i { color: var(--green); }
+    .metric-card.quality .metric-bar i { color: var(--purple); }
+
+    .main-card {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 310px;
+      transform: translate(-50%, -50%);
+      border: 1px solid rgba(33, 211, 192, 0.48);
+      border-radius: var(--radius);
+      background: rgba(9, 27, 39, 0.96);
+      padding: 18px;
+      z-index: 8;
+      box-shadow: 0 0 0 1px rgba(33, 211, 192, 0.08), 0 24px 76px rgba(0,0,0,0.32);
+    }
+
+    .state-chip {
+      display: block;
+      min-height: 25px;
+      margin-bottom: 14px;
+      padding: 6px 10px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: #a7bfca;
+      background: rgba(12, 31, 45, 0.82);
+      font-size: 12px;
+    }
+
+    .main-card h1 {
+      margin: 0 0 12px;
+      color: #c6d4db;
+      font-size: 24px;
+      letter-spacing: 0;
+    }
+
+    .main-card p {
+      margin: 0 0 12px;
+      color: #a9c0cc;
+      font-size: 15px;
+      line-height: 1.45;
+    }
+
+    .chip-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 14px;
+    }
+
+    .small-chip {
+      padding: 5px 9px;
+      border: 1px solid rgba(111, 155, 178, 0.26);
+      border-radius: 999px;
+      background: rgba(8, 22, 33, 0.72);
+      color: #a6bdc8;
+      font-size: 12px;
+    }
+
+    .main-links {
+      display: grid;
+      gap: 7px;
+    }
+
+    .main-links div {
+      display: grid;
+      grid-template-columns: 82px 1fr;
+      gap: 8px;
+      padding: 8px;
+      border: 1px solid var(--border-soft);
+      border-radius: 6px;
+      background: rgba(7, 20, 31, 0.72);
+      color: #99b3bf;
+      font-size: 12px;
+    }
+    .main-links b { color: #e0edf2; }
+
+    .ray {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      height: 0;
+      width: var(--w, 390px);
+      transform: rotate(var(--a));
+      transform-origin: left center;
+      border-top: 4px dashed rgba(212, 169, 29, 0.76);
+      z-index: 1;
+      filter: drop-shadow(0 0 5px rgba(212, 169, 29, 0.25));
+    }
+
+    .ray.module {
+      border-top-width: 2px;
+      border-top-style: solid;
+      opacity: 0.6;
+      z-index: 2;
+    }
+
+    .ray.pressure { border-color: rgba(228, 103, 112, 0.82); filter: drop-shadow(0 0 5px rgba(228, 103, 112, 0.24)); }
+    .ray.support { border-color: rgba(33, 211, 192, 0.78); filter: drop-shadow(0 0 5px rgba(33, 211, 192, 0.24)); }
+    .ray.quality { border-color: rgba(157, 135, 255, 0.78); filter: drop-shadow(0 0 5px rgba(157, 135, 255, 0.24)); }
+    .ray.faint { opacity: 0.22; border-top-width: 3px; }
+
+    .spoke-label {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 148px;
+      height: 148px;
+      border: 1px solid rgba(33, 211, 192, 0.12);
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    .drawer {
+      border-left: 1px solid var(--border);
+      background: #07131d;
+      padding: 10px;
+      overflow: auto;
+    }
+
+    .drawer-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--panel-soft);
+      padding: 12px;
+      margin-bottom: 10px;
+    }
+
+    .drawer-card h2 {
+      margin: 0 0 8px;
+      font-size: 15px;
+    }
+
+    .drawer-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: 12px;
+    }
+
+    .metric-table {
+      display: grid;
+      gap: 7px;
+      margin-top: 10px;
+    }
+
+    .metric-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      padding: 8px;
+      border: 1px solid var(--border-soft);
+      border-radius: 6px;
+      background: rgba(7, 20, 31, 0.72);
+    }
+    .metric-row strong { font-size: 12px; }
+    .metric-row small { display: block; margin-top: 3px; color: var(--muted); font-size: 11px; }
+    .metric-row em { color: #dceaf0; font-style: normal; font-variant-numeric: tabular-nums; }
+
+    .rules {
+      margin: 10px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: 12px;
+    }
+
+    @media (max-width: 1280px) {
+      .body { grid-template-columns: 64px minmax(0, 1fr); }
+      .drawer { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand"><i>B</i><span>onlyBTC</span></div>
+      <div class="pills">
+        <strong>Radar Detail</strong>
+        <span class="pill">module: kline_orderflow</span>
+        <span class="pill gold">stage: none</span>
+        <span class="pill cyan">contract passed</span>
+        <span style="color: var(--muted); font-size: 12px;">Updated 2026-05-27T10:01:29Z</span>
+      </div>
+      <span class="pill purple">data quality 0.9840</span>
+      <button class="pill">Back Dashboard</button>
+    </header>
+
+    <div class="body">
+      <nav class="side-nav">
+        <button class="nav-btn">拓扑</button>
+        <button class="nav-btn active">雷达</button>
+        <button class="nav-btn">证据</button>
+        <button class="nav-btn">预警</button>
+        <button class="nav-btn">质检</button>
+        <button class="nav-btn">日志</button>
+        <button class="nav-btn">回放</button>
+      </nav>
+
+      <main class="main">
+        <section class="detail-frame">
+          <div class="toolbar">
+            <span class="pill">P5 Radar Detail v2</span>
+            <span class="pill cyan">main card + metric cards linked</span>
+            <span class="pill gold">radar rings retained</span>
+            <span style="color: var(--muted); font-size: 12px;">默认显示 top drivers；低贡献参数折叠到右侧抽屉。</span>
+          </div>
+
+          <i class="spoke-label"></i>
+
+          <!-- Thick radar rays: visual radar effect from metric cards toward the selected module card. -->
+          <i class="ray pressure" style="--a:-90deg; --w:420px;"></i>
+          <i class="ray" style="--a:-62deg; --w:430px;"></i>
+          <i class="ray" style="--a:-34deg; --w:500px;"></i>
+          <i class="ray" style="--a:0deg; --w:520px;"></i>
+          <i class="ray support" style="--a:32deg; --w:430px;"></i>
+          <i class="ray quality" style="--a:90deg; --w:380px;"></i>
+          <i class="ray faint" style="--a:148deg; --w:430px;"></i>
+          <i class="ray" style="--a:210deg; --w:430px;"></i>
+          <i class="ray" style="--a:246deg; --w:405px;"></i>
+          <i class="ray" style="--a:300deg; --w:405px;"></i>
+
+          <!-- Softer module links: selected radar module contributes to BTC cockpit. -->
+          <i class="ray module support" style="--a:38deg; --w:270px;"></i>
+          <i class="ray module pressure" style="--a:-22deg; --w:270px;"></i>
+
+          <article class="metric-card pressure" style="left: 50%; top: 76px; transform: translateX(-50%);">
+            <strong>basis acceptance score</strong>
+            <span>value -78.0541 · score -</span>
+            <small>fresh · primary · q 0.9600</small>
+            <div class="metric-bar" style="--w:78%;"><i></i></div>
+          </article>
+
+          <article class="metric-card" style="left: 23%; top: 104px;">
+            <strong>btc trend confidence</strong>
+            <span>value 65.5723 · score 0</span>
+            <small>fresh · primary · q 0.9600</small>
+            <div class="metric-bar" style="--w:38%;"><i></i></div>
+          </article>
+
+          <article class="metric-card" style="right: 23%; top: 104px;">
+            <strong>basis impulse z 1h</strong>
+            <span>value 1.0568 · score 0</span>
+            <small>fresh · primary · q 0.9600</small>
+            <div class="metric-bar" style="--w:35%;"><i></i></div>
+          </article>
+
+          <article class="metric-card" style="left: 6%; top: 286px;">
+            <strong>btc top short position</strong>
+            <span>value 0.4335 · score 0</span>
+            <small>fresh · primary · q 0.9600</small>
+            <div class="metric-bar" style="--w:28%;"><i></i></div>
+          </article>
+
+          <article class="metric-card" style="right: 6%; top: 286px;">
+            <strong>btc global long account</strong>
+            <span>value 0.5921 · score 0</span>
+            <small>fresh · primary · q 0.9600</small>
+            <div class="metric-bar" style="--w:26%;"><i></i></div>
+          </article>
+
+          <article class="metric-card support" style="left: 7%; bottom: 138px;">
+            <strong>orderflow residual z</strong>
+            <span>value 1.2144 · score +</span>
+            <small>fresh · derived · q 0.9840</small>
+            <div class="metric-bar" style="--w:62%;"><i></i></div>
+          </article>
+
+          <article class="metric-card" style="right: 7%; bottom: 138px;">
+            <strong>flow price acceptance</strong>
+            <span>value neutral · score 0</span>
+            <small>fresh · derived · q 0.9840</small>
+            <div class="metric-bar" style="--w:24%;"><i></i></div>
+          </article>
+
+          <article class="metric-card quality" style="left: 50%; bottom: 80px; transform: translateX(-50%);">
+            <strong>data quality</strong>
+            <span>metric coverage healthy</span>
+            <small>freshness · coverage · replay</small>
+            <div class="metric-bar" style="--w:88%;"><i></i></div>
+          </article>
+
+          <article class="main-card">
+            <span class="state-chip">neutral</span>
+            <h1>kline_orderflow</h1>
+            <p>Kline orderflow is neutral. Active taker flow is directional only when price structure, VWAP acceptance and residual confirm it.</p>
+            <div class="chip-grid">
+              <span class="small-chip">score 0.1216</span>
+              <span class="small-chip">quality 0.9840</span>
+              <span class="small-chip">metrics 109</span>
+              <span class="small-chip">weight 0.0800</span>
+              <span class="small-chip">stage none</span>
+              <span class="small-chip">state neutral</span>
+              <span class="small-chip">vol low_vol</span>
+            </div>
+            <section class="main-links">
+              <div><b>Pressure</b><span>basis acceptance and failed flow acceptance remain watched</span></div>
+              <div><b>Support</b><span>residual and absorption checks prevent mechanical downside</span></div>
+              <div><b>To BTC</b><span>module contributes only after acceptance/residual confirms</span></div>
+            </section>
+          </article>
+        </section>
+      </main>
+
+      <aside class="drawer">
+        <article class="drawer-card">
+          <h2>Radar Detail Rules</h2>
+          <p>这版保留原始雷达效果：圆环、扫描扇区、外圈参数卡、线条全部还在。优化点是让线条只表达两种关系。</p>
+          <ol class="rules">
+            <li>粗虚线：参数卡 -> 当前雷达主卡。</li>
+            <li>细实线：当前雷达主卡 -> BTC cockpit。</li>
+            <li>低贡献、score=0、context-only 参数默认折叠，但仍可在右侧展开。</li>
+            <li>hover/click 某个参数时，高亮该参数到主卡，再高亮主卡到 BTC 的链路。</li>
+          </ol>
+        </article>
+
+        <article class="drawer-card">
+          <h2>Top Linked Metrics</h2>
+          <div class="metric-table">
+            <div class="metric-row"><div><strong>basis_acceptance_score</strong><small>pressure · linked to module</small></div><em>-78.05</em></div>
+            <div class="metric-row"><div><strong>orderflow_residual_z</strong><small>support · linked to module</small></div><em>+1.21</em></div>
+            <div class="metric-row"><div><strong>flow_price_acceptance</strong><small>neutral · folded detail</small></div><em>0</em></div>
+            <div class="metric-row"><div><strong>data_quality</strong><small>quality · not directional</small></div><em>0.984</em></div>
+          </div>
+        </article>
+
+        <article class="drawer-card">
+          <h2>正式实现建议</h2>
+          <p>保留现有 `radar-detail` 的绝对定位与 SVG/线条算法，只改信息密度：参数卡按贡献排序，默认 top 8；其余进入折叠列表。线条继续由参数卡坐标和主卡坐标计算。</p>
+        </article>
+      </aside>
+    </div>
+  </div>
+</body>
+</html>

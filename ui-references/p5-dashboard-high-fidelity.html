@@ -1,0 +1,919 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>onlyBTC P5 Dashboard High Fidelity</title>
+  <style>
+    :root {
+      --bg: #081017;
+      --panel: #0e1a23;
+      --panel-2: #122432;
+      --panel-3: #0b1720;
+      --line: #244050;
+      --line-soft: rgba(95, 145, 170, 0.26);
+      --text: #eaf5ff;
+      --muted: #8fa7b8;
+      --faint: #5f7483;
+      --bull: #22d3b6;
+      --bear: #f87171;
+      --neutral: #9ca3af;
+      --mixed: #fbbf24;
+      --warning: #fb923c;
+      --critical: #ef4444;
+      --quality: #a78bfa;
+      --blue: #60a5fa;
+      --shadow: 0 18px 48px rgba(0, 0, 0, 0.34);
+    }
+
+    * { box-sizing: border-box; }
+
+    a { color: inherit; text-decoration: none; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+      letter-spacing: 0;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: 56px 1fr;
+    }
+
+    .topbar {
+      height: 56px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(8, 16, 23, 0.96);
+      display: grid;
+      grid-template-columns: 180px 1fr auto;
+      align-items: center;
+      padding: 0 18px;
+      gap: 16px;
+      position: sticky;
+      top: 0;
+      z-index: 5;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .mark {
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(34, 211, 182, 0.5);
+      background: rgba(34, 211, 182, 0.08);
+      color: var(--bull);
+      border-radius: 7px;
+      font-size: 13px;
+    }
+
+    .ticker {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .ticker strong {
+      color: var(--text);
+      font-size: 16px;
+      font-weight: 650;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 24px;
+      border: 1px solid var(--line);
+      background: rgba(18, 36, 50, 0.82);
+      color: var(--muted);
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .pill.neutral { color: var(--neutral); border-color: rgba(156, 163, 175, 0.44); }
+    .pill.watch { color: var(--mixed); border-color: rgba(251, 191, 36, 0.42); }
+    .pill.good { color: var(--bull); border-color: rgba(34, 211, 182, 0.42); }
+    .pill.quality { color: var(--quality); border-color: rgba(167, 139, 250, 0.42); }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    button {
+      font: inherit;
+      border: 1px solid var(--line);
+      background: var(--panel-2);
+      color: var(--text);
+      border-radius: 7px;
+      min-height: 34px;
+      padding: 0 12px;
+      cursor: default;
+    }
+
+    button.primary {
+      border-color: rgba(96, 165, 250, 0.6);
+      background: rgba(96, 165, 250, 0.13);
+      color: #bfdbfe;
+    }
+
+    .main {
+      display: grid;
+      grid-template-columns: 92px minmax(720px, 1fr) 360px;
+      gap: 14px;
+      padding: 14px;
+      min-height: 0;
+    }
+
+    .rail {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 8px;
+      padding: 10px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      min-height: calc(100vh - 84px);
+    }
+
+    .navbtn {
+      width: 70px;
+      height: 38px;
+      border: 1px solid transparent;
+      border-radius: 7px;
+      color: var(--muted);
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      line-height: 1;
+      background: transparent;
+      white-space: nowrap;
+    }
+
+    .navbtn.active {
+      border-color: rgba(34, 211, 182, 0.45);
+      background: rgba(34, 211, 182, 0.08);
+      color: var(--bull);
+    }
+
+    .canvas {
+      display: grid;
+      grid-template-rows: minmax(560px, 1fr) 210px;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .topology {
+      border: 1px solid var(--line);
+      background: var(--panel-3);
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
+      min-height: 560px;
+      box-shadow: var(--shadow);
+    }
+
+    .topology::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(96, 165, 250, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(96, 165, 250, 0.035) 1px, transparent 1px);
+      background-size: 36px 36px;
+      pointer-events: none;
+    }
+
+    .topology-title {
+      position: absolute;
+      left: 18px;
+      top: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 12px;
+      z-index: 2;
+    }
+
+    .legend {
+      position: absolute;
+      right: 18px;
+      top: 14px;
+      display: flex;
+      gap: 8px;
+      z-index: 2;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      max-width: 480px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--neutral);
+      display: inline-block;
+    }
+    .dot.bull { background: var(--bull); }
+    .dot.bear { background: var(--bear); }
+    .dot.mixed { background: var(--mixed); }
+    .dot.quality { background: var(--quality); }
+
+    svg.links {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .link {
+      fill: none;
+      stroke-width: 1.6;
+      opacity: 0.6;
+    }
+    .link.bull { stroke: var(--bull); }
+    .link.bear { stroke: var(--bear); }
+    .link.mixed { stroke: var(--mixed); stroke-dasharray: 6 6; }
+    .link.quality { stroke: var(--quality); stroke-dasharray: 4 5; }
+    .link.strong { stroke-width: 2.8; opacity: 0.8; }
+
+    .btc-node {
+      position: absolute;
+      left: 50%;
+      top: 48%;
+      width: 260px;
+      min-height: 218px;
+      transform: translate(-50%, -50%);
+      border: 1px solid rgba(156, 163, 175, 0.58);
+      border-radius: 8px;
+      background: rgba(14, 26, 35, 0.96);
+      z-index: 3;
+      padding: 18px;
+      box-shadow: 0 0 0 1px rgba(156, 163, 175, 0.04), 0 22px 60px rgba(0,0,0,0.38);
+    }
+
+    .btc-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .btc-symbol {
+      font-size: 34px;
+      font-weight: 760;
+      line-height: 1;
+    }
+
+    .state {
+      color: var(--neutral);
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+    .score-ring {
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: var(--text);
+      font-weight: 700;
+      background:
+        radial-gradient(circle at center, var(--panel) 58%, transparent 60%),
+        conic-gradient(var(--neutral) 0 39%, rgba(156, 163, 175, 0.16) 39% 100%);
+      border: 1px solid rgba(156, 163, 175, 0.34);
+    }
+
+    .summary {
+      margin: 12px 0 14px;
+      color: #d7e6ef;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .btc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .kv {
+      border: 1px solid var(--line-soft);
+      background: rgba(18, 36, 50, 0.54);
+      border-radius: 7px;
+      padding: 8px;
+      min-width: 0;
+    }
+    .kv span {
+      display: block;
+      color: var(--faint);
+      font-size: 11px;
+      margin-bottom: 4px;
+    }
+    .kv strong {
+      display: block;
+      color: var(--text);
+      font-size: 12px;
+      overflow-wrap: anywhere;
+    }
+
+    .node {
+      position: absolute;
+      width: 184px;
+      min-height: 94px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(14, 26, 35, 0.93);
+      z-index: 2;
+      padding: 10px;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.22);
+    }
+
+    .node.support { border-color: rgba(34, 211, 182, 0.42); }
+    .node.pressure { border-color: rgba(248, 113, 113, 0.42); }
+    .node.mixed { border-color: rgba(251, 191, 36, 0.42); }
+    .node.quality { border-color: rgba(167, 139, 250, 0.42); }
+
+    .node-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 650;
+      margin-bottom: 6px;
+    }
+
+    .node-meta {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.35;
+    }
+
+    .node-score {
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .bar {
+      height: 5px;
+      flex: 1;
+      border-radius: 99px;
+      background: rgba(143, 167, 184, 0.18);
+      overflow: hidden;
+    }
+    .bar > i {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--neutral);
+    }
+    .bar.bull > i { background: var(--bull); }
+    .bar.bear > i { background: var(--bear); }
+    .bar.mixed > i { background: var(--mixed); }
+    .bar.quality > i { background: var(--quality); }
+
+    .n1 { left: 8%; top: 15%; }
+    .n2 { left: 31%; top: 10%; }
+    .n3 { right: 31%; top: 10%; }
+    .n4 { right: 8%; top: 15%; }
+    .n5 { left: 4%; top: 39%; }
+    .n6 { right: 4%; top: 39%; }
+    .n7 { left: 8%; bottom: 16%; }
+    .n8 { left: 31%; bottom: 9%; }
+    .n9 { right: 31%; bottom: 9%; }
+    .n10 { right: 8%; bottom: 16%; }
+    .n11 { left: 23%; top: 34%; }
+    .n12 { right: 23%; top: 34%; }
+    .n13 { left: 23%; bottom: 34%; }
+    .n14 { right: 23%; bottom: 34%; }
+
+    .bottom {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 8px;
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .panel-head {
+      min-height: 42px;
+      border-bottom: 1px solid var(--line-soft);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 13px;
+      gap: 12px;
+    }
+
+    .panel-title {
+      font-weight: 650;
+      font-size: 13px;
+    }
+
+    .panel-body {
+      padding: 12px;
+    }
+
+    .horizon-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .horizon {
+      border: 1px solid var(--line-soft);
+      border-radius: 7px;
+      background: rgba(18, 36, 50, 0.54);
+      padding: 10px;
+      min-width: 0;
+    }
+    .horizon h3 {
+      margin: 0 0 6px;
+      font-size: 13px;
+    }
+    .horizon p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.42;
+    }
+
+    .alert-list {
+      display: grid;
+      gap: 9px;
+    }
+
+    .alert {
+      border: 1px solid rgba(251, 191, 36, 0.32);
+      background: rgba(251, 191, 36, 0.06);
+      border-radius: 7px;
+      padding: 9px;
+    }
+    .alert.warning {
+      border-color: rgba(251, 146, 60, 0.36);
+      background: rgba(251, 146, 60, 0.07);
+    }
+    .alert-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 12px;
+      color: var(--text);
+      margin-bottom: 5px;
+    }
+    .alert p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .side {
+      display: grid;
+      grid-template-rows: auto auto 1fr;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .decision-list {
+      display: grid;
+      gap: 9px;
+    }
+
+    .reason {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 8px;
+      align-items: start;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.38;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(36, 64, 80, 0.5);
+    }
+    .reason:last-child { border-bottom: 0; }
+    .num {
+      width: 20px;
+      height: 20px;
+      display: grid;
+      place-items: center;
+      border-radius: 6px;
+      background: rgba(96, 165, 250, 0.12);
+      color: #bfdbfe;
+      font-size: 11px;
+    }
+
+    .runline {
+      display: grid;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .runline div {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      border-bottom: 1px solid rgba(36, 64, 80, 0.45);
+      padding-bottom: 6px;
+    }
+    .runline div:last-child { border-bottom: 0; }
+    .runline code {
+      color: #c7d2fe;
+      overflow-wrap: anywhere;
+    }
+
+    .llm-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+    }
+
+    .model {
+      border: 1px solid var(--line-soft);
+      background: rgba(18, 36, 50, 0.48);
+      border-radius: 7px;
+      padding: 9px;
+      min-width: 0;
+    }
+    .model strong {
+      display: block;
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+    .model span {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.35;
+    }
+
+    .drawer-preview {
+      border: 1px solid rgba(96, 165, 250, 0.28);
+      background: rgba(96, 165, 250, 0.055);
+      border-radius: 8px;
+      padding: 12px;
+    }
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    .tab {
+      padding: 5px 8px;
+      border: 1px solid var(--line-soft);
+      border-radius: 7px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+    .tab.active {
+      color: #bfdbfe;
+      border-color: rgba(96, 165, 250, 0.5);
+      background: rgba(96, 165, 250, 0.1);
+    }
+    .drawer-preview p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.42;
+    }
+
+    @media (max-width: 1180px) {
+      .main {
+        grid-template-columns: 54px 1fr;
+      }
+      .side {
+        grid-column: 2;
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 820px) {
+      .topbar {
+        grid-template-columns: 1fr;
+        height: auto;
+        padding: 10px;
+      }
+      .ticker, .actions { flex-wrap: wrap; }
+      .main {
+        grid-template-columns: 1fr;
+        padding: 10px;
+      }
+      .rail { display: none; }
+      .canvas { grid-template-rows: auto auto; }
+      .topology {
+        min-height: auto;
+        padding: 12px;
+        display: grid;
+        gap: 10px;
+      }
+      .topology::before, svg.links, .topology-title, .legend { display: none; }
+      .btc-node, .node {
+        position: static;
+        transform: none;
+        width: auto;
+      }
+      .bottom, .horizon-grid, .llm-grid {
+        grid-template-columns: 1fr;
+      }
+      .side { grid-column: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="mark">₿</div>
+        <div>onlyBTC</div>
+      </div>
+      <div class="ticker">
+        <strong>BTC 77,254.81</strong>
+        <span class="pill neutral"><span class="dot"></span> final view: 中性观察</span>
+        <span class="pill watch"><span class="dot mixed"></span> alert: watch</span>
+        <span class="pill good"><span class="dot bull"></span> contract passed</span>
+        <span>Updated 2026-05-22 14:18 CST</span>
+      </div>
+      <div class="actions">
+        <span class="pill quality"><span class="dot quality"></span> data quality 0.91</span>
+        <button class="primary">Run Full Chain</button>
+        <a class="pill" href="p5-subpages-high-fidelity.html#audit-reports">Audit Reports</a>
+        <button>Settings</button>
+      </div>
+    </header>
+
+    <main class="main">
+      <nav class="rail" aria-label="Dashboard navigation">
+        <a class="navbtn active" href="p5-dashboard-high-fidelity.html">拓扑</a>
+        <a class="navbtn" href="p5-subpages-high-fidelity.html#radar">雷达</a>
+        <a class="navbtn" href="p5-subpages-high-fidelity.html#evidence">证据</a>
+        <a class="navbtn" href="p5-subpages-high-fidelity.html#alerts">预警</a>
+        <a class="navbtn" href="p5-subpages-high-fidelity.html#quality">质检</a>
+        <a class="navbtn" href="p5-subpages-high-fidelity.html#runs">日志</a>
+        <a class="navbtn" href="p5-subpages-high-fidelity.html#history">回放</a>
+        <a class="navbtn" href="p5-subpages-high-fidelity.html#settings">设置</a>
+      </nav>
+
+      <section class="canvas">
+        <div class="topology">
+          <div class="topology-title">
+            <span class="pill">P4.5 Report v2</span>
+            <span>14 Radar modules · 118 scored evidence · DeepSeek appendix</span>
+          </div>
+          <div class="legend">
+            <span class="pill"><span class="dot bull"></span> support</span>
+            <span class="pill"><span class="dot bear"></span> pressure</span>
+            <span class="pill"><span class="dot mixed"></span> mixed</span>
+            <span class="pill"><span class="dot quality"></span> data quality</span>
+          </div>
+
+          <svg class="links" viewBox="0 0 1000 620" preserveAspectRatio="none" aria-hidden="true">
+            <path class="link bear strong" d="M165 105 C270 180, 365 220, 500 310" />
+            <path class="link bull" d="M390 88 C430 150, 470 210, 500 310" />
+            <path class="link bear strong" d="M610 88 C570 150, 530 210, 500 310" />
+            <path class="link mixed" d="M835 105 C730 180, 635 220, 500 310" />
+            <path class="link bull" d="M126 275 C260 285, 360 300, 500 310" />
+            <path class="link bear" d="M874 275 C740 285, 640 300, 500 310" />
+            <path class="link quality" d="M165 512 C285 440, 380 380, 500 310" />
+            <path class="link bull" d="M390 532 C430 468, 470 390, 500 310" />
+            <path class="link bear" d="M610 532 C570 468, 530 390, 500 310" />
+            <path class="link mixed" d="M835 512 C715 440, 620 380, 500 310" />
+            <path class="link bear" d="M315 250 C390 275, 440 295, 500 310" />
+            <path class="link bull" d="M685 250 C610 275, 560 295, 500 310" />
+            <path class="link bear" d="M315 405 C390 370, 440 335, 500 310" />
+            <path class="link quality" d="M685 405 C610 370, 560 335, 500 310" />
+          </svg>
+
+          <article class="btc-node">
+            <div class="btc-head">
+              <div>
+                <div class="btc-symbol">BTC</div>
+                <div class="state">中性观察 · watch_only</div>
+              </div>
+              <div class="score-ring">39%</div>
+            </div>
+            <p class="summary">短线仍有承接，但 3d / 7d 的利率、ETF 与链上活跃度压力尚未解除，当前不外推为单边趋势。</p>
+            <div class="btc-grid">
+              <div class="kv"><span>strength</span><strong>neutral</strong></div>
+              <div class="kv"><span>risk mode</span><strong>defensive watch</strong></div>
+              <div class="kv"><span>24h</span><strong>weak bullish</strong></div>
+              <div class="kv"><span>3d / 7d</span><strong>pressure</strong></div>
+            </div>
+            <a class="pill" href="p5-subpages-high-fidelity.html#overview">View Overview</a>
+            <a class="pill" href="p5-subpages-high-fidelity.html#article">Read Article</a>
+          </article>
+
+          <article class="node pressure n1">
+            <div class="node-title">Macro Radar <span class="pill">bear</span></div>
+            <div class="node-meta">真实利率与美债端仍压制风险偏好。</div>
+            <div class="node-score"><div class="bar bear"><i style="width: 72%"></i></div><span>-0.18</span></div>
+          </article>
+          <article class="node support n2">
+            <div class="node-title">USD Liquidity <span class="pill">support</span></div>
+            <div class="node-meta">短线美元流动性未继续恶化。</div>
+            <div class="node-score"><div class="bar bull"><i style="width: 46%"></i></div><span>+0.08</span></div>
+          </article>
+          <article class="node pressure n3">
+            <div class="node-title">Credit Pressure <span class="pill">bear</span></div>
+            <div class="node-meta">OFR / 利差压力形成中周期约束。</div>
+            <div class="node-score"><div class="bar bear"><i style="width: 58%"></i></div><span>-0.12</span></div>
+          </article>
+          <article class="node mixed n4">
+            <div class="node-title">Fund Flow <span class="pill">mixed</span></div>
+            <div class="node-meta">ETF 与稳定币指标方向不一致。</div>
+            <div class="node-score"><div class="bar mixed"><i style="width: 51%"></i></div><span>-0.03</span></div>
+          </article>
+          <article class="node support n5">
+            <div class="node-title">Trade Flow <span class="pill">24h+</span></div>
+            <div class="node-meta">主动买盘与交易所余额给短线支撑。</div>
+            <div class="node-score"><div class="bar bull"><i style="width: 64%"></i></div><span>+0.16</span></div>
+          </article>
+          <article class="node pressure n6">
+            <div class="node-title">Derivatives <span class="pill">watch</span></div>
+            <div class="node-meta">funding 与 OI 未给出强趋势确认。</div>
+            <div class="node-score"><div class="bar bear"><i style="width: 42%"></i></div><span>-0.05</span></div>
+          </article>
+          <article class="node quality n7">
+            <div class="node-title">Data Quality <span class="pill">0.91</span></div>
+            <div class="node-meta">4 个 unavailable 指标缺 freshness，非阻塞。</div>
+            <div class="node-score"><div class="bar quality"><i style="width: 91%"></i></div><span>pass</span></div>
+          </article>
+          <article class="node support n8">
+            <div class="node-title">Price Structure <span class="pill">support</span></div>
+            <div class="node-meta">1h 量能和价格结构短线修复。</div>
+            <div class="node-score"><div class="bar bull"><i style="width: 55%"></i></div><span>+0.10</span></div>
+          </article>
+          <article class="node pressure n9">
+            <div class="node-title">On-chain <span class="pill">bear</span></div>
+            <div class="node-meta">链上交易活跃度仍未形成确认。</div>
+            <div class="node-score"><div class="bar bear"><i style="width: 62%"></i></div><span>-0.14</span></div>
+          </article>
+          <article class="node mixed n10">
+            <div class="node-title">Options Vol <span class="pill">mixed</span></div>
+            <div class="node-meta">波动率未给出单边确认。</div>
+            <div class="node-score"><div class="bar mixed"><i style="width: 37%"></i></div><span>0.00</span></div>
+          </article>
+          <article class="node pressure n11">
+            <div class="node-title">Event Policy <span class="pill">watch</span></div>
+            <div class="node-meta">CPI / FOMC 窗口继续监控。</div>
+            <div class="node-score"><div class="bar bear"><i style="width: 44%"></i></div><span>-0.06</span></div>
+          </article>
+          <article class="node support n12">
+            <div class="node-title">Crypto Breadth <span class="pill">support</span></div>
+            <div class="node-meta">市场广度没有全面走坏。</div>
+            <div class="node-score"><div class="bar bull"><i style="width: 49%"></i></div><span>+0.07</span></div>
+          </article>
+          <article class="node pressure n13">
+            <div class="node-title">BTC Valuation <span class="pill">bear</span></div>
+            <div class="node-meta">估值与活跃度组合偏谨慎。</div>
+            <div class="node-score"><div class="bar bear"><i style="width: 53%"></i></div><span>-0.09</span></div>
+          </article>
+          <article class="node quality n14">
+            <div class="node-title">Macro Calendar <span class="pill">fallback</span></div>
+            <div class="node-meta">官方日历与 embedded fallback 可审计。</div>
+            <div class="node-score"><div class="bar quality"><i style="width: 82%"></i></div><span>watch</span></div>
+          </article>
+        </div>
+
+        <section class="bottom">
+          <div class="panel">
+            <div class="panel-head">
+              <div class="panel-title">时间尺度视图</div>
+              <span class="pill">horizon_views</span>
+            </div>
+            <div class="panel-body horizon-grid">
+              <div class="horizon">
+                <h3>24h · 短线偏多</h3>
+                <p>支撑来自主动买盘、1h 量能与交易所余额变化；压力来自未确认的收盘延续。</p>
+              </div>
+              <div class="horizon">
+                <h3>3d · 中性偏压</h3>
+                <p>SOFR、真实利率与 ETF 资金流仍是主要约束，等待资金修复。</p>
+              </div>
+              <div class="horizon">
+                <h3>7d · 弱偏空观察</h3>
+                <p>链上活跃度和利率条件仍压制趋势扩张，但广度未全面恶化。</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head">
+              <div class="panel-title">预警 / 反证 / 确认</div>
+              <span class="pill watch">watch</span>
+            </div>
+            <div class="panel-body alert-list">
+              <div class="alert warning">
+                <div class="alert-title"><strong>ETF 流出压力修复观察</strong><span>3d</span></div>
+                <p>若 ETF 单日流出明显收窄且 7d 资金流评分转正，偏空压力可降级。</p>
+              </div>
+              <div class="alert">
+                <div class="alert-title"><strong>偏空确认条件</strong><span>24h</span></div>
+                <p>若主动买盘转弱、1h 收盘与成交量同步走弱，当前中性观察可能转弱偏空。</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <aside class="side">
+        <section class="panel">
+          <div class="panel-head">
+            <div class="panel-title">决策卡</div>
+            <span class="pill neutral">final_view</span>
+          </div>
+          <div class="panel-body decision-list">
+            <div class="reason"><span class="num">1</span><span>最终结论为中性观察，不是单边强趋势。</span></div>
+            <div class="reason"><span class="num">2</span><span>短线支撑与中周期压力并存，方向共振不足。</span></div>
+            <div class="reason"><span class="num">3</span><span>零分指标占比高，强度不能升级为强单边。</span></div>
+            <div class="reason"><span class="num">4</span><span>观察重点是 ETF 流出、1h 量能、主动买盘延续。</span></div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head">
+            <div class="panel-title">Run Lineage</div>
+            <span class="pill good">live</span>
+          </div>
+          <div class="panel-body runline">
+            <div><span>collect</span><code>collect-20260522...</code></div>
+            <div><span>p2 radar</span><code>radar-20260522...</code></div>
+            <div><span>p3</span><code>p3-20260522...</code></div>
+            <div><span>p45 final</span><code>p45final-20260522...</code></div>
+            <div><span>llm mode</span><code>deepseek · internal_reference</code></div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head">
+            <div class="panel-title">LLM 附录状态</div>
+            <span class="pill quality">internal_reference</span>
+          </div>
+          <div class="panel-body">
+            <div class="llm-grid">
+              <div class="model"><strong>Macro Analyst</strong><span>completed · DeepSeek · evidence cited</span></div>
+              <div class="model"><strong>Liquidity Analyst</strong><span>completed · DeepSeek · evidence cited</span></div>
+              <div class="model"><strong>Microstructure</strong><span>completed · DeepSeek · evidence cited</span></div>
+              <div class="model"><strong>On-chain Analyst</strong><span>completed · DeepSeek · evidence cited</span></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="drawer-preview">
+          <div class="tabs">
+            <a class="tab active" href="p5-subpages-high-fidelity.html#overview">Overview</a>
+            <a class="tab" href="p5-subpages-high-fidelity.html#article">Article</a>
+            <a class="tab" href="p5-subpages-high-fidelity.html#radar">Radar</a>
+            <a class="tab" href="p5-subpages-high-fidelity.html#evidence">Evidence</a>
+            <a class="tab" href="p5-subpages-high-fidelity.html#alerts">Alerts</a>
+            <a class="tab" href="p5-subpages-high-fidelity.html#invalidation">Invalidation</a>
+            <a class="tab" href="p5-subpages-high-fidelity.html#quality">Data Quality</a>
+            <a class="tab" href="p5-subpages-high-fidelity.html#runs">Run Logs</a>
+            <a class="tab" href="p5-subpages-high-fidelity.html#audit-reports">Audit Reports</a>
+          </div>
+          <p>点击 BTC、Radar、Alert、Evidence、Run Once 会打开右侧详情抽屉，并保留同一 run context。抽屉承载深度解释，首屏只显示可快速判断的摘要。</p>
+        </section>
+      </aside>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <title>Event Window Audit Bundle Summary</title>
+  <style>
+    body { margin:0; background:#07131c; color:#dbeafe; font-family:Inter, Arial, "Microsoft YaHei", sans-serif; }
+    main { max-width:1200px; margin:0 auto; padding:28px; }
+    .hero { border:1px solid #24455c; background:#0d2030; border-radius:12px; padding:18px; }
+    .pill { display:inline-flex; border:1px solid #24455c; border-radius:999px; padding:5px 10px; color:#bae6fd; margin-right:8px; }
+    .ok { color:#22d3b6; border-color:#22d3b6; }
+    .warn { color:#fbbf24; border-color:#fbbf24; }
+    .bad { color:#fb7185; border-color:#fb7185; }
+    table { width:100%; margin-top:18px; border-collapse:collapse; background:#0d2030; }
+    th, td { border:1px solid #24455c; padding:9px; text-align:left; vertical-align:top; }
+    th { color:#bae6fd; }
+    code { color:#fef3c7; }
+  </style>
+</head>
+<body>
+<main>
+  <section class="hero">
+    <span class="pill warn">STALE</span>
+    <span class="pill warn">freshness STALE</span>
+    <h1>Event Window HTML 1/2/3 同源 Snapshot 审计</h1>
+    <p>HTML snapshot <code>evt-20260529064711-f742bbf7</code> · asof <code>2026-05-29T06:47:11.717502+00:00</code></p>
+    <p>SQLite latest <code>evt-20260529064759-d24157c7</code> · asof <code>2026-05-29T06:47:59.836958+00:00</code></p>
+    <p>结论：HTML 1/2/3 必须来自同一次 manual full sweep，并且必须与 SQLite latest snapshot 一致；否则本页标记 STALE 或 FAIL。</p>
+  </section>
+  <table>
+    <thead><tr><th>report</th><th>snapshot_id</th><th>asof_ts</th><th>path</th><th>status</th></tr></thead>
+    <tbody><tr><td>source_audit</td><td>evt-20260529064711-f742bbf7</td><td>2026-05-29T06:47:11.717502+00:00</td><td>E:\onlyBTC\reports\event-window-source-audit-report.html</td><td>n/a</td></tr>
+<tr><td>state_overlay_llm_audit</td><td>evt-20260529064711-f742bbf7</td><td>2026-05-29T06:47:11.717502+00:00</td><td>E:\onlyBTC\reports\event-window-state-overlay-llm-audit-report.html</td><td>PASS</td></tr>
+<tr><td>shock_fast_lane_audit</td><td>evt-20260529064711-f742bbf7</td><td>2026-05-29T06:47:11.717502+00:00</td><td>E:\onlyBTC\reports\event-window-shock-fast-lane-audit-report.html</td><td>PASS</td></tr></tbody>
+  </table>
+  <table>
+    <thead><tr><th>report</th><th>exists</th><th>last_write_time</th><th>size_bytes</th><th>path</th></tr></thead>
+    <tbody><tr><td>source_audit</td><td>True</td><td>2026-05-29T06:47:30.864244+00:00</td><td>29888</td><td>E:\onlyBTC\reports\event-window-source-audit-report.html</td></tr>
+<tr><td>state_overlay_llm_audit</td><td>True</td><td>2026-05-29T06:48:34.576835+00:00</td><td>10894</td><td>E:\onlyBTC\reports\event-window-state-overlay-llm-audit-report.html</td></tr>
+<tr><td>shock_fast_lane_audit</td><td>True</td><td>2026-05-29T06:48:42.310594+00:00</td><td>8941</td><td>E:\onlyBTC\reports\event-window-shock-fast-lane-audit-report.html</td></tr></tbody>
+  </table>
+  <section class="hero" style="margin-top:18px">
+    <span class="pill ok">PASS</span>
+    <h2>Market Shock 漏报回归摘要</h2>
+    <p>HTML <code>E:\onlyBTC\reports\event-window-market-shock-regression-audit.html</code></p>
+    <p>JSON <code>E:\onlyBTC\reports\event-window-market-shock-regression-audit.json</code></p>
+  </section>
+</main>
+</body>
+</html>

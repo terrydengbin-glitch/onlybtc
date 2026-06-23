@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <title>P4-C19 GPT 独立验证报告</title>
+  <style>
+    body { margin: 0; background: #08131c; color: #dbeafe; font-family: Arial, sans-serif; }
+    main { max-width: 1180px; margin: 0 auto; padding: 28px; }
+    pre { white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.6; }
+  </style>
+</head>
+<body>
+<main>
+<pre>
+# P4-C19 GPT 独立验证报告
+
+详见同目录 Markdown 文件：
+
+reports/p4-gpt-independent-validation-report.md
+
+核心结论：
+
+- GPT 独立验证认为 P4 主链输出符合本轮 P1/P2/P3/P4 数据和约束。
+- GPT 独立判断与 P4 一致：
+  - trend_state=constrained_watch
+  - risk_state=event_watch
+  - dominant_regime=constrained_event_watch
+  - consensus_level=low
+  - disagreement_level=medium
+  - confidence 建议区间 0.30-0.36，P4 实际 0.3126
+- P4 runtime fallback 已正确暴露：
+  - llm_runtime_integrity=fallback_used
+  - fallback_used=true
+- 后续建议：
+  - P4-C20 Publish Scope 与 Watch-only 语义治理
+  - P4-C21 Cross-exam LLM Schema Prompt 收敛
+  - P4-C22 Kimi Provider 兼容性修复
+  - P4-C23 Runtime Fallback Confidence Discount 显式化
+</pre>
+</main>
+</body>
+</html>

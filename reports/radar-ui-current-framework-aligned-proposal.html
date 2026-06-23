@@ -1,0 +1,749 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>onlyBTC Radar UI Current Framework Proposal</title>
+  <style>
+    :root {
+      --bg: #071018;
+      --panel: #0b1d2a;
+      --panel-soft: rgba(12, 29, 42, 0.78);
+      --panel-deep: rgba(6, 18, 27, 0.9);
+      --border: rgba(112, 154, 178, 0.22);
+      --border-soft: rgba(112, 154, 178, 0.14);
+      --text: #d7e8ef;
+      --muted: #8ba6b5;
+      --faint: #536f7e;
+      --cyan: #23d5c1;
+      --gold: #d5a91e;
+      --red: #e16670;
+      --green: #2bd39d;
+      --purple: #9d86ff;
+      --radius: 8px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background: var(--bg);
+      font-size: 13px;
+    }
+
+    button {
+      font: inherit;
+      color: inherit;
+      border: 0;
+      cursor: default;
+    }
+
+    .app {
+      display: grid;
+      grid-template-rows: 44px 1fr;
+      min-height: 100vh;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 0 12px;
+      border-bottom: 1px solid var(--border);
+      background: #061018;
+      min-width: 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      width: 24px;
+      height: 24px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(35, 213, 193, 0.5);
+      color: var(--cyan);
+      border-radius: 6px;
+      background: rgba(35, 213, 193, 0.12);
+    }
+
+    .top-pills {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      min-height: 24px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(13, 31, 44, 0.84);
+      color: #b5c9d3;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .pill.cyan { border-color: rgba(35, 213, 193, 0.42); color: #bffdf2; }
+    .pill.gold { border-color: rgba(213, 169, 30, 0.45); color: #f6d374; }
+    .pill.green { border-color: rgba(43, 211, 157, 0.45); color: #aef4d8; }
+    .pill.purple { border-color: rgba(157, 134, 255, 0.45); color: #d9d0ff; }
+
+    .top-actions {
+      display: flex;
+      gap: 8px;
+      white-space: nowrap;
+    }
+
+    .action-btn {
+      min-height: 28px;
+      padding: 6px 12px;
+      border: 1px solid rgba(112, 154, 178, 0.34);
+      background: rgba(18, 39, 55, 0.9);
+      border-radius: 6px;
+      color: #d7e8ef;
+    }
+
+    .body {
+      display: grid;
+      grid-template-columns: 74px minmax(0, 1fr) 330px;
+      min-height: 0;
+    }
+
+    .side-nav {
+      border-right: 1px solid var(--border);
+      background: #07131d;
+      padding: 10px 9px;
+      display: grid;
+      align-content: start;
+      gap: 8px;
+    }
+
+    .nav-btn {
+      min-height: 36px;
+      border: 1px solid rgba(48, 114, 139, 0.45);
+      background: rgba(10, 28, 41, 0.85);
+      border-radius: 6px;
+      color: #b6ced8;
+    }
+
+    .nav-btn.active {
+      color: #10e3cc;
+      border-color: rgba(35, 213, 193, 0.55);
+      background: rgba(35, 213, 193, 0.1);
+    }
+
+    .main {
+      min-width: 0;
+      overflow: auto;
+      padding: 12px;
+      background:
+        linear-gradient(rgba(255,255,255,0.024) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.024) 1px, transparent 1px),
+        #071019;
+      background-size: 32px 32px;
+    }
+
+    .canvas-frame {
+      position: relative;
+      min-height: 760px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 48%, transparent 0 135px, rgba(54, 99, 123, 0.14) 136px 137px, transparent 138px 270px, rgba(54, 99, 123, 0.12) 271px 272px, transparent 273px),
+        rgba(7, 20, 31, 0.58);
+    }
+
+    .canvas-toolbar {
+      position: absolute;
+      left: 14px;
+      top: 14px;
+      right: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 20;
+    }
+
+    .canvas-toolbar .spacer { flex: 1; }
+
+    .mini-legend {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .legend-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 99px;
+      background: var(--faint);
+      box-shadow: 0 0 12px currentColor;
+    }
+    .support { color: var(--green); background: var(--green); }
+    .pressure { color: var(--red); background: var(--red); }
+    .mixed { color: var(--gold); background: var(--gold); }
+    .quality { color: var(--purple); background: var(--purple); }
+
+    .layer-band {
+      position: absolute;
+      display: grid;
+      gap: 8px;
+      z-index: 10;
+    }
+
+    .layer-left { left: 40px; top: 92px; width: 225px; }
+    .layer-right { right: 40px; top: 92px; width: 225px; }
+    .layer-bottom-left { left: 40px; bottom: 42px; width: 225px; }
+    .layer-bottom-right { right: 40px; bottom: 42px; width: 225px; }
+
+    .module-card {
+      border: 1px solid var(--border-soft);
+      background: rgba(10, 28, 41, 0.86);
+      border-radius: var(--radius);
+      padding: 10px;
+      min-height: 88px;
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.18);
+    }
+
+    .module-card.warning { border-color: rgba(213, 169, 30, 0.45); }
+    .module-card.pressure-card { border-color: rgba(225, 102, 112, 0.45); }
+    .module-card.support-card { border-color: rgba(43, 211, 157, 0.42); }
+    .module-card.quality-card { border-color: rgba(157, 134, 255, 0.45); }
+
+    .module-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 7px;
+    }
+
+    .module-head strong {
+      display: block;
+      color: #edf8fa;
+      font-size: 13px;
+    }
+
+    .module-head span {
+      flex: 0 0 auto;
+      max-width: 90px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      padding: 3px 7px;
+      border: 1px solid rgba(112, 154, 178, 0.22);
+      border-radius: 999px;
+      color: #94adb9;
+      font-size: 10px;
+    }
+
+    .module-summary {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.35;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: 30px;
+    }
+
+    .module-footer {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .score-bar {
+      height: 5px;
+      background: rgba(111, 143, 160, 0.22);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .score-bar i {
+      display: block;
+      height: 100%;
+      width: var(--w, 24%);
+      background: #7896a5;
+      border-radius: inherit;
+    }
+
+    .module-card.warning .score-bar i { background: var(--gold); }
+    .module-card.pressure-card .score-bar i { background: var(--red); }
+    .module-card.support-card .score-bar i { background: var(--green); }
+    .module-card.quality-card .score-bar i { background: var(--purple); }
+
+    .metric-toggle {
+      padding: 2px 6px;
+      border-radius: 5px;
+      border: 1px solid rgba(112, 154, 178, 0.2);
+      color: #91aab7;
+      font-size: 10px;
+      background: rgba(7, 18, 27, 0.7);
+    }
+
+    .link {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 330px;
+      height: 0;
+      transform-origin: left center;
+      border-top: 2px dashed rgba(148, 169, 181, 0.45);
+      z-index: 1;
+    }
+
+    .link.gold { border-color: rgba(213, 169, 30, 0.62); }
+    .link.red { border-color: rgba(225, 102, 112, 0.58); }
+    .link.cyan { border-color: rgba(35, 213, 193, 0.62); }
+
+    .btc-node {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 320px;
+      border: 1px solid rgba(35, 213, 193, 0.42);
+      border-radius: var(--radius);
+      background: rgba(9, 28, 40, 0.95);
+      padding: 18px;
+      z-index: 8;
+      box-shadow: 0 0 0 1px rgba(35, 213, 193, 0.08), 0 22px 70px rgba(0, 0, 0, 0.3);
+    }
+
+    .btc-head {
+      display: grid;
+      grid-template-columns: 1fr 58px;
+      gap: 12px;
+      align-items: start;
+      margin-bottom: 11px;
+    }
+
+    .btc-symbol {
+      color: #ffd660;
+      font-size: 32px;
+      line-height: 1;
+      font-weight: 850;
+      text-shadow: 0 0 20px rgba(213, 169, 30, 0.35);
+    }
+
+    .btc-state {
+      color: #9db6c2;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    .score-ring {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      background:
+        radial-gradient(circle at center, #0a1d29 58%, transparent 59%),
+        conic-gradient(var(--cyan) 0 52%, rgba(96, 127, 144, 0.22) 52% 100%);
+    }
+
+    .summary-text {
+      color: #d7e7ee;
+      font-size: 14px;
+      line-height: 1.45;
+      margin-bottom: 12px;
+    }
+
+    .btc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+      margin-bottom: 9px;
+    }
+
+    .mini-kv {
+      min-height: 54px;
+      padding: 8px;
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius);
+      background: rgba(7, 20, 31, 0.72);
+    }
+
+    .mini-kv span {
+      display: block;
+      color: #819aa7;
+      font-size: 11px;
+      margin-bottom: 5px;
+    }
+
+    .mini-kv strong {
+      display: block;
+      font-size: 12px;
+      color: #e9f5f8;
+      overflow-wrap: anywhere;
+    }
+
+    .why-strip {
+      display: grid;
+      gap: 6px;
+      margin-bottom: 9px;
+    }
+
+    .why-strip button,
+    .btc-watch button {
+      width: 100%;
+      text-align: left;
+      border: 1px solid var(--border-soft);
+      border-radius: 6px;
+      background: rgba(8, 21, 31, 0.78);
+      padding: 7px 9px;
+      color: #a9c2ce;
+      font-size: 11px;
+      overflow-wrap: anywhere;
+    }
+
+    .btc-watch {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 6px;
+    }
+
+    .bottom-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .bottom-panel {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(10, 28, 41, 0.82);
+      padding: 12px;
+      min-height: 176px;
+    }
+
+    .bottom-head {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .horizon-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .horizon-card {
+      border: 1px solid var(--border-soft);
+      background: rgba(7, 20, 31, 0.72);
+      border-radius: var(--radius);
+      padding: 10px;
+      min-height: 118px;
+      text-align: left;
+    }
+
+    .horizon-card strong {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .horizon-card small {
+      display: block;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .drawer {
+      border-left: 1px solid var(--border);
+      background: #07131d;
+      padding: 10px;
+      overflow: auto;
+      min-width: 0;
+    }
+
+    .drawer-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--panel-soft);
+      padding: 12px;
+      margin-bottom: 10px;
+    }
+
+    .drawer-card h2 {
+      font-size: 15px;
+      margin-bottom: 8px;
+    }
+
+    .metric-list {
+      display: grid;
+      gap: 7px;
+      margin-top: 10px;
+    }
+
+    .metric-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      padding: 8px;
+      border: 1px solid var(--border-soft);
+      border-radius: 6px;
+      background: rgba(7, 20, 31, 0.7);
+    }
+
+    .metric-row strong {
+      display: block;
+      font-size: 12px;
+    }
+
+    .metric-row small {
+      display: block;
+      color: var(--muted);
+      margin-top: 3px;
+      font-size: 11px;
+    }
+
+    .metric-value {
+      color: #dbe9ee;
+      font-variant-numeric: tabular-nums;
+      font-size: 12px;
+    }
+
+    .drawer-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .drawer-actions button {
+      min-height: 30px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: rgba(15, 37, 52, 0.86);
+      color: #c9dce5;
+    }
+
+    @media (max-width: 1280px) {
+      .body { grid-template-columns: 64px minmax(0, 1fr); }
+      .drawer { display: none; }
+      .layer-left, .layer-right, .layer-bottom-left, .layer-bottom-right { width: 185px; }
+      .module-card { min-height: 78px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">B</span><span>onlyBTC</span></div>
+      <div class="top-pills">
+        <strong>BTC</strong>
+        <span class="pill">final view: 中性观察</span>
+        <span class="pill gold">alert: critical</span>
+        <span class="pill green">contract passed</span>
+        <span class="pill cyan">ready · 6 stages</span>
+        <span style="color: var(--muted); font-size: 12px;">Updated 2026-05-27T10:01:29Z</span>
+      </div>
+      <div class="top-actions">
+        <span class="pill purple">data quality 0.8900</span>
+        <button class="action-btn">Fast only</button>
+        <button class="action-btn">Run Full Chain</button>
+        <button class="action-btn">Audit Reports</button>
+        <button class="action-btn">Settings</button>
+      </div>
+    </header>
+
+    <div class="body">
+      <nav class="side-nav">
+        <button class="nav-btn active">拓扑</button>
+        <button class="nav-btn">雷达</button>
+        <button class="nav-btn">证据</button>
+        <button class="nav-btn">预警</button>
+        <button class="nav-btn">质检</button>
+        <button class="nav-btn">日志</button>
+        <button class="nav-btn">回放</button>
+        <button class="nav-btn">设置</button>
+      </nav>
+
+      <main class="main">
+        <section class="canvas-frame">
+          <div class="canvas-toolbar">
+            <span class="pill">P4.5 Report v2</span>
+            <span style="color: var(--muted); font-size: 12px;">14 Radar modules · 627 scored evidence</span>
+            <button class="pill">Reset Layout</button>
+            <span class="spacer"></span>
+            <div class="mini-legend">
+              <span class="pill"><i class="legend-dot support"></i>support</span>
+              <span class="pill"><i class="legend-dot pressure"></i>pressure</span>
+              <span class="pill"><i class="legend-dot mixed"></i>mixed</span>
+              <span class="pill"><i class="legend-dot quality"></i>data quality</span>
+            </div>
+          </div>
+
+          <i class="link gold" style="transform: rotate(-148deg);"></i>
+          <i class="link" style="transform: rotate(-118deg); width: 260px;"></i>
+          <i class="link gold" style="transform: rotate(-64deg); width: 260px;"></i>
+          <i class="link red" style="transform: rotate(-22deg);"></i>
+          <i class="link cyan" style="transform: rotate(54deg); width: 310px;"></i>
+          <i class="link" style="transform: rotate(155deg);"></i>
+
+          <div class="layer-band layer-left">
+            <article class="module-card support-card">
+              <div class="module-head"><strong>Macro Radar</strong><span>顺风滞后</span></div>
+              <p class="module-summary">macro tailwind exists, but BTC relative confirmation still waits.</p>
+              <div class="module-footer"><div class="score-bar" style="--w: 32%;"><i></i></div><button class="metric-toggle">top 3</button></div>
+            </article>
+            <article class="module-card warning">
+              <div class="module-head"><strong>Options Volatility</strong><span>下方保护</span></div>
+              <p class="module-summary">put skew and protection demand are risk context, not direction.</p>
+              <div class="module-footer"><div class="score-bar" style="--w: 42%;"><i></i></div><button class="metric-toggle">top 3</button></div>
+            </article>
+            <article class="module-card">
+              <div class="module-head"><strong>Dollar Liquidity</strong><span>流动性中性</span></div>
+              <p class="module-summary">USD liquidity confirms or refutes BTC trend, currently neutral.</p>
+              <div class="module-footer"><div class="score-bar" style="--w: 18%;"><i></i></div><button class="metric-toggle">top 3</button></div>
+            </article>
+          </div>
+
+          <div class="layer-band layer-right">
+            <article class="module-card warning">
+              <div class="module-head"><strong>Asia Risk</strong><span>early_warning</span></div>
+              <p class="module-summary">Asia risk pressure is context until BTC Asia-session response confirms it.</p>
+              <div class="module-footer"><div class="score-bar" style="--w: 58%;"><i></i></div><button class="metric-toggle">top 3</button></div>
+            </article>
+            <article class="module-card pressure-card">
+              <div class="module-head"><strong>Fund Flow</strong><span>ETF流出确认</span></div>
+              <p class="module-summary">ETF outflow confirmed, but center cockpit requires BTC acceptance.</p>
+              <div class="module-footer"><div class="score-bar" style="--w: 64%;"><i></i></div><button class="metric-toggle">top 3</button></div>
+            </article>
+            <article class="module-card">
+              <div class="module-head"><strong>Trade Structure</strong><span>neutral</span></div>
+              <p class="module-summary">microstructure pressure needs multi-horizon price acceptance.</p>
+              <div class="module-footer"><div class="score-bar" style="--w: 24%;"><i></i></div><button class="metric-toggle">top 3</button></div>
+            </article>
+          </div>
+
+          <div class="layer-band layer-bottom-left">
+            <article class="module-card">
+              <div class="module-head"><strong>BTC Adoption</strong><span>neutral</span></div>
+              <p class="module-summary">Fast, core and regime layers separate settlement from raw activity.</p>
+              <div class="module-footer"><div class="score-bar" style="--w: 19%;"><i></i></div><button class="metric-toggle">top 3</button></div>
+            </article>
+            <article class="module-card">
+              <div class="module-head"><strong>Kline Orderflow</strong><span>neutral</span></div>
+              <p class="module-summary">Active taker flow is directional only when VWAP, structure and residual confirm.</p>
+              <div class="module-footer"><div class="score-bar" style="--w: 26%;"><i></i></div><button class="metric-toggle">top 3</button></div>
+            </article>
+          </div>
+
+          <div class="layer-band layer-bottom-right">
+            <article class="module-card">
+              <div class="module-head"><strong>Onchain Valuation</strong><span>onchain_neutral</span></div>
+              <p class="module-summary">Slow regime and fast trend delta are separated; STH cost basis waits for confirmation.</p>
+              <div class="module-footer"><div class="score-bar" style="--w: 30%;"><i></i></div><button class="metric-toggle">top 3</button></div>
+            </article>
+            <article class="module-card warning">
+              <div class="module-head"><strong>Derivatives</strong><span>early_warning</span></div>
+              <p class="module-summary">Crowding fragility is warning; direction needs BTC response and residual.</p>
+              <div class="module-footer"><div class="score-bar" style="--w: 55%;"><i></i></div><button class="metric-toggle">top 3</button></div>
+            </article>
+          </div>
+
+          <article class="btc-node">
+            <div class="btc-head">
+              <div>
+                <div class="btc-symbol">BTC</div>
+                <div class="btc-state">neutral · watch_only</div>
+              </div>
+              <div class="score-ring">52%</div>
+            </div>
+            <p class="summary-text">当前 BTC 结构为中性观察，pressure 较高但 trend acceptance 未确认，不能机械判空。</p>
+            <div class="btc-grid">
+              <div class="mini-kv"><span>strength</span><strong>none</strong></div>
+              <div class="mini-kv"><span>quality</span><strong>unconfirmed</strong></div>
+              <div class="mini-kv"><span>4h</span><strong>neutral</strong></div>
+              <div class="mini-kv"><span>24h / 3d</span><strong>neutral · bearish watch</strong></div>
+            </div>
+            <div class="why-strip">
+              <button>Pressure: fund_flow, derivatives_crowding</button>
+              <button>Support: no dominant support module</button>
+              <button>Conflict: pressure exists but BTC response is not accepted</button>
+            </div>
+            <div class="btc-watch">
+              <button>反证条件：BTC absorbs ETF / derivatives pressure</button>
+              <button>确认条件：1h orderflow + residual confirm downside</button>
+            </div>
+          </article>
+        </section>
+
+        <section class="bottom-grid">
+          <article class="bottom-panel">
+            <div class="bottom-head"><h2>时间尺度视图</h2><span class="pill">horizon_views</span></div>
+            <div class="horizon-row">
+              <button class="horizon-card"><strong>24h 预警 · bearish</strong><small>压力主要来自 derivatives acceptance 和 fund-flow confirmation，但尚未被 BTC 完全接受。</small></button>
+              <button class="horizon-card"><strong>3d 中期 · neutral</strong><small>支撑与压力并存，等待 macro/fund flow 与 BTC residual 同向。</small></button>
+              <button class="horizon-card"><strong>7d 趋势 · neutral</strong><small>onchain/adoption/regime 未提供强方向，适合继续观察。</small></button>
+            </div>
+          </article>
+          <article class="bottom-panel">
+            <div class="bottom-head"><h2>预警 / 事件窗口</h2><span class="pill gold">open alerts</span></div>
+            <div class="module-card pressure-card" style="min-height: auto;">
+              <div class="module-head"><strong>P3 算法风险信号</strong><span>critical · cooling</span></div>
+              <p class="module-summary">异常 323 项，情绪 2 项，反证 9 项。cooldown until 2026/5/27 13:27:44.</p>
+            </div>
+          </article>
+        </section>
+      </main>
+
+      <aside class="drawer">
+        <article class="drawer-card">
+          <div class="module-head"><strong>Selected Module</strong><span>early_warning</span></div>
+          <p>derivatives_crowding · v2.5</p>
+          <div class="metric-list">
+            <div class="metric-row"><div><strong>trend_acceptance_score</strong><small>only confirms with BTC response</small></div><span class="metric-value">51.8</span></div>
+            <div class="metric-row"><div><strong>crowding_fragility_score</strong><small>warning, not direct bearish</small></div><span class="metric-value">medium</span></div>
+            <div class="metric-row"><div><strong>funding_basis_score</strong><small>context until accepted</small></div><span class="metric-value">0.12</span></div>
+            <div class="metric-row"><div><strong>liquidation_response</strong><small>follow-through or absorbed</small></div><span class="metric-value">none</span></div>
+          </div>
+          <div class="drawer-actions">
+            <button>Back Dashboard</button>
+            <button>Fullscreen</button>
+          </div>
+        </article>
+
+        <article class="drawer-card">
+          <h2>Decision Card</h2>
+          <div class="metric-list">
+            <div class="metric-row"><div><strong>Fast Read</strong><small>4h neutral; no accepted downside</small></div><span class="metric-value">1</span></div>
+            <div class="metric-row"><div><strong>Confirmation</strong><small>fund/macro pressure unconfirmed</small></div><span class="metric-value">2</span></div>
+            <div class="metric-row"><div><strong>Why not strong</strong><small>pressure is not accepted by BTC residual</small></div><span class="metric-value">3</span></div>
+          </div>
+        </article>
+
+        <article class="drawer-card">
+          <h2>UI 对齐后的改法</h2>
+          <p>保留当前 onlyBTC 主框架，只优化 topology canvas 内部：module card 缩密、metric 默认折叠、右侧 drawer 展示细节、中心卡读 cockpit。</p>
+        </article>
+      </aside>
+    </div>
+  </div>
+</body>
+</html>

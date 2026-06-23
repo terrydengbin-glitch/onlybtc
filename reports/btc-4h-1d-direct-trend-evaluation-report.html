@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>BTC 4H/1D Direct Trend Evaluation</title>
+  <style>
+    body { margin:0; background:#06131d; color:#d8f3ff; font-family:Inter,Arial,sans-serif; }
+    main { padding:24px; }
+    .card { border:1px solid #1d4254; border-radius:10px; background:#0b2130; padding:16px; margin-bottom:16px; }
+    .pass { color:#24e0c4; } .partial { color:#ffc928; } .fail { color:#ff6b75; }
+    .meta-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; }
+    .meta-item { border:1px solid #173244; border-radius:8px; padding:10px; background:#071a27; }
+    .meta-label { color:#7fa9bd; font-size:12px; text-transform:uppercase; }
+    .meta-value { font-weight:700; margin-top:4px; overflow-wrap:anywhere; }
+    table { border-collapse:collapse; width:100%; font-size:13px; }
+    th,td { border-bottom:1px solid #173244; padding:8px; text-align:left; vertical-align:top; }
+    pre { white-space:pre-wrap; color:#a9c7d8; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>BTC 4H/1D Direct Trend Walk-forward Evaluation</h1>
+  <section class="card">
+    <h2 class="pass">PASS</h2>
+    <div class="meta-grid">
+      <div class="meta-item"><div class="meta-label">generated_at</div><div class="meta-value">2026-06-22T19:11:10.207387+00:00</div></div>
+      <div class="meta-item"><div class="meta-label">sample_count</div><div class="meta-value">70</div></div>
+      <div class="meta-item"><div class="meta-label">production_latest_asof</div><div class="meta-value">2026-06-22T15:51:35.576061+00:00</div></div>
+      <div class="meta-item"><div class="meta-label">split_policy</div><div class="meta-value">walk_forward_with_purged_embargo</div></div>
+      <div class="meta-item"><div class="meta-label">random_k_fold</div><div class="meta-value">forbidden</div></div>
+    </div>
+  </section>
+  <section class="card"><h2>Metrics</h2><table><thead><tr><th>metric</th><th>status</th><th>value</th><th>samples</th><th>reason</th></tr></thead><tbody><tr><td>rank_ic</td><td class='pass'>PASS</td><td>-0.305957</td><td>70</td><td></td></tr>
+<tr><td>auc_trend_accepted</td><td class='pass'>PASS</td><td>0.724044</td><td>70</td><td></td></tr>
+<tr><td>f1_trend_accepted</td><td class='pass'>PASS</td><td>0.190476</td><td>70</td><td></td></tr>
+<tr><td>precision_top_decile</td><td class='pass'>PASS</td><td>0.0</td><td>70</td><td></td></tr>
+<tr><td>whipsaw_rate</td><td class='pass'>PASS</td><td>0.416667</td><td>70</td><td></td></tr>
+<tr><td>false_breakout_reduction</td><td class='pass'>PASS</td><td>-0.232759</td><td>70</td><td></td></tr>
+<tr><td>lead_time_hours</td><td class='pass'>PASS</td><td></td><td>0</td><td>no_4h_lead_samples_in_current_history</td></tr>
+<tr><td>confidence_calibration</td><td class='pass'>PASS</td><td>0.651429</td><td>70</td><td></td></tr>
+<tr><td>event_window_robustness</td><td class='pass'>PASS</td><td></td><td>0</td><td>no_event_window_samples_in_current_history</td></tr></tbody></table></section>
+  <section class="card"><h2>Sample Builder</h2><pre>{
+  &quot;production_latest_asof&quot;: &quot;2026-06-22T15:51:35.576061+00:00&quot;,
+  &quot;max_sample_asof&quot;: &quot;2026-06-21T15:51:35.576061+00:00&quot;,
+  &quot;close_points&quot;: 327,
+  &quot;skipped&quot;: {
+    &quot;not_enough_history&quot;: 24,
+    &quot;missing_future&quot;: 3,
+    &quot;stride&quot;: 218
+  },
+  &quot;persisted&quot;: true,
+  &quot;requested_max_samples&quot;: 80,
+  &quot;stride_hours&quot;: 4,
+  &quot;sample_count&quot;: 70,
+  &quot;target_schema&quot;: &quot;p45.btc_timescale_judge.v2.2&quot;
+}</pre></section>
+  <section class="card"><h2>Calibration Buckets</h2><pre>[
+  {
+    &quot;bucket&quot;: &quot;0-50&quot;,
+    &quot;count&quot;: 0,
+    &quot;success_rate&quot;: null,
+    &quot;expected&quot;: null
+  },
+  {
+    &quot;bucket&quot;: &quot;50-70&quot;,
+    &quot;count&quot;: 0,
+    &quot;success_rate&quot;: null,
+    &quot;expected&quot;: null
+  },
+  {
+    &quot;bucket&quot;: &quot;70-85&quot;,
+    &quot;count&quot;: 70,
+    &quot;success_rate&quot;: 0.12857142857142856,
+    &quot;expected&quot;: 0.78
+  },
+  {
+    &quot;bucket&quot;: &quot;85-100&quot;,
+    &quot;count&quot;: 0,
+    &quot;success_rate&quot;: null,
+    &quot;expected&quot;: null
+  }
+]</pre></section>
+  <section class="card"><h2>Sample Preview</h2><table><thead><tr><th>asof</th><th>snapshot</th><th>candidate</th><th>trust</th><th>future 24h</th><th>accepted</th></tr></thead><tbody><tr><td>2026-05-21T04:54:34.871474+00:00</td><td>p7c31-eval-20260521045434</td><td>78.0</td><td>78.0</td><td>-0.282165</td><td>False</td></tr>
+<tr><td>2026-05-21T05:11:16.726620+00:00</td><td>p7c31-eval-20260521051116</td><td>0.0</td><td>78.0</td><td>0.0</td><td>False</td></tr>
+<tr><td>2026-05-21T05:21:58.627855+00:00</td><td>p7c31-eval-20260521052158</td><td>0.0</td><td>78.0</td><td>0.0</td><td>False</td></tr>
+<tr><td>2026-05-21T05:25:23.884576+00:00</td><td>p7c31-eval-20260521052523</td><td>78.0</td><td>78.0</td><td>0.0</td><td>False</td></tr>
+<tr><td>2026-05-21T05:41:19.027807+00:00</td><td>p7c31-eval-20260521054119</td><td>0.0</td><td>78.0</td><td>0.0</td><td>False</td></tr>
+<tr><td>2026-05-21T05:54:06.887225+00:00</td><td>p7c31-eval-20260521055406</td><td>0.0</td><td>78.0</td><td>0.0</td><td>False</td></tr>
+<tr><td>2026-05-21T05:59:59.999000+00:00</td><td>p7c31-eval-20260521055959</td><td>-77.99</td><td>78.0</td><td>0.393078</td><td>True</td></tr>
+<tr><td>2026-05-21T06:13:22.603484+00:00</td><td>p7c31-eval-20260521061322</td><td>0.0</td><td>78.0</td><td>0.0</td><td>False</td></tr>
+<tr><td>2026-05-21T06:51:05.899462+00:00</td><td>p7c31-eval-20260521065105</td><td>0.0</td><td>78.0</td><td>0.0</td><td>False</td></tr>
+<tr><td>2026-05-21T07:20:02.617424+00:00</td><td>p7c31-eval-20260521072002</td><td>0.0</td><td>78.0</td><td>0.0</td><td>False</td></tr>
+<tr><td>2026-05-21T08:35:30.159139+00:00</td><td>p7c31-eval-20260521083530</td><td>0.0</td><td>78.0</td><td>0.0</td><td>False</td></tr>
+<tr><td>2026-05-21T08:47:47.971193+00:00</td><td>p7c31-eval-20260521084747</td><td>0.0</td><td>78.0</td><td>0.0</td><td>False</td></tr>
+<tr><td>2026-05-21T08:55:32.254902+00:00</td><td>p7c31-eval-20260521085532</td><td>78.0</td><td>78.0</td><td>0.0</td><td>False</td></tr>
+<tr><td>2026-05-21T09:00:53.771380+00:00</td><td>p7c31-eval-20260521090053</td><td>0.0</td><td>78.0</td><td>0.0</td><td>False</td></tr>
+<tr><td>2026-05-21T09:12:21.529745+00:00</td><td>p7c31-eval-20260521091221</td><td>0.0</td><td>78.0</td><td>0.0</td><td>False</td></tr>
+<tr><td>2026-05-21T09:25:41.210180+00:00</td><td>p7c31-eval-20260521092541</td><td>0.0</td><td>78.0</td><td>0.0</td><td>False</td></tr>
+<tr><td>2026-05-21T09:33:08.996937+00:00</td><td>p7c31-eval-20260521093308</td><td>0.0</td><td>78.0</td><td>0.0</td><td>False</td></tr>
+<tr><td>2026-05-21T09:48:14.595847+00:00</td><td>p7c31-eval-20260521094814</td><td>0.0</td><td>78.0</td><td>0.0</td><td>False</td></tr>
+<tr><td>2026-05-21T11:38:31.337593+00:00</td><td>p7c31-eval-20260521113831</td><td>0.0</td><td>78.0</td><td>0.0</td><td>False</td></tr>
+<tr><td>2026-05-21T12:51:51.224512+00:00</td><td>p7c31-eval-20260521125151</td><td>0.0</td><td>78.0</td><td>0.0</td><td>False</td></tr>
+<tr><td>2026-05-21T13:27:31.980260+00:00</td><td>p7c31-eval-20260521132731</td><td>0.0</td><td>78.0</td><td>0.0</td><td>False</td></tr>
+<tr><td>2026-05-21T14:37:46.616598+00:00</td><td>p7c31-eval-20260521143746</td><td>0.0</td><td>78.0</td><td>0.0</td><td>False</td></tr>
+<tr><td>2026-05-21T15:14:20.981391+00:00</td><td>p7c31-eval-20260521151420</td><td>0.0</td><td>78.0</td><td>-0.283433</td><td>False</td></tr>
+<tr><td>2026-05-21T15:56:11.341514+00:00</td><td>p7c31-eval-20260521155611</td><td>0.0</td><td>78.0</td><td>0.0</td><td>False</td></tr>
+<tr><td>2026-05-21T16:45:04.435321+00:00</td><td>p7c31-eval-20260521164504</td><td>0.0</td><td>78.0</td><td>-0.285292</td><td>False</td></tr>
+<tr><td>2026-05-21T17:51:40.217880+00:00</td><td>p7c31-eval-20260521175140</td><td>0.0</td><td>78.0</td><td>0.0</td><td>False</td></tr>
+<tr><td>2026-05-21T17:53:34.544856+00:00</td><td>p7c31-eval-20260521175334</td><td>0.0</td><td>78.0</td><td>0.0</td><td>False</td></tr>
+<tr><td>2026-05-21T19:30:27.485020+00:00</td><td>p7c31-eval-20260521193027</td><td>0.0</td><td>78.0</td><td>0.0</td><td>False</td></tr>
+<tr><td>2026-05-21T19:59:59.999000+00:00</td><td>p7c31-eval-20260521195959</td><td>-77.99</td><td>78.0</td><td>0.395543</td><td>True</td></tr>
+<tr><td>2026-05-22T05:20:04.198069+00:00</td><td>p7c31-eval-20260522052004</td><td>0.0</td><td>78.0</td><td>0.0</td><td>False</td></tr>
+<tr><td>2026-05-22T05:59:59.999000+00:00</td><td>p7c31-eval-20260522055959</td><td>-77.99</td><td>78.0</td><td>0.399173</td><td>True</td></tr>
+<tr><td>2026-05-22T06:47:48.711515+00:00</td><td>p7c31-eval-20260522064748</td><td>0.0</td><td>78.0</td><td>0.0</td><td>False</td></tr>
+<tr><td>2026-05-22T07:23:44.335424+00:00</td><td>p7c31-eval-20260522072344</td><td>0.0</td><td>78.0</td><td>0.0</td><td>False</td></tr>
+<tr><td>2026-05-22T07:27:30.196950+00:00</td><td>p7c31-eval-20260522072730</td><td>0.0</td><td>78.0</td><td>0.0</td><td>False</td></tr>
+<tr><td>2026-05-22T07:50:58.888205+00:00</td><td>p7c31-eval-20260522075058</td><td>78.0</td><td>78.0</td><td>0.0</td><td>False</td></tr>
+<tr><td>2026-05-22T08:59:37.115023+00:00</td><td>p7c31-eval-20260522085937</td><td>0.0</td><td>78.0</td><td>-0.285847</td><td>False</td></tr>
+<tr><td>2026-05-22T09:17:51.940907+00:00</td><td>p7c31-eval-20260522091751</td><td>78.0</td><td>78.0</td><td>0.0</td><td>False</td></tr>
+<tr><td>2026-05-22T09:49:43.191773+00:00</td><td>p7c31-eval-20260522094943</td><td>0.0</td><td>78.0</td><td>0.0</td><td>False</td></tr>
+<tr><td>2026-05-22T11:30:52.556991+00:00</td><td>p7c31-eval-20260522113052</td><td>0.0</td><td>78.0</td><td>-0.290257</td><td>False</td></tr>
+<tr><td>2026-05-22T11:43:00.461246+00:00</td><td>p7c31-eval-20260522114300</td><td>0.0</td><td>78.0</td><td>-0.302973</td><td>False</td></tr>
+<tr><td>2026-05-22T11:50:35.549240+00:00</td><td>p7c31-eval-20260522115035</td><td>0.0</td><td>78.0</td><td>-0.311852</td><td>False</td></tr>
+<tr><td>2026-05-22T11:59:59.999000+00:00</td><td>p7c31-eval-20260522115959</td><td>-77.99</td><td>78.0</td><td>-0.028606</td><td>True</td></tr>
+<tr><td>2026-05-22T12:17:35.883178+00:00</td><td>p7c31-eval-20260522121735</td><td>0.0</td><td>78.0</td><td>-0.303746</td><td>False</td></tr>
+<tr><td>2026-05-22T12:20:15.340166+00:00</td><td>p7c31-eval-20260522122015</td><td>0.0</td><td>78.0</td><td>-0.291364</td><td>False</td></tr>
+<tr><td>2026-05-22T16:59:59.999000+00:00</td><td>p7c31-eval-20260522165959</td><td>-77.99</td><td>78.0</td><td>-0.001929</td><td>True</td></tr>
+<tr><td>2026-05-23T02:59:59.999000+00:00</td><td>p7c31-eval-20260523025959</td><td>-78.0</td><td>78.0</td><td>0.024451</td><td>True</td></tr>
+<tr><td>2026-05-23T07:59:59.999000+00:00</td><td>p7c31-eval-20260523075959</td><td>-78.0</td><td>78.0</td><td>0.038167</td><td>True</td></tr>
+<tr><td>2026-05-23T13:59:59.999000+00:00</td><td>p7c31-eval-20260523135959</td><td>-36.96</td><td>78.0</td><td>0.441496</td><td>False</td></tr>
+<tr><td>2026-05-23T17:59:59.999000+00:00</td><td>p7c31-eval-20260523175959</td><td>-78.0</td><td>78.0</td><td>0.436258</td><td>False</td></tr>
+<tr><td>2026-05-24T08:59:59.999000+00:00</td><td>p7c31-eval-20260524085959</td><td>-77.99</td><td>78.0</td><td>0.006643</td><td>False</td></tr>
+<tr><td>2026-05-24T13:59:59.999000+00:00</td><td>p7c31-eval-20260524135959</td><td>-2.71</td><td>78.0</td><td>-0.000687</td><td>False</td></tr>
+<tr><td>2026-05-25T06:59:59.999000+00:00</td><td>p7c31-eval-20260525065959</td><td>32.27</td><td>78.0</td><td>-0.008958</td><td>False</td></tr>
+<tr><td>2026-05-25T08:59:59.999000+00:00</td><td>p7c31-eval-20260525085959</td><td>46.49</td><td>78.0</td><td>-0.012121</td><td>True</td></tr>
+<tr><td>2026-05-25T10:54:12.150247+00:00</td><td>p7c31-eval-20260525105412</td><td>78.0</td><td>78.0</td><td>-0.300514</td><td>True</td></tr>
+<tr><td>2026-05-25T12:10:02.264077+00:00</td><td>p7c31-eval-20260525121002</td><td>78.0</td><td>78.0</td><td>-0.299832</td><td>False</td></tr>
+<tr><td>2026-05-25T13:59:59.999000+00:00</td><td>p7c31-eval-20260525135959</td><td>9.28</td><td>78.0</td><td>-0.02932</td><td>False</td></tr>
+<tr><td>2026-05-26T04:59:59.999000+00:00</td><td>p7c31-eval-20260526045959</td><td>-0.97</td><td>78.0</td><td>-0.018834</td><td>False</td></tr>
+<tr><td>2026-05-26T08:59:59.999000+00:00</td><td>p7c31-eval-20260526085959</td><td>-12.47</td><td>78.0</td><td>-0.045204</td><td>False</td></tr>
+<tr><td>2026-05-26T15:59:59.999000+00:00</td><td>p7c31-eval-20260526155959</td><td>-16.75</td><td>78.0</td><td>-0.037683</td><td>False</td></tr>
+<tr><td>2026-05-27T06:59:59.999000+00:00</td><td>p7c31-eval-20260527065959</td><td>-78.0</td><td>78.0</td><td>-0.026772</td><td>True</td></tr>
+<tr><td>2026-05-27T09:59:59.999000+00:00</td><td>p7c31-eval-20260527095959</td><td>-78.0</td><td>78.0</td><td>-0.031514</td><td>False</td></tr>
+<tr><td>2026-05-27T13:59:59.999000+00:00</td><td>p7c31-eval-20260527135959</td><td>-37.73</td><td>78.0</td><td>-0.021481</td><td>False</td></tr>
+<tr><td>2026-05-27T16:59:59.999000+00:00</td><td>p7c31-eval-20260527165959</td><td>-25.47</td><td>78.0</td><td>-0.023638</td><td>False</td></tr>
+<tr><td>2026-05-28T03:59:59.999000+00:00</td><td>p7c31-eval-20260528035959</td><td>-52.38</td><td>78.0</td><td>0.003967</td><td>True</td></tr>
+<tr><td>2026-05-29T10:59:59.999000+00:00</td><td>p7c31-eval-20260529105959</td><td>-46.05</td><td>78.0</td><td>-0.000443</td><td>False</td></tr>
+<tr><td>2026-05-29T15:59:59.999000+00:00</td><td>p7c31-eval-20260529155959</td><td>-34.93</td><td>78.0</td><td>0.001651</td><td>False</td></tr>
+<tr><td>2026-05-29T19:59:59.999000+00:00</td><td>p7c31-eval-20260529195959</td><td>-40.04</td><td>78.0</td><td>0.006751</td><td>True</td></tr>
+<tr><td>2026-05-29T23:59:59.999000+00:00</td><td>p7c31-eval-20260529235959</td><td>-28.74</td><td>78.0</td><td>-0.126892</td><td>False</td></tr>
+<tr><td>2026-05-30T03:59:59.999000+00:00</td><td>p7c31-eval-20260530035959</td><td>-31.32</td><td>78.0</td><td>-0.116202</td><td>False</td></tr>
+<tr><td>2026-05-30T07:59:59.999000+00:00</td><td>p7c31-eval-20260530075959</td><td>5.56</td><td>78.0</td><td>-0.120041</td><td>False</td></tr></tbody></table></section>
+</main>
+</body>
+</html>

@@ -1,0 +1,62 @@
+{
+  "schema_version": "p7.event_windows.full_chain_audit.v2",
+  "generated_at": "2026-05-28T07:20:30+00:00",
+  "overall_status": "PASS",
+  "task": "P7-C23",
+  "snapshot_id": "evt-20260528071743-ef1977ec",
+  "asof_ts": "2026-05-28T07:17:43.212652+00:00",
+  "summary": {
+    "daemon": "PASS",
+    "manual_run_once": "PASS",
+    "scheduler_cadence": "PASS",
+    "source_lineage": "PASS_WITH_PARTIAL_LIVE_DISCLOSED",
+    "sqlite_persistence": "PASS",
+    "state_machine_overlay": "PASS",
+    "shock_fast_lane": "PASS",
+    "llm_boundary": "PASS",
+    "fastapi_contract": "PASS",
+    "vue_ui_data_flow": "PASS",
+    "html_123_bundle": "PASS",
+    "tests": "PASS"
+  },
+  "fixes_verified": [
+    {
+      "task": "P7-C24",
+      "status": "PASS",
+      "evidence": "HTML 2 sqlite_consistency uses comparison_mode=by_snapshot_id and passed."
+    },
+    {
+      "task": "P9-C47",
+      "status": "PASS",
+      "evidence": "/api/event-window/shock-lane/latest returns shock_detected, summary and latest_item."
+    },
+    {
+      "task": "P5-C82",
+      "status": "PASS",
+      "evidence": "Event Watchtower UI and dashboard summary expose source mode/counts and disabled capabilities."
+    },
+    {
+      "task": "P7-C25",
+      "status": "PASS",
+      "evidence": "backend/tests/test_event_watchtower_offline.py passed 4/4 offline tests."
+    }
+  ],
+  "observed_latest": {
+    "shock_detected": true,
+    "shock_type": "crypto_native",
+    "emergency_level": "high",
+    "confirmation_level": "market_dislocation",
+    "summary": "BTC 24h market dislocation",
+    "latest_item_from_sqlite": true
+  },
+  "verification_commands": [
+    ".venv\\\\Scripts\\\\python -m pytest backend/tests/test_event_watchtower_offline.py -q",
+    "npm run build",
+    ".venv\\\\Scripts\\\\python scripts\\\\run_event_window_audit_bundle.py",
+    "FastAPI TestClient GET /api/event-window/shock-lane/latest"
+  ],
+  "known_non_blocking_context": [
+    "Event Window source mesh is partial live; this is disclosed in UI and does not fake official consensus/FedWatch.",
+    "Some secondary web providers may return 403; fallback/proxy lineage remains visible."
+  ]
+}

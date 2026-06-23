@@ -1,0 +1,1145 @@
+{
+  "schema_version": "p10.c07.api_settings_dod_report.v1",
+  "generated_at": "2026-06-23T06:31:08.699202+00:00",
+  "status": "passed",
+  "checks": {
+    "mock_fred_key_masked": true,
+    "mock_llm_key_in_registry": true,
+    "mock_llm_key_in_routing": true,
+    "provider_success_failure_covered": true,
+    "provider_probe_redacted": true,
+    "audit_event_recorded": true,
+    "unknown_env_preserved": true,
+    "frontend_settings_mock_wired": true
+  },
+  "provider_probe": {
+    "success_status": "healthy",
+    "failure_status": "failed",
+    "redaction_passed": true
+  },
+  "runtime_checks": {
+    "settings_schema": "p45.settings.v1",
+    "audit_schema": "p10.c06.settings_key_audit.v1",
+    "llm_routing_schema": "p10.c05.llm_routing.v1",
+    "provider_health_schema": "p10.c04.provider_health.v1",
+    "frontend_reachable": true
+  },
+  "endpoint_checks": {
+    "/api/settings": {
+      "reachable": true,
+      "payload": {
+        "app": {
+          "app_name": "onlyBTC",
+          "environment": "development",
+          "api_host": "127.0.0.1",
+          "api_port": 8118,
+          "default_refresh_seconds": 600
+        },
+        "run_defaults": {
+          "run_mode": "live",
+          "runtime_mode": "deterministic",
+          "llm_runtime_mode": "llm"
+        },
+        "llm": {
+          "p45_research_provider": "deepseek",
+          "deepseek_model": "deepseek-reasoner",
+          "p45_research_timeout_seconds": 180.0,
+          "p45_research_max_retries": 1,
+          "has_deepseek_key": true,
+          "has_openai_key": false,
+          "has_qwen_key": true,
+          "has_volcano_key": true,
+          "has_kimi_key": true
+        },
+        "providers": {
+          "schema_version": "p10.c01.provider_registry.v1",
+          "provider_count": 10,
+          "configured_count": 5,
+          "categories": {
+            "data_source": 1,
+            "llm": 5,
+            "manual_login_data_source": 1,
+            "planned_data_source": 2,
+            "planned_news_source": 1
+          },
+          "providers": [
+            {
+              "provider_id": "fred",
+              "name": "FRED",
+              "category": "data_source",
+              "env_key": "ONLYBTC_FRED_API_KEY",
+              "required": true,
+              "supports_test": true,
+              "docs_url": "https://fred.stlouisfed.org/docs/api/api_key.html",
+              "configured": true,
+              "masked_value": "162***e47",
+              "status": "configured",
+              "status_policy": "configured_required_for_full_macro_collection",
+              "notes": ""
+            },
+            {
+              "provider_id": "deepseek",
+              "name": "DeepSeek",
+              "category": "llm",
+              "env_key": "ONLYBTC_DEEPSEEK_API_KEY",
+              "required": false,
+              "supports_test": true,
+              "docs_url": "https://api-docs.deepseek.com/",
+              "configured": true,
+              "masked_value": "sk-***9e1",
+              "status": "configured",
+              "status_policy": "disabled_without_api_key",
+              "notes": ""
+            },
+            {
+              "provider_id": "openai",
+              "name": "OpenAI",
+              "category": "llm",
+              "env_key": "ONLYBTC_OPENAI_API_KEY",
+              "required": false,
+              "supports_test": true,
+              "docs_url": "https://platform.openai.com/docs",
+              "configured": false,
+              "masked_value": "",
+              "status": "disabled",
+              "status_policy": "disabled_without_api_key",
+              "notes": ""
+            },
+            {
+              "provider_id": "qwen",
+              "name": "Qwen",
+              "category": "llm",
+              "env_key": "ONLYBTC_QWEN_API_KEY",
+              "required": false,
+              "supports_test": true,
+              "docs_url": "https://help.aliyun.com/zh/model-studio/",
+              "configured": true,
+              "masked_value": "sk-***313",
+              "status": "configured",
+              "status_policy": "disabled_without_api_key",
+              "notes": ""
+            },
+            {
+              "provider_id": "volcano",
+              "name": "Volcano Ark",
+              "category": "llm",
+              "env_key": "ONLYBTC_VOLCANO_API_KEY",
+              "required": false,
+              "supports_test": true,
+              "docs_url": "https://www.volcengine.com/docs/82379",
+              "configured": true,
+              "masked_value": "88c***3f3",
+              "status": "configured",
+              "status_policy": "disabled_without_api_key",
+              "notes": ""
+            },
+            {
+              "provider_id": "kimi",
+              "name": "Kimi",
+              "category": "llm",
+              "env_key": "ONLYBTC_KIMI_API_KEY",
+              "required": false,
+              "supports_test": true,
+              "docs_url": "https://platform.moonshot.cn/docs",
+              "configured": true,
+              "masked_value": "sk-***DyZ",
+              "status": "configured",
+              "status_policy": "disabled_without_api_key",
+              "notes": ""
+            },
+            {
+              "provider_id": "glassnode",
+              "name": "Glassnode",
+              "category": "manual_login_data_source",
+              "env_key": "ONLYBTC_GLASSNODE_API_KEY",
+              "required": false,
+              "supports_test": true,
+              "docs_url": "https://docs.glassnode.com/",
+              "configured": false,
+              "masked_value": "",
+              "status": "provider_locked",
+              "status_policy": "provider_locked_until_api_key_or_manual_session_verified",
+              "notes": "P1/P7 currently use Playwright session audit; API key support is reserved."
+            },
+            {
+              "provider_id": "cryptoquant",
+              "name": "CryptoQuant",
+              "category": "planned_data_source",
+              "env_key": "ONLYBTC_CRYPTOQUANT_API_KEY",
+              "required": false,
+              "supports_test": false,
+              "docs_url": "https://cryptoquant.com/",
+              "configured": false,
+              "masked_value": "",
+              "status": "planned_not_integrated",
+              "status_policy": "planned_provider_locked_until_integrated",
+              "notes": ""
+            },
+            {
+              "provider_id": "coinglass",
+              "name": "Coinglass",
+              "category": "planned_data_source",
+              "env_key": "ONLYBTC_COINGLASS_API_KEY",
+              "required": false,
+              "supports_test": false,
+              "docs_url": "https://www.coinglass.com/",
+              "configured": false,
+              "masked_value": "",
+              "status": "planned_not_integrated",
+              "status_policy": "planned_provider_locked_until_integrated",
+              "notes": ""
+            },
+            {
+              "provider_id": "newsapi",
+              "name": "News API",
+              "category": "planned_news_source",
+              "env_key": "ONLYBTC_NEWS_API_KEY",
+              "required": false,
+              "supports_test": false,
+              "docs_url": "https://newsapi.org/docs",
+              "configured": false,
+              "masked_value": "",
+              "status": "planned_not_integrated",
+              "status_policy": "planned_provider_locked_until_integrated",
+              "notes": ""
+            }
+          ],
+          "guardrails": [
+            "no_plaintext_secret_values",
+            "env_keys_are_prefixed_with_ONLYBTC",
+            "unconfigured_providers_are_disabled_or_provider_locked",
+            "planned_providers_require_integration_before_use"
+          ]
+        },
+        "provider_health": {
+          "schema_version": "p10.c04.provider_health.v1",
+          "status": "ok",
+          "provider_count": 10,
+          "tested_count": 1,
+          "healthy_count": 0,
+          "items": [
+            {
+              "schema_version": "p10.c04.provider_health.v1",
+              "provider_id": "fred",
+              "name": "FRED",
+              "category": "data_source",
+              "env_key": "ONLYBTC_FRED_API_KEY",
+              "supports_test": true,
+              "configured": true,
+              "status": "untested",
+              "last_tested_at": null,
+              "latency_ms": null,
+              "http_status": null,
+              "error_message": ""
+            },
+            {
+              "schema_version": "p10.c04.provider_health.v1",
+              "provider_id": "deepseek",
+              "name": "DeepSeek",
+              "category": "llm",
+              "env_key": "ONLYBTC_DEEPSEEK_API_KEY",
+              "supports_test": true,
+              "configured": true,
+              "status": "untested",
+              "last_tested_at": null,
+              "latency_ms": null,
+              "http_status": null,
+              "error_message": ""
+            },
+            {
+              "schema_version": "p10.c04.provider_health.v1",
+              "provider_id": "openai",
+              "name": "OpenAI",
+              "category": "llm",
+              "env_key": "ONLYBTC_OPENAI_API_KEY",
+              "supports_test": true,
+              "configured": false,
+              "status": "missing_key",
+              "last_tested_at": null,
+              "latency_ms": null,
+              "http_status": null,
+              "error_message": "ONLYBTC_OPENAI_API_KEY is not configured."
+            },
+            {
+              "schema_version": "p10.c04.provider_health.v1",
+              "provider_id": "qwen",
+              "name": "Qwen",
+              "category": "llm",
+              "env_key": "ONLYBTC_QWEN_API_KEY",
+              "supports_test": true,
+              "configured": true,
+              "status": "untested",
+              "last_tested_at": null,
+              "latency_ms": null,
+              "http_status": null,
+              "error_message": ""
+            },
+            {
+              "schema_version": "p10.c04.provider_health.v1",
+              "provider_id": "volcano",
+              "name": "Volcano Ark",
+              "category": "llm",
+              "env_key": "ONLYBTC_VOLCANO_API_KEY",
+              "supports_test": true,
+              "configured": true,
+              "status": "untested",
+              "last_tested_at": null,
+              "latency_ms": null,
+              "http_status": null,
+              "error_message": ""
+            },
+            {
+              "schema_version": "p10.c04.provider_health.v1",
+              "provider_id": "kimi",
+              "name": "Kimi",
+              "category": "llm",
+              "env_key": "ONLYBTC_KIMI_API_KEY",
+              "supports_test": true,
+              "configured": true,
+              "status": "untested",
+              "last_tested_at": null,
+              "latency_ms": null,
+              "http_status": null,
+              "error_message": ""
+            },
+            {
+              "schema_version": "p10.c04.provider_health.v1",
+              "provider_id": "glassnode",
+              "name": "Glassnode",
+              "category": "manual_login_data_source",
+              "env_key": "ONLYBTC_GLASSNODE_API_KEY",
+              "supports_test": true,
+              "configured": false,
+              "status": "missing_key",
+              "last_tested_at": null,
+              "latency_ms": null,
+              "http_status": null,
+              "error_message": "ONLYBTC_GLASSNODE_API_KEY is not configured."
+            },
+            {
+              "schema_version": "p10.c04.provider_health.v1",
+              "provider_id": "cryptoquant",
+              "name": "CryptoQuant",
+              "category": "planned_data_source",
+              "env_key": "ONLYBTC_CRYPTOQUANT_API_KEY",
+              "supports_test": false,
+              "configured": false,
+              "status": "unsupported",
+              "last_tested_at": "2026-06-23T06:23:48.048512+00:00",
+              "latency_ms": 0,
+              "http_status": null,
+              "error_message": "Provider health check is not integrated yet."
+            },
+            {
+              "schema_version": "p10.c04.provider_health.v1",
+              "provider_id": "coinglass",
+              "name": "Coinglass",
+              "category": "planned_data_source",
+              "env_key": "ONLYBTC_COINGLASS_API_KEY",
+              "supports_test": false,
+              "configured": false,
+              "status": "unsupported",
+              "last_tested_at": null,
+              "latency_ms": null,
+              "http_status": null,
+              "error_message": "Provider health check is not integrated yet."
+            },
+            {
+              "schema_version": "p10.c04.provider_health.v1",
+              "provider_id": "newsapi",
+              "name": "News API",
+              "category": "planned_news_source",
+              "env_key": "ONLYBTC_NEWS_API_KEY",
+              "supports_test": false,
+              "configured": false,
+              "status": "unsupported",
+              "last_tested_at": null,
+              "latency_ms": null,
+              "http_status": null,
+              "error_message": "Provider health check is not integrated yet."
+            }
+          ]
+        },
+        "llm_routing": {
+          "schema_version": "p10.c05.llm_routing.v1",
+          "status": "ok",
+          "mock_mode_enabled": true,
+          "fallback_policy": "fallback",
+          "runtime_defaults": {
+            "timeout_seconds": 90.0,
+            "max_retries": 1,
+            "max_calls_per_run": 32,
+            "max_tokens_per_call": 4096,
+            "temperature": 0.2,
+            "max_estimated_tokens_per_run": 200000
+          },
+          "providers": [
+            {
+              "provider": "deepseek",
+              "model": "deepseek-reasoner",
+              "base_url": "https://api.deepseek.com",
+              "api_key_configured": true,
+              "enabled": true,
+              "disabled_reason": null,
+              "enable_thinking": true,
+              "timeout_seconds": 90.0,
+              "max_tokens": 4096,
+              "temperature": 0.2
+            },
+            {
+              "provider": "openai",
+              "model": "gpt-4.1-mini",
+              "base_url": "https://api.openai.com/v1",
+              "api_key_configured": false,
+              "enabled": false,
+              "disabled_reason": "api_key_missing",
+              "enable_thinking": false,
+              "timeout_seconds": 90.0,
+              "max_tokens": 4096,
+              "temperature": 0.2
+            },
+            {
+              "provider": "qwen",
+              "model": "qwen3.6-max-preview",
+              "base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+              "api_key_configured": true,
+              "enabled": true,
+              "disabled_reason": null,
+              "enable_thinking": true,
+              "timeout_seconds": 90.0,
+              "max_tokens": 4096,
+              "temperature": 0.2
+            },
+            {
+              "provider": "volcano",
+              "model": "doubao-seed-2-0-pro-260215",
+              "base_url": "https://ark.cn-beijing.volces.com/api/v3",
+              "api_key_configured": true,
+              "enabled": true,
+              "disabled_reason": null,
+              "enable_thinking": true,
+              "timeout_seconds": 90.0,
+              "max_tokens": 4096,
+              "temperature": 0.2
+            },
+            {
+              "provider": "kimi",
+              "model": "kimi-k2.6",
+              "base_url": "https://api.moonshot.cn/v1",
+              "api_key_configured": true,
+              "enabled": true,
+              "disabled_reason": null,
+              "enable_thinking": true,
+              "timeout_seconds": 90.0,
+              "max_tokens": 4096,
+              "temperature": 0.2
+            }
+          ],
+          "available_providers": [
+            "deepseek",
+            "qwen",
+            "volcano",
+            "kimi"
+          ],
+          "p4_agent_routes": [
+            {
+              "agent_id": "macro_event_analyst",
+              "agent_label": "Macro Event Analyst",
+              "settings_field": "p4_macro_event_provider",
+              "provider": "deepseek",
+              "model": "deepseek-reasoner",
+              "enabled_for_llm": true,
+              "mock_mode_bypasses_provider": true,
+              "disabled_reason": null
+            },
+            {
+              "agent_id": "liquidity_flow_analyst",
+              "agent_label": "Liquidity Flow Analyst",
+              "settings_field": "p4_liquidity_flow_provider",
+              "provider": "deepseek",
+              "model": "deepseek-reasoner",
+              "enabled_for_llm": true,
+              "mock_mode_bypasses_provider": true,
+              "disabled_reason": null
+            },
+            {
+              "agent_id": "leverage_microstructure_analyst",
+              "agent_label": "Leverage Microstructure Analyst",
+              "settings_field": "p4_leverage_microstructure_provider",
+              "provider": "volcano",
+              "model": "doubao-seed-2-0-pro-260215",
+              "enabled_for_llm": true,
+              "mock_mode_bypasses_provider": true,
+              "disabled_reason": null
+            },
+            {
+              "agent_id": "onchain_market_structure_analyst",
+              "agent_label": "On-chain Market Structure Analyst",
+              "settings_field": "p4_onchain_market_structure_provider",
+              "provider": "deepseek",
+              "model": "deepseek-reasoner",
+              "enabled_for_llm": true,
+              "mock_mode_bypasses_provider": true,
+              "disabled_reason": null
+            },
+            {
+              "agent_id": "cross_examiner_agent",
+              "agent_label": "Cross-examiner Agent",
+              "settings_field": "p4_cross_exam_provider",
+              "provider": "deepseek",
+              "model": "deepseek-reasoner",
+              "enabled_for_llm": true,
+              "mock_mode_bypasses_provider": true,
+              "disabled_reason": null
+            },
+            {
+              "agent_id": "judge_agent",
+              "agent_label": "Judge Agent",
+              "settings_field": "p4_judge_provider",
+              "provider": "deepseek",
+              "model": "deepseek-reasoner",
+              "enabled_for_llm": true,
+              "mock_mode_bypasses_provider": true,
+              "disabled_reason": null
+            },
+            {
+              "agent_id": "adversarial_reviewer_agent",
+              "agent_label": "Adversarial Reviewer Agent",
+              "settings_field": "p4_adversarial_provider",
+              "provider": "deepseek",
+              "model": "deepseek-reasoner",
+              "enabled_for_llm": true,
+              "mock_mode_bypasses_provider": true,
+              "disabled_reason": null
+            },
+            {
+              "agent_id": "article_writer_agent",
+              "agent_label": "Article Writer Agent",
+              "settings_field": "p4_article_provider",
+              "provider": "deepseek",
+              "model": "deepseek-reasoner",
+              "enabled_for_llm": true,
+              "mock_mode_bypasses_provider": true,
+              "disabled_reason": null
+            }
+          ],
+          "p45_routes": [
+            {
+              "route_id": "p45_research_provider",
+              "consumer": "P4.5 Research Writer",
+              "provider": "deepseek",
+              "model": "deepseek-reasoner",
+              "enabled_for_llm": true,
+              "disabled_reason": null
+            },
+            {
+              "route_id": "p45_analyst_provider",
+              "consumer": "P4.5 Analyst Writers",
+              "provider": "deepseek",
+              "model": "deepseek-reasoner",
+              "enabled_for_llm": true,
+              "disabled_reason": null
+            }
+          ],
+          "guardrails": [
+            "mock_mode_never_calls_real_provider",
+            "missing_api_key_disables_real_llm_call",
+            "provider_name_is_runtime_route_not_business_role",
+            "no_plaintext_secret_values"
+          ]
+        },
+        "settings_audit": {
+          "schema_version": "p10.c06.settings_key_audit.v1",
+          "status": "ok",
+          "log_path": "E:\\onlyBTC\\logs\\settings-key-audit.jsonl",
+          "event_count": 5,
+          "action_counts": {
+            "tested": 3,
+            "env_update": 2
+          },
+          "status_counts": {
+            "failed": 2,
+            "success": 2,
+            "unsupported": 1
+          },
+          "events": [
+            {
+              "action": "tested",
+              "actor": "local_api",
+              "backup_path": "",
+              "created_at": "2026-06-23T06:29:51.823248+00:00",
+              "env_keys": [],
+              "error_message": "Unknown provider_id: missing-provider",
+              "event_id": "settings-audit-f7df363b84de",
+              "operation_counts": {},
+              "provider_ids": [
+                "missing-provider"
+              ],
+              "redacted": true,
+              "schema_version": "p10.c06.settings_key_audit.v1",
+              "status": "failed"
+            },
+            {
+              "action": "env_update",
+              "actor": "local_api",
+              "backup_path": "backups/env/.env.test.bak",
+              "created_at": "2026-06-23T06:29:51.764283+00:00",
+              "env_keys": [
+                "ONLYBTC_FRED_API_KEY"
+              ],
+              "error_message": "",
+              "event_id": "settings-audit-11cc526ddefc",
+              "operation_counts": {},
+              "provider_ids": [
+                "fred"
+              ],
+              "redacted": true,
+              "schema_version": "p10.c06.settings_key_audit.v1",
+              "status": "success"
+            },
+            {
+              "action": "tested",
+              "actor": "local_api",
+              "backup_path": "",
+              "created_at": "2026-06-23T06:23:48.048512+00:00",
+              "env_keys": [],
+              "error_message": "Provider health check is not integrated yet.",
+              "event_id": "settings-audit-fe1669f4c030",
+              "operation_counts": {},
+              "provider_ids": [
+                "cryptoquant"
+              ],
+              "redacted": true,
+              "schema_version": "p10.c06.settings_key_audit.v1",
+              "status": "unsupported"
+            },
+            {
+              "action": "tested",
+              "actor": "local_api",
+              "backup_path": "",
+              "created_at": "2026-06-23T06:22:44.680348+00:00",
+              "env_keys": [],
+              "error_message": "Unknown provider_id: missing-provider",
+              "event_id": "settings-audit-396cc8a2035f",
+              "operation_counts": {},
+              "provider_ids": [
+                "missing-provider"
+              ],
+              "redacted": true,
+              "schema_version": "p10.c06.settings_key_audit.v1",
+              "status": "failed"
+            },
+            {
+              "action": "env_update",
+              "actor": "local_api",
+              "backup_path": "backups/env/.env.test.bak",
+              "created_at": "2026-06-23T06:22:44.634197+00:00",
+              "env_keys": [
+                "ONLYBTC_FRED_API_KEY"
+              ],
+              "error_message": "",
+              "event_id": "settings-audit-551562958680",
+              "operation_counts": {},
+              "provider_ids": [
+                "fred"
+              ],
+              "redacted": true,
+              "schema_version": "p10.c06.settings_key_audit.v1",
+              "status": "success"
+            }
+          ],
+          "guardrails": [
+            "no_plaintext_secret_values",
+            "logs_store_env_key_names_only",
+            "error_messages_are_redacted",
+            "permission_gate_reserved_for_operator_auth"
+          ]
+        },
+        "status": "ok",
+        "schema_version": "p45.settings.v1",
+        "api_schema_version": "onlybtc.api.v1",
+        "created_at": "2026-06-23T06:31:08.656810+00:00",
+        "run_lineage": {},
+        "warnings": [],
+        "errors": []
+      }
+    },
+    "/api/settings/audit": {
+      "reachable": true,
+      "payload": {
+        "schema_version": "p10.c06.settings_key_audit.v1",
+        "status": "ok",
+        "log_path": "E:\\onlyBTC\\logs\\settings-key-audit.jsonl",
+        "event_count": 5,
+        "action_counts": {
+          "tested": 3,
+          "env_update": 2
+        },
+        "status_counts": {
+          "failed": 2,
+          "success": 2,
+          "unsupported": 1
+        },
+        "events": [
+          {
+            "action": "tested",
+            "actor": "local_api",
+            "backup_path": "",
+            "created_at": "2026-06-23T06:29:51.823248+00:00",
+            "env_keys": [],
+            "error_message": "Unknown provider_id: missing-provider",
+            "event_id": "settings-audit-f7df363b84de",
+            "operation_counts": {},
+            "provider_ids": [
+              "missing-provider"
+            ],
+            "redacted": true,
+            "schema_version": "p10.c06.settings_key_audit.v1",
+            "status": "failed"
+          },
+          {
+            "action": "env_update",
+            "actor": "local_api",
+            "backup_path": "backups/env/.env.test.bak",
+            "created_at": "2026-06-23T06:29:51.764283+00:00",
+            "env_keys": [
+              "ONLYBTC_FRED_API_KEY"
+            ],
+            "error_message": "",
+            "event_id": "settings-audit-11cc526ddefc",
+            "operation_counts": {},
+            "provider_ids": [
+              "fred"
+            ],
+            "redacted": true,
+            "schema_version": "p10.c06.settings_key_audit.v1",
+            "status": "success"
+          },
+          {
+            "action": "tested",
+            "actor": "local_api",
+            "backup_path": "",
+            "created_at": "2026-06-23T06:23:48.048512+00:00",
+            "env_keys": [],
+            "error_message": "Provider health check is not integrated yet.",
+            "event_id": "settings-audit-fe1669f4c030",
+            "operation_counts": {},
+            "provider_ids": [
+              "cryptoquant"
+            ],
+            "redacted": true,
+            "schema_version": "p10.c06.settings_key_audit.v1",
+            "status": "unsupported"
+          },
+          {
+            "action": "tested",
+            "actor": "local_api",
+            "backup_path": "",
+            "created_at": "2026-06-23T06:22:44.680348+00:00",
+            "env_keys": [],
+            "error_message": "Unknown provider_id: missing-provider",
+            "event_id": "settings-audit-396cc8a2035f",
+            "operation_counts": {},
+            "provider_ids": [
+              "missing-provider"
+            ],
+            "redacted": true,
+            "schema_version": "p10.c06.settings_key_audit.v1",
+            "status": "failed"
+          },
+          {
+            "action": "env_update",
+            "actor": "local_api",
+            "backup_path": "backups/env/.env.test.bak",
+            "created_at": "2026-06-23T06:22:44.634197+00:00",
+            "env_keys": [
+              "ONLYBTC_FRED_API_KEY"
+            ],
+            "error_message": "",
+            "event_id": "settings-audit-551562958680",
+            "operation_counts": {},
+            "provider_ids": [
+              "fred"
+            ],
+            "redacted": true,
+            "schema_version": "p10.c06.settings_key_audit.v1",
+            "status": "success"
+          }
+        ],
+        "guardrails": [
+          "no_plaintext_secret_values",
+          "logs_store_env_key_names_only",
+          "error_messages_are_redacted",
+          "permission_gate_reserved_for_operator_auth"
+        ]
+      }
+    },
+    "/api/settings/llm-routing": {
+      "reachable": true,
+      "payload": {
+        "schema_version": "p10.c05.llm_routing.v1",
+        "status": "ok",
+        "mock_mode_enabled": true,
+        "fallback_policy": "fallback",
+        "runtime_defaults": {
+          "timeout_seconds": 90.0,
+          "max_retries": 1,
+          "max_calls_per_run": 32,
+          "max_tokens_per_call": 4096,
+          "temperature": 0.2,
+          "max_estimated_tokens_per_run": 200000
+        },
+        "providers": [
+          {
+            "provider": "deepseek",
+            "model": "deepseek-reasoner",
+            "base_url": "https://api.deepseek.com",
+            "api_key_configured": true,
+            "enabled": true,
+            "disabled_reason": null,
+            "enable_thinking": true,
+            "timeout_seconds": 90.0,
+            "max_tokens": 4096,
+            "temperature": 0.2
+          },
+          {
+            "provider": "openai",
+            "model": "gpt-4.1-mini",
+            "base_url": "https://api.openai.com/v1",
+            "api_key_configured": false,
+            "enabled": false,
+            "disabled_reason": "api_key_missing",
+            "enable_thinking": false,
+            "timeout_seconds": 90.0,
+            "max_tokens": 4096,
+            "temperature": 0.2
+          },
+          {
+            "provider": "qwen",
+            "model": "qwen3.6-max-preview",
+            "base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+            "api_key_configured": true,
+            "enabled": true,
+            "disabled_reason": null,
+            "enable_thinking": true,
+            "timeout_seconds": 90.0,
+            "max_tokens": 4096,
+            "temperature": 0.2
+          },
+          {
+            "provider": "volcano",
+            "model": "doubao-seed-2-0-pro-260215",
+            "base_url": "https://ark.cn-beijing.volces.com/api/v3",
+            "api_key_configured": true,
+            "enabled": true,
+            "disabled_reason": null,
+            "enable_thinking": true,
+            "timeout_seconds": 90.0,
+            "max_tokens": 4096,
+            "temperature": 0.2
+          },
+          {
+            "provider": "kimi",
+            "model": "kimi-k2.6",
+            "base_url": "https://api.moonshot.cn/v1",
+            "api_key_configured": true,
+            "enabled": true,
+            "disabled_reason": null,
+            "enable_thinking": true,
+            "timeout_seconds": 90.0,
+            "max_tokens": 4096,
+            "temperature": 0.2
+          }
+        ],
+        "available_providers": [
+          "deepseek",
+          "qwen",
+          "volcano",
+          "kimi"
+        ],
+        "p4_agent_routes": [
+          {
+            "agent_id": "macro_event_analyst",
+            "agent_label": "Macro Event Analyst",
+            "settings_field": "p4_macro_event_provider",
+            "provider": "deepseek",
+            "model": "deepseek-reasoner",
+            "enabled_for_llm": true,
+            "mock_mode_bypasses_provider": true,
+            "disabled_reason": null
+          },
+          {
+            "agent_id": "liquidity_flow_analyst",
+            "agent_label": "Liquidity Flow Analyst",
+            "settings_field": "p4_liquidity_flow_provider",
+            "provider": "deepseek",
+            "model": "deepseek-reasoner",
+            "enabled_for_llm": true,
+            "mock_mode_bypasses_provider": true,
+            "disabled_reason": null
+          },
+          {
+            "agent_id": "leverage_microstructure_analyst",
+            "agent_label": "Leverage Microstructure Analyst",
+            "settings_field": "p4_leverage_microstructure_provider",
+            "provider": "volcano",
+            "model": "doubao-seed-2-0-pro-260215",
+            "enabled_for_llm": true,
+            "mock_mode_bypasses_provider": true,
+            "disabled_reason": null
+          },
+          {
+            "agent_id": "onchain_market_structure_analyst",
+            "agent_label": "On-chain Market Structure Analyst",
+            "settings_field": "p4_onchain_market_structure_provider",
+            "provider": "deepseek",
+            "model": "deepseek-reasoner",
+            "enabled_for_llm": true,
+            "mock_mode_bypasses_provider": true,
+            "disabled_reason": null
+          },
+          {
+            "agent_id": "cross_examiner_agent",
+            "agent_label": "Cross-examiner Agent",
+            "settings_field": "p4_cross_exam_provider",
+            "provider": "deepseek",
+            "model": "deepseek-reasoner",
+            "enabled_for_llm": true,
+            "mock_mode_bypasses_provider": true,
+            "disabled_reason": null
+          },
+          {
+            "agent_id": "judge_agent",
+            "agent_label": "Judge Agent",
+            "settings_field": "p4_judge_provider",
+            "provider": "deepseek",
+            "model": "deepseek-reasoner",
+            "enabled_for_llm": true,
+            "mock_mode_bypasses_provider": true,
+            "disabled_reason": null
+          },
+          {
+            "agent_id": "adversarial_reviewer_agent",
+            "agent_label": "Adversarial Reviewer Agent",
+            "settings_field": "p4_adversarial_provider",
+            "provider": "deepseek",
+            "model": "deepseek-reasoner",
+            "enabled_for_llm": true,
+            "mock_mode_bypasses_provider": true,
+            "disabled_reason": null
+          },
+          {
+            "agent_id": "article_writer_agent",
+            "agent_label": "Article Writer Agent",
+            "settings_field": "p4_article_provider",
+            "provider": "deepseek",
+            "model": "deepseek-reasoner",
+            "enabled_for_llm": true,
+            "mock_mode_bypasses_provider": true,
+            "disabled_reason": null
+          }
+        ],
+        "p45_routes": [
+          {
+            "route_id": "p45_research_provider",
+            "consumer": "P4.5 Research Writer",
+            "provider": "deepseek",
+            "model": "deepseek-reasoner",
+            "enabled_for_llm": true,
+            "disabled_reason": null
+          },
+          {
+            "route_id": "p45_analyst_provider",
+            "consumer": "P4.5 Analyst Writers",
+            "provider": "deepseek",
+            "model": "deepseek-reasoner",
+            "enabled_for_llm": true,
+            "disabled_reason": null
+          }
+        ],
+        "guardrails": [
+          "mock_mode_never_calls_real_provider",
+          "missing_api_key_disables_real_llm_call",
+          "provider_name_is_runtime_route_not_business_role",
+          "no_plaintext_secret_values"
+        ]
+      }
+    },
+    "/api/settings/providers/health": {
+      "reachable": true,
+      "payload": {
+        "schema_version": "p10.c04.provider_health.v1",
+        "status": "ok",
+        "provider_count": 10,
+        "tested_count": 1,
+        "healthy_count": 0,
+        "items": [
+          {
+            "schema_version": "p10.c04.provider_health.v1",
+            "provider_id": "fred",
+            "name": "FRED",
+            "category": "data_source",
+            "env_key": "ONLYBTC_FRED_API_KEY",
+            "supports_test": true,
+            "configured": true,
+            "status": "untested",
+            "last_tested_at": null,
+            "latency_ms": null,
+            "http_status": null,
+            "error_message": ""
+          },
+          {
+            "schema_version": "p10.c04.provider_health.v1",
+            "provider_id": "deepseek",
+            "name": "DeepSeek",
+            "category": "llm",
+            "env_key": "ONLYBTC_DEEPSEEK_API_KEY",
+            "supports_test": true,
+            "configured": true,
+            "status": "untested",
+            "last_tested_at": null,
+            "latency_ms": null,
+            "http_status": null,
+            "error_message": ""
+          },
+          {
+            "schema_version": "p10.c04.provider_health.v1",
+            "provider_id": "openai",
+            "name": "OpenAI",
+            "category": "llm",
+            "env_key": "ONLYBTC_OPENAI_API_KEY",
+            "supports_test": true,
+            "configured": false,
+            "status": "missing_key",
+            "last_tested_at": null,
+            "latency_ms": null,
+            "http_status": null,
+            "error_message": "ONLYBTC_OPENAI_API_KEY is not configured."
+          },
+          {
+            "schema_version": "p10.c04.provider_health.v1",
+            "provider_id": "qwen",
+            "name": "Qwen",
+            "category": "llm",
+            "env_key": "ONLYBTC_QWEN_API_KEY",
+            "supports_test": true,
+            "configured": true,
+            "status": "untested",
+            "last_tested_at": null,
+            "latency_ms": null,
+            "http_status": null,
+            "error_message": ""
+          },
+          {
+            "schema_version": "p10.c04.provider_health.v1",
+            "provider_id": "volcano",
+            "name": "Volcano Ark",
+            "category": "llm",
+            "env_key": "ONLYBTC_VOLCANO_API_KEY",
+            "supports_test": true,
+            "configured": true,
+            "status": "untested",
+            "last_tested_at": null,
+            "latency_ms": null,
+            "http_status": null,
+            "error_message": ""
+          },
+          {
+            "schema_version": "p10.c04.provider_health.v1",
+            "provider_id": "kimi",
+            "name": "Kimi",
+            "category": "llm",
+            "env_key": "ONLYBTC_KIMI_API_KEY",
+            "supports_test": true,
+            "configured": true,
+            "status": "untested",
+            "last_tested_at": null,
+            "latency_ms": null,
+            "http_status": null,
+            "error_message": ""
+          },
+          {
+            "schema_version": "p10.c04.provider_health.v1",
+            "provider_id": "glassnode",
+            "name": "Glassnode",
+            "category": "manual_login_data_source",
+            "env_key": "ONLYBTC_GLASSNODE_API_KEY",
+            "supports_test": true,
+            "configured": false,
+            "status": "missing_key",
+            "last_tested_at": null,
+            "latency_ms": null,
+            "http_status": null,
+            "error_message": "ONLYBTC_GLASSNODE_API_KEY is not configured."
+          },
+          {
+            "schema_version": "p10.c04.provider_health.v1",
+            "provider_id": "cryptoquant",
+            "name": "CryptoQuant",
+            "category": "planned_data_source",
+            "env_key": "ONLYBTC_CRYPTOQUANT_API_KEY",
+            "supports_test": false,
+            "configured": false,
+            "status": "unsupported",
+            "last_tested_at": "2026-06-23T06:23:48.048512+00:00",
+            "latency_ms": 0,
+            "http_status": null,
+            "error_message": "Provider health check is not integrated yet."
+          },
+          {
+            "schema_version": "p10.c04.provider_health.v1",
+            "provider_id": "coinglass",
+            "name": "Coinglass",
+            "category": "planned_data_source",
+            "env_key": "ONLYBTC_COINGLASS_API_KEY",
+            "supports_test": false,
+            "configured": false,
+            "status": "unsupported",
+            "last_tested_at": null,
+            "latency_ms": null,
+            "http_status": null,
+            "error_message": "Provider health check is not integrated yet."
+          },
+          {
+            "schema_version": "p10.c04.provider_health.v1",
+            "provider_id": "newsapi",
+            "name": "News API",
+            "category": "planned_news_source",
+            "env_key": "ONLYBTC_NEWS_API_KEY",
+            "supports_test": false,
+            "configured": false,
+            "status": "unsupported",
+            "last_tested_at": null,
+            "latency_ms": null,
+            "http_status": null,
+            "error_message": "Provider health check is not integrated yet."
+          }
+        ]
+      }
+    },
+    "frontend": {
+      "reachable": true,
+      "status": 200
+    }
+  },
+  "mock_contract": {
+    "provider_registry_schema": "p10.c01.provider_registry.v1",
+    "llm_routing_schema": "p10.c05.llm_routing.v1",
+    "settings_audit_schema": "p10.c06.settings_key_audit.v1",
+    "write_operation_counts": {
+      "created": 2,
+      "updated": 0,
+      "deleted": 0
+    },
+    "audit_action_counts": {
+      "env_update": 1
+    }
+  },
+  "guardrails": [
+    "mock_env_only",
+    "no_plaintext_secret_values",
+    "provider_success_and_failure_paths_covered",
+    "frontend_settings_controls_wired",
+    "p10_blocks_real_paid_provider_usage_until_dod_passes"
+  ]
+}

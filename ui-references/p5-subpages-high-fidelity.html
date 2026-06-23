@@ -1,0 +1,680 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>onlyBTC P5 Subpages High Fidelity</title>
+  <style>
+    :root {
+      --bg: #081017;
+      --panel: #0e1a23;
+      --panel2: #122432;
+      --panel3: #0b1720;
+      --line: #244050;
+      --soft: rgba(95,145,170,.24);
+      --text: #eaf5ff;
+      --muted: #8fa7b8;
+      --faint: #627888;
+      --bull: #22d3b6;
+      --bear: #f87171;
+      --mixed: #fbbf24;
+      --blue: #60a5fa;
+      --quality: #a78bfa;
+      --warning: #fb923c;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0;
+    }
+    a { color: inherit; text-decoration: none; }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      height: 58px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(8,16,23,.96);
+      display: grid;
+      grid-template-columns: 190px 1fr auto;
+      align-items: center;
+      gap: 16px;
+      padding: 0 18px;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 750; }
+    .mark {
+      width: 30px; height: 30px; display: grid; place-items: center;
+      border-radius: 7px; border: 1px solid rgba(34,211,182,.5);
+      background: rgba(34,211,182,.08); color: var(--bull);
+    }
+    .chips { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; min-width: 0; }
+    .chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      min-height: 24px; padding: 3px 9px; border-radius: 999px;
+      border: 1px solid var(--line); background: rgba(18,36,50,.72);
+      color: var(--muted); font-size: 12px; white-space: nowrap;
+    }
+    .chip.neutral { color: #d1d5db; border-color: rgba(156,163,175,.4); }
+    .chip.good { color: var(--bull); border-color: rgba(34,211,182,.38); }
+    .chip.warn { color: var(--mixed); border-color: rgba(251,191,36,.4); }
+    .chip.qual { color: var(--quality); border-color: rgba(167,139,250,.4); }
+    .layout {
+      display: grid;
+      grid-template-columns: 98px minmax(760px, 1fr);
+      gap: 14px;
+      padding: 14px;
+    }
+    .rail {
+      position: sticky;
+      top: 72px;
+      align-self: start;
+      min-height: calc(100vh - 86px);
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 8px;
+      padding: 9px;
+      display: grid;
+      gap: 7px;
+    }
+    .rail a {
+      min-height: 36px;
+      display: grid;
+      place-items: center;
+      border: 1px solid transparent;
+      border-radius: 7px;
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .rail a:hover,
+    .rail a.active {
+      border-color: rgba(34,211,182,.42);
+      color: var(--bull);
+      background: rgba(34,211,182,.07);
+    }
+    .content { display: grid; gap: 16px; min-width: 0; }
+    .page {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel3);
+      overflow: hidden;
+      scroll-margin-top: 74px;
+      box-shadow: 0 18px 46px rgba(0,0,0,.26);
+    }
+    .page-head {
+      min-height: 72px;
+      border-bottom: 1px solid var(--line);
+      padding: 14px 16px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      background: rgba(14,26,35,.78);
+    }
+    .page-title h1 { margin: 0 0 6px; font-size: 19px; }
+    .page-title p { margin: 0; color: var(--muted); font-size: 12px; }
+    .page-actions { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+    .grid { display: grid; gap: 12px; padding: 14px; }
+    .cols-2 { grid-template-columns: 1fr 1fr; }
+    .cols-3 { grid-template-columns: repeat(3, 1fr); }
+    .cols-4 { grid-template-columns: repeat(4, 1fr); }
+    .wide-left { grid-template-columns: 1.35fr .85fr; }
+    .card {
+      border: 1px solid var(--soft);
+      background: rgba(18,36,50,.54);
+      border-radius: 8px;
+      padding: 12px;
+      min-width: 0;
+    }
+    .card h2, .card h3 {
+      margin: 0 0 10px;
+      font-size: 14px;
+    }
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.48;
+    }
+    .big {
+      font-size: 28px;
+      font-weight: 760;
+      margin-bottom: 6px;
+    }
+    .muted { color: var(--muted); }
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .table th, .table td {
+      border-bottom: 1px solid rgba(36,64,80,.62);
+      padding: 8px 7px;
+      text-align: left;
+      vertical-align: top;
+    }
+    .table th {
+      color: #b8d2e3;
+      font-weight: 650;
+      background: rgba(8,16,23,.28);
+    }
+    .kv {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 8px;
+      padding: 7px 0;
+      border-bottom: 1px solid rgba(36,64,80,.48);
+      font-size: 12px;
+    }
+    .kv:last-child { border-bottom: 0; }
+    .kv span { color: var(--faint); }
+    .kv strong { color: var(--text); font-weight: 600; overflow-wrap: anywhere; }
+    .statusline {
+      display: grid;
+      grid-template-columns: 130px 1fr auto;
+      gap: 10px;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(36,64,80,.48);
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .statusline:last-child { border-bottom: 0; }
+    .bar { height: 7px; border-radius: 999px; background: rgba(143,167,184,.18); overflow: hidden; }
+    .bar i { display: block; height: 100%; border-radius: inherit; background: var(--blue); }
+    .bar.bull i { background: var(--bull); }
+    .bar.bear i { background: var(--bear); }
+    .bar.qual i { background: var(--quality); }
+    .article {
+      color: #dcebf4;
+      line-height: 1.72;
+      font-size: 14px;
+    }
+    .article p { margin: 0 0 12px; color: #dcebf4; font-size: 14px; }
+    .note {
+      border-left: 3px solid var(--blue);
+      padding: 10px 12px;
+      background: rgba(96,165,250,.08);
+      color: #cfe8ff;
+      font-size: 12px;
+      line-height: 1.45;
+      border-radius: 0 7px 7px 0;
+    }
+    .warnbox { border-left-color: var(--mixed); background: rgba(251,191,36,.08); color: #fde8ae; }
+    .dangerbox { border-left-color: var(--bear); background: rgba(248,113,113,.08); color: #fecaca; }
+    .tabs { display: flex; flex-wrap: wrap; gap: 7px; }
+    .mini-card {
+      display: grid; gap: 6px;
+      border: 1px solid var(--soft);
+      background: rgba(8,16,23,.25);
+      border-radius: 7px;
+      padding: 10px;
+      min-width: 0;
+    }
+    .mini-card strong { font-size: 12px; }
+    .mini-card span { color: var(--muted); font-size: 11px; line-height: 1.35; }
+    code {
+      color: #c7d2fe;
+      background: rgba(99,102,241,.08);
+      border: 1px solid rgba(99,102,241,.18);
+      border-radius: 5px;
+      padding: 1px 4px;
+      overflow-wrap: anywhere;
+    }
+    @media (max-width: 980px) {
+      .topbar { grid-template-columns: 1fr; height: auto; padding: 10px; }
+      .layout { grid-template-columns: 1fr; }
+      .rail { position: static; min-height: auto; grid-template-columns: repeat(4, 1fr); }
+      .cols-2, .cols-3, .cols-4, .wide-left { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="p5-dashboard-high-fidelity.html">
+      <span class="mark">₿</span>
+      <span>onlyBTC P5</span>
+    </a>
+    <div class="chips">
+      <span class="chip neutral">final_view: 中性观察</span>
+      <span class="chip good">contract: passed</span>
+      <span class="chip warn">alert: watch</span>
+      <span class="chip qual">LLM: internal_reference</span>
+      <span class="chip">run: p45final-20260522...</span>
+    </div>
+    <div class="chips">
+      <a class="chip" href="p5-dashboard-high-fidelity.html">返回 Dashboard</a>
+      <a class="chip" href="#run-logs">Run Logs</a>
+      <a class="chip" href="#settings">Settings</a>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav class="rail" aria-label="P5 subpage navigation">
+      <a class="active" href="p5-dashboard-high-fidelity.html">拓扑</a>
+      <a href="#overview">概览</a>
+      <a href="#article">文章</a>
+      <a href="#evidence">证据</a>
+      <a href="#radar">雷达</a>
+      <a href="#alerts">预警</a>
+      <a href="#invalidation">反证</a>
+      <a href="#quality">质检</a>
+      <a href="#runs">日志</a>
+      <a href="#audit-reports">报告</a>
+      <a href="#source">来源</a>
+      <a href="#history">回放</a>
+      <a href="#settings">设置</a>
+    </nav>
+
+    <main class="content">
+      <section class="page" id="overview">
+        <div class="page-head">
+          <div class="page-title">
+            <h1>BTC Overview</h1>
+            <p>解释 P4.5 final_view、decision_card、周期拆分、驱动和置信度折扣。</p>
+          </div>
+          <div class="page-actions">
+            <a class="chip" href="#article">阅读文章</a>
+            <a class="chip" href="#evidence">查看证据</a>
+            <a class="chip" href="#invalidation">反证条件</a>
+          </div>
+        </div>
+        <div class="grid wide-left">
+          <div class="card">
+            <h2>Current Decision</h2>
+            <div class="big">中性观察</div>
+            <p>短线仍有承接，但 3d / 7d 的利率、ETF 与链上活跃度压力尚未解除，当前不外推为单边趋势。</p>
+            <div class="grid cols-3" style="padding:12px 0 0">
+              <div class="mini-card"><strong>strength</strong><span>neutral</span></div>
+              <div class="mini-card"><strong>confidence</strong><span>0.3901 / low</span></div>
+              <div class="mini-card"><strong>permission</strong><span>watch_only</span></div>
+            </div>
+          </div>
+          <div class="card">
+            <h2>Why Not Strong</h2>
+            <div class="statusline"><strong>零分占比</strong><div class="bar"><i style="width:61%"></i></div><span>61%</span></div>
+            <div class="statusline"><strong>方向分歧</strong><div class="bar bear"><i style="width:68%"></i></div><span>high</span></div>
+            <div class="statusline"><strong>短中周期</strong><div class="bar bull"><i style="width:39%"></i></div><span>split</span></div>
+          </div>
+        </div>
+        <div class="grid cols-3">
+          <div class="card"><h3>24h 短线</h3><p>主动买盘、1h 量能与交易所余额变化提供支撑。压力来自收盘延续仍未完全确认。</p></div>
+          <div class="card"><h3>3d 波段</h3><p>ETF 资金流、SOFR、真实利率形成约束，资金修复前保持观察。</p></div>
+          <div class="card"><h3>7d 趋势</h3><p>链上活跃度和利率环境偏谨慎，但市场广度未全面走坏。</p></div>
+        </div>
+      </section>
+
+      <section class="page" id="article">
+        <div class="page-head">
+          <div class="page-title">
+            <h1>Article</h1>
+            <p>P4.5 research_article 与 publish_article。主阅读区不展示 raw evidence id。</p>
+          </div>
+          <div class="page-actions">
+            <a class="chip" href="#evidence">Evidence 附录</a>
+            <a class="chip" href="#quality">数据边界</a>
+          </div>
+        </div>
+        <div class="grid wide-left">
+          <article class="card article">
+            <h2>研究正文</h2>
+            <p>$BTC 这里先按中性观察处理，不急着追方向。短线有一点承接，主动买盘、1h 量能和交易所余额变化给了支撑，但三天到七天维度的压力还没有完全解除。</p>
+            <p>压盘的部分主要来自 ETF 资金流、美元资金成本、真实利率和链上活跃度。也就是说，市场不是闭眼强空，但也还没有形成足够顺的多头共振。</p>
+            <p>接下来主要看三件事：ETF 流出能不能收窄，1h 量能能不能继续放，主动买盘能不能重新转强。没确认前，反弹先看压力，回踩看承接，节奏比立刻下结论更重要。</p>
+          </article>
+          <div class="card">
+            <h2>发布检查</h2>
+            <div class="kv"><span>safe_to_publish</span><strong>true</strong></div>
+            <div class="kv"><span>raw evidence id</span><strong>hidden in appendix</strong></div>
+            <div class="kv"><span>run_id</span><strong>not in article body</strong></div>
+            <div class="kv"><span>internal terms</span><strong>clean</strong></div>
+            <div class="note">Evidence 明细仍保留在审计附录，用户主阅读区只看到自然语言研判和观察条件。</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="evidence">
+        <div class="page-head">
+          <div class="page-title">
+            <h1>Evidence</h1>
+            <p>Claim / Data / Interpretation，所有关键结论都可追溯到 metric 与 source。</p>
+          </div>
+          <div class="page-actions">
+            <a class="chip" href="#source">Source Detail</a>
+            <a class="chip" href="#radar">Radar Detail</a>
+            <a class="chip" href="#quality">Data Quality</a>
+          </div>
+        </div>
+        <div class="grid wide-left">
+          <div class="card">
+            <h2>Evidence Detail</h2>
+            <table class="table">
+              <thead><tr><th>字段</th><th>值</th><th>说明</th></tr></thead>
+              <tbody>
+                <tr><td>metric_id</td><td><code>taker_buy_sell_ratio</code></td><td>主动买盘强弱</td></tr>
+                <tr><td>value</td><td>2.14</td><td>短线支撑，但需看延续</td></tr>
+                <tr><td>metric_score</td><td>+0.16</td><td>support driver</td></tr>
+                <tr><td>freshness</td><td>fresh · 12 min</td><td>可用于当前 run</td></tr>
+                <tr><td>duplicate group</td><td>trade_flow_btc</td><td>已做重复降权</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card">
+            <h2>Source & Conflict</h2>
+            <div class="note warnbox">该指标与 price_structure 中部分价格字段存在 duplicate group，Dashboard 展示已合并，避免重复影响结论。</div>
+            <div class="grid" style="padding:12px 0 0">
+              <a class="chip" href="#source">binance-btcusdt</a>
+              <a class="chip" href="#radar">trade_structure_flow</a>
+              <a class="chip" href="#invalidation">相关反证</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="llm">
+        <div class="page-head">
+          <div class="page-title">
+            <h1>LLM Appendix</h1>
+            <p>DeepSeek Research Writer 和四分析师 LLM 输出，标记为 internal_reference。</p>
+          </div>
+          <div class="page-actions">
+            <span class="chip qual">internal_reference</span>
+            <a class="chip" href="#evidence">证据覆盖</a>
+          </div>
+        </div>
+        <div class="grid cols-4">
+          <div class="card"><h3>Macro</h3><p>覆盖 macro_radar、event_policy、fed_policy。状态 completed。</p></div>
+          <div class="card"><h3>Liquidity</h3><p>覆盖 liquidity、fund_flow、credit_pressure。状态 completed。</p></div>
+          <div class="card"><h3>Microstructure</h3><p>覆盖 kline、derivatives、trade_flow、options。状态 completed。</p></div>
+          <div class="card"><h3>On-chain</h3><p>覆盖 adoption、valuation、breadth、halving。状态 completed。</p></div>
+        </div>
+        <div class="grid">
+          <div class="note">LLM 文章不参与 final_view 主裁判，只作为研究附录和解释参考。若 LLM 与 deterministic final_view 冲突，页面必须展示冲突提示。</div>
+        </div>
+      </section>
+
+      <section class="page" id="alerts">
+        <div class="page-head">
+          <div class="page-title">
+            <h1>Alerts</h1>
+            <p>P3 alerts、event windows、cooldown 和 watch rules。</p>
+          </div>
+          <div class="page-actions">
+            <a class="chip" href="#evidence">Supporting Evidence</a>
+            <a class="chip" href="#invalidation">Related Rules</a>
+          </div>
+        </div>
+        <div class="grid cols-3">
+          <div class="card"><h3>Active Watch</h3><p>ETF 流出压力仍需观察，当前不升级 warning。</p></div>
+          <div class="card"><h3>Event Window</h3><p>CPI / FOMC 进入 T-7 至 T-3 每日关注区间。</p></div>
+          <div class="card"><h3>Cooldown</h3><p>无 critical 冷却；watch 条件每次 run 重新评估。</p></div>
+        </div>
+        <div class="grid">
+          <table class="table">
+            <thead><tr><th>Alert</th><th>Level</th><th>Trigger</th><th>Next Watch</th></tr></thead>
+            <tbody>
+              <tr><td>资金流修复观察</td><td>watch</td><td>ETF 7d pressure</td><td>流出是否收窄</td></tr>
+              <tr><td>短线量能确认</td><td>info</td><td>1h volume support</td><td>放量是否延续</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="page" id="invalidation">
+        <div class="page-head">
+          <div class="page-title">
+            <h1>Invalidation / Confirmation</h1>
+            <p>反证条件和偏空确认条件，机器可读且人类可读。</p>
+          </div>
+          <div class="page-actions">
+            <a class="chip" href="#overview">影响 Overview</a>
+            <a class="chip" href="#alerts">关联预警</a>
+          </div>
+        </div>
+        <div class="grid cols-2">
+          <div class="card">
+            <h2>反证条件</h2>
+            <table class="table">
+              <tr><th>周期</th><th>条件</th><th>动作</th></tr>
+              <tr><td>3d</td><td><code>etf_net_flow.value > -30000000 AND etf_flow_7d.metric_score >= 0</code></td><td>neutral_watch -> mixed_watch</td></tr>
+              <tr><td>24h</td><td><code>btc_1h_volume.metric_score >= 0.1 AND btc_1h_close.metric_score >= 0</code></td><td>neutral_watch -> weak_bullish</td></tr>
+            </table>
+          </div>
+          <div class="card">
+            <h2>偏空确认</h2>
+            <table class="table">
+              <tr><th>周期</th><th>条件</th><th>动作</th></tr>
+              <tr><td>24h</td><td><code>taker_buy_sell_ratio.metric_score < 0 AND btc_1h_close.metric_score < 0</code></td><td>neutral_watch -> weak_bearish</td></tr>
+              <tr><td>3d</td><td><code>etf_net_flow.value < -70000000 AND real_yield_10y.metric_score < 0</code></td><td>neutral_watch -> weak_bearish</td></tr>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="quality">
+        <div class="page-head">
+          <div class="page-title">
+            <h1>Data Quality</h1>
+            <p>P1/P2/P3/P4.5 质量边界、fallback、freshness 与 source health。</p>
+          </div>
+          <div class="page-actions">
+            <a class="chip" href="#source">Source Detail</a>
+            <a class="chip" href="#runs">Run Logs</a>
+          </div>
+        </div>
+        <div class="grid cols-4">
+          <div class="card"><h3>Overall</h3><div class="big">0.91</div><p>contract passed</p></div>
+          <div class="card"><h3>Freshness</h3><div class="big">OK</div><p>available missing = 0</p></div>
+          <div class="card"><h3>Fallback</h3><div class="big">4</div><p>unavailable metrics only</p></div>
+          <div class="card"><h3>LLM</h3><div class="big">OK</div><p>DeepSeek completed</p></div>
+        </div>
+        <div class="grid">
+          <table class="table">
+            <thead><tr><th>Source</th><th>Status</th><th>Freshness</th><th>Business Recency</th><th>Impact</th></tr></thead>
+            <tbody>
+              <tr><td><a href="#source">fxstreet-economic-calendar</a></td><td>fallback</td><td>fresh</td><td>expected lag</td><td>macro event fields</td></tr>
+              <tr><td><a href="#source">bls-calendar</a></td><td>official fallback</td><td>fresh</td><td>calendar based</td><td>CPI/NFP watch</td></tr>
+              <tr><td><a href="#source">binance-btcusdt</a></td><td>healthy</td><td>fresh</td><td>current</td><td>kline / trade flow</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="page" id="runs">
+        <div class="page-head">
+          <div class="page-title">
+            <h1>Run Logs</h1>
+            <p>P4.5 full chain 运行审计和阶段产物链接。</p>
+          </div>
+          <div class="page-actions">
+            <a class="chip" href="#quality">失败源质检</a>
+            <a class="chip" href="#history">进入回放</a>
+          </div>
+        </div>
+        <div class="grid">
+          <div class="card">
+            <h2>Current Run Timeline</h2>
+            <div class="statusline"><strong>P1 collect</strong><div class="bar bull"><i style="width:100%"></i></div><span>completed</span></div>
+            <div class="statusline"><strong>P2 radar</strong><div class="bar bull"><i style="width:100%"></i></div><span>completed</span></div>
+            <div class="statusline"><strong>P3 scoring</strong><div class="bar bull"><i style="width:100%"></i></div><span>completed</span></div>
+            <div class="statusline"><strong>P4.5 final</strong><div class="bar bull"><i style="width:100%"></i></div><span>completed</span></div>
+            <div class="statusline"><strong>LLM appendix</strong><div class="bar bull"><i style="width:100%"></i></div><span>completed</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="audit-reports">
+        <div class="page-head">
+          <div class="page-title">
+            <h1>Audit Reports</h1>
+            <p>同一 run 下的 P1/P2/P3/P4.5 原始 HTML 审计报告。前端只打开链接，不解析 HTML。</p>
+          </div>
+          <div class="page-actions">
+            <a class="chip" href="#runs">Run Logs</a>
+            <a class="chip" href="p5-dashboard-high-fidelity.html">返回 Dashboard</a>
+          </div>
+        </div>
+        <div class="grid">
+          <table class="table">
+            <thead><tr><th>Phase</th><th>Report</th><th>Run</th><th>Status</th><th>Open</th></tr></thead>
+            <tbody>
+              <tr><td>P1</td><td>真实数据全链路验收报告</td><td><code>collect-20260522...</code></td><td>generated</td><td><a class="chip" href="../reports/p1-c22-real-data-audit-report.html">Open P1 HTML</a></td></tr>
+              <tr><td>P2</td><td>Radar 质检报告</td><td><code>radar-20260522...</code></td><td>generated</td><td><a class="chip" href="../reports/p2-radar-quality-report.html">Open P2 HTML</a></td></tr>
+              <tr><td>P3</td><td>Algorithm Audit Report</td><td><code>p3-20260522...</code></td><td>generated</td><td><a class="chip" href="../reports/p3-algorithm-audit-report.html">Open P3 HTML</a></td></tr>
+              <tr><td>P4.5</td><td>Research Report v2</td><td><code>p45final-20260522...</code></td><td>generated</td><td><a class="chip" href="../reports/p45-research-report.html">Open P4.5 HTML</a></td></tr>
+            </tbody>
+          </table>
+          <div class="note">这些 HTML 是审计报告和原始数据查看入口。Dashboard、Evidence、Radar 等页面仍然只消费 FastAPI 聚合 DTO。</div>
+        </div>
+      </section>
+
+      <section class="page" id="radar">
+        <div class="page-head">
+          <div class="page-title">
+            <h1>Radar Detail</h1>
+            <p>单个 Radar module 的评分、指标、证据、反证和上游来源。</p>
+          </div>
+          <div class="page-actions">
+            <a class="chip" href="#evidence">View Evidence</a>
+            <a class="chip" href="#source">View Source</a>
+          </div>
+        </div>
+        <div class="grid cols-2">
+          <div class="card">
+            <h2>trade_structure_flow</h2>
+            <div class="kv"><span>module_direction</span><strong>weak_bullish</strong></div>
+            <div class="kv"><span>module_score</span><strong>+0.16</strong></div>
+            <div class="kv"><span>module_quality</span><strong>0.96</strong></div>
+            <div class="kv"><span>dominant side</span><strong>support</strong></div>
+          </div>
+          <div class="card">
+            <h2>Top Metrics</h2>
+            <table class="table">
+              <tr><th>metric</th><th>score</th><th>brief</th></tr>
+              <tr><td><a href="#evidence">taker_buy_sell_ratio</a></td><td>+0.16</td><td>主动买盘支撑短线</td></tr>
+              <tr><td><a href="#evidence">btc_1h_volume</a></td><td>+0.10</td><td>量能修复但需延续</td></tr>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="source">
+        <div class="page-head">
+          <div class="page-title">
+            <h1>Source Detail</h1>
+            <p>单个 source 的 source_run、raw preview、normalized metrics、fallback 和下游影响。</p>
+          </div>
+          <div class="page-actions">
+            <a class="chip" href="#quality">返回质检</a>
+            <a class="chip" href="#runs">相关运行</a>
+          </div>
+        </div>
+        <div class="grid cols-2">
+          <div class="card">
+            <h2>Source Profile</h2>
+            <div class="kv"><span>source_id</span><strong>binance-btcusdt</strong></div>
+            <div class="kv"><span>latest status</span><strong>success</strong></div>
+            <div class="kv"><span>collection freshness</span><strong>fresh · 12 min</strong></div>
+            <div class="kv"><span>business recency</span><strong>current</strong></div>
+            <div class="kv"><span>fallback active</span><strong>false</strong></div>
+          </div>
+          <div class="card">
+            <h2>Affected Downstream</h2>
+            <p>影响 kline_orderflow、trade_structure_flow、btc_total_state。相关 Evidence 可从本页直接跳转。</p>
+            <div class="tabs" style="margin-top:12px">
+              <a class="chip" href="#radar">kline_orderflow</a>
+              <a class="chip" href="#evidence">btc_1h_close</a>
+              <a class="chip" href="#evidence">taker_buy_sell_ratio</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="history">
+        <div class="page-head">
+          <div class="page-title">
+            <h1>History Replay</h1>
+            <p>查看历史 run 的完整记录和当时判断快照，按 final_run_id 冻结 P4.5 payload，不受实时推送覆盖。</p>
+          </div>
+          <div class="page-actions">
+            <span class="chip warn">historical mode</span>
+            <a class="chip" href="p5-dashboard-high-fidelity.html">Return realtime</a>
+          </div>
+        </div>
+        <div class="grid wide-left">
+          <div class="card">
+            <h2>Timeline</h2>
+            <table class="table">
+              <tr><th>run time</th><th>final_run_id</th><th>final_view</th><th>alert</th><th>validity</th></tr>
+              <tr><td>2026-05-22 14:18</td><td><code>p45final-20260522...</code></td><td>neutral_watch</td><td>watch</td><td>pending</td></tr>
+              <tr><td>2026-05-22 09:01</td><td><code>p45final-20260522...</code></td><td>weak_bearish</td><td>warning</td><td>inconclusive</td></tr>
+              <tr><td>2026-05-21 22:40</td><td><code>p45final-20260521...</code></td><td>mixed_watch</td><td>info</td><td>validated</td></tr>
+            </table>
+          </div>
+          <div class="card">
+            <h2>Replay Analysis</h2>
+            <div class="kv"><span>Signal Validity</span><strong>pending</strong></div>
+            <div class="kv"><span>Alert Validity</span><strong>not scored</strong></div>
+            <div class="kv"><span>Confidence Calibration</span><strong>low confidence accepted</strong></div>
+            <div class="kv"><span>Frozen Payload</span><strong>P4.5 final + pack + LLM appendix</strong></div>
+          </div>
+        </div>
+        <div class="grid cols-3">
+          <div class="card">
+            <h3>Historical Snapshot</h3>
+            <p>回放当时的 final_view、decision_card、horizon_views、Radar module scores 和 data quality，不使用当前最新数据覆盖。</p>
+          </div>
+          <div class="card">
+            <h3>Linked Artifacts</h3>
+            <p>可打开当时的 Evidence Pack、Article、LLM Appendix、Alerts、Run Logs 和 Audit Reports。</p>
+          </div>
+          <div class="card">
+            <h3>Scoring</h3>
+            <p>后续补充 24h / 72h / 7d 的 Signal Validity、Alert Validity 和 Confidence Calibration。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="settings">
+        <div class="page-head">
+          <div class="page-title">
+            <h1>Settings</h1>
+            <p>独立设置中心：P4.5、Data Source、Run Once、Alert 策略配置，密钥脱敏。</p>
+          </div>
+          <div class="page-actions">
+            <a class="chip" href="p5-dashboard-high-fidelity.html">返回 Dashboard</a>
+          </div>
+        </div>
+        <div class="grid wide-left">
+          <div class="card">
+            <h2>Runtime Settings</h2>
+            <table class="table">
+              <tr><th>配置</th><th>当前值</th><th>说明</th></tr>
+              <tr><td>P4.5 Provider</td><td><code>deepseek</code></td><td>Research Writer 与四分析师统一使用 DeepSeek。</td></tr>
+              <tr><td>Timeout</td><td><code>180s</code></td><td>先不切换模型，timeout 仅记录错误并降级。</td></tr>
+              <tr><td>Run Mode</td><td><code>live</code></td><td>生产入口默认 full chain live。</td></tr>
+              <tr><td>LLM Runtime</td><td><code>llm</code></td><td>deterministic 主报告成功时，LLM 失败不阻塞。</td></tr>
+            </table>
+          </div>
+          <div class="card">
+            <h2>安全边界</h2>
+            <div class="note">API key 默认脱敏，只显示后四位。Settings 只配置策略，不直接修改历史 run、evidence 或 P4.5 final payload。</div>
+          </div>
+        </div>
+        <div class="grid cols-4">
+          <div class="card"><h3>API Keys</h3><p>FRED、交易所、链上、ETF/期权、新闻源、LLM Provider。</p></div>
+          <div class="card"><h3>Data Sources</h3><p>刷新频率、fallback 优先级、Playwright 开关、超时时间。</p></div>
+          <div class="card"><h3>Alerts</h3><p>预警阈值、冷却期、反证/确认规则展示开关。</p></div>
+          <div class="card"><h3>Storage</h3><p>SQLite 路径、备份目录、报告目录、数据保留周期。</p></div>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

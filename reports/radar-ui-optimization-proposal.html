@@ -1,0 +1,721 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>onlyBTC Radar Subpage UI Optimization - Aligned Cards</title>
+  <style>
+    :root {
+      --bg: #071018;
+      --panel: rgba(10, 28, 41, 0.88);
+      --panel-strong: rgba(9, 27, 39, 0.96);
+      --border: rgba(111, 155, 178, 0.23);
+      --border-soft: rgba(111, 155, 178, 0.14);
+      --text: #d9e9ef;
+      --muted: #8ca7b6;
+      --cyan: #23d5c1;
+      --green: #2bd19a;
+      --gold: #d5a91e;
+      --red: #e46770;
+      --purple: #9d87ff;
+      --radius: 8px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background: var(--bg);
+      font-size: 13px;
+    }
+
+    button {
+      font: inherit;
+      color: inherit;
+      border: 0;
+      cursor: default;
+    }
+
+    .app {
+      display: grid;
+      grid-template-rows: 44px 1fr;
+      min-height: 100vh;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+      padding: 0 12px;
+      border-bottom: 1px solid var(--border);
+      background: #061018;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .brand i {
+      width: 24px;
+      height: 24px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(35, 213, 193, 0.55);
+      border-radius: 6px;
+      background: rgba(35, 213, 193, 0.12);
+      color: var(--cyan);
+      font-style: normal;
+    }
+
+    .top-pills {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 5px 10px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(13, 32, 45, 0.86);
+      color: #abc3ce;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .pill.green { color: #aef3d8; border-color: rgba(43, 209, 154, 0.45); }
+    .pill.gold { color: #f6d26e; border-color: rgba(213, 169, 30, 0.45); }
+    .pill.cyan { color: #bffaf2; border-color: rgba(35, 213, 193, 0.45); }
+    .pill.purple { color: #dacfff; border-color: rgba(157, 135, 255, 0.45); }
+
+    .top-actions {
+      display: flex;
+      gap: 8px;
+      white-space: nowrap;
+    }
+
+    .action-btn {
+      min-height: 28px;
+      padding: 6px 12px;
+      border: 1px solid rgba(112, 154, 178, 0.34);
+      background: rgba(18, 39, 55, 0.9);
+      border-radius: 6px;
+      color: #d7e8ef;
+    }
+
+    .body {
+      display: grid;
+      grid-template-columns: 74px minmax(0, 1fr) 330px;
+      min-height: 0;
+    }
+
+    .side-nav {
+      display: grid;
+      align-content: start;
+      gap: 8px;
+      padding: 10px 9px;
+      border-right: 1px solid var(--border);
+      background: #07131d;
+    }
+
+    .nav-btn {
+      min-height: 36px;
+      border: 1px solid rgba(47, 113, 140, 0.48);
+      border-radius: 6px;
+      background: rgba(10, 28, 41, 0.85);
+      color: #b7ced8;
+    }
+
+    .nav-btn.active {
+      color: var(--cyan);
+      border-color: rgba(35, 213, 193, 0.55);
+      background: rgba(35, 213, 193, 0.1);
+    }
+
+    .main {
+      min-width: 0;
+      overflow: auto;
+      padding: 12px;
+      background:
+        linear-gradient(rgba(255,255,255,0.024) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.024) 1px, transparent 1px),
+        #071019;
+      background-size: 32px 32px;
+    }
+
+    .canvas {
+      position: relative;
+      min-height: 760px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background:
+        radial-gradient(circle at 50% 48%, transparent 0 130px, rgba(66, 116, 142, 0.18) 131px 132px, transparent 133px 270px, rgba(66, 116, 142, 0.14) 271px 272px, transparent 273px 410px, rgba(66, 116, 142, 0.12) 411px 412px, transparent 413px),
+        rgba(7, 20, 31, 0.62);
+    }
+
+    .canvas::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 660px;
+      height: 660px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: conic-gradient(from -28deg, rgba(35, 213, 193, 0.12), transparent 16%, transparent 100%);
+      opacity: 0.72;
+      animation: sweep 9s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes sweep {
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    .canvas-toolbar {
+      position: absolute;
+      left: 14px;
+      top: 14px;
+      right: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 10;
+    }
+
+    .canvas-toolbar .spacer { flex: 1; }
+
+    .legend {
+      display: flex;
+      gap: 8px;
+    }
+
+    .legend-dot {
+      width: 7px;
+      height: 7px;
+      margin-right: 5px;
+      border-radius: 50%;
+      background: currentColor;
+      box-shadow: 0 0 12px currentColor;
+    }
+
+    .left-stack,
+    .right-stack {
+      position: absolute;
+      top: 72px;
+      bottom: 34px;
+      display: grid;
+      grid-template-rows: repeat(7, minmax(82px, 1fr));
+      gap: 10px;
+      width: 245px;
+      z-index: 5;
+    }
+
+    .left-stack { left: 28px; }
+    .right-stack { right: 28px; }
+
+    .module-card {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      min-height: 86px;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+    }
+
+    .module-card.support { border-color: rgba(43, 209, 154, 0.48); }
+    .module-card.pressure { border-color: rgba(228, 103, 112, 0.5); }
+    .module-card.mixed { border-color: rgba(213, 169, 30, 0.5); }
+    .module-card.quality { border-color: rgba(157, 135, 255, 0.48); }
+
+    .module-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 7px;
+    }
+
+    .module-head strong {
+      display: block;
+      color: #eef8fa;
+      font-size: 14px;
+      line-height: 1.05;
+    }
+
+    .state {
+      max-width: 94px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      padding: 3px 7px;
+      border: 1px solid rgba(111, 155, 178, 0.22);
+      border-radius: 999px;
+      color: #96afbb;
+      font-size: 10px;
+    }
+
+    .module-card.support .state { color: #aef3d8; border-color: rgba(43, 209, 154, 0.3); }
+    .module-card.pressure .state { color: #ffb5bb; border-color: rgba(228, 103, 112, 0.3); }
+    .module-card.mixed .state { color: #f3d26d; border-color: rgba(213, 169, 30, 0.3); }
+
+    .summary {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.33;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: 32px;
+    }
+
+    .module-footer {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .bar {
+      height: 5px;
+      border-radius: 999px;
+      background: rgba(111, 155, 178, 0.22);
+      overflow: hidden;
+    }
+
+    .bar i {
+      display: block;
+      width: var(--w, 20%);
+      height: 100%;
+      border-radius: inherit;
+      background: #8ca7b6;
+    }
+
+    .module-card.support .bar i { background: var(--green); }
+    .module-card.pressure .bar i { background: var(--red); }
+    .module-card.mixed .bar i { background: var(--gold); }
+    .module-card.quality .bar i { background: var(--purple); }
+
+    .top3 {
+      padding: 3px 8px;
+      border: 1px solid rgba(111, 155, 178, 0.22);
+      border-radius: 6px;
+      background: rgba(7, 19, 29, 0.72);
+      color: #a8bfca;
+      font-size: 11px;
+    }
+
+    .btc-card {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 340px;
+      transform: translate(-50%, -50%);
+      border: 1px solid rgba(35, 213, 193, 0.45);
+      border-radius: var(--radius);
+      background: var(--panel-strong);
+      padding: 18px;
+      z-index: 8;
+      box-shadow: 0 0 0 1px rgba(35, 213, 193, 0.08), 0 24px 76px rgba(0, 0, 0, 0.32);
+    }
+
+    .btc-head {
+      display: grid;
+      grid-template-columns: 1fr 58px;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .btc-symbol {
+      color: #ffd660;
+      font-size: 34px;
+      line-height: 1;
+      font-weight: 850;
+      text-shadow: 0 0 20px rgba(213, 169, 30, 0.35);
+    }
+
+    .btc-state {
+      margin-top: 4px;
+      color: #9db6c2;
+      font-size: 12px;
+    }
+
+    .score-ring {
+      width: 56px;
+      height: 56px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      font-weight: 800;
+      background:
+        radial-gradient(circle at center, #0a1d29 58%, transparent 59%),
+        conic-gradient(var(--cyan) 0 52%, rgba(96, 127, 144, 0.22) 52% 100%);
+    }
+
+    .btc-summary {
+      margin: 0 0 12px;
+      color: #d9e9ef;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .btc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+      margin-bottom: 9px;
+    }
+
+    .kv {
+      min-height: 54px;
+      padding: 8px;
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius);
+      background: rgba(7, 20, 31, 0.72);
+    }
+
+    .kv span {
+      display: block;
+      margin-bottom: 5px;
+      color: #819aa7;
+      font-size: 11px;
+    }
+
+    .kv strong {
+      display: block;
+      color: #e9f5f8;
+      font-size: 12px;
+      overflow-wrap: anywhere;
+    }
+
+    .btc-lines {
+      display: grid;
+      gap: 6px;
+    }
+
+    .btc-lines button {
+      width: 100%;
+      padding: 7px 9px;
+      text-align: left;
+      border: 1px solid var(--border-soft);
+      border-radius: 6px;
+      background: rgba(8, 21, 31, 0.78);
+      color: #a9c2ce;
+      font-size: 11px;
+    }
+
+    .bottom-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .bottom-panel {
+      min-height: 166px;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(10, 28, 41, 0.82);
+    }
+
+    .bottom-head {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .horizon-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .horizon-card {
+      min-height: 112px;
+      padding: 10px;
+      text-align: left;
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius);
+      background: rgba(7, 20, 31, 0.72);
+    }
+
+    .horizon-card strong {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 13px;
+    }
+
+    .horizon-card small {
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .drawer {
+      min-width: 0;
+      overflow: auto;
+      padding: 10px;
+      border-left: 1px solid var(--border);
+      background: #07131d;
+    }
+
+    .drawer-card {
+      margin-bottom: 10px;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--panel);
+    }
+
+    .drawer-card h2 {
+      margin: 0 0 8px;
+      font-size: 15px;
+    }
+
+    .drawer-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: 12px;
+    }
+
+    .metric-table {
+      display: grid;
+      gap: 7px;
+      margin-top: 10px;
+    }
+
+    .metric-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      padding: 8px;
+      border: 1px solid var(--border-soft);
+      border-radius: 6px;
+      background: rgba(7, 20, 31, 0.72);
+    }
+
+    .metric-row strong {
+      display: block;
+      font-size: 12px;
+    }
+
+    .metric-row small {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .metric-row em {
+      color: #dceaf0;
+      font-style: normal;
+      font-variant-numeric: tabular-nums;
+    }
+
+    @media (max-width: 1280px) {
+      .body { grid-template-columns: 64px minmax(0, 1fr); }
+      .drawer { display: none; }
+      .left-stack, .right-stack { width: 210px; }
+      .btc-card { width: 320px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand"><i>B</i><span>onlyBTC</span></div>
+      <div class="top-pills">
+        <strong>BTC</strong>
+        <span class="pill">final view: 中性观察</span>
+        <span class="pill gold">alert: critical</span>
+        <span class="pill green">contract passed</span>
+        <span class="pill cyan">ready · 6 stages</span>
+        <span style="color: var(--muted); font-size: 12px;">Updated 2026-05-27T10:01:29Z</span>
+      </div>
+      <div class="top-actions">
+        <span class="pill purple">data quality 0.8900</span>
+        <button class="action-btn">Fast only</button>
+        <button class="action-btn">Run Full Chain</button>
+        <button class="action-btn">Audit Reports</button>
+        <button class="action-btn">Settings</button>
+      </div>
+    </header>
+
+    <div class="body">
+      <nav class="side-nav">
+        <button class="nav-btn">拓扑</button>
+        <button class="nav-btn active">雷达</button>
+        <button class="nav-btn">证据</button>
+        <button class="nav-btn">预警</button>
+        <button class="nav-btn">质检</button>
+        <button class="nav-btn">日志</button>
+        <button class="nav-btn">回放</button>
+        <button class="nav-btn">设置</button>
+      </nav>
+
+      <main class="main">
+        <section class="canvas">
+          <div class="canvas-toolbar">
+            <span class="pill">Radar Subpage v2</span>
+            <span style="color: var(--muted); font-size: 12px;">14 Radar modules · 627 scored evidence</span>
+            <button class="pill">Reset Layout</button>
+            <span class="pill cyan">scope: radar subpage div only</span>
+            <span class="spacer"></span>
+            <div class="legend">
+              <span class="pill green"><i class="legend-dot"></i>support</span>
+              <span class="pill"><i class="legend-dot" style="color: var(--red);"></i>pressure</span>
+              <span class="pill gold"><i class="legend-dot"></i>mixed</span>
+              <span class="pill purple"><i class="legend-dot"></i>data quality</span>
+            </div>
+          </div>
+
+          <div class="left-stack">
+            <article class="module-card support">
+              <div class="module-head"><strong>Macro Radar</strong><span class="state">顺风滞后</span></div>
+              <p class="summary">macro tailwind exists, but BTC relative confirmation still waits.</p>
+              <div class="module-footer"><div class="bar" style="--w: 33%;"><i></i></div><button class="top3">top 3</button></div>
+            </article>
+            <article class="module-card mixed">
+              <div class="module-head"><strong>Options Volatility</strong><span class="state">下方保护</span></div>
+              <p class="summary">put skew and protection demand are risk context, not direction.</p>
+              <div class="module-footer"><div class="bar" style="--w: 42%;"><i></i></div><button class="top3">top 3</button></div>
+            </article>
+            <article class="module-card">
+              <div class="module-head"><strong>Dollar Liquidity</strong><span class="state">流动性中性</span></div>
+              <p class="summary">USD liquidity confirms or refutes BTC trend, currently neutral.</p>
+              <div class="module-footer"><div class="bar" style="--w: 18%;"><i></i></div><button class="top3">top 3</button></div>
+            </article>
+            <article class="module-card">
+              <div class="module-head"><strong>BTC Adoption</strong><span class="state">neutral</span></div>
+              <p class="summary">Fast, core and regime layers separate settlement from raw activity.</p>
+              <div class="module-footer"><div class="bar" style="--w: 19%;"><i></i></div><button class="top3">top 3</button></div>
+            </article>
+            <article class="module-card">
+              <div class="module-head"><strong>Kline Orderflow</strong><span class="state">neutral</span></div>
+              <p class="summary">Active taker flow is directional only when VWAP and residual confirm.</p>
+              <div class="module-footer"><div class="bar" style="--w: 26%;"><i></i></div><button class="top3">top 3</button></div>
+            </article>
+            <article class="module-card mixed">
+              <div class="module-head"><strong>Crypto Breadth</strong><span class="state">疲软修复</span></div>
+              <p class="summary">breadth weak but no confirmed BTC rejection.</p>
+              <div class="module-footer"><div class="bar" style="--w: 28%;"><i></i></div><button class="top3">top 3</button></div>
+            </article>
+          </div>
+
+          <article class="btc-card">
+            <div class="btc-head">
+              <div>
+                <div class="btc-symbol">BTC</div>
+                <div class="btc-state">neutral · watch_only</div>
+              </div>
+              <div class="score-ring">52%</div>
+            </div>
+            <p class="btc-summary">当前 BTC 结构为中性观察，pressure 较高但 trend acceptance 未确认，不能机械判空。</p>
+            <div class="btc-grid">
+              <div class="kv"><span>strength</span><strong>none</strong></div>
+              <div class="kv"><span>quality</span><strong>unconfirmed</strong></div>
+              <div class="kv"><span>4h</span><strong>neutral</strong></div>
+              <div class="kv"><span>24h / 3d</span><strong>neutral · bearish watch</strong></div>
+            </div>
+            <div class="btc-lines">
+              <button>Pressure: fund_flow, derivatives_crowding</button>
+              <button>Support: no dominant support module</button>
+              <button>Conflict: pressure exists but BTC response is not accepted</button>
+              <button>反证条件：BTC absorbs ETF / derivatives pressure</button>
+              <button>确认条件：1h orderflow + residual confirm downside</button>
+            </div>
+          </article>
+
+          <div class="right-stack">
+            <article class="module-card mixed">
+              <div class="module-head"><strong>Asia Risk</strong><span class="state">early_warning</span></div>
+              <p class="summary">Asia risk pressure is context until BTC Asia-session response confirms it.</p>
+              <div class="module-footer"><div class="bar" style="--w: 58%;"><i></i></div><button class="top3">top 3</button></div>
+            </article>
+            <article class="module-card">
+              <div class="module-head"><strong>BTC Total State</strong><span class="state">偏空确认</span></div>
+              <p class="summary">price/perp state is audit context and not a single-module final direction.</p>
+              <div class="module-footer"><div class="bar" style="--w: 22%;"><i></i></div><button class="top3">top 3</button></div>
+            </article>
+            <article class="module-card">
+              <div class="module-head"><strong>Event Policy</strong><span class="state">事件中性</span></div>
+              <p class="summary">event lock neutral; event risk controls permission not direction.</p>
+              <div class="module-footer"><div class="bar" style="--w: 18%;"><i></i></div><button class="top3">top 3</button></div>
+            </article>
+            <article class="module-card pressure">
+              <div class="module-head"><strong>Fund Flow</strong><span class="state">ETF流出确认</span></div>
+              <p class="summary">ETF outflow confirmed, but center cockpit requires BTC acceptance.</p>
+              <div class="module-footer"><div class="bar" style="--w: 64%;"><i></i></div><button class="top3">top 3</button></div>
+            </article>
+            <article class="module-card">
+              <div class="module-head"><strong>Onchain Valuation</strong><span class="state">onchain_neutral</span></div>
+              <p class="summary">Slow regime and fast trend delta are separated.</p>
+              <div class="module-footer"><div class="bar" style="--w: 30%;"><i></i></div><button class="top3">top 3</button></div>
+            </article>
+            <article class="module-card mixed">
+              <div class="module-head"><strong>Derivatives</strong><span class="state">early_warning</span></div>
+              <p class="summary">Crowding fragility is warning; direction needs BTC response and residual.</p>
+              <div class="module-footer"><div class="bar" style="--w: 55%;"><i></i></div><button class="top3">top 3</button></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="bottom-grid">
+          <article class="bottom-panel">
+            <div class="bottom-head"><h2>时间尺度视图</h2><span class="pill">horizon_views</span></div>
+            <div class="horizon-row">
+              <button class="horizon-card"><strong>24h 预警 · bearish</strong><small>压力主要来自 derivatives 和 fund-flow，但尚未被 BTC 完全接受。</small></button>
+              <button class="horizon-card"><strong>3d 中期 · neutral</strong><small>支撑与压力并存，等待 macro/fund flow 与 BTC residual 同向。</small></button>
+              <button class="horizon-card"><strong>7d 趋势 · neutral</strong><small>onchain/adoption/regime 未提供强方向，适合继续观察。</small></button>
+            </div>
+          </article>
+          <article class="bottom-panel">
+            <div class="bottom-head"><h2>预警 / 事件窗口</h2><span class="pill gold">open alerts</span></div>
+            <article class="module-card pressure" style="min-height: auto;">
+              <div class="module-head"><strong>P3 算法风险信号</strong><span class="state">critical · cooling</span></div>
+              <p class="summary">异常 323 项，情绪 2 项，反证 9 项。cooldown until 2026/5/27 13:27:44.</p>
+            </article>
+          </article>
+        </section>
+      </main>
+
+      <aside class="drawer">
+        <article class="drawer-card">
+          <h2>Selected Module</h2>
+          <p>点击 module card 或 top 3 后，在这里展示完整指标。主画布不展开参数卡，也不画线。</p>
+          <div class="metric-table">
+            <div class="metric-row"><div><strong>trend_acceptance_score</strong><small>only confirms with BTC response</small></div><em>51.8</em></div>
+            <div class="metric-row"><div><strong>crowding_fragility_score</strong><small>warning, not direct bearish</small></div><em>medium</em></div>
+            <div class="metric-row"><div><strong>funding_basis_score</strong><small>context until accepted</small></div><em>0.12</em></div>
+            <div class="metric-row"><div><strong>liquidation_response</strong><small>follow-through or absorbed</small></div><em>none</em></div>
+          </div>
+        </article>
+
+        <article class="drawer-card">
+          <h2>UI 对齐规则</h2>
+          <p>趋势看卡片颜色即可。绿色支撑、红色压力、黄色混合预警、蓝灰中性、紫色数据质量。线条不参与业务表达。</p>
+        </article>
+      </aside>
+    </div>
+  </div>
+</body>
+</html>

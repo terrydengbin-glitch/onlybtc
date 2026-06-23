@@ -1,0 +1,479 @@
+{
+  "schema_version": "p7.c06.cost_control_cache_rate_limit.v1",
+  "generated_at": "2026-06-22T23:39:54.457122+00:00",
+  "applied_to_production": false,
+  "overall_status": "warning",
+  "alert_count": 2,
+  "alerts": [
+    {
+      "alert_id": "p45_research_budget_gap",
+      "level": "warning",
+      "scope": "llm_budget",
+      "reason": "P4.5 research writer has timeout/retry but no explicit call/token budget",
+      "recommended_action": "add_p45_call_and_token_budget_before_production_llm_expansion"
+    },
+    {
+      "alert_id": "fallback_events_present",
+      "level": "watch",
+      "scope": "fallback",
+      "reason": "fallback_event_count=105",
+      "recommended_action": "audit_fallback_cost_and_quality_discount"
+    }
+  ],
+  "config": {
+    "source_collection": {
+      "timeout_seconds": 15.0,
+      "http_concurrency": 6,
+      "playwright_concurrency": 1,
+      "official_concurrency": 3,
+      "fred_concurrency": 3,
+      "source_max_retries": 1,
+      "source_retry_backoff_seconds": 0.75,
+      "source_failure_gate_threshold": 12,
+      "source_min_current_metrics": 80
+    },
+    "fred_throttle": {
+      "batch_size": 5,
+      "inter_batch_delay_ms": 500,
+      "per_request_jitter_ms": 120,
+      "api_max_attempts": 3,
+      "api_backoff_seconds": 0.8
+    },
+    "p4_llm_budget": {
+      "timeout_seconds": 90.0,
+      "max_retries": 1,
+      "max_calls_per_run": 32,
+      "max_estimated_tokens_per_run": 200000,
+      "fallback_policy": "fallback",
+      "has_explicit_call_budget": true,
+      "has_explicit_token_budget": true
+    },
+    "p45_research_budget": {
+      "provider": "deepseek",
+      "timeout_seconds": 180.0,
+      "max_retries": 1,
+      "has_explicit_call_budget": false,
+      "has_explicit_token_budget": false
+    }
+  },
+  "cache": {
+    "path": "E:\\onlyBTC\\cache",
+    "exists": true,
+    "file_count": 398,
+    "total_bytes": 66709060,
+    "largest_files": [
+      {
+        "path": "playwright-bitbo-profile\\GrShaderCache\\data_3",
+        "bytes": 4202496
+      },
+      {
+        "path": "playwright-bitbo-profile\\Default\\DawnWebGPUCache\\data_3",
+        "bytes": 4202496
+      },
+      {
+        "path": "playwright-bitbo-profile\\Default\\Cache\\Cache_Data\\data_3",
+        "bytes": 4202496
+      },
+      {
+        "path": "playwright-bitbo-profile\\Default\\Code Cache\\js\\4a6c1c64c5f6eab9_0",
+        "bytes": 3416352
+      },
+      {
+        "path": "playwright-bitbo-profile\\Default\\Code Cache\\js\\c9738083d771c4df_0",
+        "bytes": 2942808
+      },
+      {
+        "path": "playwright-bitbo-profile\\Default\\Cache\\Cache_Data\\data_2",
+        "bytes": 2105344
+      },
+      {
+        "path": "playwright-bitbo-profile\\Default\\IndexedDB\\https_www.youtube.com_0.indexeddb.leveldb\\000005.ldb",
+        "bytes": 1477867
+      },
+      {
+        "path": "playwright-bitbo-profile\\Default\\Cache\\Cache_Data\\f_00000c",
+        "bytes": 1450203
+      },
+      {
+        "path": "playwright-bitbo-profile\\Default\\Cache\\Cache_Data\\f_00001d",
+        "bytes": 1450203
+      },
+      {
+        "path": "playwright-bitbo-profile\\Default\\Code Cache\\js\\b8aa38b67e91a401_0",
+        "bytes": 1197128
+      }
+    ]
+  },
+  "recent_event_window_hours": 24,
+  "recent_rate_limit_events": [],
+  "fallback_summary": {
+    "fallback_event_count": 105,
+    "recent_events": [
+      {
+        "source_id": "playwright-tradingview-usdcnh",
+        "fallback_source_id": "fred-usdcnh-proxy",
+        "reason": "Error: Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/USDCNH/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/USDCNH/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-06-22T18:32:47.927740"
+      },
+      {
+        "source_id": "playwright-tradingview-usdjpy",
+        "fallback_source_id": "fred-usdjpy",
+        "reason": "Error: Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/USDJPY/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/USDJPY/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-06-22T18:32:47.927740"
+      },
+      {
+        "source_id": "playwright-tradingview-jgb-10y",
+        "fallback_source_id": "fred-jgb-10y",
+        "reason": "Error: Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/TVC-JP10Y/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/TVC-JP10Y/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-06-22T18:32:47.927740"
+      },
+      {
+        "source_id": "playwright-tradingview-usdcnh",
+        "fallback_source_id": "fred-usdcnh-proxy",
+        "reason": "Error: Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/USDCNH/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/USDCNH/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-06-22T18:30:27.721035"
+      },
+      {
+        "source_id": "playwright-tradingview-usdjpy",
+        "fallback_source_id": "fred-usdjpy",
+        "reason": "Error: Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/USDJPY/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/USDJPY/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-06-22T18:30:27.721035"
+      },
+      {
+        "source_id": "playwright-tradingview-jgb-10y",
+        "fallback_source_id": "fred-jgb-10y",
+        "reason": "Error: Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/TVC-JP10Y/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/TVC-JP10Y/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-06-22T18:30:27.721035"
+      },
+      {
+        "source_id": "playwright-tradingview-brent-oil",
+        "fallback_source_id": "fred-brent-oil",
+        "reason": "Error: Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/TVC-UKOIL/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/TVC-UKOIL/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-06-22T18:30:27.721035"
+      },
+      {
+        "source_id": "playwright-tradingview-wti-oil",
+        "fallback_source_id": "fred-wti-oil",
+        "reason": "Error: Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/TVC-USOIL/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/TVC-USOIL/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-06-22T18:30:27.721035"
+      },
+      {
+        "source_id": "playwright-tradingview-dow-jones",
+        "fallback_source_id": "fred-dow-jones",
+        "reason": "Error: Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/DJ-DJI/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/DJ-DJI/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-06-22T18:30:27.721035"
+      },
+      {
+        "source_id": "playwright-tradingview-sp500",
+        "fallback_source_id": "fred-sp500",
+        "reason": "Error: Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/SP-SPX/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/SP-SPX/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-06-22T18:30:27.721035"
+      },
+      {
+        "source_id": "playwright-tradingview-dxy",
+        "fallback_source_id": "fred-dxy",
+        "reason": "Error: Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/TVC-DXY/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/TVC-DXY/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-06-22T18:30:27.721035"
+      },
+      {
+        "source_id": "playwright-tradingview-usdcnh",
+        "fallback_source_id": "fred-usdcnh-proxy",
+        "reason": "Error: Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/USDCNH/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/USDCNH/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-06-22T18:26:21.977386"
+      },
+      {
+        "source_id": "playwright-tradingview-usdjpy",
+        "fallback_source_id": "fred-usdjpy",
+        "reason": "Error: Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/USDJPY/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/USDJPY/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-06-22T18:26:21.977386"
+      },
+      {
+        "source_id": "playwright-tradingview-jgb-10y",
+        "fallback_source_id": "fred-jgb-10y",
+        "reason": "Error: Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/TVC-JP10Y/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/TVC-JP10Y/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-06-22T18:26:21.977386"
+      },
+      {
+        "source_id": "playwright-tradingview-usdcnh",
+        "fallback_source_id": "fred-usdcnh-proxy",
+        "reason": "Error: Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/USDCNH/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/USDCNH/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-06-22T18:24:10.541295"
+      },
+      {
+        "source_id": "playwright-tradingview-usdjpy",
+        "fallback_source_id": "fred-usdjpy",
+        "reason": "Error: Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/USDJPY/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/USDJPY/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-06-22T18:24:10.541295"
+      },
+      {
+        "source_id": "playwright-tradingview-jgb-10y",
+        "fallback_source_id": "fred-jgb-10y",
+        "reason": "Error: Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/TVC-JP10Y/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/TVC-JP10Y/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-06-22T18:24:10.541295"
+      },
+      {
+        "source_id": "playwright-tradingview-jgb-10y",
+        "fallback_source_id": "fred-jgb-10y",
+        "reason": "Error: Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/TVC-JP10Y/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/TVC-JP10Y/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-06-22T11:42:41.190009"
+      },
+      {
+        "source_id": "playwright-tradingview-usdcnh",
+        "fallback_source_id": "fred-usdcnh-proxy",
+        "reason": "Error: Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/USDCNH/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/USDCNH/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-06-22T11:06:19.618051"
+      },
+      {
+        "source_id": "playwright-tradingview-usdjpy",
+        "fallback_source_id": "fred-usdjpy",
+        "reason": "Error: Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/USDJPY/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/USDJPY/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-06-22T11:06:19.618051"
+      },
+      {
+        "source_id": "playwright-tradingview-jgb-10y",
+        "fallback_source_id": "fred-jgb-10y",
+        "reason": "Error: Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/TVC-JP10Y/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/TVC-JP10Y/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-06-22T11:04:22.434171"
+      },
+      {
+        "source_id": "playwright-tradingview-brent-oil",
+        "fallback_source_id": "fred-brent-oil",
+        "reason": "Error: Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/TVC-UKOIL/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/TVC-UKOIL/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-06-22T11:04:22.434171"
+      },
+      {
+        "source_id": "playwright-tradingview-wti-oil",
+        "fallback_source_id": "fred-wti-oil",
+        "reason": "Error: Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/TVC-USOIL/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/TVC-USOIL/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-06-22T11:04:22.434171"
+      },
+      {
+        "source_id": "playwright-tradingview-sp500",
+        "fallback_source_id": "fred-sp500",
+        "reason": "Error: Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/SP-SPX/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/SP-SPX/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-06-22T11:04:22.434171"
+      },
+      {
+        "source_id": "playwright-tradingview-dxy",
+        "fallback_source_id": "fred-dxy",
+        "reason": "Error: Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/TVC-DXY/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/TVC-DXY/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-06-22T11:04:22.434171"
+      },
+      {
+        "source_id": "playwright-tradingview-usdcnh",
+        "fallback_source_id": "fred-usdcnh-proxy",
+        "reason": "Error: Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/USDCNH/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/USDCNH/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-06-22T11:00:52.610034"
+      },
+      {
+        "source_id": "playwright-tradingview-usdjpy",
+        "fallback_source_id": "fred-usdjpy",
+        "reason": "Error: Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/USDJPY/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/USDJPY/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-06-22T11:00:52.610034"
+      },
+      {
+        "source_id": "playwright-tradingview-jgb-10y",
+        "fallback_source_id": "fred-jgb-10y",
+        "reason": "Error: Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/TVC-JP10Y/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/TVC-JP10Y/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-06-22T11:00:52.610034"
+      },
+      {
+        "source_id": "playwright-tradingview-usdcnh",
+        "fallback_source_id": "fred-usdcnh-proxy",
+        "reason": "Error: Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/USDCNH/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/USDCNH/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-06-22T10:58:43.737872"
+      },
+      {
+        "source_id": "playwright-tradingview-dow-jones",
+        "fallback_source_id": "fred-dow-jones",
+        "reason": "Error: Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/DJ-DJI/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/DJ-DJI/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-06-22T10:58:43.737872"
+      },
+      {
+        "source_id": "playwright-tradingview-usdcnh",
+        "fallback_source_id": "fred-usdcnh-proxy",
+        "reason": "Error: Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/USDCNH/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/USDCNH/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-05-30T21:02:36.452876"
+      },
+      {
+        "source_id": "playwright-tradingview-usdjpy",
+        "fallback_source_id": "fred-usdjpy",
+        "reason": "Error: Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/USDJPY/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/USDJPY/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-05-30T21:02:36.452876"
+      },
+      {
+        "source_id": "playwright-tradingview-jgb-10y",
+        "fallback_source_id": "fred-jgb-10y",
+        "reason": "Error: Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/TVC-JP10Y/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/TVC-JP10Y/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-05-30T21:02:36.452876"
+      },
+      {
+        "source_id": "playwright-tradingview-brent-oil",
+        "fallback_source_id": "fred-brent-oil",
+        "reason": "Error: Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/TVC-UKOIL/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/TVC-UKOIL/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-05-30T21:02:36.452876"
+      },
+      {
+        "source_id": "playwright-tradingview-wti-oil",
+        "fallback_source_id": "fred-wti-oil",
+        "reason": "Error: Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/TVC-USOIL/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/TVC-USOIL/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-05-30T21:02:36.452876"
+      },
+      {
+        "source_id": "playwright-tradingview-dow-jones",
+        "fallback_source_id": "fred-dow-jones",
+        "reason": "Error: Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/DJ-DJI/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/DJ-DJI/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-05-30T21:02:36.452876"
+      },
+      {
+        "source_id": "playwright-tradingview-sp500",
+        "fallback_source_id": "fred-sp500",
+        "reason": "Error: Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/SP-SPX/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/SP-SPX/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-05-30T21:02:36.452876"
+      },
+      {
+        "source_id": "playwright-tradingview-dxy",
+        "fallback_source_id": "fred-dxy",
+        "reason": "Error: Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/TVC-DXY/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/TVC-DXY/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-05-30T21:02:36.452876"
+      },
+      {
+        "source_id": "playwright-tradingview-usdcnh",
+        "fallback_source_id": "fred-usdcnh-proxy",
+        "reason": "Error: Page.goto: net::ERR_PROXY_CONNECTION_FAILED at https://www.tradingview.com/symbols/USDCNH/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/USDCNH/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-05-30T00:37:37.656705"
+      },
+      {
+        "source_id": "playwright-tradingview-usdjpy",
+        "fallback_source_id": "fred-usdjpy",
+        "reason": "Error: Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/USDJPY/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/USDJPY/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-05-29T20:01:53.914633"
+      },
+      {
+        "source_id": "playwright-tradingview-jgb-10y",
+        "fallback_source_id": "fred-jgb-10y",
+        "reason": "Error: Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/TVC-JP10Y/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/TVC-JP10Y/\", waiting until \"domcontentloaded\"",
+        "discount": 0.35,
+        "created_at": "2026-05-29T20:01:53.914633"
+      },
+      {
+        "source_id": "clarkmoody-dashboard",
+        "fallback_source_id": "mempool-lightning-network-stats",
+        "reason": "ConnectTimeout: empty exception message",
+        "discount": 0.35,
+        "created_at": "2026-05-27T07:02:43.779825"
+      },
+      {
+        "source_id": "playwright-tradingview-jgb-10y",
+        "fallback_source_id": "fred-jgb-10y",
+        "reason": "Page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/TVC-JP10Y/\", waiting until \"domcontentloaded\"\n",
+        "discount": 0.35,
+        "created_at": "2026-05-23T15:19:35.125463"
+      },
+      {
+        "source_id": "playwright-tradingview-brent-oil",
+        "fallback_source_id": "fred-brent-oil",
+        "reason": "Page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/TVC-UKOIL/\", waiting until \"domcontentloaded\"\n",
+        "discount": 0.35,
+        "created_at": "2026-05-23T15:19:35.125463"
+      },
+      {
+        "source_id": "playwright-tradingview-wti-oil",
+        "fallback_source_id": "fred-wti-oil",
+        "reason": "Page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/TVC-USOIL/\", waiting until \"domcontentloaded\"\n",
+        "discount": 0.35,
+        "created_at": "2026-05-23T15:19:35.125463"
+      },
+      {
+        "source_id": "playwright-tradingview-dow-jones",
+        "fallback_source_id": "fred-dow-jones",
+        "reason": "Page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/DJ-DJI/\", waiting until \"domcontentloaded\"\n",
+        "discount": 0.35,
+        "created_at": "2026-05-23T15:19:35.125463"
+      },
+      {
+        "source_id": "playwright-tradingview-sp500",
+        "fallback_source_id": "fred-sp500",
+        "reason": "Page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/SP-SPX/\", waiting until \"domcontentloaded\"\n",
+        "discount": 0.35,
+        "created_at": "2026-05-23T15:19:35.125463"
+      },
+      {
+        "source_id": "playwright-tradingview-dxy",
+        "fallback_source_id": "fred-dxy",
+        "reason": "Page.goto: Timeout 30000ms exceeded.\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/TVC-DXY/\", waiting until \"domcontentloaded\"\n",
+        "discount": 0.35,
+        "created_at": "2026-05-23T15:19:35.125463"
+      },
+      {
+        "source_id": "clarkmoody-dashboard",
+        "fallback_source_id": "mempool-lightning-network-stats",
+        "reason": "source status: error",
+        "discount": 0.35,
+        "created_at": "2026-05-23T15:19:35.125463"
+      },
+      {
+        "source_id": "playwright-tradingview-jgb-10y",
+        "fallback_source_id": "fred-jgb-10y",
+        "reason": "Page.goto: net::ERR_CONNECTION_CLOSED at https://www.tradingview.com/symbols/TVC-JP10Y/\nCall log:\n  - navigating to \"https://www.tradingview.com/symbols/TVC-JP10Y/\", waiting until \"domcontentloaded\"\n",
+        "discount": 0.35,
+        "created_at": "2026-05-23T15:16:19.000669"
+      }
+    ]
+  },
+  "downstream_policy": {
+    "llm_runtime_policy": "budget_guarded",
+    "p45_research_policy": "manual_review_before_expansion",
+    "source_retry_policy": "normal_retry_policy",
+    "cache_policy": "normal"
+  },
+  "guardrails": [
+    "audit_only",
+    "does_not_modify_runtime_settings",
+    "does_not_call_external_providers",
+    "does_not_cache_secrets",
+    "does_not_modify_state_machine",
+    "does_not_emit_trading_advice",
+    "requires_p7_c08_before_production_apply"
+  ]
+}

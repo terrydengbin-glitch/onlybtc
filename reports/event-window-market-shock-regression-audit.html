@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <title>Event Window Market Shock Regression Audit</title>
+  <style>
+    body { margin:0; background:#07131c; color:#dbeafe; font-family:Inter, Arial, "Microsoft YaHei", sans-serif; }
+    main { max-width:1280px; margin:0 auto; padding:28px; }
+    .hero, .card { border:1px solid #24455c; background:#0d2030; border-radius:12px; padding:18px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(310px,1fr)); gap:14px; margin-top:16px; }
+    .pill { display:inline-flex; border:1px solid #24455c; border-radius:999px; padding:5px 10px; color:#bae6fd; }
+    .ok { color:#22d3b6; border-color:#22d3b6; }
+    .bad { color:#fb7185; border-color:#fb7185; }
+    .warn { color:#fbbf24; border-color:#fbbf24; }
+    code { color:#fef3c7; }
+    pre { overflow:auto; max-height:260px; padding:12px; border-radius:8px; background:#06131d; color:#cfe4ef; }
+  </style>
+</head>
+<body>
+<main>
+  <section class="hero">
+    <span class="pill ok">PASS</span>
+    <h1>Event Window 暴跌漏报回归审计</h1>
+    <p>重点验证：独立 Binance Market Probe + Shock Fast Lane 多窗口判定能捕捉 1h/4h/24h 持续冲击，不再只看 5m。</p>
+    <p>生成时间 <code>2026-05-29T06:48:42.319022+00:00</code></p>
+    <p>最新 snapshot <code>evt-20260529064759-d24157c7</code> · probe <code>mprobe-20260529064759-45713a48</code> · runtime <code>event_watchtower.v3.2.market-shock</code></p>
+    <p>最新冲击摘要：No official unscheduled policy shock. Market dislocation checks are normal or unavailable.</p>
+  </section>
+  <section class="grid"><article class="card">
+  <span class="pill ok">PASS</span>
+  <h2>sustained_5h_crash_regression</h2>
+  <p>Synthetic reproduction of a large multi-hour selloff with weak 5m impulse.</p>
+  <p>状态：<code>sustained_drawdown_high_alert</code> / overlay <code>watch_only</code></p>
+  <p>旧 5m-only 逻辑：<span class="pill warn">会漏报</span></p>
+  <pre>{
+  &quot;returns&quot;: {
+    &quot;5m&quot;: -0.002084,
+    &quot;15m&quot;: -0.0042,
+    &quot;1h&quot;: -0.013857,
+    &quot;4h&quot;: -0.016001,
+    &quot;24h&quot;: -0.032041
+  },
+  &quot;shock&quot;: {
+    &quot;shock_id&quot;: &quot;shock-btc-1h-202605281000&quot;,
+    &quot;detected_at&quot;: &quot;2026-05-28T10:00:00+00:00&quot;,
+    &quot;shock_type&quot;: &quot;crypto_native&quot;,
+    &quot;emergency_level&quot;: &quot;high&quot;,
+    &quot;confirmation_level&quot;: &quot;market_dislocation&quot;,
+    &quot;source_count&quot;: 1,
+    &quot;official_confirmed&quot;: false,
+    &quot;market_dislocation&quot;: true,
+    &quot;btc_microstructure_confirmation&quot;: true,
+    &quot;cross_asset_confirmation&quot;: false,
+    &quot;rumor_risk&quot;: false,
+    &quot;raw_title&quot;: &quot;BTC 1h market dislocation&quot;,
+    &quot;raw_url&quot;: &quot;&quot;,
+    &quot;source_hash&quot;: &quot;4633c5b950cb1a70325bf850da6147495ab7cb83cb48a7413272af719c394329&quot;,
+    &quot;published_at&quot;: &quot;2026-05-28T10:00:00+00:00&quot;,
+    &quot;reason_codes&quot;: [
+      &quot;btc_1h_market_dislocation&quot;,
+      &quot;sustained_drawdown_watch&quot;,
+      &quot;btc_24h_context_pressure&quot;
+    ],
+    &quot;source_lineage&quot;: [
+      {
+        &quot;source_id&quot;: &quot;synthetic_regression&quot;,
+        &quot;source_tier&quot;: &quot;market_live&quot;,
+        &quot;market_probe_id&quot;: &quot;synthetic-market-probe-crash&quot;,
+        &quot;primary_window&quot;: &quot;1h&quot;,
+        &quot;primary_return&quot;: -0.013857,
+        &quot;primary_return_z&quot;: 2.35
+      }
+    ],
+    &quot;evidence&quot;: {
+      &quot;primary_window&quot;: &quot;1h&quot;,
+      &quot;primary_return&quot;: -0.013857,
+      &quot;primary_return_z&quot;: 2.35,
+      &quot;btc_return_5m&quot;: -0.002084,
+      &quot;btc_return_15m&quot;: -0.0042,
+      &quot;btc_return_1h&quot;: -0.013857,
+      &quot;btc_return_4h&quot;: -0.016001,
+      &quot;btc_return_24h&quot;: -0.032041,
+      &quot;btc_return_5m_z&quot;: 0.62,
+      &quot;btc_return_15m_z&quot;: 1.1,
+      &quot;btc_return_1h_z&quot;: 2.35,
+      &quot;btc_return_4h_z&quot;: 2.1,
+      &quot;btc_return_24h_z&quot;: 1.8,
+      &quot;oi_change_15m_z&quot;: null,
+      &quot;liquidation_z&quot;: null,
+      &quot;dxy_move_z&quot;: null,
+      &quot;us2y_move_z&quot;: null,
+      &quot;ndx_move_z&quot;: null
+    },
+    &quot;data_quality_flags&quot;: [
+      &quot;oi_liquidation_confirmation_missing&quot;
+    ],
+    &quot;direct_score_impact&quot;: false
+  }
+}</pre>
+</article>
+<article class="card">
+  <span class="pill ok">PASS</span>
+  <h2>normal_noise_no_alert</h2>
+  <p>Small moves should stay quiet.</p>
+  <p>状态：<code>calendar_monitor</code> / overlay <code>none</code></p>
+  <p>旧 5m-only 逻辑：<span class="pill warn">会漏报</span></p>
+  <pre>{
+  &quot;returns&quot;: {
+    &quot;5m&quot;: -0.0005,
+    &quot;15m&quot;: 0.0007,
+    &quot;1h&quot;: -0.001,
+    &quot;4h&quot;: 0.002,
+    &quot;24h&quot;: -0.006
+  },
+  &quot;shock&quot;: {}
+}</pre>
+</article>
+<article class="card">
+  <span class="pill ok">PASS</span>
+  <h2>sustained_rally_guard</h2>
+  <p>Large upside shock should be classified as rally, not drawdown.</p>
+  <p>状态：<code>sustained_rally_high_alert</code> / overlay <code>watch_only</code></p>
+  <p>旧 5m-only 逻辑：<span class="pill warn">会漏报</span></p>
+  <pre>{
+  &quot;returns&quot;: {
+    &quot;5m&quot;: 0.002,
+    &quot;15m&quot;: 0.004,
+    &quot;1h&quot;: 0.012,
+    &quot;4h&quot;: 0.022,
+    &quot;24h&quot;: 0.034
+  },
+  &quot;shock&quot;: {
+    &quot;shock_id&quot;: &quot;shock-btc-4h-202605281000&quot;,
+    &quot;detected_at&quot;: &quot;2026-05-28T10:00:00+00:00&quot;,
+    &quot;shock_type&quot;: &quot;crypto_native&quot;,
+    &quot;emergency_level&quot;: &quot;high&quot;,
+    &quot;confirmation_level&quot;: &quot;market_dislocation&quot;,
+    &quot;source_count&quot;: 1,
+    &quot;official_confirmed&quot;: false,
+    &quot;market_dislocation&quot;: true,
+    &quot;btc_microstructure_confirmation&quot;: true,
+    &quot;cross_asset_confirmation&quot;: false,
+    &quot;rumor_risk&quot;: false,
+    &quot;raw_title&quot;: &quot;BTC 4h market dislocation&quot;,
+    &quot;raw_url&quot;: &quot;&quot;,
+    &quot;source_hash&quot;: &quot;795693b4f00e917b54a1050027b1b9a0227e2145c16a298c9216cf40face4790&quot;,
+    &quot;published_at&quot;: &quot;2026-05-28T10:00:00+00:00&quot;,
+    &quot;reason_codes&quot;: [
+      &quot;btc_4h_market_dislocation&quot;,
+      &quot;sustained_rally_watch&quot;,
+      &quot;btc_24h_context_pressure&quot;
+    ],
+    &quot;source_lineage&quot;: [
+      {
+        &quot;source_id&quot;: &quot;synthetic_regression&quot;,
+        &quot;source_tier&quot;: &quot;market_live&quot;,
+        &quot;market_probe_id&quot;: &quot;synthetic-market-probe-rally&quot;,
+        &quot;primary_window&quot;: &quot;4h&quot;,
+        &quot;primary_return&quot;: 0.022,
+        &quot;primary_return_z&quot;: 2.4
+      }
+    ],
+    &quot;evidence&quot;: {
+      &quot;primary_window&quot;: &quot;4h&quot;,
+      &quot;primary_return&quot;: 0.022,
+      &quot;primary_return_z&quot;: 2.4,
+      &quot;btc_return_5m&quot;: 0.002,
+      &quot;btc_return_15m&quot;: 0.004,
+      &quot;btc_return_1h&quot;: 0.012,
+      &quot;btc_return_4h&quot;: 0.022,
+      &quot;btc_return_24h&quot;: 0.034,
+      &quot;btc_return_5m_z&quot;: 0.7,
+      &quot;btc_return_15m_z&quot;: 1.0,
+      &quot;btc_return_1h_z&quot;: 1.9,
+      &quot;btc_return_4h_z&quot;: 2.4,
+      &quot;btc_return_24h_z&quot;: 1.8,
+      &quot;oi_change_15m_z&quot;: null,
+      &quot;liquidation_z&quot;: null,
+      &quot;dxy_move_z&quot;: null,
+      &quot;us2y_move_z&quot;: null,
+      &quot;ndx_move_z&quot;: null
+    },
+    &quot;data_quality_flags&quot;: [
+      &quot;oi_liquidation_confirmation_missing&quot;
+    ],
+    &quot;direct_score_impact&quot;: false
+  }
+}</pre>
+</article></section>
+</main>
+</body>
+</html>

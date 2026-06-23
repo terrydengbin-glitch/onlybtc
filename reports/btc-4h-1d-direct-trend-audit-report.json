@@ -1,0 +1,575 @@
+{
+  "schema_version": "p7.c30.btc_direct_trend_audit.v1",
+  "generated_at": "2026-06-22T19:11:17.104383+00:00",
+  "overall_status": "PASS",
+  "core_checks": [
+    {
+      "check_id": "p45-schema-v22",
+      "status": "PASS",
+      "detail": "p45.btc_timescale_judge.v2.2"
+    },
+    {
+      "check_id": "p3-state-machine-present",
+      "status": "PASS",
+      "detail": "p3c62-state-20260622155135-9d8cba"
+    },
+    {
+      "check_id": "4h-1d-direct-evidence-present",
+      "status": "PASS",
+      "detail": {
+        "4h": true,
+        "1d": true
+      }
+    },
+    {
+      "check_id": "scores-exposed",
+      "status": "PASS",
+      "detail": "direction / acceptance / trust / display"
+    },
+    {
+      "check_id": "event-overlay-trust-only",
+      "status": "PASS",
+      "detail": "event_overlay_context roles are trust/quality gates; event_trust policy is trust cap"
+    },
+    {
+      "check_id": "radar-context-not-direct-score",
+      "status": "PASS",
+      "detail": "radar_context policy confirm_conflict_degrade_only / legacy_context"
+    },
+    {
+      "check_id": "sqlite-api-snapshot-consistency",
+      "status": "PASS",
+      "detail": {
+        "dashboard": "p3c62-state-20260622155135-9d8cba",
+        "sqlite_replay": "p3c62-state-20260622155135-9d8cba",
+        "p8_payload": "p3c62-state-20260622155135-9d8cba",
+        "cockpit": "p3c62-state-20260622155135-9d8cba"
+      }
+    },
+    {
+      "check_id": "api-freshness-explicit",
+      "status": "PASS",
+      "detail": {
+        "source_fresh": true,
+        "runtime_fresh": true,
+        "fallback_used": false
+      }
+    },
+    {
+      "check_id": "ui-static-contract",
+      "status": "PASS",
+      "detail": {
+        "vue-reads-v22-timescale-judge": "PASS",
+        "vue-renders-direct-chain": "PASS",
+        "vue-renders-event-phase": "PASS",
+        "vue-shows-freshness-fallback": "PASS"
+      }
+    },
+    {
+      "check_id": "lineage-matrix-no-fail-gaps",
+      "status": "PASS",
+      "detail": {
+        "pass": 27
+      }
+    }
+  ],
+  "ui_checks": [
+    {
+      "check_id": "vue-reads-v22-timescale-judge",
+      "file": "frontend/src/App.vue",
+      "patterns": [
+        "btcTimescaleJudge",
+        "directTrendApi",
+        "normalizeTimescaleHorizon"
+      ],
+      "status": "PASS",
+      "missing_patterns": []
+    },
+    {
+      "check_id": "vue-renders-direct-chain",
+      "file": "frontend/src/App.vue",
+      "patterns": [
+        "horizonDirectEvidenceText",
+        "horizonRadarContext",
+        "horizonBtcAcceptance",
+        "horizonEventTrustCap",
+        "horizonConfirmationRules",
+        "horizonInvalidationRules"
+      ],
+      "status": "PASS",
+      "missing_patterns": []
+    },
+    {
+      "check_id": "vue-renders-event-phase",
+      "file": "frontend/src/App.vue",
+      "patterns": [
+        "horizonEventPhase",
+        "pre_event",
+        "post_event_unconfirmed",
+        "post_event_accepted"
+      ],
+      "status": "PASS",
+      "missing_patterns": []
+    },
+    {
+      "check_id": "vue-shows-freshness-fallback",
+      "file": "frontend/src/App.vue",
+      "patterns": [
+        "horizonFreshnessBadges",
+        "source_fresh",
+        "runtime_fresh",
+        "fallback_used"
+      ],
+      "status": "PASS",
+      "missing_patterns": []
+    }
+  ],
+  "lineage_matrix": [
+    {
+      "metric_id": "btc_direct_trend.price_structure.btc_return_4h",
+      "source_id": "binance-btcusdt-kline-1h",
+      "source_asof_ts": "2026-06-22T14:59:59.999000",
+      "derived_at": "2026-06-22T15:45:26.644318+00:00",
+      "registry_role": "trigger_eligible",
+      "used_by_horizon": "4h",
+      "state_machine_input": true,
+      "p45_output_path": "btc_timescale_judge.horizons.4h.direct_evidence.price_structure.btc_return_4h",
+      "sqlite_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "api_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "ui_rendered_field": "horizonDirectEvidenceText / horizonEventTrustCap",
+      "freshness_state": "fresh",
+      "gap_status": "pass"
+    },
+    {
+      "metric_id": "btc_direct_trend.price_structure.btc_return_24h",
+      "source_id": "binance-btcusdt-kline-1h",
+      "source_asof_ts": "2026-06-22T14:59:59.999000",
+      "derived_at": "2026-06-22T15:45:26.644318+00:00",
+      "registry_role": "trigger_eligible",
+      "used_by_horizon": "1d",
+      "state_machine_input": true,
+      "p45_output_path": "btc_timescale_judge.horizons.1d.direct_evidence.price_structure.btc_return_24h",
+      "sqlite_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "api_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "ui_rendered_field": "horizonDirectEvidenceText / horizonEventTrustCap",
+      "freshness_state": "fresh",
+      "gap_status": "pass"
+    },
+    {
+      "metric_id": "btc_direct_trend.orderflow_acceptance.taker_buy_sell_ratio",
+      "source_id": "binance-btcusdt-taker-buy-sell-ratio",
+      "source_asof_ts": "2026-06-22T15:35:00",
+      "derived_at": "2026-06-22T15:45:26.644318+00:00",
+      "registry_role": "acceptance_gate",
+      "used_by_horizon": "4h",
+      "state_machine_input": true,
+      "p45_output_path": "btc_timescale_judge.horizons.4h.direct_evidence.orderflow_acceptance.taker_buy_sell_ratio",
+      "sqlite_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "api_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "ui_rendered_field": "horizonDirectEvidenceText / horizonEventTrustCap",
+      "freshness_state": "fresh",
+      "gap_status": "pass"
+    },
+    {
+      "metric_id": "btc_direct_trend.orderflow_acceptance.taker_delta_quote",
+      "source_id": "binance-btcusdt,binance-btcusdt-taker-buy-sell-ratio",
+      "source_asof_ts": "2026-06-22T15:35:00",
+      "derived_at": "2026-06-22T15:45:26.644318+00:00",
+      "registry_role": "acceptance_gate",
+      "used_by_horizon": "4h",
+      "state_machine_input": true,
+      "p45_output_path": "btc_timescale_judge.horizons.4h.direct_evidence.orderflow_acceptance.taker_delta_quote",
+      "sqlite_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "api_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "ui_rendered_field": "horizonDirectEvidenceText / horizonEventTrustCap",
+      "freshness_state": "fresh",
+      "gap_status": "pass"
+    },
+    {
+      "metric_id": "btc_direct_trend.orderflow_acceptance.cvd_slope_z",
+      "source_id": "binance-btcusdt,binance-btcusdt-taker-buy-sell-ratio",
+      "source_asof_ts": "2026-06-22T15:35:00",
+      "derived_at": "2026-06-22T15:45:26.644318+00:00",
+      "registry_role": "acceptance_gate",
+      "used_by_horizon": "4h",
+      "state_machine_input": true,
+      "p45_output_path": "btc_timescale_judge.horizons.4h.direct_evidence.orderflow_acceptance.cvd_slope_z",
+      "sqlite_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "api_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "ui_rendered_field": "horizonDirectEvidenceText / horizonEventTrustCap",
+      "freshness_state": "fresh",
+      "gap_status": "pass"
+    },
+    {
+      "metric_id": "btc_direct_trend.derivatives_positioning.oi_impulse_z_15m",
+      "source_id": "binance-btcusdt-open-interest",
+      "source_asof_ts": "2026-06-22T15:43:51.943000",
+      "derived_at": "2026-06-22T15:45:26.644318+00:00",
+      "registry_role": "radar_context",
+      "used_by_horizon": "4h",
+      "state_machine_input": true,
+      "p45_output_path": "btc_timescale_judge.horizons.4h.direct_evidence.derivatives_positioning.oi_impulse_z_15m",
+      "sqlite_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "api_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "ui_rendered_field": "horizonDirectEvidenceText / horizonEventTrustCap",
+      "freshness_state": "fresh",
+      "gap_status": "pass"
+    },
+    {
+      "metric_id": "btc_direct_trend.derivatives_positioning.oi_impulse_z_1h",
+      "source_id": "binance-btcusdt-open-interest",
+      "source_asof_ts": "2026-06-22T15:43:51.943000",
+      "derived_at": "2026-06-22T15:45:26.644318+00:00",
+      "registry_role": "radar_context",
+      "used_by_horizon": "4h",
+      "state_machine_input": true,
+      "p45_output_path": "btc_timescale_judge.horizons.4h.direct_evidence.derivatives_positioning.oi_impulse_z_1h",
+      "sqlite_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "api_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "ui_rendered_field": "horizonDirectEvidenceText / horizonEventTrustCap",
+      "freshness_state": "fresh",
+      "gap_status": "pass"
+    },
+    {
+      "metric_id": "btc_direct_trend.derivatives_positioning.oi_impulse_z_4h",
+      "source_id": "binance-btcusdt-open-interest",
+      "source_asof_ts": "2026-06-22T15:43:51.943000",
+      "derived_at": "2026-06-22T15:45:26.644318+00:00",
+      "registry_role": "radar_context",
+      "used_by_horizon": "4h",
+      "state_machine_input": true,
+      "p45_output_path": "btc_timescale_judge.horizons.4h.direct_evidence.derivatives_positioning.oi_impulse_z_4h",
+      "sqlite_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "api_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "ui_rendered_field": "horizonDirectEvidenceText / horizonEventTrustCap",
+      "freshness_state": "fresh",
+      "gap_status": "pass"
+    },
+    {
+      "metric_id": "btc_direct_trend.derivatives_positioning.funding_rate_8h_equiv_z",
+      "source_id": "binance-btcusdt-funding",
+      "source_asof_ts": "2026-06-22T15:44:00.326484",
+      "derived_at": "2026-06-22T15:45:26.644318+00:00",
+      "registry_role": "radar_context",
+      "used_by_horizon": "4h",
+      "state_machine_input": true,
+      "p45_output_path": "btc_timescale_judge.horizons.4h.direct_evidence.derivatives_positioning.funding_rate_8h_equiv_z",
+      "sqlite_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "api_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "ui_rendered_field": "horizonDirectEvidenceText / horizonEventTrustCap",
+      "freshness_state": "fresh",
+      "gap_status": "pass"
+    },
+    {
+      "metric_id": "btc_direct_trend.derivatives_positioning.funding_acceleration_z_24h",
+      "source_id": "binance-btcusdt-funding",
+      "source_asof_ts": "2026-06-22T15:44:00.326484",
+      "derived_at": "2026-06-22T15:45:26.644318+00:00",
+      "registry_role": "radar_context",
+      "used_by_horizon": "4h",
+      "state_machine_input": true,
+      "p45_output_path": "btc_timescale_judge.horizons.4h.direct_evidence.derivatives_positioning.funding_acceleration_z_24h",
+      "sqlite_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "api_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "ui_rendered_field": "horizonDirectEvidenceText / horizonEventTrustCap",
+      "freshness_state": "fresh",
+      "gap_status": "pass"
+    },
+    {
+      "metric_id": "btc_direct_trend.derivatives_positioning.liquidation_followthrough_score",
+      "source_id": "binance-usdm-force-order-btcusdt",
+      "source_asof_ts": "2026-06-22T15:44:16.814212",
+      "derived_at": "2026-06-22T15:45:26.644318+00:00",
+      "registry_role": "acceptance_gate",
+      "used_by_horizon": "4h",
+      "state_machine_input": true,
+      "p45_output_path": "btc_timescale_judge.horizons.4h.direct_evidence.derivatives_positioning.liquidation_followthrough_score",
+      "sqlite_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "api_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "ui_rendered_field": "horizonDirectEvidenceText / horizonEventTrustCap",
+      "freshness_state": "fresh",
+      "gap_status": "pass"
+    },
+    {
+      "metric_id": "btc_direct_trend.derivatives_positioning.liquidation_absorption_score",
+      "source_id": "binance-usdm-force-order-btcusdt",
+      "source_asof_ts": "2026-06-22T15:44:16.814212",
+      "derived_at": "2026-06-22T15:45:26.644318+00:00",
+      "registry_role": "acceptance_gate",
+      "used_by_horizon": "4h",
+      "state_machine_input": true,
+      "p45_output_path": "btc_timescale_judge.horizons.4h.direct_evidence.derivatives_positioning.liquidation_absorption_score",
+      "sqlite_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "api_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "ui_rendered_field": "horizonDirectEvidenceText / horizonEventTrustCap",
+      "freshness_state": "fresh",
+      "gap_status": "pass"
+    },
+    {
+      "metric_id": "btc_direct_trend.derivatives_positioning.price_oi_interaction_state",
+      "source_id": "binance-btcusdt-kline-1h,binance-btcusdt-open-interest,binance-btcusdt-taker-buy-sell-ratio",
+      "source_asof_ts": "2026-06-22T15:43:51.943000",
+      "derived_at": "2026-06-22T15:45:26.644318+00:00",
+      "registry_role": "trigger_eligible",
+      "used_by_horizon": "4h",
+      "state_machine_input": true,
+      "p45_output_path": "btc_timescale_judge.horizons.4h.direct_evidence.derivatives_positioning.price_oi_interaction_state",
+      "sqlite_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "api_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "ui_rendered_field": "horizonDirectEvidenceText / horizonEventTrustCap",
+      "freshness_state": "fresh",
+      "gap_status": "pass"
+    },
+    {
+      "metric_id": "btc_direct_trend.btc_residual_cross_asset.expected_return_24h",
+      "source_id": "treasury-credit-derived",
+      "source_asof_ts": "2026-06-22T15:44:06.362722",
+      "derived_at": "2026-06-22T15:45:26.644318+00:00",
+      "registry_role": "radar_context",
+      "used_by_horizon": "1d",
+      "state_machine_input": true,
+      "p45_output_path": "btc_timescale_judge.horizons.1d.direct_evidence.btc_residual_cross_asset.expected_return_24h",
+      "sqlite_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "api_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "ui_rendered_field": "horizonDirectEvidenceText / horizonEventTrustCap",
+      "freshness_state": "fresh",
+      "gap_status": "pass"
+    },
+    {
+      "metric_id": "btc_direct_trend.btc_residual_cross_asset.residual_24h",
+      "source_id": "treasury-credit-derived",
+      "source_asof_ts": "2026-06-22T15:44:06.362722",
+      "derived_at": "2026-06-22T15:45:26.644318+00:00",
+      "registry_role": "radar_context",
+      "used_by_horizon": "1d",
+      "state_machine_input": true,
+      "p45_output_path": "btc_timescale_judge.horizons.1d.direct_evidence.btc_residual_cross_asset.residual_24h",
+      "sqlite_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "api_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "ui_rendered_field": "horizonDirectEvidenceText / horizonEventTrustCap",
+      "freshness_state": "fresh",
+      "gap_status": "pass"
+    },
+    {
+      "metric_id": "btc_direct_trend.btc_residual_cross_asset.residual_z",
+      "source_id": "treasury-credit-derived",
+      "source_asof_ts": "2026-06-22T15:44:06.362722",
+      "derived_at": "2026-06-22T15:45:26.644318+00:00",
+      "registry_role": "radar_context",
+      "used_by_horizon": "1d",
+      "state_machine_input": true,
+      "p45_output_path": "btc_timescale_judge.horizons.1d.direct_evidence.btc_residual_cross_asset.residual_z",
+      "sqlite_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "api_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "ui_rendered_field": "horizonDirectEvidenceText / horizonEventTrustCap",
+      "freshness_state": "fresh",
+      "gap_status": "pass"
+    },
+    {
+      "metric_id": "btc_direct_trend.btc_residual_cross_asset.residual_semantic",
+      "source_id": "treasury-credit-derived",
+      "source_asof_ts": "2026-06-22T15:44:06.362722",
+      "derived_at": "2026-06-22T15:45:26.644318+00:00",
+      "registry_role": "trigger_eligible",
+      "used_by_horizon": "1d",
+      "state_machine_input": true,
+      "p45_output_path": "btc_timescale_judge.horizons.1d.direct_evidence.btc_residual_cross_asset.residual_semantic",
+      "sqlite_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "api_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "ui_rendered_field": "horizonDirectEvidenceText / horizonEventTrustCap",
+      "freshness_state": "fresh",
+      "gap_status": "pass"
+    },
+    {
+      "metric_id": "btc_direct_trend.event_overlay_context.emergency_level",
+      "source_id": "binance-btcusdt-kline-1h,fed-fomc-blackout-calendar,fxstreet-economic-calendar,official-macro-event-calendar",
+      "source_asof_ts": "2026-06-22T14:59:59.999000",
+      "derived_at": "2026-06-22T15:45:26.644318+00:00",
+      "registry_role": "quality_gate",
+      "used_by_horizon": "4h",
+      "state_machine_input": true,
+      "p45_output_path": "btc_timescale_judge.horizons.4h.direct_evidence.event_overlay_context.emergency_level",
+      "sqlite_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "api_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "ui_rendered_field": "horizonDirectEvidenceText / horizonEventTrustCap",
+      "freshness_state": "fresh",
+      "gap_status": "pass"
+    },
+    {
+      "metric_id": "btc_direct_trend.event_overlay_context.emergency_level",
+      "source_id": "binance-btcusdt-kline-1h,fed-fomc-blackout-calendar,fxstreet-economic-calendar,official-macro-event-calendar",
+      "source_asof_ts": "2026-06-22T14:59:59.999000",
+      "derived_at": "2026-06-22T15:45:26.644318+00:00",
+      "registry_role": "quality_gate",
+      "used_by_horizon": "1d",
+      "state_machine_input": true,
+      "p45_output_path": "btc_timescale_judge.horizons.1d.direct_evidence.event_overlay_context.emergency_level",
+      "sqlite_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "api_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "ui_rendered_field": "horizonDirectEvidenceText / horizonEventTrustCap",
+      "freshness_state": "fresh",
+      "gap_status": "pass"
+    },
+    {
+      "metric_id": "btc_direct_trend.event_overlay_context.ordinary_radar_trust",
+      "source_id": "binance-btcusdt-kline-1h,fed-fomc-blackout-calendar,fxstreet-economic-calendar,official-macro-event-calendar",
+      "source_asof_ts": "2026-06-22T14:59:59.999000",
+      "derived_at": "2026-06-22T15:45:26.644318+00:00",
+      "registry_role": "trust_cap",
+      "used_by_horizon": "4h",
+      "state_machine_input": true,
+      "p45_output_path": "btc_timescale_judge.horizons.4h.direct_evidence.event_overlay_context.ordinary_radar_trust",
+      "sqlite_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "api_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "ui_rendered_field": "horizonDirectEvidenceText / horizonEventTrustCap",
+      "freshness_state": "fresh",
+      "gap_status": "pass"
+    },
+    {
+      "metric_id": "btc_direct_trend.event_overlay_context.ordinary_radar_trust",
+      "source_id": "binance-btcusdt-kline-1h,fed-fomc-blackout-calendar,fxstreet-economic-calendar,official-macro-event-calendar",
+      "source_asof_ts": "2026-06-22T14:59:59.999000",
+      "derived_at": "2026-06-22T15:45:26.644318+00:00",
+      "registry_role": "trust_cap",
+      "used_by_horizon": "1d",
+      "state_machine_input": true,
+      "p45_output_path": "btc_timescale_judge.horizons.1d.direct_evidence.event_overlay_context.ordinary_radar_trust",
+      "sqlite_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "api_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "ui_rendered_field": "horizonDirectEvidenceText / horizonEventTrustCap",
+      "freshness_state": "fresh",
+      "gap_status": "pass"
+    },
+    {
+      "metric_id": "btc_direct_trend.event_overlay_context.trade_permission_modifier",
+      "source_id": "binance-btcusdt-kline-1h,fed-fomc-blackout-calendar,fxstreet-economic-calendar,official-macro-event-calendar",
+      "source_asof_ts": "2026-06-22T14:59:59.999000",
+      "derived_at": "2026-06-22T15:45:26.644318+00:00",
+      "registry_role": "trust_cap",
+      "used_by_horizon": "4h",
+      "state_machine_input": true,
+      "p45_output_path": "btc_timescale_judge.horizons.4h.direct_evidence.event_overlay_context.trade_permission_modifier",
+      "sqlite_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "api_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "ui_rendered_field": "horizonDirectEvidenceText / horizonEventTrustCap",
+      "freshness_state": "fresh",
+      "gap_status": "pass"
+    },
+    {
+      "metric_id": "btc_direct_trend.event_overlay_context.trade_permission_modifier",
+      "source_id": "binance-btcusdt-kline-1h,fed-fomc-blackout-calendar,fxstreet-economic-calendar,official-macro-event-calendar",
+      "source_asof_ts": "2026-06-22T14:59:59.999000",
+      "derived_at": "2026-06-22T15:45:26.644318+00:00",
+      "registry_role": "trust_cap",
+      "used_by_horizon": "1d",
+      "state_machine_input": true,
+      "p45_output_path": "btc_timescale_judge.horizons.1d.direct_evidence.event_overlay_context.trade_permission_modifier",
+      "sqlite_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "api_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "ui_rendered_field": "horizonDirectEvidenceText / horizonEventTrustCap",
+      "freshness_state": "fresh",
+      "gap_status": "pass"
+    },
+    {
+      "metric_id": "btc_direct_trend.event_overlay_context.event_trust_cap",
+      "source_id": "binance-btcusdt-kline-1h,fed-fomc-blackout-calendar,fxstreet-economic-calendar,official-macro-event-calendar",
+      "source_asof_ts": "2026-06-22T14:59:59.999000",
+      "derived_at": "2026-06-22T15:45:26.644318+00:00",
+      "registry_role": "trust_cap",
+      "used_by_horizon": "4h",
+      "state_machine_input": true,
+      "p45_output_path": "btc_timescale_judge.horizons.4h.direct_evidence.event_overlay_context.event_trust_cap",
+      "sqlite_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "api_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "ui_rendered_field": "horizonDirectEvidenceText / horizonEventTrustCap",
+      "freshness_state": "fresh",
+      "gap_status": "pass"
+    },
+    {
+      "metric_id": "btc_direct_trend.event_overlay_context.event_trust_cap",
+      "source_id": "binance-btcusdt-kline-1h,fed-fomc-blackout-calendar,fxstreet-economic-calendar,official-macro-event-calendar",
+      "source_asof_ts": "2026-06-22T14:59:59.999000",
+      "derived_at": "2026-06-22T15:45:26.644318+00:00",
+      "registry_role": "trust_cap",
+      "used_by_horizon": "1d",
+      "state_machine_input": true,
+      "p45_output_path": "btc_timescale_judge.horizons.1d.direct_evidence.event_overlay_context.event_trust_cap",
+      "sqlite_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "api_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "ui_rendered_field": "horizonDirectEvidenceText / horizonEventTrustCap",
+      "freshness_state": "fresh",
+      "gap_status": "pass"
+    },
+    {
+      "metric_id": "btc_direct_trend.event_overlay_context.post_event_reaction_state",
+      "source_id": "binance-btcusdt-kline-1h,fed-fomc-blackout-calendar,fxstreet-economic-calendar,official-macro-event-calendar",
+      "source_asof_ts": "2026-06-22T14:59:59.999000",
+      "derived_at": "2026-06-22T15:45:26.644318+00:00",
+      "registry_role": "trust_cap",
+      "used_by_horizon": "4h",
+      "state_machine_input": true,
+      "p45_output_path": "btc_timescale_judge.horizons.4h.direct_evidence.event_overlay_context.post_event_reaction_state",
+      "sqlite_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "api_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "ui_rendered_field": "horizonDirectEvidenceText / horizonEventTrustCap",
+      "freshness_state": "fresh",
+      "gap_status": "pass"
+    },
+    {
+      "metric_id": "btc_direct_trend.event_overlay_context.post_event_reaction_state",
+      "source_id": "binance-btcusdt-kline-1h,fed-fomc-blackout-calendar,fxstreet-economic-calendar,official-macro-event-calendar",
+      "source_asof_ts": "2026-06-22T14:59:59.999000",
+      "derived_at": "2026-06-22T15:45:26.644318+00:00",
+      "registry_role": "trust_cap",
+      "used_by_horizon": "1d",
+      "state_machine_input": true,
+      "p45_output_path": "btc_timescale_judge.horizons.1d.direct_evidence.event_overlay_context.post_event_reaction_state",
+      "sqlite_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "api_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+      "ui_rendered_field": "horizonDirectEvidenceText / horizonEventTrustCap",
+      "freshness_state": "fresh",
+      "gap_status": "pass"
+    }
+  ],
+  "evaluation": {
+    "status": "PASS",
+    "sample_count": 72,
+    "methodology": "walk-forward/purged split required; random K-fold forbidden",
+    "metrics": {
+      "rank_ic": null,
+      "auc_f1_trend_accepted": null,
+      "precision_top_decile": null,
+      "whipsaw_rate": null,
+      "false_breakout_reduction": null,
+      "lead_time": null,
+      "confidence_calibration": null,
+      "event_window_robustness": null
+    },
+    "reason": "sufficient snapshots available for evaluation runner"
+  },
+  "v21_v22_comparison": {
+    "baseline": "btc_timescale_judge.v2.1 module average / horizon_views",
+    "candidate": "btc_timescale_judge.v2.2 direct evidence + radar context",
+    "legacy_24h_direction": "bearish",
+    "v22_4h": {
+      "state": "range_chop",
+      "direction_score": 11.39,
+      "acceptance_score": 0.0,
+      "trust_score": 95.1
+    },
+    "v22_1d": {
+      "state": "range_compression_before_expansion",
+      "direction_score": -23.27,
+      "acceptance_score": 0.0,
+      "trust_score": 95.1
+    },
+    "conclusion": "v2.2 separates direct direction evidence, BTC acceptance, trust caps, and radar context; module average is retained only as context/fallback."
+  },
+  "latest": {
+    "final_run_id": "p45final-p8-replay-verify-202606221611",
+    "dashboard_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+    "sqlite_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+    "cockpit_snapshot_id": "p3c62-state-20260622155135-9d8cba",
+    "overview_schema": "p45.btc_timescale_judge.v2.2"
+  }
+}

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <title>Event Window State / Overlay / LLM Audit</title>
+  <style>
+    :root {
+      --bg:#07131c; --panel:#0d2030; --line:#24455c; --text:#dbeafe;
+      --muted:#8fb3c7; --cyan:#22d3ee; --green:#22d3b6; --yellow:#fbbf24; --red:#fb7185;
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0; color:var(--text); font-family:Inter, Arial, "Microsoft YaHei", sans-serif;
+      background:linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px), var(--bg);
+      background-size:32px 32px;
+    }
+    main { max-width:1440px; margin:0 auto; padding:28px; }
+    h1 { margin:0; font-size:30px; }
+    h2 { margin:26px 0 10px; font-size:20px; }
+    p { color:var(--muted); line-height:1.55; }
+    .hero, .card { border:1px solid rgba(143,179,199,.18); background:rgba(13,32,48,.86); border-radius:12px; padding:16px; }
+    .hero { border-color:rgba(34,211,238,.25); box-shadow:0 16px 60px rgba(0,0,0,.28); }
+    .row { display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+    .grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; }
+    .grid.three { grid-template-columns:repeat(3,minmax(0,1fr)); }
+    .pill { display:inline-flex; border:1px solid rgba(143,179,199,.24); border-radius:999px; padding:5px 10px; color:#bae6fd; background:rgba(8,24,36,.74); font-size:12px; margin:4px 4px 0 0; }
+    .pill.ok { color:var(--green); border-color:rgba(34,211,182,.38); }
+    .pill.warn { color:var(--yellow); border-color:rgba(251,191,36,.42); }
+    .pill.bad { color:var(--red); border-color:rgba(251,113,133,.45); }
+    small { color:var(--muted); display:block; }
+    .value { font-size:24px; color:var(--cyan); font-weight:800; margin-top:4px; word-break:break-word; }
+    table { width:100%; border-collapse:collapse; margin-top:12px; font-size:13px; background:rgba(8,24,36,.62); border:1px solid rgba(143,179,199,.14); border-radius:10px; overflow:hidden; }
+    th, td { border-bottom:1px solid rgba(143,179,199,.14); padding:9px 10px; text-align:left; vertical-align:top; }
+    th { color:#bae6fd; background:rgba(11,26,38,.94); }
+    tr:last-child td { border-bottom:0; }
+    code, .mono { font-family:ui-monospace,SFMono-Regular,Consolas,monospace; font-size:12px; color:#fef3c7; }
+  </style>
+</head>
+<body>
+<main>
+  <section class="hero">
+    <div class="row">
+      <div>
+        <span class="pill">Event Window v3</span>
+        <span class="pill">P7-C16</span>
+        <span class="pill ok">PASS</span>
+        <h1>Event Window 状态机 / Overlay / LLM 审计</h1>
+        <p>Generated <code>2026-06-22T21:03:51.010357+00:00</code> · Snapshot <code>evt-20260622210343-f82bc676</code></p>
+      </div>
+      <div>
+        <span class="pill warn">state pre_event_high_alert</span>
+        <span class="pill">overlay reduce_size</span>
+      </div>
+    </div>
+    <div class="grid" style="margin-top:16px">
+      <div class="card"><small>State priority</small><div class="value">45</div></div>
+      <div class="card"><small>Emergency</small><div class="value">watch</div></div>
+      <div class="card"><small>Radar trust</small><div class="value">reduced</div></div>
+      <div class="card"><small>Direct score impact</small><div class="value">False</div></div>
+      <div class="card"><small>LLM provider</small><div class="value">deepseek</div></div>
+      <div class="card"><small>LLM status</small><div class="value">success</div></div>
+      <div class="card"><small>Tone</small><div class="value">not_policy_relevant</div></div>
+      <div class="card"><small>Tone confidence</small><div class="value">0.95</div></div>
+    </div>
+  </section>
+
+  <h2>Verdict</h2>
+  <div class="grid three">
+    <div class="card"><small>State priority pass</small><div class="value">True</div></div>
+    <div class="card"><small>Overlay boundary pass</small><div class="value">True</div></div>
+    <div class="card"><small>LLM boundary pass</small><div class="value">True</div></div>
+    <div class="card"><small>SQLite consistency</small><div class="value">True</div></div>
+    <div class="card"><small>DeepSeek items</small><div class="value">1</div></div>
+    <div class="card"><small>Degraded items</small><div class="value">0</div></div>
+  </div>
+
+  <h2>State Priority Regression Cases</h2>
+  <table>
+    <thead><tr><th>case</th><th>expected</th><th>observed</th><th>priority</th><th>level</th><th>overlay</th><th>pass</th></tr></thead>
+    <tbody><tr><td>daemon paused blocks</td><td>data_quality_blocked</td><td>data_quality_blocked</td><td>100</td><td>watch</td><td>reduce_size</td><td>True</td></tr>
+<tr><td>critical shock overrides calendar</td><td>unscheduled_shock_confirmed</td><td>unscheduled_shock_confirmed</td><td>95</td><td>critical</td><td>event_lock</td><td>True</td></tr>
+<tr><td>event lock stays critical</td><td>event_lock</td><td>event_lock</td><td>90</td><td>critical</td><td>event_lock</td><td>True</td></tr>
+<tr><td>fallback high alert capped to watch</td><td>pre_event_high_alert</td><td>pre_event_high_alert</td><td>45</td><td>watch</td><td>reduce_size</td><td>True</td></tr></tbody>
+  </table>
+
+  <h2>Emergency Overlay Boundary</h2>
+  <table><tbody><tr><th>keys</th><td class="mono">[&#x27;confidence_cap&#x27;, &#x27;ordinary_radar_trust&#x27;, &#x27;trade_permission_modifier&#x27;, &#x27;volatility_warning&#x27;]</td></tr>
+<tr><th>allowed_keys</th><td class="mono">[&#x27;confidence_cap&#x27;, &#x27;ordinary_radar_trust&#x27;, &#x27;trade_permission_modifier&#x27;, &#x27;volatility_warning&#x27;]</td></tr>
+<tr><th>forbidden_keys</th><td class="mono">[]</td></tr>
+<tr><th>passed</th><td class="mono">True</td></tr>
+<tr><th>direct_score_impact_false</th><td class="mono">True</td></tr></tbody></table>
+
+  <h2>LLM / Fed Speech Analyzer Boundary</h2>
+  <p>LLM 只允许输出 tone / relevance / confidence / summary；不得输出 BTC 多空分数，不得直接触发交易权限。</p>
+  <table><tbody><tr><th>schema_version</th><td class="mono">p45.event_window.speech_analyzer.audit.v1</td></tr>
+<tr><th>analysis_count</th><td class="mono">1</td></tr>
+<tr><th>boundary_passed</th><td class="mono">True</td></tr>
+<tr><th>violations</th><td class="mono">[]</td></tr>
+<tr><th>deepseek_items</th><td class="mono">1</td></tr>
+<tr><th>degraded_items</th><td class="mono">0</td></tr></tbody></table>
+  <table>
+    <thead><tr><th>analysis_id</th><th>provider</th><th>status</th><th>tone</th><th>confidence</th><th>relevance</th><th>boundary</th><th>summary</th></tr></thead>
+    <tbody><tr><td class="mono">analysis-fed-rss-placeholder-2026</td><td>deepseek</td><td>success</td><td>not_policy_relevant</td><td>0.95</td><td>low</td><td>True</td><td>未检测到实质性政策文本变化。</td></tr></tbody>
+  </table>
+
+  <h2>API / SQLite Consistency</h2>
+  <div class="grid">
+    <div class="card"><small>event_watchtower_snapshots</small><div class="value">7293</div></div><div class="card"><small>event_official_text_items</small><div class="value">26</div></div><div class="card"><small>event_llm_analyses</small><div class="value">36</div></div><div class="card"><small>event_source_fetches</small><div class="value">111312</div></div>
+  </div>
+  <table><tbody><tr><th>comparison_mode</th><td class="mono">by_snapshot_id</td></tr>
+<tr><th>sqlite_snapshot_id</th><td class="mono">evt-20260622210343-f82bc676</td></tr>
+<tr><th>payload_snapshot_id</th><td class="mono">evt-20260622210343-f82bc676</td></tr>
+<tr><th>failure_reason</th><td class="mono"></td></tr>
+<tr><th>passed</th><td class="mono">True</td></tr></tbody></table>
+</main>
+</body>
+</html>

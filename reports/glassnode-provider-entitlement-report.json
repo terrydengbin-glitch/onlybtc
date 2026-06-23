@@ -1,0 +1,209 @@
+{
+  "schema_version": "p10.c08.glassnode_entitlement.v1",
+  "generated_at": "2026-06-23T09:19:25.307368+00:00",
+  "provider_id": "glassnode",
+  "mode": "dry_run",
+  "applied_to_production": false,
+  "configured": false,
+  "auth_methods": [
+    "api_key",
+    "manual_login_playwright"
+  ],
+  "target_count": 7,
+  "available_count": 0,
+  "locked_count": 7,
+  "overall_status": "provider_locked",
+  "targets": [
+    {
+      "metric_id": "realized_price",
+      "endpoint": "/v1/metrics/market/price_realized_usd",
+      "params": {
+        "a": "BTC",
+        "i": "24h"
+      },
+      "expected_fields": [
+        "t",
+        "v"
+      ]
+    },
+    {
+      "metric_id": "sth_cost_basis",
+      "endpoint": "/v1/metrics/indicators/realized_price_short_term_holders",
+      "params": {
+        "a": "BTC",
+        "i": "24h"
+      },
+      "expected_fields": [
+        "t",
+        "v"
+      ]
+    },
+    {
+      "metric_id": "lth_cost_basis",
+      "endpoint": "/v1/metrics/indicators/realized_price_long_term_holders",
+      "params": {
+        "a": "BTC",
+        "i": "24h"
+      },
+      "expected_fields": [
+        "t",
+        "v"
+      ]
+    },
+    {
+      "metric_id": "whale_flow",
+      "endpoint": "/v1/metrics/transactions/transfers_volume_to_exchanges_mean",
+      "params": {
+        "a": "BTC",
+        "i": "24h"
+      },
+      "expected_fields": [
+        "t",
+        "v"
+      ]
+    },
+    {
+      "metric_id": "miner_flow",
+      "endpoint": "/v1/metrics/mining/miners_outflow_volume_sum",
+      "params": {
+        "a": "BTC",
+        "i": "24h"
+      },
+      "expected_fields": [
+        "t",
+        "v"
+      ]
+    },
+    {
+      "metric_id": "stablecoin_exchange_inflow",
+      "endpoint": "/v1/metrics/transactions/stablecoin_transfers_volume_to_exchanges_sum",
+      "params": {
+        "a": "USDT",
+        "i": "24h"
+      },
+      "expected_fields": [
+        "t",
+        "v"
+      ]
+    },
+    {
+      "metric_id": "exchange_netflow",
+      "endpoint": "/v1/metrics/transactions/transfers_volume_exchanges_net",
+      "params": {
+        "a": "BTC",
+        "i": "24h"
+      },
+      "expected_fields": [
+        "t",
+        "v"
+      ]
+    }
+  ],
+  "items": [
+    {
+      "provider_id": "glassnode",
+      "auth_method": "api_key",
+      "metric_id": "realized_price",
+      "endpoint": "/v1/metrics/market/price_realized_usd",
+      "source_id": "glassnode-api-realized-price",
+      "entitlement_status": "missing_key",
+      "http_status": null,
+      "business_ts": null,
+      "quality": null,
+      "locked_reason": "ONLYBTC_GLASSNODE_API_KEY is not configured.",
+      "production_write_allowed": false,
+      "sample_keys": []
+    },
+    {
+      "provider_id": "glassnode",
+      "auth_method": "api_key",
+      "metric_id": "sth_cost_basis",
+      "endpoint": "/v1/metrics/indicators/realized_price_short_term_holders",
+      "source_id": "glassnode-api-sth-cost-basis",
+      "entitlement_status": "missing_key",
+      "http_status": null,
+      "business_ts": null,
+      "quality": null,
+      "locked_reason": "ONLYBTC_GLASSNODE_API_KEY is not configured.",
+      "production_write_allowed": false,
+      "sample_keys": []
+    },
+    {
+      "provider_id": "glassnode",
+      "auth_method": "api_key",
+      "metric_id": "lth_cost_basis",
+      "endpoint": "/v1/metrics/indicators/realized_price_long_term_holders",
+      "source_id": "glassnode-api-lth-cost-basis",
+      "entitlement_status": "missing_key",
+      "http_status": null,
+      "business_ts": null,
+      "quality": null,
+      "locked_reason": "ONLYBTC_GLASSNODE_API_KEY is not configured.",
+      "production_write_allowed": false,
+      "sample_keys": []
+    },
+    {
+      "provider_id": "glassnode",
+      "auth_method": "api_key",
+      "metric_id": "whale_flow",
+      "endpoint": "/v1/metrics/transactions/transfers_volume_to_exchanges_mean",
+      "source_id": "glassnode-api-whale-flow",
+      "entitlement_status": "missing_key",
+      "http_status": null,
+      "business_ts": null,
+      "quality": null,
+      "locked_reason": "ONLYBTC_GLASSNODE_API_KEY is not configured.",
+      "production_write_allowed": false,
+      "sample_keys": []
+    },
+    {
+      "provider_id": "glassnode",
+      "auth_method": "api_key",
+      "metric_id": "miner_flow",
+      "endpoint": "/v1/metrics/mining/miners_outflow_volume_sum",
+      "source_id": "glassnode-api-miner-flow",
+      "entitlement_status": "missing_key",
+      "http_status": null,
+      "business_ts": null,
+      "quality": null,
+      "locked_reason": "ONLYBTC_GLASSNODE_API_KEY is not configured.",
+      "production_write_allowed": false,
+      "sample_keys": []
+    },
+    {
+      "provider_id": "glassnode",
+      "auth_method": "api_key",
+      "metric_id": "stablecoin_exchange_inflow",
+      "endpoint": "/v1/metrics/transactions/stablecoin_transfers_volume_to_exchanges_sum",
+      "source_id": "glassnode-api-stablecoin-exchange-inflow",
+      "entitlement_status": "missing_key",
+      "http_status": null,
+      "business_ts": null,
+      "quality": null,
+      "locked_reason": "ONLYBTC_GLASSNODE_API_KEY is not configured.",
+      "production_write_allowed": false,
+      "sample_keys": []
+    },
+    {
+      "provider_id": "glassnode",
+      "auth_method": "api_key",
+      "metric_id": "exchange_netflow",
+      "endpoint": "/v1/metrics/transactions/transfers_volume_exchanges_net",
+      "source_id": "glassnode-api-exchange-netflow",
+      "entitlement_status": "missing_key",
+      "http_status": null,
+      "business_ts": null,
+      "quality": null,
+      "locked_reason": "ONLYBTC_GLASSNODE_API_KEY is not configured.",
+      "production_write_allowed": false,
+      "sample_keys": []
+    }
+  ],
+  "production_write_candidates": [],
+  "guardrails": [
+    "audit_only_no_metric_write",
+    "do_not_fabricate_provider_locked_metrics",
+    "do_not_persist_api_key_or_session_cookie",
+    "unauthorized_rate_limited_schema_changed_are_non_fatal"
+  ]
+}

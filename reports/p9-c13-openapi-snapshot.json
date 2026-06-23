@@ -1,0 +1,3816 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "onlyBTC API",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/api/event-window/latest": {
+      "get": {
+        "tags": [
+          "event-window"
+        ],
+        "summary": "Latest",
+        "operationId": "latest_api_event_window_latest_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Latest Api Event Window Latest Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/event-window/active": {
+      "get": {
+        "tags": [
+          "event-window"
+        ],
+        "summary": "Active",
+        "operationId": "active_api_event_window_active_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Active Api Event Window Active Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/event-window/shock-lane/latest": {
+      "get": {
+        "tags": [
+          "event-window"
+        ],
+        "summary": "Shock Lane Latest",
+        "operationId": "shock_lane_latest_api_event_window_shock_lane_latest_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Shock Lane Latest Api Event Window Shock Lane Latest Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/event-window/shock-lane/history": {
+      "get": {
+        "tags": [
+          "event-window"
+        ],
+        "summary": "Shock Lane History",
+        "operationId": "shock_lane_history_api_event_window_shock_lane_history_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Shock Lane History Api Event Window Shock Lane History Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/event-window/market-probe/latest": {
+      "get": {
+        "tags": [
+          "event-window"
+        ],
+        "summary": "Market Probe Latest",
+        "operationId": "market_probe_latest_api_event_window_market_probe_latest_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Market Probe Latest Api Event Window Market Probe Latest Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/event-window/market-probe/history": {
+      "get": {
+        "tags": [
+          "event-window"
+        ],
+        "summary": "Market Probe History",
+        "operationId": "market_probe_history_api_event_window_market_probe_history_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Market Probe History Api Event Window Market Probe History Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/event-window/history": {
+      "get": {
+        "tags": [
+          "event-window"
+        ],
+        "summary": "History",
+        "operationId": "history_api_event_window_history_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response History Api Event Window History Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/event-window/post-event-reaction": {
+      "get": {
+        "tags": [
+          "event-window"
+        ],
+        "summary": "Post Event Reaction",
+        "operationId": "post_event_reaction_api_event_window_post_event_reaction_get",
+        "parameters": [
+          {
+            "name": "event_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Event Id"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Post Event Reaction Api Event Window Post Event Reaction Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/event-window/calendar": {
+      "get": {
+        "tags": [
+          "event-window"
+        ],
+        "summary": "Calendar",
+        "operationId": "calendar_api_event_window_calendar_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Calendar Api Event Window Calendar Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/event-window/timeline": {
+      "get": {
+        "tags": [
+          "event-window"
+        ],
+        "summary": "Timeline",
+        "operationId": "timeline_api_event_window_timeline_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 200,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Timeline Api Event Window Timeline Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/event-window/events/{event_id}": {
+      "get": {
+        "tags": [
+          "event-window"
+        ],
+        "summary": "Event Detail",
+        "operationId": "event_detail_api_event_window_events__event_id__get",
+        "parameters": [
+          {
+            "name": "event_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Event Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Event Detail Api Event Window Events  Event Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/event-window/events/{event_id}/expectations": {
+      "get": {
+        "tags": [
+          "event-window"
+        ],
+        "summary": "Event Expectations",
+        "operationId": "event_expectations_api_event_window_events__event_id__expectations_get",
+        "parameters": [
+          {
+            "name": "event_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Event Id"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 200,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Event Expectations Api Event Window Events  Event Id  Expectations Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/event-window/events/{event_id}/reaction": {
+      "get": {
+        "tags": [
+          "event-window"
+        ],
+        "summary": "Event Reaction",
+        "operationId": "event_reaction_api_event_window_events__event_id__reaction_get",
+        "parameters": [
+          {
+            "name": "event_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Event Id"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 200,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Event Reaction Api Event Window Events  Event Id  Reaction Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/event-window/speeches": {
+      "get": {
+        "tags": [
+          "event-window"
+        ],
+        "summary": "Speeches",
+        "operationId": "speeches_api_event_window_speeches_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Speeches Api Event Window Speeches Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/event-window/sources/status": {
+      "get": {
+        "tags": [
+          "event-window"
+        ],
+        "summary": "Source Status",
+        "operationId": "source_status_api_event_window_sources_status_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Source Status Api Event Window Sources Status Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/event-window/sources/fetches": {
+      "get": {
+        "tags": [
+          "event-window"
+        ],
+        "summary": "Source Fetches",
+        "operationId": "source_fetches_api_event_window_sources_fetches_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Source Fetches Api Event Window Sources Fetches Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/event-window/sources/{source_id}": {
+      "get": {
+        "tags": [
+          "event-window"
+        ],
+        "summary": "Source Detail",
+        "operationId": "source_detail_api_event_window_sources__source_id__get",
+        "parameters": [
+          {
+            "name": "source_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Source Id"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Source Detail Api Event Window Sources  Source Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/event-window/speeches/{text_id}": {
+      "get": {
+        "tags": [
+          "event-window"
+        ],
+        "summary": "Speech Detail",
+        "operationId": "speech_detail_api_event_window_speeches__text_id__get",
+        "parameters": [
+          {
+            "name": "text_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Text Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Speech Detail Api Event Window Speeches  Text Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/event-window/alerts": {
+      "get": {
+        "tags": [
+          "event-window"
+        ],
+        "summary": "Alerts",
+        "operationId": "alerts_api_event_window_alerts_get",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Status"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Alerts Api Event Window Alerts Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/event-window/alerts/{alert_id}/ack": {
+      "post": {
+        "tags": [
+          "event-window"
+        ],
+        "summary": "Ack Alert",
+        "operationId": "ack_alert_api_event_window_alerts__alert_id__ack_post",
+        "parameters": [
+          {
+            "name": "alert_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Alert Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Ack Alert Api Event Window Alerts  Alert Id  Ack Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/event-window/alerts/{alert_id}/mute": {
+      "post": {
+        "tags": [
+          "event-window"
+        ],
+        "summary": "Mute Alert",
+        "operationId": "mute_alert_api_event_window_alerts__alert_id__mute_post",
+        "parameters": [
+          {
+            "name": "alert_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Alert Id"
+            }
+          },
+          {
+            "name": "minutes",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 60,
+              "title": "Minutes"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Mute Alert Api Event Window Alerts  Alert Id  Mute Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/event-window/daemon/status": {
+      "get": {
+        "tags": [
+          "event-window"
+        ],
+        "summary": "Daemon Status",
+        "operationId": "daemon_status_api_event_window_daemon_status_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Daemon Status Api Event Window Daemon Status Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/event-window/daemon/health": {
+      "get": {
+        "tags": [
+          "event-window"
+        ],
+        "summary": "Daemon Health",
+        "operationId": "daemon_health_api_event_window_daemon_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Daemon Health Api Event Window Daemon Health Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/event-window/health": {
+      "get": {
+        "tags": [
+          "event-window"
+        ],
+        "summary": "Health",
+        "operationId": "health_api_event_window_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Health Api Event Window Health Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/event-window/run-once": {
+      "post": {
+        "tags": [
+          "event-window"
+        ],
+        "summary": "Run Once",
+        "operationId": "run_once_api_event_window_run_once_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Run Once Api Event Window Run Once Post"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/event-window/daemon/tick": {
+      "post": {
+        "tags": [
+          "event-window"
+        ],
+        "summary": "Daemon Tick",
+        "operationId": "daemon_tick_api_event_window_daemon_tick_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Daemon Tick Api Event Window Daemon Tick Post"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/event-window/audit-bundle/run": {
+      "post": {
+        "tags": [
+          "event-window"
+        ],
+        "summary": "Audit Bundle Run",
+        "operationId": "audit_bundle_run_api_event_window_audit_bundle_run_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Audit Bundle Run Api Event Window Audit Bundle Run Post"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/event-window/audit-bundle/latest": {
+      "get": {
+        "tags": [
+          "event-window"
+        ],
+        "summary": "Audit Bundle Latest",
+        "operationId": "audit_bundle_latest_api_event_window_audit_bundle_latest_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Audit Bundle Latest Api Event Window Audit Bundle Latest Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/event-window/daemon/start": {
+      "post": {
+        "tags": [
+          "event-window"
+        ],
+        "summary": "Daemon Start",
+        "operationId": "daemon_start_api_event_window_daemon_start_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Daemon Start Api Event Window Daemon Start Post"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/event-window/daemon/stop": {
+      "post": {
+        "tags": [
+          "event-window"
+        ],
+        "summary": "Daemon Stop",
+        "operationId": "daemon_stop_api_event_window_daemon_stop_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Daemon Stop Api Event Window Daemon Stop Post"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/event-window/daemon/pause": {
+      "post": {
+        "tags": [
+          "event-window"
+        ],
+        "summary": "Daemon Pause",
+        "operationId": "daemon_pause_api_event_window_daemon_pause_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Daemon Pause Api Event Window Daemon Pause Post"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/event-window/daemon/resume": {
+      "post": {
+        "tags": [
+          "event-window"
+        ],
+        "summary": "Daemon Resume",
+        "operationId": "daemon_resume_api_event_window_daemon_resume_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Daemon Resume Api Event Window Daemon Resume Post"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/radar-runtime/daemon/health": {
+      "get": {
+        "tags": [
+          "radar-runtime"
+        ],
+        "summary": "Daemon Health",
+        "operationId": "daemon_health_api_radar_runtime_daemon_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Daemon Health Api Radar Runtime Daemon Health Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/radar-runtime/daemon/status": {
+      "get": {
+        "tags": [
+          "radar-runtime"
+        ],
+        "summary": "Daemon Status",
+        "operationId": "daemon_status_api_radar_runtime_daemon_status_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Daemon Status Api Radar Runtime Daemon Status Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/radar-runtime/daemon/pause": {
+      "post": {
+        "tags": [
+          "radar-runtime"
+        ],
+        "summary": "Daemon Pause",
+        "operationId": "daemon_pause_api_radar_runtime_daemon_pause_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Daemon Pause Api Radar Runtime Daemon Pause Post"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/radar-runtime/daemon/resume": {
+      "post": {
+        "tags": [
+          "radar-runtime"
+        ],
+        "summary": "Daemon Resume",
+        "operationId": "daemon_resume_api_radar_runtime_daemon_resume_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Daemon Resume Api Radar Runtime Daemon Resume Post"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/radar-runtime/daemon/tick": {
+      "post": {
+        "tags": [
+          "radar-runtime"
+        ],
+        "summary": "Daemon Tick",
+        "operationId": "daemon_tick_api_radar_runtime_daemon_tick_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Daemon Tick Api Radar Runtime Daemon Tick Post"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/radar-runtime/run-once": {
+      "post": {
+        "tags": [
+          "radar-runtime"
+        ],
+        "summary": "Run Once",
+        "operationId": "run_once_api_radar_runtime_run_once_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Run Once Api Radar Runtime Run Once Post"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/radar-runtime/modules/latest": {
+      "get": {
+        "tags": [
+          "radar-runtime"
+        ],
+        "summary": "Modules Latest",
+        "operationId": "modules_latest_api_radar_runtime_modules_latest_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Modules Latest Api Radar Runtime Modules Latest Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/radar-runtime/cockpit/latest": {
+      "get": {
+        "tags": [
+          "radar-runtime"
+        ],
+        "summary": "Cockpit Latest",
+        "operationId": "cockpit_latest_api_radar_runtime_cockpit_latest_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Cockpit Latest Api Radar Runtime Cockpit Latest Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/mock/p9-c13/scenarios": {
+      "get": {
+        "tags": [
+          "mock"
+        ],
+        "summary": "P9 C13 Scenarios",
+        "operationId": "p9_c13_scenarios_api_mock_p9_c13_scenarios_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response P9 C13 Scenarios Api Mock P9 C13 Scenarios Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/health": {
+      "get": {
+        "summary": "Health",
+        "operationId": "health_api_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SystemHealth"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/system/paths": {
+      "get": {
+        "summary": "System Paths",
+        "operationId": "system_paths_api_system_paths_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object",
+                  "title": "Response System Paths Api System Paths Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/dashboard/status": {
+      "get": {
+        "summary": "Dashboard Status",
+        "operationId": "dashboard_status_api_dashboard_status_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Dashboard Status Api Dashboard Status Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/dashboard/current": {
+      "get": {
+        "summary": "Dashboard Current",
+        "operationId": "dashboard_current_api_dashboard_current_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "additionalProperties": true,
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Response Dashboard Current Api Dashboard Current Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/run-once": {
+      "post": {
+        "summary": "Trigger Run Once",
+        "operationId": "trigger_run_once_api_run_once_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Trigger Run Once Api Run Once Post"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/runs/latest": {
+      "get": {
+        "summary": "Latest Run",
+        "operationId": "latest_run_api_runs_latest_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "additionalProperties": true,
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Response Latest Run Api Runs Latest Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/runs/{run_id}": {
+      "get": {
+        "summary": "Get Run",
+        "operationId": "get_run_api_runs__run_id__get",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Get Run Api Runs  Run Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/runs/{run_id}/audit-reports": {
+      "get": {
+        "summary": "Get Run Audit Reports",
+        "operationId": "get_run_audit_reports_api_runs__run_id__audit_reports_get",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Get Run Audit Reports Api Runs  Run Id  Audit Reports Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/db/health": {
+      "get": {
+        "summary": "Database Health",
+        "operationId": "database_health_api_db_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Database Health Api Db Health Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/db/seed-demo": {
+      "post": {
+        "summary": "Seed Demo",
+        "operationId": "seed_demo_api_db_seed_demo_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Seed Demo Api Db Seed Demo Post"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/db/backup": {
+      "post": {
+        "summary": "Backup Db",
+        "operationId": "backup_db_api_db_backup_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object",
+                  "title": "Response Backup Db Api Db Backup Post"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/db/export-schema": {
+      "post": {
+        "summary": "Export Schema",
+        "operationId": "export_schema_api_db_export_schema_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object",
+                  "title": "Response Export Schema Api Db Export Schema Post"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/sources/collect": {
+      "post": {
+        "summary": "Collect Source Data",
+        "operationId": "collect_source_data_api_sources_collect_post",
+        "parameters": [
+          {
+            "name": "mode",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/SourceMode",
+              "default": "mock"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Collect Source Data Api Sources Collect Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/sources/health": {
+      "get": {
+        "summary": "Sources Health",
+        "operationId": "sources_health_api_sources_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Sources Health Api Sources Health Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/sources/{source_id}": {
+      "get": {
+        "summary": "Source Detail",
+        "operationId": "source_detail_api_sources__source_id__get",
+        "parameters": [
+          {
+            "name": "source_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Source Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Source Detail Api Sources  Source Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/metrics/{metric_id}/window": {
+      "get": {
+        "summary": "Metric Window",
+        "operationId": "metric_window_api_metrics__metric_id__window_get",
+        "parameters": [
+          {
+            "name": "metric_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Metric Id"
+            }
+          },
+          {
+            "name": "source_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Source Id"
+            }
+          },
+          {
+            "name": "run_mode",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "live",
+              "title": "Run Mode"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "additionalProperties": true
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Response Metric Window Api Metrics  Metric Id  Window Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/macro/events/upcoming": {
+      "get": {
+        "summary": "Macro Events Upcoming",
+        "operationId": "macro_events_upcoming_api_macro_events_upcoming_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Macro Events Upcoming Api Macro Events Upcoming Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/macro/events/{event_id}": {
+      "get": {
+        "summary": "Macro Event Detail",
+        "operationId": "macro_event_detail_api_macro_events__event_id__get",
+        "parameters": [
+          {
+            "name": "event_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Event Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Macro Event Detail Api Macro Events  Event Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/macro/surprise/latest": {
+      "get": {
+        "summary": "Macro Surprise Latest",
+        "operationId": "macro_surprise_latest_api_macro_surprise_latest_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Macro Surprise Latest Api Macro Surprise Latest Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/macro/surprise/history": {
+      "get": {
+        "summary": "Macro Surprise History",
+        "operationId": "macro_surprise_history_api_macro_surprise_history_get",
+        "parameters": [
+          {
+            "name": "days",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 180,
+              "title": "Days"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Macro Surprise History Api Macro Surprise History Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/fed/speeches/latest": {
+      "get": {
+        "summary": "Fed Speeches Latest",
+        "operationId": "fed_speeches_latest_api_fed_speeches_latest_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Fed Speeches Latest Api Fed Speeches Latest Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/fed/speeches/upcoming": {
+      "get": {
+        "summary": "Fed Speeches Upcoming",
+        "operationId": "fed_speeches_upcoming_api_fed_speeches_upcoming_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Fed Speeches Upcoming Api Fed Speeches Upcoming Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/fed/speech-risk/latest": {
+      "get": {
+        "summary": "Fed Speech Risk Latest",
+        "operationId": "fed_speech_risk_latest_api_fed_speech_risk_latest_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Fed Speech Risk Latest Api Fed Speech Risk Latest Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/fed/blackout": {
+      "get": {
+        "summary": "Fed Blackout Latest",
+        "operationId": "fed_blackout_latest_api_fed_blackout_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Fed Blackout Latest Api Fed Blackout Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/radars/analyze": {
+      "post": {
+        "summary": "Analyze Radar Modules",
+        "operationId": "analyze_radar_modules_api_radars_analyze_post",
+        "parameters": [
+          {
+            "name": "run_mode",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "live",
+              "title": "Run Mode"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Module Ids"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Analyze Radar Modules Api Radars Analyze Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/radars/latest": {
+      "get": {
+        "summary": "Radar Outputs Latest",
+        "operationId": "radar_outputs_latest_api_radars_latest_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "additionalProperties": true,
+                    "type": "object"
+                  },
+                  "type": "array",
+                  "title": "Response Radar Outputs Latest Api Radars Latest Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/p3/alerts/latest": {
+      "get": {
+        "summary": "P3 Alerts Latest",
+        "operationId": "p3_alerts_latest_api_p3_alerts_latest_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response P3 Alerts Latest Api P3 Alerts Latest Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/p3/events/latest": {
+      "get": {
+        "summary": "P3 Events Latest",
+        "operationId": "p3_events_latest_api_p3_events_latest_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response P3 Events Latest Api P3 Events Latest Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/p45/dashboard/latest": {
+      "get": {
+        "summary": "P45 Dashboard Latest",
+        "operationId": "p45_dashboard_latest_api_p45_dashboard_latest_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response P45 Dashboard Latest Api P45 Dashboard Latest Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/p45/overview/latest": {
+      "get": {
+        "summary": "P45 Overview Latest",
+        "operationId": "p45_overview_latest_api_p45_overview_latest_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response P45 Overview Latest Api P45 Overview Latest Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/p45/radar-modules/latest": {
+      "get": {
+        "summary": "P45 Radar Modules Latest",
+        "operationId": "p45_radar_modules_latest_api_p45_radar_modules_latest_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response P45 Radar Modules Latest Api P45 Radar Modules Latest Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/p45/radar-modules/{module_id}": {
+      "get": {
+        "summary": "P45 Radar Module Detail",
+        "operationId": "p45_radar_module_detail_api_p45_radar_modules__module_id__get",
+        "parameters": [
+          {
+            "name": "module_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Module Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response P45 Radar Module Detail Api P45 Radar Modules  Module Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/p45/evidence": {
+      "get": {
+        "summary": "P45 Evidence Latest",
+        "operationId": "p45_evidence_latest_api_p45_evidence_get",
+        "parameters": [
+          {
+            "name": "module_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Module Id"
+            }
+          },
+          {
+            "name": "metric_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Metric Id"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 500,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response P45 Evidence Latest Api P45 Evidence Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/p45/evidence/{evidence_id}": {
+      "get": {
+        "summary": "P45 Evidence Detail",
+        "operationId": "p45_evidence_detail_api_p45_evidence__evidence_id__get",
+        "parameters": [
+          {
+            "name": "evidence_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Evidence Id"
+            }
+          },
+          {
+            "name": "final_run_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Final Run Id"
+            }
+          },
+          {
+            "name": "pack_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Pack Id"
+            }
+          },
+          {
+            "name": "allow_stale_fallback",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Allow Stale Fallback"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response P45 Evidence Detail Api P45 Evidence  Evidence Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/p45/articles/latest": {
+      "get": {
+        "summary": "P45 Articles Latest",
+        "operationId": "p45_articles_latest_api_p45_articles_latest_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response P45 Articles Latest Api P45 Articles Latest Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/p45/articles/history": {
+      "get": {
+        "summary": "P45 Article History",
+        "operationId": "p45_article_history_api_p45_articles_history_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response P45 Article History Api P45 Articles History Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/p45/llm/latest": {
+      "get": {
+        "summary": "P45 Llm Latest",
+        "operationId": "p45_llm_latest_api_p45_llm_latest_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response P45 Llm Latest Api P45 Llm Latest Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/p45/analysts/latest": {
+      "get": {
+        "summary": "P45 Analysts Latest",
+        "operationId": "p45_analysts_latest_api_p45_analysts_latest_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response P45 Analysts Latest Api P45 Analysts Latest Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/p45/invalidation/latest": {
+      "get": {
+        "summary": "P45 Invalidation Latest",
+        "operationId": "p45_invalidation_latest_api_p45_invalidation_latest_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response P45 Invalidation Latest Api P45 Invalidation Latest Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/data-quality/latest": {
+      "get": {
+        "summary": "P45 Data Quality Latest",
+        "operationId": "p45_data_quality_latest_api_data_quality_latest_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response P45 Data Quality Latest Api Data Quality Latest Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/p45/runs/latest": {
+      "get": {
+        "summary": "P45 Runs Latest",
+        "operationId": "p45_runs_latest_api_p45_runs_latest_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response P45 Runs Latest Api P45 Runs Latest Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/p45/run-full-with-llm/jobs": {
+      "post": {
+        "summary": "P45 Run Full With Llm Job",
+        "operationId": "p45_run_full_with_llm_job_api_p45_run_full_with_llm_jobs_post",
+        "parameters": [
+          {
+            "name": "run_mode",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "live",
+              "title": "Run Mode"
+            }
+          },
+          {
+            "name": "runtime_mode",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "deterministic",
+              "title": "Runtime Mode"
+            }
+          },
+          {
+            "name": "llm_runtime_mode",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "llm",
+              "title": "Llm Runtime Mode"
+            }
+          },
+          {
+            "name": "execution_profile",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Execution Profile"
+            }
+          },
+          {
+            "name": "skip_llm",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Skip Llm"
+            }
+          },
+          {
+            "name": "skip_research_llm",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Skip Research Llm"
+            }
+          },
+          {
+            "name": "skip_analyst_llm",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Skip Analyst Llm"
+            }
+          },
+          {
+            "name": "refresh_html",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true,
+              "title": "Refresh Html"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response P45 Run Full With Llm Job Api P45 Run Full With Llm Jobs Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/p45/run-full-with-llm/jobs/latest": {
+      "get": {
+        "summary": "P45 Run Full With Llm Latest Job",
+        "operationId": "p45_run_full_with_llm_latest_job_api_p45_run_full_with_llm_jobs_latest_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response P45 Run Full With Llm Latest Job Api P45 Run Full With Llm Jobs Latest Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/p45/run-full-with-llm/jobs/{job_run_id}": {
+      "get": {
+        "summary": "P45 Run Full With Llm Job Status",
+        "operationId": "p45_run_full_with_llm_job_status_api_p45_run_full_with_llm_jobs__job_run_id__get",
+        "parameters": [
+          {
+            "name": "job_run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Job Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response P45 Run Full With Llm Job Status Api P45 Run Full With Llm Jobs  Job Run Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/events": {
+      "get": {
+        "summary": "Event Stream",
+        "operationId": "event_stream_api_events_get",
+        "parameters": [
+          {
+            "name": "once",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Once"
+            }
+          },
+          {
+            "name": "interval_sec",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "default": 2.0,
+              "title": "Interval Sec"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/p45/history": {
+      "get": {
+        "summary": "P45 History List",
+        "operationId": "p45_history_list_api_p45_history_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 50,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response P45 History List Api P45 History Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/p45/history/{final_run_id}": {
+      "get": {
+        "summary": "P45 History Detail",
+        "operationId": "p45_history_detail_api_p45_history__final_run_id__get",
+        "parameters": [
+          {
+            "name": "final_run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Final Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response P45 History Detail Api P45 History  Final Run Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/p45/audit-reports/latest": {
+      "get": {
+        "summary": "P45 Audit Reports Latest",
+        "operationId": "p45_audit_reports_latest_api_p45_audit_reports_latest_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response P45 Audit Reports Latest Api P45 Audit Reports Latest Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/settings": {
+      "get": {
+        "summary": "Settings Summary",
+        "operationId": "settings_summary_api_settings_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Settings Summary Api Settings Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/settings/reload": {
+      "post": {
+        "summary": "Settings Reload",
+        "operationId": "settings_reload_api_settings_reload_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Settings Reload Api Settings Reload Post"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/settings/env": {
+      "post": {
+        "summary": "Settings Env Update",
+        "operationId": "settings_env_update_api_settings_env_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SettingsEnvUpdateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Settings Env Update Api Settings Env Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/settings/audit": {
+      "get": {
+        "summary": "Settings Key Audit",
+        "operationId": "settings_key_audit_api_settings_audit_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Settings Key Audit Api Settings Audit Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/settings/providers/health": {
+      "get": {
+        "summary": "Settings Provider Health",
+        "operationId": "settings_provider_health_api_settings_providers_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Settings Provider Health Api Settings Providers Health Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/settings/llm-routing": {
+      "get": {
+        "summary": "Settings Llm Routing",
+        "operationId": "settings_llm_routing_api_settings_llm_routing_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Settings Llm Routing Api Settings Llm Routing Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/settings/providers/health/test-all": {
+      "post": {
+        "summary": "Settings Provider Health Test All",
+        "operationId": "settings_provider_health_test_all_api_settings_providers_health_test_all_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Settings Provider Health Test All Api Settings Providers Health Test All Post"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/settings/providers/{provider_id}/test": {
+      "post": {
+        "summary": "Settings Provider Health Test",
+        "operationId": "settings_provider_health_test_api_settings_providers__provider_id__test_post",
+        "parameters": [
+          {
+            "name": "provider_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Provider Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Settings Provider Health Test Api Settings Providers  Provider Id  Test Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/p45/run-full-with-llm": {
+      "post": {
+        "summary": "P45 Run Full With Llm",
+        "operationId": "p45_run_full_with_llm_api_p45_run_full_with_llm_post",
+        "parameters": [
+          {
+            "name": "run_mode",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "live",
+              "title": "Run Mode"
+            }
+          },
+          {
+            "name": "runtime_mode",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "deterministic",
+              "title": "Runtime Mode"
+            }
+          },
+          {
+            "name": "llm_runtime_mode",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "llm",
+              "title": "Llm Runtime Mode"
+            }
+          },
+          {
+            "name": "skip_llm",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Skip Llm"
+            }
+          },
+          {
+            "name": "skip_research_llm",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Skip Research Llm"
+            }
+          },
+          {
+            "name": "skip_analyst_llm",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Skip Analyst Llm"
+            }
+          },
+          {
+            "name": "refresh_html",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true,
+              "title": "Refresh Html"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response P45 Run Full With Llm Api P45 Run Full With Llm Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/p45/evidence-pack": {
+      "post": {
+        "summary": "P45 Evidence Pack",
+        "operationId": "p45_evidence_pack_api_p45_evidence_pack_post",
+        "parameters": [
+          {
+            "name": "p3_run_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "P3 Run Id"
+            }
+          },
+          {
+            "name": "pack_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Pack Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response P45 Evidence Pack Api P45 Evidence Pack Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/p45/analyst-articles": {
+      "post": {
+        "summary": "P45 Analyst Articles",
+        "operationId": "p45_analyst_articles_api_p45_analyst_articles_post",
+        "parameters": [
+          {
+            "name": "pack_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Pack Id"
+            }
+          },
+          {
+            "name": "article_run_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Article Run Id"
+            }
+          },
+          {
+            "name": "runtime_mode",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "deterministic",
+              "title": "Runtime Mode"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response P45 Analyst Articles Api P45 Analyst Articles Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/p45/final-article": {
+      "post": {
+        "summary": "P45 Final Article",
+        "operationId": "p45_final_article_api_p45_final_article_post",
+        "parameters": [
+          {
+            "name": "article_run_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Article Run Id"
+            }
+          },
+          {
+            "name": "final_run_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Final Run Id"
+            }
+          },
+          {
+            "name": "runtime_mode",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "deterministic",
+              "title": "Runtime Mode"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response P45 Final Article Api P45 Final Article Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/p45/html-report": {
+      "post": {
+        "summary": "P45 Html Report",
+        "operationId": "p45_html_report_api_p45_html_report_post",
+        "parameters": [
+          {
+            "name": "final_run_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Final Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response P45 Html Report Api P45 Html Report Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/p45/llm-research-writer": {
+      "post": {
+        "summary": "P45 Llm Research Writer",
+        "operationId": "p45_llm_research_writer_api_p45_llm_research_writer_post",
+        "parameters": [
+          {
+            "name": "final_run_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Final Run Id"
+            }
+          },
+          {
+            "name": "research_run_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Research Run Id"
+            }
+          },
+          {
+            "name": "runtime_mode",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "llm",
+              "title": "Runtime Mode"
+            }
+          },
+          {
+            "name": "provider_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Provider Name"
+            }
+          },
+          {
+            "name": "refresh_html",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true,
+              "title": "Refresh Html"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response P45 Llm Research Writer Api P45 Llm Research Writer Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/p45/llm-analyst-writers": {
+      "post": {
+        "summary": "P45 Llm Analyst Writers",
+        "operationId": "p45_llm_analyst_writers_api_p45_llm_analyst_writers_post",
+        "parameters": [
+          {
+            "name": "pack_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Pack Id"
+            }
+          },
+          {
+            "name": "analyst_run_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Analyst Run Id"
+            }
+          },
+          {
+            "name": "runtime_mode",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "llm",
+              "title": "Runtime Mode"
+            }
+          },
+          {
+            "name": "provider_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Provider Name"
+            }
+          },
+          {
+            "name": "refresh_html",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true,
+              "title": "Refresh Html"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response P45 Llm Analyst Writers Api P45 Llm Analyst Writers Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "SettingsEnvUpdateRequest": {
+        "properties": {
+          "updates": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Updates"
+          }
+        },
+        "type": "object",
+        "title": "SettingsEnvUpdateRequest"
+      },
+      "SourceMode": {
+        "type": "string",
+        "enum": [
+          "mock",
+          "live",
+          "test"
+        ],
+        "title": "SourceMode"
+      },
+      "SystemHealth": {
+        "properties": {
+          "app": {
+            "type": "string",
+            "title": "App",
+            "default": "onlyBTC"
+          },
+          "status": {
+            "type": "string",
+            "const": "healthy",
+            "title": "Status",
+            "default": "healthy"
+          },
+          "environment": {
+            "type": "string",
+            "title": "Environment"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "environment"
+        ],
+        "title": "SystemHealth"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}

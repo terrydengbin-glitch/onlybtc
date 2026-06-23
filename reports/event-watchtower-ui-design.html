@@ -1,0 +1,784 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>onlyBTC Event Watchtower UI Design</title>
+  <style>
+    :root {
+      --bg: #081017;
+      --panel: #0e1a23;
+      --panel-2: #122432;
+      --panel-3: #0b1720;
+      --line: #244050;
+      --line-soft: rgba(95, 145, 170, 0.26);
+      --text: #eaf5ff;
+      --muted: #8fa7b8;
+      --faint: #5f7483;
+      --bull: #22d3b6;
+      --bear: #f87171;
+      --neutral: #9ca3af;
+      --mixed: #fbbf24;
+      --quality: #a78bfa;
+      --blue: #60a5fa;
+      --shadow: 0 18px 48px rgba(0, 0, 0, 0.34);
+      color: var(--text);
+      background: var(--bg);
+      font-family: Inter, "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0;
+    }
+
+    * { box-sizing: border-box; }
+    body { margin: 0; min-width: 1280px; min-height: 100vh; background: var(--bg); }
+    button { color: inherit; font: inherit; cursor: default; }
+
+    .shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: 56px 1fr;
+    }
+
+    .topbar {
+      height: 56px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(8, 16, 23, 0.96);
+      display: grid;
+      grid-template-columns: 180px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 16px;
+      padding: 0 18px;
+      position: sticky;
+      top: 0;
+      z-index: 5;
+    }
+
+    .brand, .ticker, .actions { display: flex; align-items: center; }
+    .brand { gap: 10px; font-weight: 700; white-space: nowrap; }
+    .brand-mark {
+      width: 28px; height: 28px; display: grid; place-items: center;
+      border: 1px solid rgba(34, 211, 182, 0.5);
+      background: rgba(34, 211, 182, 0.08);
+      color: var(--bull);
+      border-radius: 7px;
+    }
+
+    .ticker { gap: 10px; min-width: 0; overflow: hidden; color: var(--muted); font-size: 13px; }
+    .ticker strong { color: var(--text); font-size: 16px; }
+    .actions { gap: 10px; }
+    .actions button {
+      min-height: 34px; padding: 0 12px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: var(--panel-2);
+    }
+
+    .pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      min-height: 24px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 3px 9px;
+      color: var(--muted);
+      background: rgba(18, 36, 50, 0.82);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .dot { width: 7px; height: 7px; border-radius: 99px; background: currentColor; box-shadow: 0 0 10px currentColor; }
+    .bull, .pill.bull, .dot.bull { color: var(--bull); }
+    .bear, .pill.bear, .dot.bear { color: var(--bear); }
+    .mixed, .pill.mixed, .dot.mixed { color: var(--mixed); }
+    .neutral, .pill.neutral { color: var(--neutral); }
+    .quality, .pill.quality, .dot.quality { color: var(--quality); }
+    .blue, .pill.blue, .dot.blue { color: var(--blue); }
+
+    .main {
+      display: grid;
+      grid-template-columns: 92px minmax(720px, 1fr) 340px;
+      gap: 14px;
+      padding: 14px;
+      min-height: 0;
+    }
+
+    .rail {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(11, 23, 32, 0.82);
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-self: stretch;
+    }
+    .navbtn {
+      width: 100%;
+      min-height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: var(--panel-2);
+      color: #b7ccd7;
+      font-weight: 700;
+    }
+    .navbtn.active {
+      color: #8fffea;
+      border-color: rgba(34, 211, 182, 0.72);
+      background: rgba(34, 211, 182, 0.1);
+      box-shadow: inset 0 0 18px rgba(34, 211, 182, 0.06);
+    }
+
+    .content-page, .side-panel {
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background:
+        linear-gradient(rgba(14, 26, 35, 0.88), rgba(10, 22, 31, 0.92)),
+        radial-gradient(circle at top right, rgba(34, 211, 182, 0.08), transparent 44%);
+      min-height: calc(100vh - 84px);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .content-page {
+      display: grid;
+      grid-template-rows: auto auto 1fr;
+    }
+
+    .page-head {
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 18px 20px 12px;
+      border-bottom: 1px solid rgba(95, 145, 170, 0.16);
+    }
+    .page-title { display: grid; gap: 3px; }
+    h1, h2, h3, p { margin: 0; }
+    h1 { font-size: 22px; letter-spacing: 0; }
+    h2 { font-size: 16px; }
+    h3 { font-size: 13px; }
+    .subtitle { color: var(--muted); font-size: 13px; }
+
+    .status-strip {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr 1fr;
+      gap: 12px;
+      padding: 14px 20px;
+      border-bottom: 1px solid rgba(95, 145, 170, 0.16);
+    }
+
+    .stat-card, .panel-card, .timeline-item, .summary-widget, .drawer-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(18, 36, 50, 0.78);
+    }
+    .stat-card {
+      min-height: 90px;
+      padding: 13px;
+      display: grid;
+      gap: 8px;
+    }
+    .stat-card.high {
+      border-color: rgba(248, 113, 113, 0.62);
+      background: linear-gradient(135deg, rgba(248, 113, 113, 0.16), rgba(18, 36, 50, 0.84));
+    }
+    .stat-value { font-size: 22px; font-weight: 800; }
+    .stat-label { color: var(--muted); font-size: 12px; text-transform: uppercase; }
+    .meter { height: 6px; border-radius: 99px; background: rgba(95, 145, 170, 0.22); overflow: hidden; }
+    .meter span { display: block; height: 100%; border-radius: inherit; background: currentColor; }
+
+    .watch-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 14px;
+      padding: 16px 20px 20px;
+      min-height: 0;
+    }
+
+    .left-stack, .right-stack { display: grid; gap: 14px; align-content: start; }
+    .two-col { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+
+    .panel-card { padding: 14px; display: grid; gap: 12px; }
+    .panel-card header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .panel-card .copy { color: #b8ccd8; line-height: 1.55; }
+
+    .event-list { display: grid; gap: 10px; }
+    .event-row {
+      display: grid;
+      grid-template-columns: 74px minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      padding: 10px;
+      border: 1px solid rgba(95, 145, 170, 0.22);
+      border-radius: 7px;
+      background: rgba(8, 16, 23, 0.45);
+    }
+    .event-time { font-weight: 800; color: var(--mixed); }
+    .event-title { font-weight: 800; }
+    .event-meta { color: var(--muted); font-size: 12px; margin-top: 2px; }
+
+    .tabbar {
+      display: flex;
+      gap: 8px;
+      padding: 0 20px 14px;
+      border-bottom: 1px solid rgba(95, 145, 170, 0.16);
+    }
+    .tab {
+      min-height: 30px;
+      padding: 0 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(18, 36, 50, 0.82);
+      color: var(--muted);
+    }
+    .tab.active {
+      border-color: rgba(34, 211, 182, 0.68);
+      color: #a7fff3;
+      background: rgba(34, 211, 182, 0.11);
+    }
+
+    .timeline {
+      display: grid;
+      gap: 10px;
+      position: relative;
+      padding-left: 22px;
+    }
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 8px;
+      top: 6px;
+      bottom: 6px;
+      width: 1px;
+      background: rgba(95, 145, 170, 0.28);
+    }
+    .timeline-item {
+      padding: 11px 12px;
+      position: relative;
+      display: grid;
+      gap: 6px;
+    }
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -18px;
+      top: 16px;
+      width: 9px;
+      height: 9px;
+      border-radius: 99px;
+      background: currentColor;
+      box-shadow: 0 0 14px currentColor;
+    }
+    .timeline-item.high { color: var(--bear); border-color: rgba(248, 113, 113, 0.48); }
+    .timeline-item.watch { color: var(--mixed); border-color: rgba(251, 191, 36, 0.42); }
+    .timeline-item.info { color: var(--bull); border-color: rgba(34, 211, 182, 0.36); }
+    .timeline-title { color: var(--text); font-weight: 800; }
+    .timeline-body { color: #b9ccd7; line-height: 1.5; }
+
+    .chip-row { display: flex; flex-wrap: wrap; gap: 7px; }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 24px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(95, 145, 170, 0.28);
+      background: rgba(10, 23, 34, 0.72);
+      color: #aac0cc;
+      font-size: 12px;
+    }
+    .chip.bear { border-color: rgba(248, 113, 113, 0.46); color: #fecaca; }
+    .chip.mixed { border-color: rgba(251, 191, 36, 0.46); color: #fde68a; }
+    .chip.bull { border-color: rgba(34, 211, 182, 0.46); color: #a7fff3; }
+    .chip.blue { border-color: rgba(96, 165, 250, 0.46); color: #bfdbfe; }
+
+    .side-panel {
+      padding: 14px;
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+    .drawer-card { padding: 13px; display: grid; gap: 10px; }
+
+    .calendar-mini {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .day {
+      min-height: 38px;
+      border: 1px solid rgba(95, 145, 170, 0.18);
+      border-radius: 6px;
+      padding: 5px;
+      background: rgba(8, 16, 23, 0.36);
+    }
+    .day.hot { border-color: rgba(248, 113, 113, 0.5); color: #fecaca; }
+    .day.watch { border-color: rgba(251, 191, 36, 0.5); color: #fde68a; }
+
+    .summary-widget {
+      margin-top: 14px;
+      padding: 14px;
+      display: grid;
+      gap: 11px;
+      border-color: rgba(251, 191, 36, 0.38);
+      background: linear-gradient(135deg, rgba(251, 191, 36, 0.08), rgba(18, 36, 50, 0.78));
+    }
+    .summary-main {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: start;
+      gap: 12px;
+    }
+    .summary-title { font-weight: 900; font-size: 15px; }
+    .summary-copy { color: #bed0da; line-height: 1.45; }
+
+    .floating {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      z-index: 10000;
+      width: 360px;
+      border: 1px solid rgba(251, 191, 36, 0.64);
+      border-radius: 10px;
+      background:
+        linear-gradient(135deg, rgba(251, 191, 36, 0.14), rgba(14, 26, 35, 0.98)),
+        var(--panel);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.52), 0 0 32px rgba(251, 191, 36, 0.14);
+      padding: 14px;
+      display: grid;
+      gap: 10px;
+    }
+    .floating header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .floating-title { font-size: 15px; font-weight: 900; }
+    .floating-copy { color: #d4e1e8; line-height: 1.5; }
+    .floating-actions { display: flex; gap: 8px; justify-content: flex-end; }
+    .mini-btn {
+      min-height: 28px;
+      padding: 0 10px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: rgba(18, 36, 50, 0.9);
+    }
+    .mini-btn.primary {
+      border-color: rgba(34, 211, 182, 0.62);
+      background: rgba(34, 211, 182, 0.13);
+      color: #a7fff3;
+    }
+
+    .critical-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 10001;
+      display: grid;
+      place-items: center;
+      pointer-events: none;
+    }
+    .critical-card {
+      width: 520px;
+      pointer-events: auto;
+      border: 1px solid rgba(248, 113, 113, 0.72);
+      border-radius: 12px;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(248, 113, 113, 0.18), transparent 34%),
+        linear-gradient(145deg, rgba(52, 17, 27, 0.98), rgba(13, 25, 36, 0.98));
+      box-shadow: 0 28px 90px rgba(0, 0, 0, 0.6), 0 0 42px rgba(248, 113, 113, 0.16);
+      padding: 18px;
+      display: grid;
+      gap: 13px;
+      animation: pulseBorder 1.55s ease-in-out infinite;
+    }
+    @keyframes pulseBorder {
+      0%, 100% { box-shadow: 0 28px 90px rgba(0, 0, 0, 0.6), 0 0 24px rgba(248, 113, 113, 0.12); }
+      50% { box-shadow: 0 28px 90px rgba(0, 0, 0, 0.6), 0 0 48px rgba(248, 113, 113, 0.34); }
+    }
+
+    .muted { color: var(--muted); }
+    .small { font-size: 12px; }
+    .strong { font-weight: 900; color: var(--text); }
+    .divider { height: 1px; background: rgba(95, 145, 170, 0.18); }
+
+    @media (max-width: 1180px) {
+      body { min-width: 900px; }
+      .main { grid-template-columns: 80px minmax(0, 1fr); }
+      .side-panel { display: none; }
+      .watch-grid { grid-template-columns: 1fr; }
+      .status-strip { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">B</div>
+        <span>onlyBTC</span>
+      </div>
+      <div class="ticker">
+        <strong>BTC</strong>
+        <span class="pill"><span class="dot neutral"></span> final view · 中性观察</span>
+        <span class="pill mixed"><span class="dot mixed"></span> event watch: high</span>
+        <span class="pill bull"><span class="dot bull"></span> contract passed</span>
+        <span class="pill quality"><span class="dot quality"></span> data quality 0.8900</span>
+        <span class="updated">Updated 2026-05-27T23:45:59+08:00</span>
+      </div>
+      <div class="actions">
+        <button>Run Full Chain</button>
+        <button>Audit Reports</button>
+        <button>Settings</button>
+      </div>
+    </header>
+
+    <main class="main">
+      <nav class="rail">
+        <button class="navbtn">拓扑</button>
+        <button class="navbtn active">事件</button>
+        <button class="navbtn">雷达</button>
+        <button class="navbtn">证据</button>
+        <button class="navbtn">预警</button>
+        <button class="navbtn">质检</button>
+        <button class="navbtn">日志</button>
+        <button class="navbtn">回放</button>
+        <button class="navbtn">设置</button>
+      </nav>
+
+      <section class="content-page">
+        <div class="page-head">
+          <div class="page-title">
+            <h1>Event Watchtower</h1>
+            <p class="subtitle">独立事件哨兵 · 不参与 radar score · 只输出 emergency overlay</p>
+          </div>
+          <div class="chip-row">
+            <span class="pill mixed"><span class="dot mixed"></span> high alert</span>
+            <span class="pill blue">daemon · high_alert</span>
+            <span class="pill bull">heartbeat 12s ago</span>
+          </div>
+        </div>
+
+        <div class="tabbar">
+          <button class="tab active">Live</button>
+          <button class="tab">Calendar</button>
+          <button class="tab">Timeline</button>
+          <button class="tab">Speeches</button>
+          <button class="tab">Shock Lane</button>
+          <button class="tab">History</button>
+        </div>
+
+        <div class="status-strip">
+          <article class="stat-card high">
+            <div class="stat-label">Emergency Level</div>
+            <div class="stat-value bear">HIGH</div>
+            <div class="muted small">pre_event_high_alert · valid until T+30m</div>
+          </article>
+          <article class="stat-card">
+            <div class="stat-label">Radar Trust</div>
+            <div class="stat-value mixed">reduced</div>
+            <div class="meter mixed"><span style="width: 58%"></span></div>
+          </article>
+          <article class="stat-card">
+            <div class="stat-label">Overlay</div>
+            <div class="stat-value">watch_only</div>
+            <div class="muted small">direct_score_impact = false</div>
+          </article>
+          <article class="stat-card">
+            <div class="stat-label">Active Event</div>
+            <div class="stat-value">PCE · T-19h</div>
+            <div class="muted small">Personal Income and Outlays</div>
+          </article>
+        </div>
+
+        <div class="watch-grid">
+          <div class="left-stack">
+            <div class="two-col">
+              <article class="panel-card">
+                <header>
+                  <h2>Current Alert</h2>
+                  <span class="pill mixed">high</span>
+                </header>
+                <p class="copy">PCE 发布窗口进入高警戒。Cleveland nowcast 高于 consensus，FedWatch 降息概率 24h 下修，普通 radar 趋势延续可信度降级。</p>
+                <div class="chip-row">
+                  <span class="chip mixed">inflation_upside_watch</span>
+                  <span class="chip blue">watch_only</span>
+                  <span class="chip">valid T+30m</span>
+                </div>
+              </article>
+
+              <article class="panel-card">
+                <header>
+                  <h2>Expectation Drift</h2>
+                  <span class="pill blue">live snapshots</span>
+                </header>
+                <div class="event-list">
+                  <div class="event-row">
+                    <div class="event-time">+0.12pp</div>
+                    <div>
+                      <div class="event-title">Nowcast gap</div>
+                      <div class="event-meta">Cleveland Fed PCE nowcast vs consensus</div>
+                    </div>
+                    <span class="chip mixed">hawkish risk</span>
+                  </div>
+                  <div class="event-row">
+                    <div class="event-time">-11pp</div>
+                    <div>
+                      <div class="event-title">FedWatch drift 24h</div>
+                      <div class="event-meta">next-meeting cut probability repricing</div>
+                    </div>
+                    <span class="chip mixed">repricing</span>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <div class="two-col">
+              <article class="panel-card">
+                <header>
+                  <h2>Active Event Timeline</h2>
+                  <span class="pill">Calendar View</span>
+                </header>
+                <div class="event-list">
+                  <div class="event-row">
+                    <div class="event-time">T-19h</div>
+                    <div>
+                      <div class="event-title">Personal Income and Outlays</div>
+                      <div class="event-meta">BEA · 08:30 ET · importance critical</div>
+                    </div>
+                    <span class="chip mixed">high_alert</span>
+                  </div>
+                  <div class="event-row">
+                    <div class="event-time">T-8d</div>
+                    <div>
+                      <div class="event-title">Employment Situation</div>
+                      <div class="event-meta">BLS · NFP · calendar_monitor</div>
+                    </div>
+                    <span class="chip">monitor</span>
+                  </div>
+                  <div class="event-row">
+                    <div class="event-time">T-21d</div>
+                    <div>
+                      <div class="event-title">FOMC Meeting</div>
+                      <div class="event-meta">Fed · statement + press conference</div>
+                    </div>
+                    <span class="chip">calendar</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="panel-card">
+                <header>
+                  <h2>Fed Speech / Policy Text</h2>
+                  <span class="pill quality">LLM gated</span>
+                </header>
+                <p class="copy"><span class="strong">Latest:</span> Governor remarks indexed from Fed RSS. Tone classified as <span class="mixed">data_dependent</span>; confidence 0.74. No direct BTC direction output.</p>
+                <div class="chip-row">
+                  <span class="chip blue">speaker_weight 0.72</span>
+                  <span class="chip mixed">data_dependent</span>
+                  <span class="chip">source hash deduped</span>
+                </div>
+              </article>
+            </div>
+
+            <article class="panel-card">
+              <header>
+                <h2>Timeline · 2026-05-27</h2>
+                <span class="pill">hh:mm evidence stream</span>
+              </header>
+              <div class="timeline">
+                <div class="timeline-item watch">
+                  <div class="timeline-title">23:41 · Expectation snapshot</div>
+                  <div class="timeline-body">PCE nowcast gap widened to +0.12pp. Event state moved from expectation_build to expectation_drift_watch.</div>
+                  <div class="chip-row">
+                    <span class="chip mixed">expectation</span>
+                    <span class="chip">source: Cleveland Fed</span>
+                  </div>
+                </div>
+                <div class="timeline-item high">
+                  <div class="timeline-title">23:44 · Alert raised</div>
+                  <div class="timeline-body">Emergency level upgraded to high. Overlay changed to watch_only; ordinary radar trust reduced.</div>
+                  <div class="chip-row">
+                    <span class="chip bear">alert</span>
+                    <span class="chip blue">ack pending</span>
+                  </div>
+                </div>
+                <div class="timeline-item info">
+                  <div class="timeline-title">23:45 · Daemon heartbeat</div>
+                  <div class="timeline-body">Fed RSS fresh, BEA calendar fresh, BTC market listener connected. No unscheduled shock confirmed.</div>
+                  <div class="chip-row">
+                    <span class="chip bull">heartbeat</span>
+                    <span class="chip">source health passed</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <aside class="right-stack">
+            <article class="panel-card">
+              <header>
+                <h2>Shock Fast Lane</h2>
+                <span class="pill neutral">none</span>
+              </header>
+              <p class="copy">No official unscheduled policy shock. Trusted news source count below trigger threshold. BTC 5m move is within normal event-window volatility.</p>
+              <div class="chip-row">
+                <span class="chip">confirmation none</span>
+                <span class="chip">source_count 0</span>
+                <span class="chip bull">market stable</span>
+              </div>
+            </article>
+
+            <article class="panel-card">
+              <header>
+                <h2>BTC Reaction Check</h2>
+                <span class="pill">pending</span>
+              </header>
+              <div class="event-list">
+                <div class="event-row">
+                  <div class="event-time">5m</div>
+                  <div>
+                    <div class="event-title">waiting release</div>
+                    <div class="event-meta">first impulse after actual</div>
+                  </div>
+                  <span class="chip">pending</span>
+                </div>
+                <div class="event-row">
+                  <div class="event-time">30m</div>
+                  <div>
+                    <div class="event-title">absorption check</div>
+                    <div class="event-meta">fakeout / continuation</div>
+                  </div>
+                  <span class="chip">pending</span>
+                </div>
+                <div class="event-row">
+                  <div class="event-time">2h</div>
+                  <div>
+                    <div class="event-title">follow-through</div>
+                    <div class="event-meta">event trend acceptance</div>
+                  </div>
+                  <span class="chip">pending</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="panel-card">
+              <header>
+                <h2>Calendar Mini</h2>
+                <span class="pill">May 2026</span>
+              </header>
+              <div class="calendar-mini">
+                <div class="day">21</div><div class="day">22</div><div class="day">23</div><div class="day">24</div><div class="day">25</div><div class="day">26</div><div class="day watch">27<br>PCE</div>
+                <div class="day">28</div><div class="day">29</div><div class="day">30</div><div class="day">31</div><div class="day">1</div><div class="day hot">2<br>NFP</div><div class="day">3</div>
+              </div>
+            </article>
+
+            <article class="summary-widget">
+              <div class="summary-main">
+                <div>
+                  <div class="summary-title">Dashboard Summary Widget</div>
+                  <p class="summary-copy">This is the compact version for the existing 预警 / 事件窗口 area.</p>
+                </div>
+                <span class="pill mixed">high</span>
+              </div>
+              <div class="divider"></div>
+              <div class="chip-row">
+                <span class="chip mixed">PCE T-19h</span>
+                <span class="chip blue">watch_only</span>
+                <span class="chip">radar trust reduced</span>
+              </div>
+              <button class="mini-btn primary">Open Watchtower</button>
+            </article>
+          </aside>
+        </div>
+      </section>
+
+      <aside class="side-panel">
+        <div class="drawer-card">
+          <header>
+            <h2>Selected Event</h2>
+            <span class="pill mixed">high</span>
+          </header>
+          <p class="muted">Personal Income and Outlays · BEA official release</p>
+          <div class="chip-row">
+            <span class="chip">event_id pce-2026-04</span>
+            <span class="chip mixed">phase high_alert</span>
+          </div>
+        </div>
+        <div class="drawer-card">
+          <h2>Source Lineage</h2>
+          <div class="event-list">
+            <div class="event-row">
+              <div class="event-time">BEA</div>
+              <div>
+                <div class="event-title">release schedule</div>
+                <div class="event-meta">official · fresh</div>
+              </div>
+              <span class="chip bull">tier 1</span>
+            </div>
+            <div class="event-row">
+              <div class="event-time">CLEV</div>
+              <div>
+                <div class="event-title">inflation nowcast</div>
+                <div class="event-meta">nowcast · fresh</div>
+              </div>
+              <span class="chip blue">tier 2</span>
+            </div>
+            <div class="event-row">
+              <div class="event-time">CME</div>
+              <div>
+                <div class="event-title">FedWatch drift</div>
+                <div class="event-meta">market implied</div>
+              </div>
+              <span class="chip blue">tier 2</span>
+            </div>
+          </div>
+        </div>
+        <div class="drawer-card">
+          <h2>Design Notes</h2>
+          <p class="muted">The page keeps the existing onlyBTC shell: topbar, left rail, content panel, right drawer, pills and card styling. Event Watchtower is independent from radar scoring.</p>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <section class="floating" aria-label="High event alert">
+    <header>
+      <div>
+        <div class="floating-title">EVENT WATCH · HIGH</div>
+        <div class="muted small">PCE in T-19h · radar trust reduced</div>
+      </div>
+      <span class="pill mixed">watch_only</span>
+    </header>
+    <p class="floating-copy">Inflation upside risk is building before release. Ordinary radar trend continuation is downgraded until release + 30m.</p>
+    <div class="floating-actions">
+      <button class="mini-btn">Mute 15m</button>
+      <button class="mini-btn primary">Open</button>
+    </div>
+  </section>
+
+  <section class="critical-overlay" aria-label="Critical modal example">
+    <div class="critical-card">
+      <header style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+        <div>
+          <h2>CRITICAL MOCK STATE</h2>
+          <p class="muted">Shown here only to document centered critical behavior.</p>
+        </div>
+        <span class="pill bear">event_lock</span>
+      </header>
+      <p class="floating-copy">For production, this centered layer appears only when emergency_level is critical. It sits above all dashboard, radar, topology and drawer layers.</p>
+      <div class="chip-row">
+        <span class="chip bear">avoid_new_position</span>
+        <span class="chip">requires acknowledge</span>
+        <span class="chip">z-index 10001</span>
+      </div>
+      <div class="floating-actions">
+        <button class="mini-btn">Mute 5m</button>
+        <button class="mini-btn primary">Acknowledge</button>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

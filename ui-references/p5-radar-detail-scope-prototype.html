@@ -1,0 +1,819 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>onlyBTC P5 Radar Detail Scope Prototype</title>
+  <style>
+    :root {
+      --bg: #071018;
+      --panel: #0d1b25;
+      --panel-2: #102635;
+      --line: #244254;
+      --line-soft: rgba(95, 145, 170, 0.26);
+      --text: #ecf7ff;
+      --muted: #8fa7b8;
+      --faint: #5f7483;
+      --bull: #22d3b6;
+      --bear: #f87171;
+      --mixed: #fbbf24;
+      --neutral: #9ca3af;
+      --quality: #a78bfa;
+      --blue: #60a5fa;
+      --shadow: 0 20px 56px rgba(0, 0, 0, 0.38);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        linear-gradient(rgba(36, 64, 80, 0.15) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(36, 64, 80, 0.15) 1px, transparent 1px),
+        radial-gradient(circle at 50% 42%, rgba(34, 211, 182, 0.09), transparent 34%),
+        var(--bg);
+      background-size: 32px 32px, 32px 32px, auto, auto;
+      color: var(--text);
+      font-family: Inter, "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+      letter-spacing: 0;
+      font-variant-numeric: tabular-nums;
+    }
+
+    button {
+      font: inherit;
+      color: inherit;
+      cursor: pointer;
+    }
+
+    .shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: 56px 1fr;
+    }
+
+    .topbar {
+      display: grid;
+      grid-template-columns: 220px 1fr auto;
+      gap: 16px;
+      align-items: center;
+      height: 56px;
+      padding: 0 18px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(7, 16, 24, 0.96);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+    }
+
+    .mark {
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(34, 211, 182, 0.5);
+      border-radius: 8px;
+      color: var(--bull);
+      background: rgba(34, 211, 182, 0.09);
+    }
+
+    .ticker,
+    .actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      min-width: 0;
+    }
+
+    .actions { justify-content: flex-end; }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 26px;
+      border: 1px solid rgba(96, 165, 250, 0.24);
+      border-radius: 999px;
+      padding: 4px 10px;
+      color: #b8dfff;
+      background: rgba(96, 165, 250, 0.08);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .pill.bull { color: var(--bull); border-color: rgba(34, 211, 182, 0.35); background: rgba(34, 211, 182, 0.08); }
+    .pill.bear { color: var(--bear); border-color: rgba(248, 113, 113, 0.35); background: rgba(248, 113, 113, 0.08); }
+    .pill.mixed { color: var(--mixed); border-color: rgba(251, 191, 36, 0.35); background: rgba(251, 191, 36, 0.08); }
+    .pill.quality { color: var(--quality); border-color: rgba(167, 139, 250, 0.35); background: rgba(167, 139, 250, 0.08); }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 99px;
+      background: currentColor;
+      box-shadow: 0 0 12px currentColor;
+    }
+
+    .action {
+      border: 1px solid rgba(96, 165, 250, 0.34);
+      border-radius: 8px;
+      padding: 8px 12px;
+      background: rgba(96, 165, 250, 0.1);
+      color: #d8ecff;
+    }
+
+    .main {
+      display: grid;
+      grid-template-columns: 72px 1fr 360px;
+      gap: 14px;
+      padding: 14px;
+      min-height: 0;
+    }
+
+    .rail,
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(13, 27, 37, 0.82);
+      box-shadow: var(--shadow);
+    }
+
+    .rail {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 10px 8px;
+      align-items: center;
+    }
+
+    .rail button {
+      width: 48px;
+      min-height: 38px;
+      border: 1px solid rgba(96, 165, 250, 0.24);
+      border-radius: 8px;
+      background: rgba(96, 165, 250, 0.06);
+      color: #bfe2ff;
+    }
+
+    .rail button.active {
+      border-color: rgba(34, 211, 182, 0.55);
+      color: var(--bull);
+      background: rgba(34, 211, 182, 0.12);
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-rows: auto minmax(640px, 1fr) auto;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .module-header {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(340px, 0.9fr) auto;
+      gap: 12px;
+      align-items: stretch;
+      padding: 14px;
+    }
+
+    .module-title {
+      display: grid;
+      gap: 8px;
+    }
+
+    h1,
+    h2,
+    h3,
+    p { margin: 0; }
+
+    h1 {
+      font-size: 28px;
+      letter-spacing: 0;
+    }
+
+    .module-title p {
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .kpi {
+      display: grid;
+      gap: 5px;
+      border: 1px solid rgba(36, 64, 80, 0.85);
+      border-radius: 7px;
+      padding: 10px;
+      background: rgba(8, 25, 36, 0.76);
+    }
+
+    .kpi small {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .kpi strong {
+      color: var(--text);
+    }
+
+    .module-switch {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 7px;
+      width: 280px;
+    }
+
+    .module-switch button {
+      border: 1px solid rgba(96, 165, 250, 0.24);
+      border-radius: 999px;
+      padding: 7px 10px;
+      background: rgba(96, 165, 250, 0.07);
+      color: #bfe2ff;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .module-switch button.active {
+      border-color: rgba(34, 211, 182, 0.48);
+      color: var(--bull);
+      background: rgba(34, 211, 182, 0.09);
+    }
+
+    .scope-wrap {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .scope-panel {
+      position: relative;
+      overflow: hidden;
+      min-height: 640px;
+      border: 1px solid rgba(34, 211, 182, 0.28);
+      border-radius: 8px;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(34, 211, 182, 0.08), transparent 28%),
+        linear-gradient(rgba(36, 64, 80, 0.18) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(36, 64, 80, 0.18) 1px, transparent 1px),
+        rgba(7, 16, 24, 0.64);
+      background-size: auto, 32px 32px, 32px 32px, auto;
+      box-shadow: inset 0 0 52px rgba(0, 0, 0, 0.34);
+    }
+
+    .scope-toolbar {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      top: 16px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      z-index: 3;
+    }
+
+    .filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .scope-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .ring {
+      fill: none;
+      stroke: rgba(95, 145, 170, 0.24);
+      stroke-width: 1;
+    }
+
+    .axis {
+      stroke: rgba(95, 145, 170, 0.18);
+      stroke-width: 1;
+      stroke-dasharray: 4 7;
+    }
+
+    .scan {
+      transform-origin: 50% 50%;
+      animation: sweep 8s linear infinite;
+      opacity: 0.55;
+    }
+
+    @keyframes sweep {
+      to { transform: rotate(360deg); }
+    }
+
+    .edge {
+      fill: none;
+      stroke-width: 2.4;
+      opacity: 0.78;
+    }
+
+    .edge.bull { stroke: var(--bull); }
+    .edge.bear { stroke: var(--bear); }
+    .edge.mixed { stroke: var(--mixed); stroke-dasharray: 8 8; }
+    .edge.quality { stroke: var(--quality); stroke-dasharray: 4 7; }
+
+    .node-dot {
+      stroke: rgba(236, 247, 255, 0.55);
+      stroke-width: 1;
+      filter: drop-shadow(0 0 10px rgba(34, 211, 182, 0.35));
+    }
+
+    .node-dot.bull { fill: var(--bull); }
+    .node-dot.bear { fill: var(--bear); filter: drop-shadow(0 0 10px rgba(248, 113, 113, 0.34)); }
+    .node-dot.mixed { fill: var(--mixed); filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.34)); }
+    .node-dot.quality { fill: var(--quality); filter: drop-shadow(0 0 10px rgba(167, 139, 250, 0.34)); }
+
+    .center-card {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 260px;
+      min-height: 190px;
+      transform: translate(-50%, -50%);
+      display: grid;
+      gap: 12px;
+      border: 1px solid rgba(34, 211, 182, 0.42);
+      border-radius: 10px;
+      padding: 18px;
+      background: rgba(13, 27, 37, 0.92);
+      box-shadow: 0 0 0 1px rgba(34, 211, 182, 0.08), 0 0 52px rgba(34, 211, 182, 0.12);
+      z-index: 4;
+    }
+
+    .center-card h2 {
+      font-size: 24px;
+    }
+
+    .score-line {
+      display: grid;
+      gap: 6px;
+    }
+
+    .bar {
+      height: 7px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(143, 167, 184, 0.2);
+    }
+
+    .bar i {
+      display: block;
+      height: 100%;
+      width: 62%;
+      border-radius: inherit;
+      background: var(--bull);
+    }
+
+    .node-card {
+      position: absolute;
+      width: 176px;
+      min-height: 92px;
+      display: grid;
+      gap: 6px;
+      border: 1px solid rgba(36, 64, 80, 0.9);
+      border-radius: 8px;
+      padding: 10px;
+      background: rgba(13, 27, 37, 0.88);
+      z-index: 3;
+      transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+    }
+
+    .node-card:hover,
+    .node-card.selected {
+      transform: translateY(-3px) scale(1.02);
+      border-color: rgba(34, 211, 182, 0.65);
+      background: rgba(16, 38, 53, 0.94);
+    }
+
+    .node-card h3 {
+      font-size: 13px;
+      line-height: 1.2;
+    }
+
+    .node-card small {
+      color: var(--muted);
+      line-height: 1.35;
+    }
+
+    .node-card .mini {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      color: #bfe2ff;
+      font-size: 12px;
+    }
+
+    .node-card.bull { border-color: rgba(34, 211, 182, 0.52); }
+    .node-card.bear { border-color: rgba(248, 113, 113, 0.52); }
+    .node-card.mixed { border-color: rgba(251, 191, 36, 0.48); }
+    .node-card.quality { border-color: rgba(167, 139, 250, 0.52); }
+
+    .n1 { left: 13%; top: 20%; }
+    .n2 { left: 40%; top: 12%; }
+    .n3 { right: 12%; top: 20%; }
+    .n4 { right: 8%; top: 47%; }
+    .n5 { right: 18%; bottom: 13%; }
+    .n6 { left: 39%; bottom: 10%; }
+    .n7 { left: 10%; bottom: 20%; }
+    .n8 { left: 7%; top: 48%; }
+
+    .detail-panel {
+      display: grid;
+      gap: 12px;
+      align-content: start;
+      padding: 14px;
+    }
+
+    .detail-card {
+      display: grid;
+      gap: 10px;
+      border: 1px solid rgba(36, 64, 80, 0.88);
+      border-radius: 8px;
+      background: rgba(8, 25, 36, 0.72);
+      padding: 12px;
+    }
+
+    .detail-card p,
+    .detail-card small {
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .kv-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .kv-grid span {
+      display: grid;
+      gap: 4px;
+      border: 1px solid rgba(36, 64, 80, 0.82);
+      border-radius: 7px;
+      padding: 9px;
+      background: rgba(2, 6, 23, 0.25);
+    }
+
+    .kv-grid small {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .actions-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .actions-row button {
+      border: 1px solid rgba(96, 165, 250, 0.28);
+      border-radius: 8px;
+      background: rgba(96, 165, 250, 0.08);
+      color: #d8ecff;
+      padding: 8px 10px;
+    }
+
+    .table-panel {
+      padding: 14px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    th,
+    td {
+      border-bottom: 1px solid rgba(36, 64, 80, 0.72);
+      padding: 10px 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      color: #bfe2ff;
+      font-weight: 700;
+    }
+
+    td {
+      color: var(--muted);
+    }
+
+    .side {
+      display: grid;
+      gap: 14px;
+      align-content: start;
+      min-width: 0;
+    }
+
+    .side .panel {
+      padding: 14px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .driver-row {
+      display: grid;
+      gap: 5px;
+      border-bottom: 1px solid rgba(36, 64, 80, 0.55);
+      padding-bottom: 10px;
+    }
+
+    .driver-row:last-child { border-bottom: 0; padding-bottom: 0; }
+
+    .driver-row strong { font-size: 13px; }
+    .driver-row small { color: var(--muted); line-height: 1.45; }
+
+    .legend {
+      display: grid;
+      gap: 8px;
+    }
+
+    .legend span {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    @media (max-width: 1200px) {
+      .main,
+      .module-header,
+      .scope-wrap {
+        grid-template-columns: 1fr;
+      }
+
+      .rail {
+        flex-direction: row;
+        overflow-x: auto;
+      }
+
+      .module-switch {
+        width: auto;
+      }
+
+      .side {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div class="brand"><span class="mark">拓</span><span>onlyBTC</span></div>
+      <div class="ticker">
+        <span class="pill bull"><span class="dot"></span> Macro Radar selected</span>
+        <span class="pill">module score +0.071</span>
+        <span class="pill quality">quality 0.91</span>
+        <span class="pill mixed">freshness warning 2</span>
+      </div>
+      <div class="actions">
+        <button class="action">Back Dashboard</button>
+        <button class="action">Open Evidence</button>
+      </div>
+    </header>
+
+    <main class="main">
+      <nav class="rail">
+        <button class="active">雷达</button>
+        <button>证据</button>
+        <button>质检</button>
+        <button>日志</button>
+      </nav>
+
+      <section class="workspace">
+        <section class="panel module-header">
+          <div class="module-title">
+            <div class="ticker">
+              <span class="pill bull"><span class="dot"></span> bullish support</span>
+              <span class="pill">h24 / d3</span>
+              <span class="pill quality">3 fallback signals</span>
+            </div>
+            <h1>Macro Radar</h1>
+            <p>宏观雷达当前给 BTC 提供轻度支撑。风险资产价格、OFR 金融压力与美元代理项是主要支撑，利率端仍构成中周期压力。</p>
+          </div>
+
+          <div class="kpi-grid">
+            <span class="kpi"><small>module score</small><strong>+0.0713</strong></span>
+            <span class="kpi"><small>direction</small><strong>bullish</strong></span>
+            <span class="kpi"><small>quality</small><strong>0.91</strong></span>
+            <span class="kpi"><small>evidence</small><strong>18 items</strong></span>
+          </div>
+
+          <div class="module-switch">
+            <button class="active">Macro</button>
+            <button>Liquidity</button>
+            <button>Fund Flow</button>
+            <button>On-chain</button>
+            <button>Derivatives</button>
+            <button>Price</button>
+          </div>
+        </section>
+
+        <section class="scope-wrap">
+          <section class="scope-panel">
+            <div class="scope-toolbar">
+              <div class="filters">
+                <span class="pill bull">support</span>
+                <span class="pill bear">pressure</span>
+                <span class="pill mixed">mixed</span>
+                <span class="pill quality">fallback / stale</span>
+              </div>
+              <span class="pill">distance = contribution · size = quality</span>
+            </div>
+
+            <svg class="scope-svg" viewBox="0 0 1000 640" preserveAspectRatio="none" aria-hidden="true">
+              <circle class="ring" cx="500" cy="320" r="95" />
+              <circle class="ring" cx="500" cy="320" r="175" />
+              <circle class="ring" cx="500" cy="320" r="255" />
+              <line class="axis" x1="500" y1="55" x2="500" y2="585" />
+              <line class="axis" x1="145" y1="320" x2="855" y2="320" />
+              <path class="scan" d="M500 320 L500 58 A262 262 0 0 1 675 126 Z" fill="rgba(34, 211, 182, 0.08)" />
+
+              <path class="edge bull" d="M500 320 C440 245 340 195 210 165" />
+              <path class="edge bull" d="M500 320 C500 225 455 120 435 94" />
+              <path class="edge bear" d="M500 320 C590 232 730 180 850 160" />
+              <path class="edge bear" d="M500 320 C648 305 790 345 900 355" />
+              <path class="edge mixed" d="M500 320 C625 420 740 505 802 555" />
+              <path class="edge bull" d="M500 320 C500 442 462 550 430 580" />
+              <path class="edge quality" d="M500 320 C382 424 262 492 185 512" />
+              <path class="edge mixed" d="M500 320 C345 305 210 330 150 360" />
+
+              <circle class="node-dot bull" cx="210" cy="165" r="9" />
+              <circle class="node-dot bull" cx="435" cy="94" r="11" />
+              <circle class="node-dot bear" cx="850" cy="160" r="8" />
+              <circle class="node-dot bear" cx="900" cy="355" r="7" />
+              <circle class="node-dot mixed" cx="802" cy="555" r="7" />
+              <circle class="node-dot bull" cx="430" cy="580" r="10" />
+              <circle class="node-dot quality" cx="185" cy="512" r="8" />
+              <circle class="node-dot mixed" cx="150" cy="360" r="7" />
+            </svg>
+
+            <article class="center-card">
+              <span class="pill bull"><span class="dot"></span> macro support</span>
+              <h2>Macro Radar</h2>
+              <p>支撑略强于压力，但利率端仍不允许升级为强多。</p>
+              <div class="score-line">
+                <small>module effective score +0.0713</small>
+                <span class="bar"><i></i></span>
+              </div>
+            </article>
+
+            <button class="node-card bull n1">
+              <span class="mini"><h3>Nasdaq Composite</h3><span>+0.006</span></span>
+              <small>风险偏好支撑 BTC，quality 0.95。</small>
+            </button>
+            <button class="node-card bull selected n2">
+              <span class="mini"><h3>OFR Financial Stress</h3><span>+0.075</span></span>
+              <small>金融压力下降，宏观流动性边际改善。</small>
+            </button>
+            <button class="node-card bear n3">
+              <span class="mini"><h3>Real Yield 10Y</h3><span>-0.052</span></span>
+              <small>真实利率仍压制风险资产估值。</small>
+            </button>
+            <button class="node-card bear n4">
+              <span class="mini"><h3>Treasury 10Y</h3><span>-0.041</span></span>
+              <small>名义利率压力未完全消退。</small>
+            </button>
+            <button class="node-card mixed n5">
+              <span class="mini"><h3>Gold</h3><span>0.000</span></span>
+              <small>避险信号混合，暂不参与方向。</small>
+            </button>
+            <button class="node-card bull n6">
+              <span class="mini"><h3>Dollar Index</h3><span>+0.008</span></span>
+              <small>美元代理项短线转为轻度支撑。</small>
+            </button>
+            <button class="node-card quality n7">
+              <span class="mini"><h3>CPI Days Until</h3><span>watch</span></span>
+              <small>官方日历 fallback，事件窗口仍需监控。</small>
+            </button>
+            <button class="node-card mixed n8">
+              <span class="mini"><h3>WTI / Brent Oil</h3><span>0.000</span></span>
+              <small>油价信号中性，未改变模块方向。</small>
+            </button>
+          </section>
+
+          <aside class="panel detail-panel">
+            <div class="detail-card">
+              <span class="pill bull">selected metric</span>
+              <h2>OFR Financial Stress Index</h2>
+              <p>OFR 金融压力指数回落，说明系统性压力没有继续扩张，对 BTC 风险偏好是轻度支撑。</p>
+              <div class="kv-grid">
+                <span><small>value</small><strong>-2.258</strong></span>
+                <span><small>score</small><strong>+0.0753</strong></span>
+                <span><small>effective</small><strong>+0.0618</strong></span>
+                <span><small>quality</small><strong>0.96</strong></span>
+              </div>
+            </div>
+
+            <div class="detail-card">
+              <h3>Interpretation</h3>
+              <p>这不是单独的交易信号，而是宏观环境的支撑项。若真实利率继续上行，OFR 支撑会被利率压力抵消。</p>
+            </div>
+
+            <div class="detail-card">
+              <h3>Source & Freshness</h3>
+              <small>source = ofr-fsi · run = collect-20260522 · freshness 0.08m · stale after 2160m</small>
+              <div class="actions-row">
+                <button>Open Evidence</button>
+                <button>Open Source</button>
+                <button>Filter Module</button>
+              </div>
+            </div>
+
+            <div class="detail-card">
+              <h3>Visual Rules</h3>
+              <small>节点越靠近中心，贡献越高；节点越大，数据质量越高；虚线表示 fallback/stale；红线为压力，青线为支撑。</small>
+            </div>
+          </aside>
+        </section>
+
+        <section class="panel table-panel">
+          <h2>Metric Audit Table</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>metric</th>
+                <th>direction</th>
+                <th>value</th>
+                <th>score</th>
+                <th>quality</th>
+                <th>source</th>
+                <th>summary</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>ofr_fsi</td><td>bullish</td><td>-2.258</td><td>+0.0753</td><td>0.96</td><td>ofr-fsi</td><td>金融压力回落，对风险偏好构成支撑。</td></tr>
+              <tr><td>real_yield_10y</td><td>bearish</td><td>2.14</td><td>-0.0520</td><td>0.95</td><td>fred-real-yield</td><td>真实利率仍是宏观压力主因。</td></tr>
+              <tr><td>nasdaq</td><td>bullish</td><td>26293.1</td><td>+0.0060</td><td>0.95</td><td>fred-nasdaq</td><td>风险资产仍有承接。</td></tr>
+              <tr><td>cpi_days_until</td><td>watch</td><td>18.8d</td><td>0.0000</td><td>0.82</td><td>official calendar fallback</td><td>事件窗口外，但需要保持 daily watch。</td></tr>
+            </tbody>
+          </table>
+        </section>
+      </section>
+
+      <aside class="side">
+        <section class="panel">
+          <h2>Dominant Drivers</h2>
+          <div class="driver-row">
+            <strong>OFR pressure repair</strong>
+            <small>金融压力没有继续扩张，是当前宏观支撑的核心。</small>
+          </div>
+          <div class="driver-row">
+            <strong>Risk assets still bid</strong>
+            <small>Nasdaq / S&P / Russell 对 BTC 风险偏好有轻度支撑。</small>
+          </div>
+          <div class="driver-row">
+            <strong>Rates cap upside</strong>
+            <small>真实利率与美债收益率仍限制强多判断。</small>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Legend</h2>
+          <div class="legend">
+            <span><b class="pill bull"><span class="dot"></span> support</b><small>支撑 BTC</small></span>
+            <span><b class="pill bear"><span class="dot"></span> pressure</b><small>压制 BTC</small></span>
+            <span><b class="pill mixed"><span class="dot"></span> mixed</b><small>方向不明</small></span>
+            <span><b class="pill quality"><span class="dot"></span> quality</b><small>fallback / stale</small></span>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Watch Next</h2>
+          <div class="driver-row">
+            <strong>真实利率是否回落</strong>
+            <small>如果 real_yield_10y 转弱，Macro Radar 支撑会更稳。</small>
+          </div>
+          <div class="driver-row">
+            <strong>CPI / PCE 事件窗口</strong>
+            <small>进入 T-7 后，宏观事件权重应提高。</small>
+          </div>
+        </section>
+      </aside>
+    </main>
+  </div>
+</body>
+</html>

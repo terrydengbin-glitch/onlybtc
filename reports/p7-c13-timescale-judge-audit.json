@@ -1,0 +1,27 @@
+{
+  "status": "PASS",
+  "audit_id": "p7-c13-timescale-judge",
+  "schema_version": "p45.btc_timescale_judge.v2.1",
+  "latest_final_run_id": "p45final-20260527143417-2e0020",
+  "checks": {
+    "final_payload_schema": "PASS",
+    "dashboard_passthrough": "PASS",
+    "overview_passthrough": "PASS",
+    "history_replay_passthrough": "PASS",
+    "four_horizons_present": "PASS",
+    "four_hour_not_headline_confirmed": "PASS",
+    "acceptance_gate_required": "PASS",
+    "seven_day_regime_only": "PASS",
+    "cross_horizon_arbiter": "PASS",
+    "frontend_build": "PASS",
+    "dashboard_contract_validation": "PASS"
+  },
+  "test_results": {
+    "pytest": "14 passed",
+    "npm_build": "passed",
+    "contract_validation": "P5 dashboard contract validation passed"
+  },
+  "warnings": [
+    "btc_response_score and residual_score calibration should be replay/backtest tuned later"
+  ]
+}

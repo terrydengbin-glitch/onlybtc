@@ -1,0 +1,1613 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Radar Runtime Audit</title>
+  <style>
+    body { margin:0; background:#06131d; color:#d8f3ff; font-family:Inter,Arial,sans-serif; }
+    main { padding:24px; }
+    .card { border:1px solid #1d4254; border-radius:10px; background:#0b2130; padding:16px; margin-bottom:16px; }
+    .pass { color:#24e0c4; } .partial { color:#ffc928; } .fail { color:#ff6b75; }
+    .meta-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; }
+    .meta-item { border:1px solid #173244; border-radius:8px; padding:10px; background:#071a27; }
+    .meta-label { color:#7fa9bd; font-size:12px; text-transform:uppercase; }
+    .meta-value { font-weight:700; margin-top:4px; overflow-wrap:anywhere; }
+    table { border-collapse:collapse; width:100%; }
+    th,td { border-bottom:1px solid #173244; padding:8px; text-align:left; }
+    pre { white-space:pre-wrap; color:#a9c7d8; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Radar Runtime Audit</h1>
+  <section class="card">
+    <h2 class="pass">PASS</h2>
+    <div class="meta-grid">
+      <div class="meta-item"><div class="meta-label">generated_at</div><div class="meta-value">2026-06-23T09:38:24.993477+00:00</div></div>
+      <div class="meta-item"><div class="meta-label">html_refresh_mode</div><div class="meta-value">bootstrap</div></div>
+      <div class="meta-item"><div class="meta-label">runtime_snapshot_id</div><div class="meta-value">radar-runtime-20260623093819-226330d8</div></div>
+      <div class="meta-item"><div class="meta-label">runtime_asof_ts</div><div class="meta-value">2026-06-23T09:38:19.923502+00:00</div></div>
+      <div class="meta-item"><div class="meta-label">snapshot_age_sec</div><div class="meta-value">5</div></div>
+      <div class="meta-item"><div class="meta-label">daemon_health_state</div><div class="meta-value">healthy</div></div>
+      <div class="meta-item"><div class="meta-label">runtime_fresh</div><div class="meta-value">True</div></div>
+      <div class="meta-item"><div class="meta-label">source_fresh</div><div class="meta-value">True</div></div>
+      <div class="meta-item"><div class="meta-label">source_freshness_state</div><div class="meta-value">expected_lag</div></div>
+    </div>
+    <p>Modules 14/14 · scheduler 14/14</p>
+  </section>
+  <section class="card"><h2>Audit Metadata</h2><pre>{
+  &quot;generated_at&quot;: &quot;2026-06-23T09:38:24.993477+00:00&quot;,
+  &quot;html_refresh_mode&quot;: &quot;bootstrap&quot;,
+  &quot;runtime_snapshot_id&quot;: &quot;radar-runtime-20260623093819-226330d8&quot;,
+  &quot;runtime_asof_ts&quot;: &quot;2026-06-23T09:38:19.923502+00:00&quot;,
+  &quot;snapshot_age_sec&quot;: 5,
+  &quot;daemon_health_state&quot;: &quot;healthy&quot;,
+  &quot;module_count&quot;: 14,
+  &quot;fresh_module_count&quot;: 14,
+  &quot;stale_module_count&quot;: 0,
+  &quot;runtime_fresh&quot;: true,
+  &quot;source_fresh&quot;: true,
+  &quot;source_freshness_state&quot;: &quot;expected_lag&quot;
+}</pre></section>
+  <section class="card"><h2>Health</h2><pre>{
+  &quot;health_state&quot;: &quot;healthy&quot;,
+  &quot;runtime_fresh&quot;: true,
+  &quot;source_fresh&quot;: true,
+  &quot;source_freshness_state&quot;: &quot;expected_lag&quot;,
+  &quot;module_count&quot;: 14,
+  &quot;expected_module_count&quot;: 14,
+  &quot;fresh_module_count&quot;: 14,
+  &quot;stale_module_count&quot;: 0,
+  &quot;missing_module_count&quot;: 0,
+  &quot;disabled_module_count&quot;: 0,
+  &quot;source_fresh_module_count&quot;: 5,
+  &quot;source_partial_module_count&quot;: 9,
+  &quot;source_stale_module_count&quot;: 0,
+  &quot;source_expired_module_count&quot;: 0,
+  &quot;source_missing_module_count&quot;: 0,
+  &quot;source_stale_modules&quot;: [],
+  &quot;source_expired_modules&quot;: [],
+  &quot;source_missing_modules&quot;: []
+}</pre></section>
+  <section class="card"><h2>Source Refresh Gate Summary</h2><pre>{
+  &quot;schema_version&quot;: &quot;p9.c54.source_refresh_gate.v1&quot;,
+  &quot;run_id&quot;: &quot;radar-runtime-source-20260623093429-aaea22&quot;,
+  &quot;started_at&quot;: &quot;2026-06-23T09:34:29.651889+00:00&quot;,
+  &quot;finished_at&quot;: &quot;2026-06-23T09:37:59.702962+00:00&quot;,
+  &quot;mode&quot;: &quot;targeted&quot;,
+  &quot;collect_mode&quot;: &quot;live&quot;,
+  &quot;module_ids&quot;: [
+    &quot;btc_total_state&quot;,
+    &quot;macro_radar&quot;,
+    &quot;dollar_liquidity&quot;,
+    &quot;treasury_credit&quot;,
+    &quot;kline_orderflow&quot;,
+    &quot;derivatives_crowding&quot;,
+    &quot;fund_flow&quot;,
+    &quot;btc_adoption&quot;,
+    &quot;onchain_valuation&quot;,
+    &quot;trade_structure_flow&quot;,
+    &quot;options_volatility&quot;,
+    &quot;crypto_breadth&quot;,
+    &quot;asia_risk&quot;,
+    &quot;event_policy&quot;
+  ],
+  &quot;source_group_ids&quot;: [
+    &quot;confirmation_macro_flow&quot;,
+    &quot;fast_btc_market&quot;,
+    &quot;regime_slow&quot;
+  ],
+  &quot;source_ids&quot;: [
+    &quot;playwright-tradingview-dxy&quot;,
+    &quot;playwright-tradingview-sp500&quot;,
+    &quot;playwright-tradingview-dow-jones&quot;,
+    &quot;playwright-tradingview-russell-2000&quot;,
+    &quot;playwright-tradingview-gold&quot;,
+    &quot;playwright-tradingview-wti-oil&quot;,
+    &quot;playwright-tradingview-brent-oil&quot;,
+    &quot;fred-real-yield&quot;,
+    &quot;fred-treasury-2y&quot;,
+    &quot;fred-treasury-10y&quot;,
+    &quot;fred-treasury-30y&quot;,
+    &quot;fred-vix&quot;,
+    &quot;fred-sp500&quot;,
+    &quot;fred-wti-oil&quot;,
+    &quot;fred-brent-oil&quot;,
+    &quot;fred-fed-balance-sheet&quot;,
+    &quot;fred-bank-reserves&quot;,
+    &quot;fred-on-rrp&quot;,
+    &quot;fred-sofr&quot;,
+    &quot;fred-iorb&quot;,
+    &quot;fred-tga&quot;,
+    &quot;fred-breakeven-10y&quot;,
+    &quot;fred-ig-oas&quot;,
+    &quot;fred-hy-spread&quot;,
+    &quot;ofr-fsi&quot;,
+    &quot;defillama-stablecoins&quot;,
+    &quot;binance-btcusdt&quot;,
+    &quot;binance-btcusdt-kline-5m&quot;,
+    &quot;binance-btcusdt-kline-15m&quot;,
+    &quot;binance-btcusdt-kline-1h&quot;,
+    &quot;binance-btcusdt-open-interest&quot;,
+    &quot;binance-btcusdt-funding&quot;,
+    &quot;binance-btcusdt-global-long-short-account-ratio&quot;,
+    &quot;binance-btcusdt-top-long-short-account-ratio&quot;,
+    &quot;binance-btcusdt-top-long-short-position-ratio&quot;,
+    &quot;binance-btcusdt-taker-buy-sell-ratio&quot;,
+    &quot;binance-usdm-force-order-btcusdt&quot;,
+    &quot;bybit-v5-all-liquidation-btcusdt&quot;,
+    &quot;playwright-tradingview-usdjpy&quot;,
+    &quot;playwright-tradingview-usdcnh&quot;,
+    &quot;playwright-tradingview-jgb-10y&quot;,
+    &quot;playwright-tradingview-topix&quot;,
+    &quot;playwright-tradingview-hang-seng-tech&quot;,
+    &quot;fred-usdjpy&quot;,
+    &quot;fred-usdcnh-proxy&quot;,
+    &quot;fred-nikkei&quot;,
+    &quot;fred-jgb-10y&quot;,
+    &quot;bitcoin-blockstream&quot;,
+    &quot;blockchain-active-addresses&quot;,
+    &quot;blockchain-transaction-count&quot;,
+    &quot;blockchain-hashrate&quot;,
+    &quot;mempool-lightning-network-stats&quot;,
+    &quot;clarkmoody-dashboard&quot;,
+    &quot;coinmetrics-community-btc-csv&quot;,
+    &quot;bitbo-sth-lth-realized-price&quot;,
+    &quot;playwright-glassnode-asset-overview&quot;,
+    &quot;playwright-glassnode-sopr&quot;,
+    &quot;coingecko-global&quot;,
+    &quot;coingecko-eth-btc&quot;,
+    &quot;coingecko-top50-markets&quot;,
+    &quot;binance-btcusdt-kline-1d-rv&quot;,
+    &quot;deribit-btc-options&quot;,
+    &quot;official-macro-event-calendar&quot;,
+    &quot;fxstreet-economic-calendar&quot;,
+    &quot;fed-calendar&quot;,
+    &quot;fed-rss-all-speeches&quot;,
+    &quot;fed-fomc-blackout-calendar&quot;,
+    &quot;alternative-fear-greed&quot;
+  ],
+  &quot;missing_configured_source_ids&quot;: [],
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;refreshed_source_count&quot;: 68,
+  &quot;failed_source_count&quot;: 0,
+  &quot;failed_source_ids&quot;: [],
+  &quot;errors&quot;: [],
+  &quot;warnings&quot;: [
+    {
+      &quot;source_id&quot;: &quot;mempool-lightning-network-stats&quot;,
+      &quot;status&quot;: &quot;warning&quot;,
+      &quot;message&quot;: &quot;https://mempool.space/api/v1/lightning/statistics/latest: ; https://mempool.space/api/v1/lightning/statistics/1m: &quot;
+    }
+  ]
+}</pre></section>
+  <section class="card"><h2>Runtime Cockpit</h2><pre>{
+  &quot;schema_version&quot;: &quot;p45.radar_runtime_cockpit.v2&quot;,
+  &quot;runtime_driven&quot;: true,
+  &quot;runtime_fresh&quot;: true,
+  &quot;source_fresh&quot;: true,
+  &quot;source_freshness_state&quot;: &quot;expected_lag&quot;,
+  &quot;headline_stage&quot;: &quot;fast_signal&quot;,
+  &quot;trend_quality&quot;: &quot;fresh&quot;,
+  &quot;net_score&quot;: -0.1535,
+  &quot;scores&quot;: {
+    &quot;fast_net_score&quot;: -0.0339,
+    &quot;confirmation_net_score&quot;: -0.1407,
+    &quot;regime_net_score&quot;: 0.0211,
+    &quot;controller_score&quot;: 1.0,
+    &quot;support_score&quot;: 0.1753,
+    &quot;pressure_score&quot;: 0.7683,
+    &quot;conflict_score&quot;: 0.3753,
+    &quot;rejection_score&quot;: 0.4,
+    &quot;trend_acceptance_score&quot;: 66.29,
+    &quot;data_quality_penalty&quot;: 0.0
+  },
+  &quot;fast_net_score&quot;: -0.0339,
+  &quot;confirmation_net_score&quot;: -0.1407,
+  &quot;regime_net_score&quot;: 0.0211,
+  &quot;support_score&quot;: 0.1753,
+  &quot;pressure_score&quot;: 0.7683,
+  &quot;trend_acceptance_score&quot;: 66.29,
+  &quot;module_contributions&quot;: [
+    {
+      &quot;module_name&quot;: &quot;asia_risk&quot;,
+      &quot;layer&quot;: &quot;fast&quot;,
+      &quot;horizon&quot;: &quot;4h&quot;,
+      &quot;raw_direction&quot;: &quot;conflict&quot;,
+      &quot;effective_direction&quot;: &quot;conflict&quot;,
+      &quot;signal_stage&quot;: &quot;fast_signal&quot;,
+      &quot;module_score&quot;: -0.3946,
+      &quot;effective_score&quot;: -0.3946,
+      &quot;btc_implication&quot;: &quot;neutral&quot;,
+      &quot;btc_response_score&quot;: -62.83,
+      &quot;residual&quot;: null,
+      &quot;support_drivers&quot;: [],
+      &quot;pressure_drivers&quot;: [
+        &quot;btc_response_negative&quot;
+      ],
+      &quot;conflict_drivers&quot;: [],
+      &quot;data_quality_flags&quot;: [],
+      &quot;quality_status&quot;: &quot;passed&quot;,
+      &quot;accepted_status&quot;: &quot;unknown&quot;,
+      &quot;contribution&quot;: 0.0
+    },
+    {
+      &quot;module_name&quot;: &quot;btc_adoption&quot;,
+      &quot;layer&quot;: &quot;regime&quot;,
+      &quot;horizon&quot;: &quot;7d&quot;,
+      &quot;raw_direction&quot;: &quot;bearish&quot;,
+      &quot;effective_direction&quot;: &quot;bearish&quot;,
+      &quot;signal_stage&quot;: &quot;conflict&quot;,
+      &quot;module_score&quot;: -0.4561,
+      &quot;effective_score&quot;: -0.4561,
+      &quot;btc_implication&quot;: &quot;internal_weakness&quot;,
+      &quot;btc_response_score&quot;: 100.0,
+      &quot;residual&quot;: 6.173611095124199,
+      &quot;support_drivers&quot;: [
+        &quot;btc_accepting_adoption_tailwind&quot;
+      ],
+      &quot;pressure_drivers&quot;: [
+        &quot;miner_security_pressure&quot;,
+        &quot;settlement_demand_fading&quot;
+      ],
+      &quot;conflict_drivers&quot;: [
+        &quot;fast_trend_score_core_confirmation_score_conflict&quot;
+      ],
+      &quot;data_quality_flags&quot;: [],
+      &quot;quality_status&quot;: &quot;passed&quot;,
+      &quot;accepted_status&quot;: &quot;rejected&quot;,
+      &quot;contribution&quot;: 0.0086
+    },
+    {
+      &quot;module_name&quot;: &quot;btc_total_state&quot;,
+      &quot;layer&quot;: &quot;controller&quot;,
+      &quot;horizon&quot;: &quot;7d&quot;,
+      &quot;raw_direction&quot;: &quot;neutral&quot;,
+      &quot;effective_direction&quot;: &quot;neutral&quot;,
+      &quot;signal_stage&quot;: &quot;none&quot;,
+      &quot;module_score&quot;: 0.0,
+      &quot;effective_score&quot;: 0.0,
+      &quot;btc_implication&quot;: &quot;&quot;,
+      &quot;btc_response_score&quot;: null,
+      &quot;residual&quot;: null,
+      &quot;support_drivers&quot;: [],
+      &quot;pressure_drivers&quot;: [],
+      &quot;conflict_drivers&quot;: [],
+      &quot;data_quality_flags&quot;: [],
+      &quot;quality_status&quot;: &quot;passed&quot;,
+      &quot;accepted_status&quot;: &quot;unknown&quot;,
+      &quot;contribution&quot;: 0.0
+    },
+    {
+      &quot;module_name&quot;: &quot;crypto_breadth&quot;,
+      &quot;layer&quot;: &quot;regime&quot;,
+      &quot;horizon&quot;: &quot;7d&quot;,
+      &quot;raw_direction&quot;: &quot;bullish&quot;,
+      &quot;effective_direction&quot;: &quot;bullish&quot;,
+      &quot;signal_stage&quot;: &quot;none&quot;,
+      &quot;module_score&quot;: 0.215,
+      &quot;effective_score&quot;: 0.215,
+      &quot;btc_implication&quot;: &quot;risk_off_pressure&quot;,
+      &quot;btc_response_score&quot;: null,
+      &quot;residual&quot;: null,
+      &quot;support_drivers&quot;: [],
+      &quot;pressure_drivers&quot;: [
+        &quot;market_cap_diffusion_weak&quot;
+      ],
+      &quot;conflict_drivers&quot;: [],
+      &quot;data_quality_flags&quot;: [],
+      &quot;quality_status&quot;: &quot;passed&quot;,
+      &quot;accepted_status&quot;: &quot;unknown&quot;,
+      &quot;contribution&quot;: 0.0215
+    },
+    {
+      &quot;module_name&quot;: &quot;derivatives_crowding&quot;,
+      &quot;layer&quot;: &quot;fast&quot;,
+      &quot;horizon&quot;: &quot;4h&quot;,
+      &quot;raw_direction&quot;: &quot;bearish&quot;,
+      &quot;effective_direction&quot;: &quot;bearish&quot;,
+      &quot;signal_stage&quot;: &quot;early_warning&quot;,
+      &quot;module_score&quot;: -0.503,
+      &quot;effective_score&quot;: -0.503,
+      &quot;btc_implication&quot;: &quot;trend_fragile&quot;,
+      &quot;btc_response_score&quot;: -15.73,
+      &quot;residual&quot;: null,
+      &quot;support_drivers&quot;: [],
+      &quot;pressure_drivers&quot;: [],
+      &quot;conflict_drivers&quot;: [],
+      &quot;data_quality_flags&quot;: [],
+      &quot;quality_status&quot;: &quot;passed&quot;,
+      &quot;accepted_status&quot;: &quot;accepted&quot;,
+      &quot;contribution&quot;: -0.176
+    },
+    {
+      &quot;module_name&quot;: &quot;dollar_liquidity&quot;,
+      &quot;layer&quot;: &quot;confirmation&quot;,
+      &quot;horizon&quot;: &quot;3d&quot;,
+      &quot;raw_direction&quot;: &quot;bearish&quot;,
+      &quot;effective_direction&quot;: &quot;bearish&quot;,
+      &quot;signal_stage&quot;: &quot;confirmed_signal&quot;,
+      &quot;module_score&quot;: -0.1575,
+      &quot;effective_score&quot;: -0.1575,
+      &quot;btc_implication&quot;: &quot;&quot;,
+      &quot;btc_response_score&quot;: null,
+      &quot;residual&quot;: null,
+      &quot;support_drivers&quot;: [],
+      &quot;pressure_drivers&quot;: [
+        &quot;net_liquidity_contraction&quot;,
+        &quot;btc_rejecting_or_following_liquidity&quot;
+      ],
+      &quot;conflict_drivers&quot;: [],
+      &quot;data_quality_flags&quot;: [],
+      &quot;quality_status&quot;: &quot;passed&quot;,
+      &quot;accepted_status&quot;: &quot;unknown&quot;,
+      &quot;contribution&quot;: -0.0788
+    },
+    {
+      &quot;module_name&quot;: &quot;event_policy&quot;,
+      &quot;layer&quot;: &quot;regime&quot;,
+      &quot;horizon&quot;: &quot;7d&quot;,
+      &quot;raw_direction&quot;: &quot;neutral&quot;,
+      &quot;effective_direction&quot;: &quot;neutral&quot;,
+      &quot;signal_stage&quot;: &quot;none&quot;,
+      &quot;module_score&quot;: 0.0,
+      &quot;effective_score&quot;: 0.0,
+      &quot;btc_implication&quot;: &quot;&quot;,
+      &quot;btc_response_score&quot;: null,
+      &quot;residual&quot;: null,
+      &quot;support_drivers&quot;: [],
+      &quot;pressure_drivers&quot;: [],
+      &quot;conflict_drivers&quot;: [],
+      &quot;data_quality_flags&quot;: [],
+      &quot;quality_status&quot;: &quot;passed&quot;,
+      &quot;accepted_status&quot;: &quot;unknown&quot;,
+      &quot;contribution&quot;: 0.0
+    },
+    {
+      &quot;module_name&quot;: &quot;fund_flow&quot;,
+      &quot;layer&quot;: &quot;confirmation&quot;,
+      &quot;horizon&quot;: &quot;3d&quot;,
+      &quot;raw_direction&quot;: &quot;bearish&quot;,
+      &quot;effective_direction&quot;: &quot;bearish&quot;,
+      &quot;signal_stage&quot;: &quot;confirmed_signal&quot;,
+      &quot;module_score&quot;: -0.4024,
+      &quot;effective_score&quot;: -0.4024,
+      &quot;btc_implication&quot;: &quot;institutional_demand_drag&quot;,
+      &quot;btc_response_score&quot;: -72.75,
+      &quot;residual&quot;: -1.598922131584557,
+      &quot;support_drivers&quot;: [
+        &quot;stablecoin_liquidity&quot;,
+        &quot;tradable_supply_tight&quot;
+      ],
+      &quot;pressure_drivers&quot;: [
+        &quot;etf_outflow_or_fading&quot;,
+        &quot;btc_rejecting_flow&quot;
+      ],
+      &quot;conflict_drivers&quot;: [],
+      &quot;data_quality_flags&quot;: [
+        &quot;etf_single_source&quot;
+      ],
+      &quot;quality_status&quot;: &quot;passed&quot;,
+      &quot;accepted_status&quot;: &quot;accepted&quot;,
+      &quot;contribution&quot;: -0.4024
+    },
+    {
+      &quot;module_name&quot;: &quot;kline_orderflow&quot;,
+      &quot;layer&quot;: &quot;fast&quot;,
+      &quot;horizon&quot;: &quot;4h&quot;,
+      &quot;raw_direction&quot;: &quot;bearish&quot;,
+      &quot;effective_direction&quot;: &quot;bearish&quot;,
+      &quot;signal_stage&quot;: &quot;early_warning&quot;,
+      &quot;module_score&quot;: -0.169,
+      &quot;effective_score&quot;: -0.169,
+      &quot;btc_implication&quot;: &quot;upside_shift_attempt&quot;,
+      &quot;btc_response_score&quot;: null,
+      &quot;residual&quot;: null,
+      &quot;support_drivers&quot;: [],
+      &quot;pressure_drivers&quot;: [],
+      &quot;conflict_drivers&quot;: [],
+      &quot;data_quality_flags&quot;: [],
+      &quot;quality_status&quot;: &quot;passed&quot;,
+      &quot;accepted_status&quot;: &quot;unknown&quot;,
+      &quot;contribution&quot;: -0.0296
+    },
+    {
+      &quot;module_name&quot;: &quot;macro_radar&quot;,
+      &quot;layer&quot;: &quot;confirmation&quot;,
+      &quot;horizon&quot;: &quot;3d&quot;,
+      &quot;raw_direction&quot;: &quot;bearish&quot;,
+      &quot;effective_direction&quot;: &quot;bearish&quot;,
+      &quot;signal_stage&quot;: &quot;none&quot;,
+      &quot;module_score&quot;: -0.5,
+      &quot;effective_score&quot;: -0.5,
+      &quot;btc_implication&quot;: &quot;wait_for_confirmation&quot;,
+      &quot;btc_response_score&quot;: null,
+      &quot;residual&quot;: null,
+      &quot;support_drivers&quot;: [],
+      &quot;pressure_drivers&quot;: [
+        &quot;rates_pressure&quot;,
+        &quot;dollar_pressure&quot;,
+        &quot;btc_not_absorbing_macro_tailwind&quot;
+      ],
+      &quot;conflict_drivers&quot;: [],
+      &quot;data_quality_flags&quot;: [],
+      &quot;quality_status&quot;: &quot;passed&quot;,
+      &quot;accepted_status&quot;: &quot;unknown&quot;,
+      &quot;contribution&quot;: -0.05
+    },
+    {
+      &quot;module_name&quot;: &quot;onchain_valuation&quot;,
+      &quot;layer&quot;: &quot;regime&quot;,
+      &quot;horizon&quot;: &quot;7d&quot;,
+      &quot;raw_direction&quot;: &quot;bearish&quot;,
+      &quot;effective_direction&quot;: &quot;bearish&quot;,
+      &quot;signal_stage&quot;: &quot;confirmed_signal&quot;,
+      &quot;module_score&quot;: -0.2508,
+      &quot;effective_score&quot;: -0.2508,
+      &quot;btc_implication&quot;: &quot;internal_weakness&quot;,
+      &quot;btc_response_score&quot;: -100.0,
+      &quot;residual&quot;: -6.122258531622426,
+      &quot;support_drivers&quot;: [
+        &quot;valuation_regime_supportive&quot;
+      ],
+      &quot;pressure_drivers&quot;: [
+        &quot;sth_cost_basis_breakdown_or_rejection&quot;,
+        &quot;sopr_profit_taking_or_loss_realization&quot;,
+        &quot;btc_rejecting_onchain_tailwind&quot;
+      ],
+      &quot;conflict_drivers&quot;: [],
+      &quot;data_quality_flags&quot;: [],
+      &quot;quality_status&quot;: &quot;passed&quot;,
+      &quot;accepted_status&quot;: &quot;rejected&quot;,
+      &quot;contribution&quot;: 0.0752
+    },
+    {
+      &quot;module_name&quot;: &quot;options_volatility&quot;,
+      &quot;layer&quot;: &quot;regime&quot;,
+      &quot;horizon&quot;: &quot;7d&quot;,
+      &quot;raw_direction&quot;: &quot;neutral&quot;,
+      &quot;effective_direction&quot;: &quot;neutral&quot;,
+      &quot;signal_stage&quot;: &quot;none&quot;,
+      &quot;module_score&quot;: 0.0,
+      &quot;effective_score&quot;: 0.0,
+      &quot;btc_implication&quot;: &quot;&quot;,
+      &quot;btc_response_score&quot;: null,
+      &quot;residual&quot;: null,
+      &quot;support_drivers&quot;: [],
+      &quot;pressure_drivers&quot;: [],
+      &quot;conflict_drivers&quot;: [],
+      &quot;data_quality_flags&quot;: [],
+      &quot;quality_status&quot;: &quot;passed&quot;,
+      &quot;accepted_status&quot;: &quot;unknown&quot;,
+      &quot;contribution&quot;: 0.0
+    },
+    {
+      &quot;module_name&quot;: &quot;trade_structure_flow&quot;,
+      &quot;layer&quot;: &quot;fast&quot;,
+      &quot;horizon&quot;: &quot;4h&quot;,
+      &quot;raw_direction&quot;: &quot;bullish&quot;,
+      &quot;effective_direction&quot;: &quot;bullish&quot;,
+      &quot;signal_stage&quot;: &quot;none&quot;,
+      &quot;module_score&quot;: 0.35,
+      &quot;effective_score&quot;: 0.35,
+      &quot;btc_implication&quot;: &quot;neutral&quot;,
+      &quot;btc_response_score&quot;: 26.48,
+      &quot;residual&quot;: null,
+      &quot;support_drivers&quot;: [
+        &quot;price_acceptance_positive&quot;
+      ],
+      &quot;pressure_drivers&quot;: [],
+      &quot;conflict_drivers&quot;: [],
+      &quot;data_quality_flags&quot;: [],
+      &quot;quality_status&quot;: &quot;passed&quot;,
+      &quot;accepted_status&quot;: &quot;accepted&quot;,
+      &quot;contribution&quot;: 0.07
+    },
+    {
+      &quot;module_name&quot;: &quot;treasury_credit&quot;,
+      &quot;layer&quot;: &quot;confirmation&quot;,
+      &quot;horizon&quot;: &quot;3d&quot;,
+      &quot;raw_direction&quot;: &quot;neutral&quot;,
+      &quot;effective_direction&quot;: &quot;bearish&quot;,
+      &quot;signal_stage&quot;: &quot;early_warning&quot;,
+      &quot;module_score&quot;: -0.18,
+      &quot;effective_score&quot;: -0.18,
+      &quot;btc_implication&quot;: &quot;trend_fragile&quot;,
+      &quot;btc_response_score&quot;: null,
+      &quot;residual&quot;: null,
+      &quot;support_drivers&quot;: [],
+      &quot;pressure_drivers&quot;: [
+        &quot;rates_real_yield_pressure&quot;,
+        &quot;btc_rejecting_or_following_rates&quot;
+      ],
+      &quot;conflict_drivers&quot;: [],
+      &quot;data_quality_flags&quot;: [
+        &quot;insufficient_hy_oas_history&quot;
+      ],
+      &quot;quality_status&quot;: &quot;passed&quot;,
+      &quot;accepted_status&quot;: &quot;unknown&quot;,
+      &quot;contribution&quot;: -0.0315
+    }
+  ],
+  &quot;dominant_support_modules&quot;: [
+    {
+      &quot;module&quot;: &quot;btc_adoption&quot;,
+      &quot;direction&quot;: &quot;bearish&quot;,
+      &quot;score&quot;: -0.4561,
+      &quot;contribution&quot;: 0.0086
+    },
+    {
+      &quot;module&quot;: &quot;crypto_breadth&quot;,
+      &quot;direction&quot;: &quot;bullish&quot;,
+      &quot;score&quot;: 0.215,
+      &quot;contribution&quot;: 0.0215
+    },
+    {
+      &quot;module&quot;: &quot;onchain_valuation&quot;,
+      &quot;direction&quot;: &quot;bearish&quot;,
+      &quot;score&quot;: -0.2508,
+      &quot;contribution&quot;: 0.0752
+    },
+    {
+      &quot;module&quot;: &quot;trade_structure_flow&quot;,
+      &quot;direction&quot;: &quot;bullish&quot;,
+      &quot;score&quot;: 0.35,
+      &quot;contribution&quot;: 0.07
+    }
+  ],
+  &quot;dominant_pressure_modules&quot;: [
+    {
+      &quot;module&quot;: &quot;derivatives_crowding&quot;,
+      &quot;direction&quot;: &quot;bearish&quot;,
+      &quot;score&quot;: -0.503,
+      &quot;contribution&quot;: -0.176
+    },
+    {
+      &quot;module&quot;: &quot;dollar_liquidity&quot;,
+      &quot;direction&quot;: &quot;bearish&quot;,
+      &quot;score&quot;: -0.1575,
+      &quot;contribution&quot;: -0.0788
+    },
+    {
+      &quot;module&quot;: &quot;fund_flow&quot;,
+      &quot;direction&quot;: &quot;bearish&quot;,
+      &quot;score&quot;: -0.4024,
+      &quot;contribution&quot;: -0.4024
+    },
+    {
+      &quot;module&quot;: &quot;kline_orderflow&quot;,
+      &quot;direction&quot;: &quot;bearish&quot;,
+      &quot;score&quot;: -0.169,
+      &quot;contribution&quot;: -0.0296
+    }
+  ],
+  &quot;context_only_modules&quot;: [],
+  &quot;why_not_confirmed&quot;: &quot;confirmed_signal still requires P4.5 acceptance/residual gate&quot;
+}</pre></section>
+  <section class="card"><h2>Module Freshness & Score Source</h2>
+    <table><thead><tr><th>module</th><th>group</th><th>runtime freshness</th><th>policy</th><th>source freshness</th><th>expired features</th><th>stale features</th><th>direction</th><th>score</th><th>stage</th><th>score source</th><th>age</th></tr></thead><tbody><tr><td>asia_risk</td><td>fast</td><td>fresh</td><td>full</td><td>fresh</td><td>0</td><td>0</td><td>conflict</td><td>-0.3946</td><td>fast_signal</td><td>semantic_fallback.module_semantic_profile.module_effective_score</td><td>1</td></tr>
+<tr><td>btc_adoption</td><td>regime</td><td>fresh</td><td>quality_discounted</td><td>expected_lag</td><td>0</td><td>0</td><td>bearish</td><td>-0.4561</td><td>conflict</td><td>semantic_fallback.module_semantic_profile.module_effective_score</td><td>1</td></tr>
+<tr><td>btc_total_state</td><td>regime</td><td>fresh</td><td>full</td><td>fresh</td><td>0</td><td>0</td><td>neutral</td><td>0.0</td><td>none</td><td>semantic_fallback.module_semantic_profile.module_effective_score</td><td>1</td></tr>
+<tr><td>crypto_breadth</td><td>regime</td><td>fresh</td><td>quality_discounted</td><td>expected_lag</td><td>0</td><td>0</td><td>bullish</td><td>0.215</td><td>none</td><td>runtime_payload.strength</td><td>1</td></tr>
+<tr><td>derivatives_crowding</td><td>fast</td><td>fresh</td><td>full</td><td>fresh</td><td>0</td><td>0</td><td>bearish</td><td>0.503</td><td>early_warning</td><td>runtime_payload.strength</td><td>1</td></tr>
+<tr><td>dollar_liquidity</td><td>confirmation</td><td>fresh</td><td>quality_discounted</td><td>expected_lag</td><td>0</td><td>0</td><td>bearish</td><td>-0.1575</td><td>confirmed_signal</td><td>semantic_fallback.module_semantic_profile.module_effective_score</td><td>1</td></tr>
+<tr><td>event_policy</td><td>regime</td><td>fresh</td><td>full</td><td>fresh</td><td>0</td><td>0</td><td>neutral</td><td>0.0</td><td>none</td><td>semantic_fallback.module_semantic_profile.module_effective_score</td><td>1</td></tr>
+<tr><td>fund_flow</td><td>confirmation</td><td>fresh</td><td>quality_discounted</td><td>expected_lag</td><td>0</td><td>0</td><td>bearish</td><td>-0.4024</td><td>confirmed_signal</td><td>semantic_fallback.module_semantic_profile.module_effective_score</td><td>1</td></tr>
+<tr><td>kline_orderflow</td><td>fast</td><td>fresh</td><td>quality_discounted</td><td>expected_lag</td><td>0</td><td>0</td><td>bearish</td><td>0.169</td><td>early_warning</td><td>runtime_payload.strength</td><td>1</td></tr>
+<tr><td>macro_radar</td><td>confirmation</td><td>fresh</td><td>quality_discounted</td><td>expected_lag</td><td>0</td><td>0</td><td>bearish</td><td>-0.5</td><td>none</td><td>semantic_fallback.module_semantic_profile.module_effective_score</td><td>1</td></tr>
+<tr><td>onchain_valuation</td><td>regime</td><td>fresh</td><td>quality_discounted</td><td>expected_lag</td><td>0</td><td>0</td><td>bearish</td><td>-0.2508</td><td>confirmed_signal</td><td>semantic_fallback.module_semantic_profile.module_effective_score</td><td>1</td></tr>
+<tr><td>options_volatility</td><td>regime</td><td>fresh</td><td>full</td><td>fresh</td><td>0</td><td>0</td><td>neutral</td><td>0.0</td><td>none</td><td>semantic_fallback.module_semantic_profile.module_effective_score</td><td>1</td></tr>
+<tr><td>trade_structure_flow</td><td>fast</td><td>fresh</td><td>quality_discounted</td><td>expected_lag</td><td>0</td><td>0</td><td>bullish</td><td>0.35</td><td>none</td><td>runtime_payload.strength</td><td>1</td></tr>
+<tr><td>treasury_credit</td><td>confirmation</td><td>fresh</td><td>quality_discounted</td><td>expected_lag</td><td>0</td><td>0</td><td>neutral</td><td>-0.18</td><td>early_warning</td><td>semantic_fallback.module_semantic_profile.module_effective_score</td><td>1</td></tr></tbody></table>
+  </section>
+  <section class="card"><h2>Source Group Mapping</h2><pre>{
+  &quot;asia_risk&quot;: {
+    &quot;source_group_id&quot;: &quot;fast_btc_market&quot;,
+    &quot;source_refresh_status&quot;: &quot;success&quot;
+  },
+  &quot;btc_adoption&quot;: {
+    &quot;source_group_id&quot;: &quot;regime_slow&quot;,
+    &quot;source_refresh_status&quot;: &quot;success&quot;
+  },
+  &quot;btc_total_state&quot;: {
+    &quot;source_group_id&quot;: &quot;regime_slow&quot;,
+    &quot;source_refresh_status&quot;: &quot;success&quot;
+  },
+  &quot;crypto_breadth&quot;: {
+    &quot;source_group_id&quot;: &quot;regime_slow&quot;,
+    &quot;source_refresh_status&quot;: &quot;success&quot;
+  },
+  &quot;derivatives_crowding&quot;: {
+    &quot;source_group_id&quot;: &quot;fast_btc_market&quot;,
+    &quot;source_refresh_status&quot;: &quot;success&quot;
+  },
+  &quot;dollar_liquidity&quot;: {
+    &quot;source_group_id&quot;: &quot;confirmation_macro_flow&quot;,
+    &quot;source_refresh_status&quot;: &quot;success&quot;
+  },
+  &quot;event_policy&quot;: {
+    &quot;source_group_id&quot;: &quot;regime_slow&quot;,
+    &quot;source_refresh_status&quot;: &quot;success&quot;
+  },
+  &quot;fund_flow&quot;: {
+    &quot;source_group_id&quot;: &quot;confirmation_macro_flow&quot;,
+    &quot;source_refresh_status&quot;: &quot;success&quot;
+  },
+  &quot;kline_orderflow&quot;: {
+    &quot;source_group_id&quot;: &quot;fast_btc_market&quot;,
+    &quot;source_refresh_status&quot;: &quot;success&quot;
+  },
+  &quot;macro_radar&quot;: {
+    &quot;source_group_id&quot;: &quot;confirmation_macro_flow&quot;,
+    &quot;source_refresh_status&quot;: &quot;success&quot;
+  },
+  &quot;onchain_valuation&quot;: {
+    &quot;source_group_id&quot;: &quot;regime_slow&quot;,
+    &quot;source_refresh_status&quot;: &quot;success&quot;
+  },
+  &quot;options_volatility&quot;: {
+    &quot;source_group_id&quot;: &quot;regime_slow&quot;,
+    &quot;source_refresh_status&quot;: &quot;success&quot;
+  },
+  &quot;trade_structure_flow&quot;: {
+    &quot;source_group_id&quot;: &quot;fast_btc_market&quot;,
+    &quot;source_refresh_status&quot;: &quot;success&quot;
+  },
+  &quot;treasury_credit&quot;: {
+    &quot;source_group_id&quot;: &quot;confirmation_macro_flow&quot;,
+    &quot;source_refresh_status&quot;: &quot;success&quot;
+  }
+}</pre></section>
+  <section class="card"><h2>Source Freshness Samples</h2><pre>{
+  &quot;asia_risk&quot;: [],
+  &quot;btc_adoption&quot;: [
+    {
+      &quot;metric_id&quot;: &quot;transfer_volume_adjusted_usd&quot;,
+      &quot;source_id&quot;: &quot;playwright-glassnode-asset-overview&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;expected_lag&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-22T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.557222&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;transfer_volume_adjusted_usd&quot;,
+      &quot;source_id&quot;: &quot;playwright-glassnode-asset-overview&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;expected_lag&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-22T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.557222&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    }
+  ],
+  &quot;btc_total_state&quot;: [],
+  &quot;crypto_breadth&quot;: [
+    {
+      &quot;metric_id&quot;: &quot;btc_return_24h_pct&quot;,
+      &quot;source_id&quot;: &quot;macro-radar-derived&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;lagging&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-23T08:59:59.999000&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.561812&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;sector_heat_change_24h&quot;,
+      &quot;source_id&quot;: &quot;crypto-breadth-derived&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;outdated&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-23T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.554599&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;overheat_penalty&quot;,
+      &quot;source_id&quot;: &quot;crypto-breadth-derived&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;outdated&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-23T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.554599&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;sector_heat_change_24h&quot;,
+      &quot;source_id&quot;: &quot;crypto-breadth-derived&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;outdated&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-23T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.554599&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;btc_return_24h_pct&quot;,
+      &quot;source_id&quot;: &quot;macro-radar-derived&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;lagging&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-23T08:59:59.999000&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.561812&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;sector_heat_change_24h&quot;,
+      &quot;source_id&quot;: &quot;crypto-breadth-derived&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;outdated&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-23T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.554599&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;overheat_penalty&quot;,
+      &quot;source_id&quot;: &quot;crypto-breadth-derived&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;outdated&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-23T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.554599&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;btc_return_24h_pct&quot;,
+      &quot;source_id&quot;: &quot;macro-radar-derived&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;lagging&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-23T08:59:59.999000&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.561812&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    }
+  ],
+  &quot;derivatives_crowding&quot;: [],
+  &quot;dollar_liquidity&quot;: [
+    {
+      &quot;metric_id&quot;: &quot;sofr&quot;,
+      &quot;source_id&quot;: &quot;fred-sofr&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;expected_lag&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-18T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.549623&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;net_liquidity_proxy_bil&quot;,
+      &quot;source_id&quot;: &quot;dollar-liquidity-derived&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;outdated&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-22T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.549623&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;net_liquidity_change_1w_bil&quot;,
+      &quot;source_id&quot;: &quot;dollar-liquidity-derived&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;outdated&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-22T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.549623&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;net_liquidity_change_4w_bil&quot;,
+      &quot;source_id&quot;: &quot;dollar-liquidity-derived&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;outdated&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-22T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.549623&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;liquidity_impulse_z&quot;,
+      &quot;source_id&quot;: &quot;dollar-liquidity-derived&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;outdated&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-22T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.549623&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;liquidity_acceleration&quot;,
+      &quot;source_id&quot;: &quot;dollar-liquidity-derived&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;outdated&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-22T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.549623&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;reserve_change_1w_bil&quot;,
+      &quot;source_id&quot;: &quot;dollar-liquidity-derived&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;outdated&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-22T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.549623&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;tga_change_1w_bil&quot;,
+      &quot;source_id&quot;: &quot;dollar-liquidity-derived&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;outdated&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-22T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.549623&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    }
+  ],
+  &quot;event_policy&quot;: [],
+  &quot;fund_flow&quot;: [
+    {
+      &quot;metric_id&quot;: &quot;etf_net_flow&quot;,
+      &quot;source_id&quot;: &quot;playwright-glassnode-asset-overview&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;lagging&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-18T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.557222&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;etf_net_flow_usd&quot;,
+      &quot;source_id&quot;: &quot;fund-flow-derived&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;outdated&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-18T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.557222&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;etf_flow_2d_usd&quot;,
+      &quot;source_id&quot;: &quot;fund-flow-derived&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;outdated&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-18T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:34.326411&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;etf_flow_3d_usd&quot;,
+      &quot;source_id&quot;: &quot;fund-flow-derived&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;outdated&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-18T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:34.326411&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;etf_flow_5d_usd&quot;,
+      &quot;source_id&quot;: &quot;fund-flow-derived&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;outdated&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-18T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:34.326411&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;etf_flow_7d&quot;,
+      &quot;source_id&quot;: &quot;playwright-glassnode-asset-overview&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;lagging&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-18T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.558259&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;etf_flow_7d_usd&quot;,
+      &quot;source_id&quot;: &quot;fund-flow-derived&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;outdated&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-18T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:34.326411&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;etf_flow_20d_usd&quot;,
+      &quot;source_id&quot;: &quot;fund-flow-derived&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;outdated&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-18T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:34.326411&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    }
+  ],
+  &quot;kline_orderflow&quot;: [
+    {
+      &quot;metric_id&quot;: &quot;btc_return_5m&quot;,
+      &quot;source_id&quot;: &quot;binance-btcusdt-kline-5m&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;expected_lag&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-23T09:29:59.999000&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.566179&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;btc_taker_imbalance_z_60_5m&quot;,
+      &quot;source_id&quot;: &quot;binance-btcusdt-kline-5m&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;expected_lag&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-23T09:29:59.999000&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.566179&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;btc_flow_price_acceptance_5m&quot;,
+      &quot;source_id&quot;: &quot;binance-btcusdt-kline-5m&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;expected_lag&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-23T09:29:59.999000&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.566179&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;btc_price_vs_vwap_z_5m&quot;,
+      &quot;source_id&quot;: &quot;binance-btcusdt-kline-5m&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;expected_lag&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-23T09:29:59.999000&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.567185&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;btc_vwap_acceptance_duration_5m&quot;,
+      &quot;source_id&quot;: &quot;binance-btcusdt-kline-5m&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;expected_lag&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-23T09:29:59.999000&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.567185&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;btc_orderflow_residual_z_60_5m&quot;,
+      &quot;source_id&quot;: &quot;binance-btcusdt-kline-5m&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;expected_lag&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-23T09:29:59.999000&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.567185&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;btc_vwap_5m&quot;,
+      &quot;source_id&quot;: &quot;binance-btcusdt-kline-5m&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;expected_lag&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-23T09:29:59.999000&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.567185&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;btc_atr_14_5m&quot;,
+      &quot;source_id&quot;: &quot;binance-btcusdt-kline-5m&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;expected_lag&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-23T09:29:59.999000&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.566179&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    }
+  ],
+  &quot;macro_radar&quot;: [
+    {
+      &quot;metric_id&quot;: &quot;nasdaq&quot;,
+      &quot;source_id&quot;: &quot;fred-nasdaq&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;expected_lag&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-18T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-22T22:17:09.162960&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;treasury_2y&quot;,
+      &quot;source_id&quot;: &quot;fred-treasury-2y&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;expected_lag&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-18T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.549623&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;treasury_10y&quot;,
+      &quot;source_id&quot;: &quot;fred-treasury-10y&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;expected_lag&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-18T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.549623&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;real_yield_10y&quot;,
+      &quot;source_id&quot;: &quot;fred-real-yield&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;expected_lag&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-18T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.549623&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;us2y_change_1d_bps&quot;,
+      &quot;source_id&quot;: &quot;macro-radar-derived&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;outdated&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-18T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.549623&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;us10y_change_1d_bps&quot;,
+      &quot;source_id&quot;: &quot;macro-radar-derived&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;outdated&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-18T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.549623&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;us10y_change_3d_bps&quot;,
+      &quot;source_id&quot;: &quot;macro-radar-derived&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;outdated&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-18T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.549623&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;real_yield_change_1d_bps&quot;,
+      &quot;source_id&quot;: &quot;macro-radar-derived&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;outdated&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-18T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.549623&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    }
+  ],
+  &quot;onchain_valuation&quot;: [
+    {
+      &quot;metric_id&quot;: &quot;mvrv_zscore&quot;,
+      &quot;source_id&quot;: &quot;playwright-glassnode-asset-overview&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;expected_lag&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-22T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.557222&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;nupl&quot;,
+      &quot;source_id&quot;: &quot;playwright-glassnode-asset-overview&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;expected_lag&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-22T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.557222&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;realized_price&quot;,
+      &quot;source_id&quot;: &quot;coinmetrics-community-btc-csv&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;outdated&quot;,
+      &quot;source_ts&quot;: &quot;2026-05-23T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.539238&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;sopr&quot;,
+      &quot;source_id&quot;: &quot;playwright-glassnode-sopr&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;expected_lag&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-22T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.557222&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;cap_real_usd&quot;,
+      &quot;source_id&quot;: &quot;coinmetrics-community-btc-csv&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;outdated&quot;,
+      &quot;source_ts&quot;: &quot;2026-05-23T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.539238&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;mvrv_zscore&quot;,
+      &quot;source_id&quot;: &quot;playwright-glassnode-asset-overview&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;expected_lag&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-22T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.557222&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;nupl&quot;,
+      &quot;source_id&quot;: &quot;playwright-glassnode-asset-overview&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;expected_lag&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-22T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.557222&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;realized_price&quot;,
+      &quot;source_id&quot;: &quot;coinmetrics-community-btc-csv&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;outdated&quot;,
+      &quot;source_ts&quot;: &quot;2026-05-23T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.539238&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    }
+  ],
+  &quot;options_volatility&quot;: [],
+  &quot;trade_structure_flow&quot;: [
+    {
+      &quot;metric_id&quot;: &quot;btc_return_5m&quot;,
+      &quot;source_id&quot;: &quot;binance-btcusdt-kline-5m&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;expected_lag&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-23T09:29:59.999000&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.566179&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;btc_close_position_5m&quot;,
+      &quot;source_id&quot;: &quot;binance-btcusdt-kline-5m&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;expected_lag&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-23T09:29:59.999000&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.566179&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;btc_range_expansion_z_5m&quot;,
+      &quot;source_id&quot;: &quot;binance-btcusdt-kline-5m&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;expected_lag&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-23T09:29:59.999000&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.566179&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;btc_volume_zscore_5m&quot;,
+      &quot;source_id&quot;: &quot;binance-btcusdt-kline-5m&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;expected_lag&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-23T09:29:59.999000&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.566179&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;btc_flow_price_efficiency_5m&quot;,
+      &quot;source_id&quot;: &quot;binance-btcusdt-kline-5m&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;expected_lag&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-23T09:29:59.999000&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.566179&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;trade_agg_flow_delta_z_5m&quot;,
+      &quot;source_id&quot;: &quot;binance-btcusdt-kline-5m&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;expected_lag&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-23T09:29:59.999000&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.567185&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;trade_taker_flow_persistence_5m&quot;,
+      &quot;source_id&quot;: &quot;binance-btcusdt-kline-5m&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;expected_lag&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-23T09:29:59.999000&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.567857&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;trade_flow_absorption_score_5m&quot;,
+      &quot;source_id&quot;: &quot;binance-btcusdt-kline-5m&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;expected_lag&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-23T09:29:59.999000&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.567857&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    }
+  ],
+  &quot;treasury_credit&quot;: [
+    {
+      &quot;metric_id&quot;: &quot;treasury_2y&quot;,
+      &quot;source_id&quot;: &quot;fred-treasury-2y&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;expected_lag&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-18T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.549623&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;treasury_10y&quot;,
+      &quot;source_id&quot;: &quot;fred-treasury-10y&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;expected_lag&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-18T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.549623&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;treasury_30y&quot;,
+      &quot;source_id&quot;: &quot;fred-treasury-30y&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;expected_lag&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-18T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.549623&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;real_yield_10y&quot;,
+      &quot;source_id&quot;: &quot;fred-real-yield&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;expected_lag&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-18T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.549623&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;hy_spread&quot;,
+      &quot;source_id&quot;: &quot;fred-hy-spread&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;expected_lag&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-19T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.549623&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;ig_oas&quot;,
+      &quot;source_id&quot;: &quot;fred-ig-oas&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;expected_lag&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-19T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.549623&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;treasury_2y_change_1d_bps&quot;,
+      &quot;source_id&quot;: &quot;treasury-credit-derived&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;outdated&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-18T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.549623&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;treasury_2y_change_3d_bps&quot;,
+      &quot;source_id&quot;: &quot;treasury-credit-derived&quot;,
+      &quot;freshness_status&quot;: &quot;fresh&quot;,
+      &quot;collection_freshness_status&quot;: &quot;fresh&quot;,
+      &quot;business_recency_status&quot;: &quot;outdated&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-18T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-23T09:37:30.549623&quot;,
+      &quot;available&quot;: true,
+      &quot;is_stale&quot;: false,
+      &quot;quality_blocking&quot;: true
+    }
+  ]
+}</pre></section>
+  <section class="card"><h2>Context-only Stale Samples</h2><pre>{
+  &quot;asia_risk&quot;: [
+    {
+      &quot;metric_id&quot;: &quot;hibor&quot;,
+      &quot;source_id&quot;: null,
+      &quot;freshness_status&quot;: null,
+      &quot;collection_freshness_status&quot;: null,
+      &quot;business_recency_status&quot;: null,
+      &quot;source_ts&quot;: null,
+      &quot;collected_at&quot;: null,
+      &quot;available&quot;: false,
+      &quot;is_stale&quot;: null,
+      &quot;quality_blocking&quot;: false
+    }
+  ],
+  &quot;btc_adoption&quot;: [],
+  &quot;btc_total_state&quot;: [],
+  &quot;crypto_breadth&quot;: [],
+  &quot;derivatives_crowding&quot;: [],
+  &quot;dollar_liquidity&quot;: [],
+  &quot;event_policy&quot;: [
+    {
+      &quot;metric_id&quot;: &quot;regulatory_event_score&quot;,
+      &quot;source_id&quot;: null,
+      &quot;freshness_status&quot;: null,
+      &quot;collection_freshness_status&quot;: null,
+      &quot;business_recency_status&quot;: null,
+      &quot;source_ts&quot;: null,
+      &quot;collected_at&quot;: null,
+      &quot;available&quot;: false,
+      &quot;is_stale&quot;: null,
+      &quot;quality_blocking&quot;: false
+    }
+  ],
+  &quot;fund_flow&quot;: [],
+  &quot;kline_orderflow&quot;: [],
+  &quot;macro_radar&quot;: [
+    {
+      &quot;metric_id&quot;: &quot;nasdaq_return_24h_pct&quot;,
+      &quot;source_id&quot;: &quot;macro-radar-derived&quot;,
+      &quot;freshness_status&quot;: &quot;expired&quot;,
+      &quot;collection_freshness_status&quot;: &quot;expired&quot;,
+      &quot;business_recency_status&quot;: &quot;outdated&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-18T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-22T22:17:09.162960&quot;,
+      &quot;available&quot;: false,
+      &quot;is_stale&quot;: true,
+      &quot;quality_blocking&quot;: true
+    },
+    {
+      &quot;metric_id&quot;: &quot;nasdaq_return_24h_pct&quot;,
+      &quot;source_id&quot;: &quot;macro-radar-derived&quot;,
+      &quot;freshness_status&quot;: &quot;expired&quot;,
+      &quot;collection_freshness_status&quot;: &quot;expired&quot;,
+      &quot;business_recency_status&quot;: &quot;outdated&quot;,
+      &quot;source_ts&quot;: &quot;2026-06-18T00:00:00&quot;,
+      &quot;collected_at&quot;: &quot;2026-06-22T22:17:09.162960&quot;,
+      &quot;available&quot;: null,
+      &quot;is_stale&quot;: true,
+      &quot;quality_blocking&quot;: null
+    }
+  ],
+  &quot;onchain_valuation&quot;: [
+    {
+      &quot;metric_id&quot;: &quot;realized_price_derived&quot;,
+      &quot;source_id&quot;: null,
+      &quot;freshness_status&quot;: null,
+      &quot;collection_freshness_status&quot;: null,
+      &quot;business_recency_status&quot;: null,
+      &quot;source_ts&quot;: null,
+      &quot;collected_at&quot;: null,
+      &quot;available&quot;: false,
+      &quot;is_stale&quot;: null,
+      &quot;quality_blocking&quot;: false
+    },
+    {
+      &quot;metric_id&quot;: &quot;whale_flow&quot;,
+      &quot;source_id&quot;: null,
+      &quot;freshness_status&quot;: null,
+      &quot;collection_freshness_status&quot;: null,
+      &quot;business_recency_status&quot;: null,
+      &quot;source_ts&quot;: null,
+      &quot;collected_at&quot;: null,
+      &quot;available&quot;: false,
+      &quot;is_stale&quot;: null,
+      &quot;quality_blocking&quot;: false
+    },
+    {
+      &quot;metric_id&quot;: &quot;miner_flow&quot;,
+      &quot;source_id&quot;: null,
+      &quot;freshness_status&quot;: null,
+      &quot;collection_freshness_status&quot;: null,
+      &quot;business_recency_status&quot;: null,
+      &quot;source_ts&quot;: null,
+      &quot;collected_at&quot;: null,
+      &quot;available&quot;: false,
+      &quot;is_stale&quot;: null,
+      &quot;quality_blocking&quot;: false
+    }
+  ],
+  &quot;options_volatility&quot;: [],
+  &quot;trade_structure_flow&quot;: [],
+  &quot;treasury_credit&quot;: [
+    {
+      &quot;metric_id&quot;: &quot;hy_oas_percentile_252d&quot;,
+      &quot;source_id&quot;: null,
+      &quot;freshness_status&quot;: null,
+      &quot;collection_freshness_status&quot;: null,
+      &quot;business_recency_status&quot;: null,
+      &quot;source_ts&quot;: null,
+      &quot;collected_at&quot;: null,
+      &quot;available&quot;: false,
+      &quot;is_stale&quot;: null,
+      &quot;quality_blocking&quot;: true
+    }
+  ]
+}</pre></section>
+  <section class="card"><h2>Runtime Contribution Bridge</h2>
+    <table><thead><tr><th>module</th><th>layer</th><th>direction</th><th>stage</th><th>score</th><th>acceptance</th><th>contribution</th></tr></thead><tbody><tr><td>asia_risk</td><td>fast</td><td>conflict</td><td>fast_signal</td><td>-0.3946</td><td>unknown</td><td>0.0</td></tr>
+<tr><td>btc_adoption</td><td>regime</td><td>bearish</td><td>conflict</td><td>-0.4561</td><td>rejected</td><td>0.0086</td></tr>
+<tr><td>btc_total_state</td><td>controller</td><td>neutral</td><td>none</td><td>0.0</td><td>unknown</td><td>0.0</td></tr>
+<tr><td>crypto_breadth</td><td>regime</td><td>bullish</td><td>none</td><td>0.215</td><td>unknown</td><td>0.0215</td></tr>
+<tr><td>derivatives_crowding</td><td>fast</td><td>bearish</td><td>early_warning</td><td>-0.503</td><td>accepted</td><td>-0.176</td></tr>
+<tr><td>dollar_liquidity</td><td>confirmation</td><td>bearish</td><td>confirmed_signal</td><td>-0.1575</td><td>unknown</td><td>-0.0788</td></tr>
+<tr><td>event_policy</td><td>regime</td><td>neutral</td><td>none</td><td>0.0</td><td>unknown</td><td>0.0</td></tr>
+<tr><td>fund_flow</td><td>confirmation</td><td>bearish</td><td>confirmed_signal</td><td>-0.4024</td><td>accepted</td><td>-0.4024</td></tr>
+<tr><td>kline_orderflow</td><td>fast</td><td>bearish</td><td>early_warning</td><td>-0.169</td><td>unknown</td><td>-0.0296</td></tr>
+<tr><td>macro_radar</td><td>confirmation</td><td>bearish</td><td>none</td><td>-0.5</td><td>unknown</td><td>-0.05</td></tr>
+<tr><td>onchain_valuation</td><td>regime</td><td>bearish</td><td>confirmed_signal</td><td>-0.2508</td><td>rejected</td><td>0.0752</td></tr>
+<tr><td>options_volatility</td><td>regime</td><td>neutral</td><td>none</td><td>0.0</td><td>unknown</td><td>0.0</td></tr>
+<tr><td>trade_structure_flow</td><td>fast</td><td>bullish</td><td>none</td><td>0.35</td><td>accepted</td><td>0.07</td></tr>
+<tr><td>treasury_credit</td><td>confirmation</td><td>bearish</td><td>early_warning</td><td>-0.18</td><td>unknown</td><td>-0.0315</td></tr></tbody></table>
+  </section>
+</main>
+</body>
+</html>

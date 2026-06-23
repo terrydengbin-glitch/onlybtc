@@ -1,0 +1,61 @@
+{
+  "schema_version": "p7.audit.invalidation_workbench.v1",
+  "created_at": "2026-05-27T11:41:45.343062+00:00",
+  "status": "PASS",
+  "final_run_id": "p45final-20260527113933-2565e4",
+  "validation_state": "watching",
+  "cockpit_headline_state": "neutral",
+  "checks": [
+    {
+      "name": "schema_v2",
+      "passed": true,
+      "detail": "p45.invalidation_workbench.v2"
+    },
+    {
+      "name": "matrix_14_modules",
+      "passed": true,
+      "detail": 14
+    },
+    {
+      "name": "triggered_rules_have_gates",
+      "passed": true,
+      "detail": 0
+    },
+    {
+      "name": "missing_response_no_trigger",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "single_module_no_trigger",
+      "passed": true,
+      "detail": 0
+    },
+    {
+      "name": "history_payload_present",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "cockpit_hash_present",
+      "passed": true,
+      "detail": "d6cc2f5bd14d5f2e"
+    },
+    {
+      "name": "legacy_compatible",
+      "passed": true,
+      "detail": {
+        "legacy_keys": [
+          "invalidation_rules",
+          "confirmation_rules"
+        ]
+      }
+    }
+  ],
+  "summary": {
+    "matrix_count": 14,
+    "triggered_rules": 0,
+    "armed_rules": 2,
+    "blocked_rules": 0
+  }
+}

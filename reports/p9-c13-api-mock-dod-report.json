@@ -1,0 +1,95 @@
+{
+  "schema_version": "p9.c13.api_mock_dod_report.v1",
+  "generated_at": "2026-06-23T07:39:57.818428+00:00",
+  "overall_status": "passed",
+  "checks": {
+    "required_openapi_paths_present": true,
+    "frontend_p45_endpoints_present": true,
+    "mock_scenarios_present": true,
+    "mock_scenarios_use_report_v2": true,
+    "mock_scenarios_redacted": true,
+    "error_contract_exposed": true,
+    "sse_contract_exposed": true,
+    "api_security_mock_route_exposed": true,
+    "path_resolver_report_paths": true
+  },
+  "required_openapi_paths": [
+    "/api/p45/dashboard/latest",
+    "/api/p45/overview/latest",
+    "/api/p45/radar-modules/latest",
+    "/api/p45/radar-modules/{module_id}",
+    "/api/p45/evidence",
+    "/api/p45/articles/latest",
+    "/api/p45/llm/latest",
+    "/api/p45/invalidation/latest",
+    "/api/data-quality/latest",
+    "/api/p45/runs/latest",
+    "/api/p45/history/{final_run_id}",
+    "/api/events",
+    "/api/p45/run-full-with-llm",
+    "/api/mock/p9-c13/scenarios"
+  ],
+  "mock_scenario_ids": [
+    "normal_run",
+    "contract_warning_run",
+    "llm_completed_run",
+    "llm_completed_with_llm_errors_run",
+    "data_quality_degraded_run",
+    "historical_replay_run",
+    "legacy_p4_reference_run"
+  ],
+  "frontend_dto_snapshot_path": "E:\\onlyBTC\\reports\\p9-c13-frontend-dto-snapshot.json",
+  "openapi_snapshot_path": "E:\\onlyBTC\\reports\\p9-c13-openapi-snapshot.json",
+  "p9_dod_checklist": [
+    {
+      "check_id": "required_openapi_paths_present",
+      "status": "PASS",
+      "description": "All P5 page APIs are present in OpenAPI."
+    },
+    {
+      "check_id": "frontend_p45_endpoints_present",
+      "status": "PASS",
+      "description": "Frontend DTO layer references P45 page APIs."
+    },
+    {
+      "check_id": "mock_scenarios_present",
+      "status": "PASS",
+      "description": "Required API mock scenarios are available."
+    },
+    {
+      "check_id": "mock_scenarios_use_report_v2",
+      "status": "PASS",
+      "description": "Mock fixtures use P4.5 Report v2."
+    },
+    {
+      "check_id": "mock_scenarios_redacted",
+      "status": "PASS",
+      "description": "Mock fixtures do not expose plaintext secrets."
+    },
+    {
+      "check_id": "error_contract_exposed",
+      "status": "PASS",
+      "description": "Frontend error DTO contract is present."
+    },
+    {
+      "check_id": "sse_contract_exposed",
+      "status": "PASS",
+      "description": "Realtime SSE endpoint is present."
+    },
+    {
+      "check_id": "api_security_mock_route_exposed",
+      "status": "PASS",
+      "description": "P9-C13 API mock endpoint is present."
+    },
+    {
+      "check_id": "path_resolver_report_paths",
+      "status": "PASS",
+      "description": "Reports are written under the project reports directory."
+    }
+  ],
+  "mock_server": {
+    "endpoint": "/api/mock/p9-c13/scenarios",
+    "mode": "contract_fixture",
+    "scenario_count": 7
+  }
+}

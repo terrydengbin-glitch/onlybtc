@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <title>Event Window Source Audit</title>
+  <style>
+    :root {
+      --bg: #07131c;
+      --panel: #0d2030;
+      --panel2: #10293a;
+      --line: #24455c;
+      --text: #dbeafe;
+      --muted: #8fb3c7;
+      --cyan: #22d3ee;
+      --green: #22d3b6;
+      --yellow: #fbbf24;
+      --red: #fb7185;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px),
+        var(--bg);
+      background-size: 32px 32px;
+      color: var(--text);
+      font-family: Inter, Arial, "Microsoft YaHei", sans-serif;
+    }
+    main { max-width: 1440px; margin: 0 auto; padding: 28px; }
+    h1, h2, h3 { margin: 0; }
+    h1 { font-size: 30px; }
+    h2 { margin-top: 26px; color: #f8fafc; font-size: 20px; }
+    p { color: var(--muted); line-height: 1.55; }
+    code { color: #fef3c7; }
+    .hero {
+      border: 1px solid rgba(34, 211, 238, .24);
+      background: linear-gradient(135deg, rgba(13,32,48,.94), rgba(9,22,32,.88));
+      border-radius: 12px;
+      padding: 22px;
+      box-shadow: 0 16px 60px rgba(0,0,0,.28);
+    }
+    .hero-row { display: flex; justify-content: space-between; gap: 20px; align-items: start; }
+    .pill {
+      display: inline-flex;
+      border: 1px solid rgba(143,179,199,.24);
+      border-radius: 999px;
+      padding: 5px 10px;
+      color: #bae6fd;
+      background: rgba(8,24,36,.74);
+      font-size: 12px;
+      margin: 4px 4px 0 0;
+    }
+    .pill.ok { color: var(--green); border-color: rgba(34,211,182,.35); }
+    .pill.warn { color: var(--yellow); border-color: rgba(251,191,36,.4); }
+    .pill.bad { color: var(--red); border-color: rgba(251,113,133,.42); }
+    .grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+    .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .card {
+      border: 1px solid rgba(143,179,199,.18);
+      background: rgba(13,32,48,.82);
+      border-radius: 10px;
+      padding: 14px;
+      min-width: 0;
+    }
+    .card small { color: var(--muted); display: block; }
+    .value { font-size: 24px; color: var(--cyan); font-weight: 800; margin-top: 4px; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 13px;
+      background: rgba(8,24,36,.62);
+      border: 1px solid rgba(143,179,199,.14);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    th, td {
+      border-bottom: 1px solid rgba(143,179,199,.14);
+      padding: 9px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th { color: #bae6fd; background: rgba(11,26,38,.94); }
+    tr:last-child td { border-bottom: 0; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 12px; }
+    .status-success, .status-fallback_used { color: var(--green); }
+    .status-partial { color: var(--yellow); }
+    .status-failed { color: var(--red); }
+    .note {
+      border-left: 3px solid var(--yellow);
+      background: rgba(251,191,36,.08);
+      padding: 12px 14px;
+      border-radius: 8px;
+      margin-top: 14px;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <section class="hero">
+    <div class="hero-row">
+      <div>
+        <span class="pill">Event Window v3.2</span>
+        <span class="pill">Source Audit</span>
+        <h1>预警 / 事件窗口 · 数据源审计</h1>
+        <p>
+          Generated: <code>2026-06-22T21:03:42.891631+00:00</code> · Snapshot:
+          <code>evt-20260622210342-0643e6fd</code> · Schema:
+          <code>p45.event_window.v3</code>
+        </p>
+      </div>
+      <div>
+        <span class="pill warn">
+          emergency watch
+        </span>
+        <span class="pill">state pre_event_high_alert</span>
+      </div>
+    </div>
+    <div class="grid" style="margin-top:16px">
+      <div class="card"><small>Active event</small><div class="value">PCE / Personal Income and Outlays</div></div>
+      <div class="card"><small>Source mode</small><div class="value">fallback</div></div>
+      <div class="card"><small>Functional live</small><div class="value">False</div></div>
+      <div class="card"><small>Blocked</small><div class="value">False</div></div>
+      <div class="card"><small>Calendar confidence</small><div class="value">0.35</div></div>
+      <div class="card"><small>Consensus confidence</small><div class="value">0.0</div></div>
+      <div class="card"><small>Nowcast confidence</small><div class="value">0.0</div></div>
+      <div class="card"><small>Prediction confidence</small><div class="value">0.0</div></div>
+      <div class="card"><small>Fetch attempts</small><div class="value">11</div></div>
+      <div class="card"><small>Calendar items</small><div class="value">4</div></div>
+    </div>
+    <div class="note">
+      <strong>partial_live = functional live:</strong>
+      partial/live source gaps are capability-scoped. They do not stop the daemon,
+      Shock Fast Lane, emergency overlay, or floating alert unless
+      <code>blocked=true</code>. fallback sources can keep calendar monitoring alive, but high-confidence surprise calculations remain disabled.
+    </div>
+  </section>
+
+  <h2>SQLite 历史落盘确认</h2>
+  <p>
+    结论：这些信息已经存在 SQLite，用于历史回顾和 replay。完整 payload 存在
+    <code>event_watchtower_snapshots.payload_json</code>；单次抓取 lineage 存在
+    <code>event_source_fetches.payload_json</code>；日历、预期、Fed 文本、LLM 分析、
+    shock、post-event reaction、alert 都有独立表。
+  </p>
+  <div class="grid three">
+    <div class="card"><small>event_watchtower_snapshots</small><div class="value">7292</div></div><div class="card"><small>event_calendar_items</small><div class="value">87</div></div><div class="card"><small>event_expectation_snapshots</small><div class="value">1715</div></div><div class="card"><small>event_official_text_items</small><div class="value">26</div></div><div class="card"><small>event_llm_analyses</small><div class="value">36</div></div><div class="card"><small>event_shock_lane_items</small><div class="value">726</div></div><div class="card"><small>event_post_reaction_snapshots</small><div class="value">4320</div></div><div class="card"><small>event_alerts</small><div class="value">4357</div></div><div class="card"><small>event_source_fetches</small><div class="value">111301</div></div>
+  </div>
+
+  <h2>Provider Confidence</h2>
+  <table>
+    <thead><tr><th>field</th><th>value</th></tr></thead>
+    <tbody>
+      <tr><td>calendar_confidence</td><td class="mono">0.35</td></tr>
+<tr><td>consensus_confidence</td><td class="mono">0.0</td></tr>
+<tr><td>nowcast_confidence</td><td class="mono">0.0</td></tr>
+<tr><td>actual_confidence</td><td class="mono">0.0</td></tr>
+<tr><td>rate_probability_confidence</td><td class="mono">0.0</td></tr>
+<tr><td>prediction_market_confidence</td><td class="mono">0.0</td></tr>
+<tr><td>provider_tier_counts</td><td class="mono">{&#x27;scheduler&#x27;: 8, &#x27;fallback&#x27;: 2}</td></tr>
+<tr><td>disabled_capabilities</td><td class="mono">[&#x27;consensus_unconfirmed&#x27;, &#x27;official_surprise_disabled&#x27;]</td></tr>
+<tr><td>source_conflicts</td><td class="mono">[]</td></tr>
+<tr><td>lineage_mode</td><td class="mono">partial_live</td></tr>
+<tr><td>functional_live</td><td class="mono">True</td></tr>
+<tr><td>blocked</td><td class="mono">False</td></tr>
+<tr><td>confidence_note</td><td class="mono">partial live coverage is operational for monitoring; missing fields are capability-scoped.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Source Quality</h2>
+  <table>
+    <thead><tr><th>field</th><th>value</th></tr></thead>
+    <tbody>
+      <tr><td>calendar_quality</td><td class="mono">missing</td></tr>
+<tr><td>actual_quality</td><td class="mono">pending</td></tr>
+<tr><td>nowcast_quality</td><td class="mono">missing</td></tr>
+<tr><td>consensus_quality</td><td class="mono">missing</td></tr>
+<tr><td>fedwatch_quality</td><td class="mono">missing</td></tr>
+<tr><td>speech_quality</td><td class="mono">missing</td></tr>
+<tr><td>overall_source_mode</td><td class="mono">fallback</td></tr>
+<tr><td>functional_live</td><td class="mono">False</td></tr>
+<tr><td>blocked</td><td class="mono">False</td></tr>
+<tr><td>confidence_note</td><td class="mono">fallback sources can keep calendar monitoring alive, but high-confidence surprise calculations remain disabled.</td></tr>
+<tr><td>disabled_capabilities</td><td class="mono">[&#x27;release_surprise_disabled&#x27;, &#x27;actual_pending&#x27;]</td></tr>
+<tr><td>blocked_reason</td><td class="mono">-</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Expectation / Secondary / Prediction</h2>
+  <div class="grid three">
+    <div class="card"><small>Nowcast</small><div class="value">-</div></div>
+    <div class="card"><small>Consensus status</small><div class="value">-</div></div>
+    <div class="card"><small>Secondary calendar</small><div class="value">-</div></div>
+    <div class="card"><small>Secondary consensus</small><div class="value">-</div></div>
+    <div class="card"><small>Actual fast</small><div class="value">-</div></div>
+    <div class="card"><small>Disabled providers</small><div class="value">0</div></div>
+    <div class="card"><small>Prediction status</small><div class="value">-</div></div>
+    <div class="card"><small>Prediction markets</small><div class="value">-</div></div>
+  </div>
+  <div class="note">
+    非官方源只能触发 watch / high alert / proxy 风险，不会伪装成官方 actual、official consensus
+    或 CME FedWatch probability。
+  </div>
+
+  <h2>Secondary Provider Replacement Mesh</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>provider</th><th>tier</th><th>status</th><th>replacement</th>
+        <th>replacement_for</th><th>disabled_reason</th><th>fallback</th>
+        <th>throttle</th><th>cache</th><th>next_allowed</th><th>values</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td colspan="11">-</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Source Fetch Lineage</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>source_id</th><th>tier</th><th>status</th><th>http</th>
+        <th>parsed</th><th>fallback</th><th>throttle</th><th>cache</th>
+        <th>next_allowed</th><th>blocked</th><th>source_group</th><th>skip_reason</th>
+        <th>error / endpoint</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="mono">official_calendar-scheduler</td><td>scheduler</td><td class="status-skipped_not_due">skipped_not_due</td><td>-</td><td>0</td><td>False</td><td>-</td><td>previous_snapshot_missing</td><td class="mono">-</td><td>-</td><td>official_calendar</td><td>next_due_at_in_future</td><td class="mono">official_calendar skipped by scheduler due gate; reused previous calendar_items.</td></tr>
+<tr><td class="mono">fed_rss_official_text-scheduler</td><td>scheduler</td><td class="status-skipped_not_due">skipped_not_due</td><td>-</td><td>0</td><td>False</td><td>-</td><td>previous_snapshot_missing</td><td class="mono">-</td><td>-</td><td>fed_rss_official_text</td><td>next_due_at_in_future</td><td class="mono">fed_rss_official_text skipped by scheduler due gate; reused previous official_text_items.</td></tr>
+<tr><td class="mono">embedded-official-calendar</td><td>fallback</td><td class="status-fallback_used">fallback_used</td><td>-</td><td>4</td><td>True</td><td>-</td><td>-</td><td class="mono">-</td><td>-</td><td>-</td><td>-</td><td class="mono">Embedded fallback used because live connector did not return usable data.</td></tr>
+<tr><td class="mono">expectation_nowcast-scheduler</td><td>scheduler</td><td class="status-skipped_not_due">skipped_not_due</td><td>-</td><td>0</td><td>False</td><td>-</td><td>previous_snapshot_missing</td><td class="mono">-</td><td>-</td><td>expectation_nowcast</td><td>next_due_at_in_future</td><td class="mono">expectation_nowcast skipped by scheduler due gate; reused previous expectation_monitor.</td></tr>
+<tr><td class="mono">consensus_proxy-scheduler</td><td>scheduler</td><td class="status-skipped_not_due">skipped_not_due</td><td>-</td><td>0</td><td>False</td><td>-</td><td>previous_snapshot_missing</td><td class="mono">-</td><td>-</td><td>consensus_proxy</td><td>next_due_at_in_future</td><td class="mono">consensus_proxy skipped by scheduler due gate; reused previous expectation_monitor.</td></tr>
+<tr><td class="mono">rate_probability-scheduler</td><td>scheduler</td><td class="status-skipped_not_due">skipped_not_due</td><td>-</td><td>0</td><td>False</td><td>-</td><td>previous_snapshot_missing</td><td class="mono">-</td><td>-</td><td>rate_probability</td><td>next_due_at_in_future</td><td class="mono">rate_probability skipped by scheduler due gate; reused previous expectation_monitor.</td></tr>
+<tr><td class="mono">embedded-fed-rss-placeholder</td><td>fallback</td><td class="status-fallback_used">fallback_used</td><td>-</td><td>1</td><td>True</td><td>-</td><td>-</td><td class="mono">-</td><td>-</td><td>-</td><td>-</td><td class="mono">Embedded fallback used because live connector did not return usable data.</td></tr>
+<tr><td class="mono">btc_reaction-scheduler</td><td>scheduler</td><td class="status-skipped_not_due">skipped_not_due</td><td>-</td><td>0</td><td>False</td><td>-</td><td>previous_snapshot_missing</td><td class="mono">-</td><td>-</td><td>btc_reaction</td><td>next_due_at_in_future</td><td class="mono">btc_reaction skipped by scheduler due gate; reused previous market_probe.</td></tr>
+<tr><td class="mono">shock_fast_lane-scheduler</td><td>scheduler</td><td class="status-skipped_not_due">skipped_not_due</td><td>-</td><td>0</td><td>False</td><td>-</td><td>previous_snapshot_missing</td><td class="mono">-</td><td>-</td><td>shock_fast_lane</td><td>next_due_at_in_future</td><td class="mono">shock_fast_lane skipped by scheduler due gate; reused previous shock_lane_items.</td></tr>
+<tr><td class="mono">llm_speech_analyzer-scheduler</td><td>scheduler</td><td class="status-skipped_not_due">skipped_not_due</td><td>-</td><td>0</td><td>False</td><td>-</td><td>previous_snapshot_missing</td><td class="mono">-</td><td>-</td><td>llm_speech_analyzer</td><td>next_due_at_in_future</td><td class="mono">llm_speech_analyzer skipped by scheduler due gate; reused previous llm_analyses.</td></tr>
+<tr><td class="mono">post_event_reaction-scheduler</td><td>scheduler</td><td class="status-skipped_not_due">skipped_not_due</td><td>-</td><td>0</td><td>False</td><td>-</td><td>previous_snapshot_missing</td><td class="mono">-</td><td>-</td><td>post_event_reaction</td><td>next_due_at_in_future</td><td class="mono">post_event_reaction skipped by scheduler due gate; reused previous post_event_reaction.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Upcoming Calendar Items</h2>
+  <table>
+    <thead><tr><th>event</th><th>title</th><th>release_time</th><th>tier</th><th>provider</th></tr></thead>
+    <tbody>
+      <tr><td>PCE</td><td>Personal Income and Outlays</td><td class="mono">2026-06-23T07:30:00+00:00</td><td>fallback</td><td>Embedded fallback calendar</td></tr>
+<tr><td>NFP</td><td>Employment Situation</td><td class="mono">2026-06-30T12:30:00+00:00</td><td>fallback</td><td>Embedded fallback calendar</td></tr>
+<tr><td>CPI</td><td>Consumer Price Index</td><td class="mono">2026-07-05T12:30:00+00:00</td><td>fallback</td><td>Embedded fallback calendar</td></tr>
+<tr><td>FOMC</td><td>FOMC meeting</td><td class="mono">2026-07-13T12:30:00+00:00</td><td>fallback</td><td>Embedded fallback calendar</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Configured Source Lineage</h2>
+  <table>
+    <thead><tr><th>source_id</th><th>tier</th><th>role</th><th>url</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">fed-fomc-calendar</td><td>official</td><td>FOMC calendar, statements, minutes and SEP lineage</td><td class="mono">https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm</td></tr>
+<tr><td class="mono">fed-rss</td><td>official</td><td>Fed speeches, testimony, press releases and statistics RSS lineage</td><td class="mono">https://www.federalreserve.gov/feeds/feeds.htm</td></tr>
+<tr><td class="mono">bls-release-calendar</td><td>official</td><td>CPI, PPI, NFP, JOLTS and ECI official release calendar</td><td class="mono">https://www.bls.gov/schedule/</td></tr>
+<tr><td class="mono">fred-release-dates</td><td>official_mirror</td><td>BLS release-date mirror when official BLS calendar access is blocked</td><td class="mono">https://api.stlouisfed.org/fred/release/dates</td></tr>
+<tr><td class="mono">bea-api</td><td>official</td><td>PCE, GDP and Personal Income and Outlays official data lineage</td><td class="mono">https://apps.bea.gov/api/</td></tr>
+<tr><td class="mono">cleveland-fed-nowcast</td><td>expectation</td><td>CPI/PCE inflation nowcast expectation drift</td><td class="mono">https://www.clevelandfed.org/indicators-and-data/inflation-nowcasting</td></tr>
+<tr><td class="mono">cme-fedwatch</td><td>market_implied</td><td>Fed funds futures implied policy path</td><td class="mono">https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html</td></tr>
+<tr><td class="mono">fxstreet-calendar</td><td>secondary_consensus</td><td>Secondary economic calendar and consensus cross-check</td><td class="mono">https://www.fxstreet.com/economic-calendar</td></tr>
+<tr><td class="mono">kalshi-public-markets</td><td>prediction_market</td><td>Prediction market odds for policy and inflation risk repricing</td><td class="mono">https://external-api.kalshi.com/trade-api/v2/</td></tr>
+<tr><td class="mono">polymarket-public-events</td><td>prediction_market</td><td>Prediction market cross-check for policy and inflation risk repricing</td><td class="mono">https://gamma-api.polymarket.com/events</td></tr>
+<tr><td class="mono">atlanta-fed-mpt</td><td>fed_research_tool</td><td>Fed research tool for market-implied rate range probabilities</td><td class="mono">https://www.atlantafed.org/cenfis/market-probability-tracker</td></tr>
+    </tbody>
+  </table>
+</main>
+</body>
+</html>

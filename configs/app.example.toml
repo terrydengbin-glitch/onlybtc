@@ -1,0 +1,10 @@
+[app]
+name = "onlyBTC"
+environment = "development"
+
+[server]
+host = "127.0.0.1"
+port = 8118
+
+[scheduler]
+default_interval_seconds = 600

@@ -1,0 +1,104 @@
+{
+  "schema_version": "p6.dod_report.v1",
+  "status": "warning",
+  "created_at": "2026-06-23T08:38:10.047740+00:00",
+  "article_snapshot_id": "p6article-p45final-p8-replay-verify-202606221611",
+  "final_run_id": "p45final-p8-replay-verify-202606221611",
+  "checks": [
+    {
+      "check_id": "article_snapshot_available",
+      "status": "passed",
+      "passed": true,
+      "description": "P6 article snapshot is available."
+    },
+    {
+      "check_id": "article_citations_traceable",
+      "status": "passed",
+      "passed": true,
+      "description": "Article citations are traceable to evidence ids."
+    },
+    {
+      "check_id": "article_history_available",
+      "status": "passed",
+      "passed": true,
+      "description": "P6 article history returns snapshots."
+    },
+    {
+      "check_id": "history_replay_frozen",
+      "status": "passed",
+      "passed": true,
+      "description": "History replay is frozen and does not use latest runtime state."
+    },
+    {
+      "check_id": "alert_quality_available",
+      "status": "passed",
+      "passed": true,
+      "description": "Alert quality layer is queryable."
+    },
+    {
+      "check_id": "outcome_tracking_available",
+      "status": "passed",
+      "passed": true,
+      "description": "Outcome tracking layer is queryable."
+    },
+    {
+      "check_id": "module_effectiveness_available",
+      "status": "warning",
+      "passed": true,
+      "description": "Module effectiveness layer is queryable."
+    },
+    {
+      "check_id": "no_trading_advice_boundary",
+      "status": "passed",
+      "passed": true,
+      "description": "P6 DoD artifacts do not provide trading advice."
+    },
+    {
+      "check_id": "no_production_weight_mutation",
+      "status": "passed",
+      "passed": true,
+      "description": "P6 scoring does not mutate module weights."
+    }
+  ],
+  "artifacts": {
+    "article_history": {
+      "schema_version": "p6.article_history.v1",
+      "status": "ok",
+      "count": 1
+    },
+    "article_replay": {
+      "schema_version": "p6.article_replay.v1",
+      "status": "ok",
+      "count": null
+    },
+    "alert_quality": {
+      "schema_version": "p6.alert_quality.v1",
+      "status": "warning",
+      "count": 3
+    },
+    "outcome_tracking": {
+      "schema_version": "p6.outcome_tracking.v1",
+      "status": "ok",
+      "count": 1
+    },
+    "module_effectiveness": {
+      "schema_version": "p6.module_effectiveness.v1",
+      "status": "insufficient",
+      "count": 14
+    }
+  },
+  "replay_scores_written": [],
+  "calibration_notes_written": [
+    {
+      "target": "p45final-p8-replay-verify-202606221611",
+      "action": "inserted",
+      "production_weight_mutation": false
+    }
+  ],
+  "dod_boundary": {
+    "read_only_replay": true,
+    "production_weight_mutation": false,
+    "mutates_final_view": false,
+    "trading_advice": false
+  }
+}

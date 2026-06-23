@@ -1,0 +1,483 @@
+{
+  "schema_version": "p7.c08.production_gate.v1",
+  "generated_at": "2026-06-22T23:39:54.492872+00:00",
+  "applied_to_production": false,
+  "production_apply_allowed": false,
+  "manual_gate_release_allowed": true,
+  "overall_status": "manual_review",
+  "alert_count": 3,
+  "alerts": [
+    {
+      "alert_id": "child_status_manual_acceptance_required",
+      "level": "watch",
+      "scope": "P7-C05",
+      "reason": "playwright_stability",
+      "recommended_action": "review_manual_acceptance_before_release",
+      "child_task_id": "P7-C05"
+    },
+    {
+      "alert_id": "child_status_manual_acceptance_required",
+      "level": "watch",
+      "scope": "P7-C06",
+      "reason": "cost_cache_rate_limit_retry",
+      "recommended_action": "review_manual_acceptance_before_release",
+      "child_task_id": "P7-C06"
+    },
+    {
+      "alert_id": "child_status_manual_acceptance_required",
+      "level": "watch",
+      "scope": "P7-C07",
+      "reason": "provider_permission_source_onboarding",
+      "recommended_action": "review_manual_acceptance_before_release",
+      "child_task_id": "P7-C07"
+    }
+  ],
+  "manual_acceptance": {
+    "schema_version": "p7.c36.manual_acceptance.v1",
+    "release_policy": "manual_review_required",
+    "accepted_warning_count": 5,
+    "blocking_warning_count": 0,
+    "items": [
+      {
+        "task_id": "P7-C05",
+        "capability": "playwright_stability",
+        "alert_id": "provider_auth_not_verified",
+        "source_level": "warning",
+        "scope": "provider_auth",
+        "reason": "glassnode: status not found",
+        "recommended_action": "degrade_provider_to_health_warning_until_verified",
+        "classification": "provider_locked",
+        "release_condition": "Keep login-required provider metrics degraded until the human profile is verified."
+      },
+      {
+        "task_id": "P7-C05",
+        "capability": "playwright_stability",
+        "alert_id": "playwright_recent_health_warnings",
+        "source_level": "warning",
+        "scope": "source_health",
+        "reason": "fxstreet-economic-calendar",
+        "recommended_action": "inspect_artifacts_selectors_or_provider_auth",
+        "classification": "accepted_manual_gate",
+        "release_condition": "Recent Playwright warning is observable and source health remains non-critical."
+      },
+      {
+        "task_id": "P7-C06",
+        "capability": "cost_cache_rate_limit_retry",
+        "alert_id": "p45_research_budget_gap",
+        "source_level": "warning",
+        "scope": "llm_budget",
+        "reason": "P4.5 research writer has timeout/retry but no explicit call/token budget",
+        "recommended_action": "add_p45_call_and_token_budget_before_production_llm_expansion",
+        "classification": "accepted_manual_gate",
+        "release_condition": "Do not expand production LLM usage until explicit P4.5 call/token budgets are reviewed."
+      },
+      {
+        "task_id": "P7-C07",
+        "capability": "provider_permission_source_onboarding",
+        "alert_id": "provider_permission_missing",
+        "source_level": "warning",
+        "scope": "provider_permissions",
+        "reason": "openai,glassnode",
+        "recommended_action": "mark_affected_metrics_missing_provider_locked",
+        "classification": "provider_locked",
+        "release_condition": "Keep affected provider metrics missing/provider_locked until credentials or login state are verified."
+      },
+      {
+        "task_id": "P7-C07",
+        "capability": "provider_permission_source_onboarding",
+        "alert_id": "manual_login_session_unverified",
+        "source_level": "warning",
+        "scope": "provider_permissions",
+        "reason": "glassnode",
+        "recommended_action": "verify_session_before_using_login_required_sources",
+        "classification": "provider_locked",
+        "release_condition": "Keep affected provider metrics missing/provider_locked until credentials or login state are verified."
+      }
+    ],
+    "guardrails": [
+      "manual_acceptance_does_not_apply_production_changes",
+      "provider_locked_metrics_remain_missing_until_verified",
+      "llm_budget_expansion_requires_human_review",
+      "critical_child_status_still_blocks_release"
+    ]
+  },
+  "accepted_warning_count": 5,
+  "blocking_warning_count": 0,
+  "child_reports": [
+    {
+      "task_id": "P7-C01",
+      "capability": "module_weight_calibration",
+      "report_name": "p7-c01-module-weight-calibration-report.json",
+      "present": true,
+      "status": "healthy",
+      "applied_to_production": false,
+      "schema_version": "p7.c01.module_weight_calibration.v1",
+      "missing_fields": [],
+      "alerts": [],
+      "source_alert_count": 0,
+      "manual_acceptance": {
+        "task_id": "P7-C01",
+        "capability": "module_weight_calibration",
+        "status_before_acceptance": "healthy",
+        "release_policy": "no_manual_acceptance_needed",
+        "accepted_warning_count": 0,
+        "blocking_warning_count": 0,
+        "items": []
+      }
+    },
+    {
+      "task_id": "P7-C02",
+      "capability": "state_alert_threshold_calibration",
+      "report_name": "p7-c02-state-alert-threshold-calibration-report.json",
+      "present": true,
+      "status": "healthy",
+      "applied_to_production": false,
+      "schema_version": "p7.c02.state_alert_threshold_calibration.v1",
+      "missing_fields": [],
+      "alerts": [],
+      "source_alert_count": 0,
+      "manual_acceptance": {
+        "task_id": "P7-C02",
+        "capability": "state_alert_threshold_calibration",
+        "status_before_acceptance": "healthy",
+        "release_policy": "no_manual_acceptance_needed",
+        "accepted_warning_count": 0,
+        "blocking_warning_count": 0,
+        "items": []
+      }
+    },
+    {
+      "task_id": "P7-C03",
+      "capability": "prompt_version_registry",
+      "report_name": "p7-c03-prompt-version-management-report.json",
+      "present": true,
+      "status": "healthy",
+      "applied_to_production": false,
+      "schema_version": "p7.c03.prompt_version_registry.v1",
+      "missing_fields": [],
+      "alerts": [],
+      "source_alert_count": 0,
+      "manual_acceptance": {
+        "task_id": "P7-C03",
+        "capability": "prompt_version_registry",
+        "status_before_acceptance": "healthy",
+        "release_policy": "no_manual_acceptance_needed",
+        "accepted_warning_count": 0,
+        "blocking_warning_count": 0,
+        "items": []
+      }
+    },
+    {
+      "task_id": "P7-C04",
+      "capability": "source_health_monitor",
+      "report_name": "p7-c04-source-health-monitor-report.json",
+      "present": true,
+      "status": "watch",
+      "applied_to_production": false,
+      "schema_version": "p7.c04.source_health_monitor.v1",
+      "missing_fields": [],
+      "alerts": [],
+      "source_alert_count": 4,
+      "manual_acceptance": {
+        "task_id": "P7-C04",
+        "capability": "source_health_monitor",
+        "status_before_acceptance": "watch",
+        "release_policy": "no_manual_acceptance_needed",
+        "accepted_warning_count": 0,
+        "blocking_warning_count": 0,
+        "items": []
+      }
+    },
+    {
+      "task_id": "P7-C05",
+      "capability": "playwright_stability",
+      "report_name": "p7-c05-playwright-stability-report.json",
+      "present": true,
+      "status": "manual_review",
+      "applied_to_production": false,
+      "schema_version": "p7.c05.playwright_stability.v1",
+      "missing_fields": [],
+      "alerts": [
+        {
+          "alert_id": "child_status_manual_acceptance_required",
+          "level": "watch",
+          "scope": "P7-C05",
+          "reason": "playwright_stability",
+          "recommended_action": "review_manual_acceptance_before_release"
+        }
+      ],
+      "source_alert_count": 2,
+      "manual_acceptance": {
+        "task_id": "P7-C05",
+        "capability": "playwright_stability",
+        "status_before_acceptance": "warning",
+        "release_policy": "manual_review_required",
+        "accepted_warning_count": 2,
+        "blocking_warning_count": 0,
+        "items": [
+          {
+            "task_id": "P7-C05",
+            "capability": "playwright_stability",
+            "alert_id": "provider_auth_not_verified",
+            "source_level": "warning",
+            "scope": "provider_auth",
+            "reason": "glassnode: status not found",
+            "recommended_action": "degrade_provider_to_health_warning_until_verified",
+            "classification": "provider_locked",
+            "release_condition": "Keep login-required provider metrics degraded until the human profile is verified."
+          },
+          {
+            "task_id": "P7-C05",
+            "capability": "playwright_stability",
+            "alert_id": "playwright_recent_health_warnings",
+            "source_level": "warning",
+            "scope": "source_health",
+            "reason": "fxstreet-economic-calendar",
+            "recommended_action": "inspect_artifacts_selectors_or_provider_auth",
+            "classification": "accepted_manual_gate",
+            "release_condition": "Recent Playwright warning is observable and source health remains non-critical."
+          }
+        ]
+      }
+    },
+    {
+      "task_id": "P7-C06",
+      "capability": "cost_cache_rate_limit_retry",
+      "report_name": "p7-c06-cost-control-cache-rate-limit-report.json",
+      "present": true,
+      "status": "manual_review",
+      "applied_to_production": false,
+      "schema_version": "p7.c06.cost_control_cache_rate_limit.v1",
+      "missing_fields": [],
+      "alerts": [
+        {
+          "alert_id": "child_status_manual_acceptance_required",
+          "level": "watch",
+          "scope": "P7-C06",
+          "reason": "cost_cache_rate_limit_retry",
+          "recommended_action": "review_manual_acceptance_before_release"
+        }
+      ],
+      "source_alert_count": 2,
+      "manual_acceptance": {
+        "task_id": "P7-C06",
+        "capability": "cost_cache_rate_limit_retry",
+        "status_before_acceptance": "warning",
+        "release_policy": "manual_review_required",
+        "accepted_warning_count": 1,
+        "blocking_warning_count": 0,
+        "items": [
+          {
+            "task_id": "P7-C06",
+            "capability": "cost_cache_rate_limit_retry",
+            "alert_id": "p45_research_budget_gap",
+            "source_level": "warning",
+            "scope": "llm_budget",
+            "reason": "P4.5 research writer has timeout/retry but no explicit call/token budget",
+            "recommended_action": "add_p45_call_and_token_budget_before_production_llm_expansion",
+            "classification": "accepted_manual_gate",
+            "release_condition": "Do not expand production LLM usage until explicit P4.5 call/token budgets are reviewed."
+          }
+        ]
+      }
+    },
+    {
+      "task_id": "P7-C07",
+      "capability": "provider_permission_source_onboarding",
+      "report_name": "p7-c07-provider-permission-source-onboarding-report.json",
+      "present": true,
+      "status": "manual_review",
+      "applied_to_production": false,
+      "schema_version": "p7.c07.provider_permission_source_onboarding.v1",
+      "missing_fields": [],
+      "alerts": [
+        {
+          "alert_id": "child_status_manual_acceptance_required",
+          "level": "watch",
+          "scope": "P7-C07",
+          "reason": "provider_permission_source_onboarding",
+          "recommended_action": "review_manual_acceptance_before_release"
+        }
+      ],
+      "source_alert_count": 2,
+      "manual_acceptance": {
+        "task_id": "P7-C07",
+        "capability": "provider_permission_source_onboarding",
+        "status_before_acceptance": "warning",
+        "release_policy": "manual_review_required",
+        "accepted_warning_count": 2,
+        "blocking_warning_count": 0,
+        "items": [
+          {
+            "task_id": "P7-C07",
+            "capability": "provider_permission_source_onboarding",
+            "alert_id": "provider_permission_missing",
+            "source_level": "warning",
+            "scope": "provider_permissions",
+            "reason": "openai,glassnode",
+            "recommended_action": "mark_affected_metrics_missing_provider_locked",
+            "classification": "provider_locked",
+            "release_condition": "Keep affected provider metrics missing/provider_locked until credentials or login state are verified."
+          },
+          {
+            "task_id": "P7-C07",
+            "capability": "provider_permission_source_onboarding",
+            "alert_id": "manual_login_session_unverified",
+            "source_level": "warning",
+            "scope": "provider_permissions",
+            "reason": "glassnode",
+            "recommended_action": "verify_session_before_using_login_required_sources",
+            "classification": "provider_locked",
+            "release_condition": "Keep affected provider metrics missing/provider_locked until credentials or login state are verified."
+          }
+        ]
+      }
+    }
+  ],
+  "production_mock_scenarios": [
+    {
+      "scenario_id": "mock_module_weight_quality_discount",
+      "task_id": "P7-C01",
+      "capability": "module_weight_calibration",
+      "mock_signal": "low_quality_module_payload_or_profile_shift",
+      "expected_behavior": "recommend_weights_without_mutating_registry",
+      "status": "healthy",
+      "gate_behavior": "record_and_continue_audit"
+    },
+    {
+      "scenario_id": "mock_threshold_walk_forward_gap",
+      "task_id": "P7-C02",
+      "capability": "state_alert_threshold_calibration",
+      "mock_signal": "missing_or_weak_walk_forward_evaluation",
+      "expected_behavior": "keep_production_apply_false_and_surface_evidence_gap",
+      "status": "healthy",
+      "gate_behavior": "record_and_continue_audit"
+    },
+    {
+      "scenario_id": "mock_prompt_hash_registry",
+      "task_id": "P7-C03",
+      "capability": "prompt_version_registry",
+      "mock_signal": "registered_prompt_versions_and_output_schema_hashes",
+      "expected_behavior": "record_prompt_diff_surface_without_changing_runtime_prompt",
+      "status": "healthy",
+      "gate_behavior": "record_and_continue_audit"
+    },
+    {
+      "scenario_id": "mock_source_freshness_and_quality_failure",
+      "task_id": "P7-C04",
+      "capability": "source_health_monitor",
+      "mock_signal": "stale_missing_or_failed_source_health_events",
+      "expected_behavior": "degrade_data_quality_and_block_confirmed_signal_if_critical",
+      "status": "watch",
+      "gate_behavior": "record_and_continue_audit"
+    },
+    {
+      "scenario_id": "mock_playwright_timeout_captcha_or_layout_change",
+      "task_id": "P7-C05",
+      "capability": "playwright_stability",
+      "mock_signal": "manual_login_or_playwright_source_unverified",
+      "expected_behavior": "warn_or_degrade_without_blocking_global_collection",
+      "status": "manual_review",
+      "gate_behavior": "manual_acceptance_required"
+    },
+    {
+      "scenario_id": "mock_budget_retry_rate_limit_pressure",
+      "task_id": "P7-C06",
+      "capability": "cost_cache_rate_limit_retry",
+      "mock_signal": "fallback_events_budget_gap_or_rate_limit_pressure",
+      "expected_behavior": "surface_budget_and_retry_controls_as_configurable_guardrails",
+      "status": "manual_review",
+      "gate_behavior": "manual_acceptance_required"
+    },
+    {
+      "scenario_id": "mock_provider_locked_or_unverified_login",
+      "task_id": "P7-C07",
+      "capability": "provider_permission_source_onboarding",
+      "mock_signal": "missing_api_key_or_unverified_manual_login_provider",
+      "expected_behavior": "mark_metric_missing_provider_locked_without_secret_exposure",
+      "status": "manual_review",
+      "gate_behavior": "manual_acceptance_required"
+    }
+  ],
+  "dod_checks": [
+    {
+      "check_id": "all_required_reports_present",
+      "passed": true,
+      "status": "pass"
+    },
+    {
+      "check_id": "all_child_reports_audit_only",
+      "passed": true,
+      "status": "pass"
+    },
+    {
+      "check_id": "no_critical_child_status",
+      "passed": true,
+      "status": "pass"
+    },
+    {
+      "check_id": "production_mock_scenarios_complete",
+      "passed": true,
+      "status": "pass"
+    },
+    {
+      "check_id": "prompt_registry_valid",
+      "passed": true,
+      "status": "pass"
+    },
+    {
+      "check_id": "source_health_not_critical",
+      "passed": true,
+      "status": "pass"
+    },
+    {
+      "check_id": "playwright_failure_path_observable",
+      "passed": true,
+      "status": "pass"
+    },
+    {
+      "check_id": "cost_controls_config_visible",
+      "passed": true,
+      "status": "pass"
+    },
+    {
+      "check_id": "provider_permission_sanitized",
+      "passed": true,
+      "status": "pass"
+    },
+    {
+      "check_id": "rollout_and_rollback_checklists_ready",
+      "passed": true,
+      "status": "pass"
+    }
+  ],
+  "rollout_checklist": [
+    "regenerate_p7_c01_to_c07_reports",
+    "confirm_all_reports_applied_to_production_false",
+    "review_weight_and_threshold_recommendations_with_human_owner",
+    "confirm_prompt_registry_hashes_and_output_schemas",
+    "confirm_source_health_has_no_critical_freshness_gap",
+    "confirm_playwright_login_state_or_degrade_policy",
+    "confirm_cost_budget_cache_rate_limit_settings",
+    "confirm_provider_permissions_and_provider_locked_mapping",
+    "run_p7_c08_gate_and_attach_json_md_report"
+  ],
+  "rollback_checklist": [
+    "restore_module_weights_from_registry_base",
+    "restore_state_alert_and_direct_trend_base_thresholds",
+    "restore_previous_prompt_version_registry_reference",
+    "disable_new_or_unverified_sources",
+    "clear_or_quarantine_playwright_auth_artifacts_if_secret_exposure_is_suspected",
+    "lower_source_participation_to_context_only_on_data_quality_warning",
+    "restore_cost_budget_and_retry_defaults",
+    "mark_provider_locked_metrics_missing_until_verified"
+  ],
+  "guardrails": [
+    "gate_only",
+    "does_not_apply_recommendations",
+    "does_not_modify_runtime_config",
+    "does_not_modify_state_machine",
+    "does_not_emit_trading_advice",
+    "requires_all_dod_checks_before_real_long_running_production"
+  ]
+}
